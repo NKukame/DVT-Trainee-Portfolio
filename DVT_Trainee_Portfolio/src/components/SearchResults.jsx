@@ -4,6 +4,7 @@ import { generatePastelColor } from "../lib/color";
 import './SearchResults.css';
 
 export default function SearchResults({results, resultsCopy, filter}) {
+  console.log(resultsCopy);
   return (
     <>
       <section className="results-container">
@@ -26,7 +27,7 @@ export function ResultsList({results, id}){
         results.map((result, index) => {
           return (
             <Link to={'/UserPortfolio'} key={result[id]+index} className="result-link">
-            <Results result={result} isProject={result.employee_id === undefined} /></Link>
+            <Results result={result} isProject={result.project_id !== undefined} /></Link>
           );})
         }
     </section>
@@ -34,7 +35,7 @@ export function ResultsList({results, id}){
 }
 
 export function Results({result, isProject}) {
-
+  
   return (
     <div className="results">
       <div className="r-profile">
@@ -62,18 +63,21 @@ export function Results({result, isProject}) {
 
 
 export function GenerateBadges({badgeList}){
-  const lessList = badgeList.slice(0, 3); 
-  const plusList = badgeList.slice(3);
-  return (
-    <>
-    <ul className="skills-list">
-      {
-        lessList.map((badge)=>{
-          return (<li><p  className="badge" style={{background: generatePastelColor(badge)}}>{badge}</p></li>)
-        })
-      }
-      <li className="badge" style={{background: 'gray'}}>{`${plusList.length}+`}</li>
-    </ul>
-    </>
-  )
+  if(badgeList !== undefined){
+    const lessList = badgeList.slice(0, 3); 
+    const plusList = badgeList.slice(3);
+    return (
+      <>
+      <ul className="skills-list">
+        {
+          lessList.map((badge)=>{
+            return (<li><p  className="badge" style={{background: generatePastelColor(badge)}}>{badge}</p></li>)
+          })
+        }
+        <li className="badge" style={{background: 'gray'}}>{`${plusList.length}+`}</li>
+      </ul>
+      </>
+    )
+  }
+  
 }

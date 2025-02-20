@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 function Search({searchResults}){
     const [filteredResults, setFilteredResults] = useState([...searchResults])
-    
+
     useEffect(()=>{
         setFilteredResults([...searchResults])
     }, [searchResults]);
