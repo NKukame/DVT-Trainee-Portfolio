@@ -6,7 +6,7 @@ export default function SearchNav({filter, results}) {
     <div className="result-nav">
       <div className="result-nav-btns">
         <button className="result-nav-btn" 
-          onClick={()=>{filterResults(results, undefined, filter)}}>All</button>
+          onClick={()=>{filterResults(results, undefined, filter)}} autoFocus>All</button>
         <button className="result-nav-btn" 
           onClick={()=>{filterResults(results, false, filter)}}>Employees</button>
         <button className="result-nav-btn" 
@@ -28,7 +28,7 @@ function filterResults(results, isProject, filter){
     results = results.filter( result =>{return result.project_id !== undefined})
   }
   else if(isProject === false){
-    results = results.filter(result => {return result.employee_id !== undefined;})
+    results = results.filter(result => {return result.role !== undefined;})
   }
 
   filter(results);
