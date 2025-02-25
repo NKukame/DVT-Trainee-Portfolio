@@ -4,7 +4,7 @@ import { generatePastelColor } from "../lib/color";
 import './SearchResults.css';
 
 export default function SearchResults({results, resultsCopy, filter}) {
-  console.log(resultsCopy);
+  
   return (
     <>
       <section className="results-container">
@@ -50,7 +50,9 @@ export function Results({result, isProject}) {
       </div>
 
       <div className="results-data">
-        <p className="results-bio text-container">{isProject ? result.description : result.bio}</p>
+        <div className="results-p">
+          <p className="results-bio text-container">{isProject ? result.description : result.bio}</p>
+        </div>
       </div>
       <div className="user-skills">
         {
@@ -74,7 +76,10 @@ export function GenerateBadges({badgeList}){
             return (<li><p  className="badge" style={{background: generatePastelColor(badge)}}>{badge}</p></li>)
           })
         }
-        <li className="badge" style={{background: 'gray'}}>{`${plusList.length}+`}</li>
+        {
+          plusList.length >= 1 ? <li className="badge" style={{background: 'gray'}}>{`${plusList.length}+`}</li>
+          : ''
+        }
       </ul>
       </>
     )

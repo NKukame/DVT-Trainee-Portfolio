@@ -68,6 +68,9 @@
   height: 200px;
 }
 
+.results:hover{
+  border: 1px solid var(--blue);
+}
 .results-data {
   display: flex;
   gap: .5em;
@@ -131,10 +134,10 @@
   list-style: none;
 }
 
-.text-container {
+.results-p {
 
   font-size: .8em;
-  height: 4.9em; 
+  max-height: 4.9em; 
   overflow: hidden; 
   display: -webkit-box;
   -webkit-box-orient: vertical;
