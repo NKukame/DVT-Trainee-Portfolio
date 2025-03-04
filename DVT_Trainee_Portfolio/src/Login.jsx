@@ -31,8 +31,17 @@ function Signup() {
     }
   }, []);
 
+  const allowedDomains = ["dvtsoftware.com"];
+
+  // email domain validation
+  const validateEmailDomain = (email) => {
+    const domain = email.split("@")[1];
+    return domain && allowedDomains.includes(domain);
+  };
+
   const validationForm = () => {
     let newErrors = {};
+
     if (isSignUp) {
       if (!formData.name.trim()) newErrors.name = "Name is required";
       if (!formData.confirmPassword) {
@@ -46,6 +55,8 @@ function Signup() {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Email is invalid";
+    }else if(!validateEmailDomain(formData.email)){
+      newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
     }
     
     if (!formData.password) {
