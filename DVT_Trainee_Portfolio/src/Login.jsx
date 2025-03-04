@@ -58,6 +58,7 @@ function Signup() {
     return Object.keys(newErrors).length === 0;
   };
 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear errors when user starts typing
@@ -125,7 +126,7 @@ function Signup() {
         alert("Login successful!");
         // Save login status if needed
         localStorage.setItem("isLoggedIn", "true");
-        navigate("/UserPortfolio");
+        navigate("/User");
       } else {
         if (formData.email !== storedUser.email) {
           setErrors({ email: "Email not found" });
