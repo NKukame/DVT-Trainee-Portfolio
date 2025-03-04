@@ -137,7 +137,7 @@ function Signup() {
         alert("Login successful!");
         // Save login status if needed
         localStorage.setItem("isLoggedIn", "true");
-        navigate("/User");
+        navigate("/");
       } else {
         if (formData.email !== storedUser.email) {
           setErrors({ email: "Email not found" });
