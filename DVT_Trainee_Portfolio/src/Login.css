@@ -112,6 +112,8 @@
 
 .sign-up p{
     color: red;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 .sign-up .signInBlack{
     color: black;
