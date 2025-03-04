@@ -1,0 +1,33 @@
+.user-details{
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.user-text{
+  flex: 1;
+}
+
+.user-portfolio-link{
+  align-self: flex-start;
+}
+.user-link{
+  text-decoration: none;
+  color: white;
+}
+.users{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 350px;
+  padding: 1em;
+  border-radius: 1em;
+  border: 1px solid #4891c242;
+}
+
+.username{
+  font-weight: 800;
+  margin-bottom: .5em;
+}
+.role{
+  color: var(--gray);
+}
