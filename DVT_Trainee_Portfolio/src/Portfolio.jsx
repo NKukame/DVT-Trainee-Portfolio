@@ -2,6 +2,7 @@ import "./styles.css";
 import "./Portfolio.css";
 import Header from "./components/Header";
 import CarouselView from "./components/CarouselView";
+import GridView from "./components/GridView";  // New Grid View Component
 import { Link } from "react-router-dom";
 import UserProfile from "./UserPortfolio";
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -10,13 +11,12 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import React, { useState, useEffect } from "react";
 
 function Portfolio() {
-    // Populate The Team Cards
     const [team, setTeam] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isCarouselView, setIsCarouselView] = useState(false); // Only for carousel
+    const [viewMode, setViewMode] = useState("card-view"); // Manages all views
 
     useEffect(() => {
-        fetch("/team-portfolio.json") 
+        fetch("/team-portfolio.json")
             .then((response) => response.json())
             .then((data) => setTeam(data))
             .catch((error) => console.error("Error loading team data:", error));
@@ -36,7 +36,7 @@ function Portfolio() {
 
     // Handle view change
     const handleViewChange = (event) => {
-        setIsCarouselView(event.target.value === "carousel-view");
+        setViewMode(event.target.value);
     };
 
     return (
@@ -58,9 +58,11 @@ function Portfolio() {
                 </div>
             </section>
 
-            {/* Render CarouselView when carousel is selected */}
-            {isCarouselView ? (
+            {/* Render views based on viewMode */}
+            {viewMode === "carousel-view" ? (
                 <CarouselView />
+            ) : viewMode === "grid-view" ? (
+                <GridView team={team} />
             ) : (
                 <section className="cards">
                     <div className="carousel">

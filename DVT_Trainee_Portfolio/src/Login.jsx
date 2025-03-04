@@ -89,7 +89,7 @@ function Signup() {
             password: formData.password,
           })
         );
-        alert("User registered successfully! Please login.");
+        alert("User registered successfully!");
         setIsSignUp(false);
         navigate("/Profileform");
         // Clear form except email for login

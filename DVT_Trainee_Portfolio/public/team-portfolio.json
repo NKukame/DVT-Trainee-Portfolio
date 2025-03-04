@@ -6,7 +6,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/placeholder.png"
+        "image": "./src/assets/Pabs.jpg"
     },
     
     {
@@ -26,7 +26,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/user_placeholder.png"
+        "image": "./src/assets/Gomo.jpg"
     },
     
     {
@@ -36,57 +36,57 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/placeholder.png"
+        "image": "./src/assets/Adriano.jpg"
     },
     
     {
         "name": "Njabulo Kukame",
-        "description": "Personality Trait.",
+        "description": "Personality Trait: He's a vibe.",
         "email": "Email Address",
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/user_placeholder.png"
+        "image": "./src/assets/Njabs.jpg"
     },
     
     {
         "name": "Andile Mhlongo",
-        "description": "Personality Trait.",
+        "description": "Personality Trait: He's a vibe.",
         "email": "Email Address",
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript, PHP, Java, C++, C, Python",
-        "image": "./src/assets/placeholder.png"
+        "image": "./src/assets/Andile.jpg"
     },
     
     {
         "name": "Thabane Ngobe",
-        "description": "Personality Trait.",
+        "description": "Personality Trait: He's a vibe.",
         "email": "Email Address",
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/user_placeholder.png"
+        "image": "./src/assets/Thabane.jpg"
     },
     
     {
         "name": "Remow Rammekwa",
-        "description": "Personality Trait.",
+        "description": "Personality Trait: She's a vibe.",
         "email": "Email Address",
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/placeholder.png"
+        "image": "./src/assets/Remow.jpg"
     },
     
     {
         "name": "Slindokuhle Ngcobo",
-        "description": "Personality Trait.",
+        "description": "Personality Trait: He's a vibe.",
         "email": "Email Address",
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/placeholder.png"
+        "image": "./src/assets/Sli.jpg"
     }
     
 ]
