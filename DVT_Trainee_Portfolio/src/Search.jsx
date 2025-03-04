@@ -16,7 +16,6 @@ function Search({searchResults}){
             
             <section className='search-box'>
                 <div className='r-container-filter'>
-                    <Filter searchResults={searchResults} fn={setFilteredResults}/>
                     <SearchResults resultsCopy={filteredResults} results={searchResults} filter={setFilteredResults} />
                 </div>
             </section>

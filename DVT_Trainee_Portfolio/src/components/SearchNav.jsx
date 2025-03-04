@@ -5,18 +5,22 @@ export default function SearchNav({filter, results}) {
   return (
     <div className="result-nav">
       <div className="result-nav-btns">
-        <button className="result-nav-btn" 
-          onClick={()=>{filterResults(results, undefined, filter)}} autoFocus>All</button>
-        <button className="result-nav-btn" 
-          onClick={()=>{filterResults(results, false, filter)}}>Employees</button>
-        <button className="result-nav-btn" 
-          onClick={()=>{filterResults(results, true, filter)}}>Projects</button>
+        <div className="nav-btns">
+          <button className="result-nav-btn" 
+            onClick={()=>{filterResults(results, undefined, filter)}} autoFocus>All</button>
+          <button className="result-nav-btn" 
+            onClick={()=>{filterResults(results, false, filter)}}>Employees</button>
+          <button className="result-nav-btn" 
+            onClick={()=>{filterResults(results, true, filter)}}>Projects</button>
+        </div>
       </div>
-      <div>
-        <button className="result-nav-btn sort-btn">
-          <span className="sort-txt">Sort</span>
-          <SwapVertIcon/>
-        </button>
+      <div className='sort-btn-container'>
+        <div>
+          <button className="result-nav-btn sort-btn">
+            <span className="sort-txt">Sort</span>
+            <SwapVertIcon/>
+          </button>
+        </div>
       </div>
     </div>
   )
