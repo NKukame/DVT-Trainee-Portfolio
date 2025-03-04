@@ -3,6 +3,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Tooltip from '@mui/material/Tooltip';
 import './UserCard.css'
 import { Link } from 'react-router-dom';
+import Badges from './Badges';
 
 export default function UserCard({user}) {
   return (
@@ -28,6 +29,10 @@ export default function UserCard({user}) {
         </div>
       </div>
       <p>{user.bio}</p>
+      <div>
+        <p className='skills'>Skills</p>
+        <Badges badgeList={user.skills} />
+      </div>
     </div>
   )
  };
