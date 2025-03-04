@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import SearchNav from "./SearchNav";
-import { generatePastelColor } from "../lib/color";
+import Avatar from '@mui/material/Avatar';
 import './SearchResults.css';
 
 export default function SearchResults({results, resultsCopy, filter}) {
@@ -25,9 +25,8 @@ export function ResultsList({results, id}){
     <section className="results-list">
       {
         results.map((result, index) => {
-          return (
-            <Link to={'/UserPortfolio'} key={result[id]+index} className="result-link">
-            <Results result={result} isProject={result.project_id !== undefined} /></Link>
+          return ( 
+            <Results result={result} isProject={result.project_id !== undefined} />
           );})
         }
     </section>
@@ -35,50 +34,53 @@ export function ResultsList({results, id}){
 }
 
 export function Results({result, isProject}) {
-  
-  return (
-    <div className="results">
-      <div className="r-profile">
-        <div className="results-pic">
-          <img src={isProject ? result.screenshot: result.avatar} alt=""  className={isProject ? "r-project-pic" : 'r-user-pic'}/>
-        </div>
-        
-        <div className="intro">
-          <p className="results-title">{isProject ? result.title: result.name}</p>
-          <p className="results-type">{isProject ? result.created_on : result.role}</p>
-        </div>
-      </div>
 
-      <div className="results-data">
-        <div className="results-p">
-          <p className="results-bio text-container">{isProject ? result.description : result.bio}</p>
+  if(isProject){
+    return (
+      <div className="results">
+       <div className="card-text">
+          <div className="intro">
+            <p className="results-title">{result.title}</p>
+            <p className="results-type">{result.created_on}</p>
+          </div>
+  
+          <div className="results-data">
+            <div className="results-p">
+              <p className="results-bio text-container">{result.description}</p>
+            </div>
+          </div>
+          <div className="user-skills">
+            {
+              <GenerateBadges badgeList={result.technologies} />
+            }
+          </div>
+          <div className="card-footer">
+            <div className="user-profile">
+              <div className="users-pic">
+                <Avatar src="/Gomo.jpg" />
+              </div>
+              <Link className="user-name">@Thabane</Link>
+            </div>
+            <Link to={'/userportfolio'}>
+              <button className="port-btn">View project</button>
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="user-skills">
-        {
-          !isProject ? <GenerateBadges badgeList={result.skills} /> : <GenerateBadges badgeList={result.technologies} />
-        }
-      </div>
-    </div>
-  );
+        </div> 
+    );
+  }
 }
 
 
 export function GenerateBadges({badgeList}){
   if(badgeList !== undefined){
-    const lessList = badgeList.slice(0, 3); 
-    const plusList = badgeList.slice(3);
     return (
       <>
       <ul className="skills-list">
         {
-          lessList.map((badge)=>{
-            return (<li><p  className="badge" style={{background: generatePastelColor(badge)}}>{badge}</p></li>)
+          badgeList.map((badge)=>{
+            return (<li><p  className="badge">{badge}</p></li>)
           })
-        }
-        {
-          plusList.length >= 1 ? <li className="badge" style={{background: 'gray'}}>{`${plusList.length}+`}</li>
-          : ''
         }
       </ul>
       </>

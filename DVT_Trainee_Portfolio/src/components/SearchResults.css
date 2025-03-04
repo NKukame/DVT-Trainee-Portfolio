@@ -59,20 +59,19 @@
 }
 
 .results {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  background-color: #d9d9d9ec;
-  color: black;
+  background-color: transparent;
+  color:white;
   align-items: start;
-  padding: 1em 1.5em;
   border-radius: 1em;
-  height: 200px;
+  width: 350px;
+  /* box-shadow: 2px 3px var(--blue); */
+  border: 1px solid #4891c242;
 }
 
 .results:hover{
   border: 1px solid var(--blue);
 }
+
 .results-data {
   display: flex;
   gap: .5em;
@@ -108,16 +107,12 @@
 .results-list{
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1em;
   padding-right: 1em;
 }
 
-.r-profile{
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
+
 
 
 .results-container{
@@ -134,18 +129,13 @@
 
 .results-p {
 
-  font-size: .8em;
-  max-height: 4.9em; 
+  font-size: 1em; 
   overflow: hidden; 
   display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
   line-clamp: 4;
-  text-overflow: ellipsis; 
-  word-wrap: break-word; 
   line-height: 1.2em;
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(56, 55, 55);
+  color: white;
 }
 
 .results-list::-webkit-scrollbar {
@@ -175,6 +165,7 @@
 .skills-list{
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: .5em;
 }
 .skills-title{
@@ -185,6 +176,7 @@
 .badge{
   padding: .5em;
   font-size: .7em;
+  font-weight: 700;
   color: white;
   border-radius: 2em;
   max-width: fit-content;
@@ -192,4 +184,50 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.315);
+  color: white;
+}
+.results-pic{
+  width: 100%;
+}
+
+.r-project-pic{
+  border-start-end-radius: 1em;
+  border-top-left-radius: 1em;
+  width: 100%;
+}
+
+.card-text{
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.card-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-profile{
+  display: flex;
+  gap: .4em;
+  align-items: center;
+}
+.port-btn{
+  height: fit-content;
+  padding: .5em;
+  border-radius: .7em;
+  font-weight: 700;
+  color: white;
+  border: 1px solid white;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.user-name{
+  color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: .3em;
 }

@@ -158,7 +158,7 @@
       "app_type": "Single-page Application",
       "is_cli": false,
       "employee_id": "001",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "002",
@@ -172,7 +172,7 @@
       "app_type": "Single-page Application",
       "is_cli": false,
       "person_id": "001",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "003",
@@ -186,7 +186,7 @@
       "app_type": "Single-page Application",
       "is_cli": false,
       "employee_id": "002",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "004",
@@ -200,7 +200,7 @@
       "app_type": "Desktop Application",
       "is_cli": false,
       "employee_id": "003",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "005",
@@ -214,7 +214,7 @@
       "app_type": "Command-line Interface",
       "is_cli": true,
       "employee_id": "003",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     }
   ]
 }
