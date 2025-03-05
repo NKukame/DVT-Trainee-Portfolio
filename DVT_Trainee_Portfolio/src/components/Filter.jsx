@@ -4,6 +4,7 @@ import { useState } from "react";
 import { generatePastelColor } from "../lib/color";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import Badges from "./Badges";
 
 function Filter({searchResults, fn}){
     console.log(searchResults);
@@ -13,7 +14,7 @@ function Filter({searchResults, fn}){
     const roles = searchResults.map((employee) => employee.role);
     // Remove duplicates
     const allLanguages = [...new Set(languages.flat())];
-    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,3))
+    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
     const allRoles = [...new Set(roles)];
 
     const [selectedFilter, setSelectedFilter] = useState([]);
@@ -64,49 +65,56 @@ function Filter({searchResults, fn}){
     }
     return(
         <section className="filter-container">
-            <div className="filter-title">
+            {/* <div className="filter-title">
                 <h3 className="logo-text">Filter</h3>
                 <FilterAltIcon/>
-            </div>
-            <div className="divider"></div>
+            </div> */}
+            {/* <div className="divider"></div> */}
             <div className="scroller">
                 <div className="filter-section">
                     <div className="header-container">
                         <p className="filter-section-title">Languages</p>
                         <p onClick={()=>{
-                            if(topLanguages.length>3){
-                                setTopLanguages(allLanguages.slice(0,3))
+                            if(topLanguages.length>8){
+                                setTopLanguages(allLanguages.slice(0,8))
                             }else{
                                 setTopLanguages(allLanguages)
                             }}}>
-                            {topLanguages.length>3? <RemoveIcon className="header-icon" fontSize="small"/>:<AddIcon fontSize="small" className="header-icon"/>}
+                            {topLanguages.length>8? <RemoveIcon className="header-icon" fontSize="small"/>:<AddIcon fontSize="small" className="header-icon"/>}
                         </p>
                     </div>
-                    <div className="filter-content-container">
+                    <ul className="skills-list">
                         {topLanguages.map((language) => (
                             <FilterItem 
-                                key={language}
+                                // key={language}
                                 name={language} 
-                                onToggle={handleFilterClickLanguage}
-                                isSelected={selectedFilter.includes(language)}
-                            />
-                        ))}
-                    </div>
+                                // onToggle={handleFilterClickLanguage}
+                                // isSelected={selectedFilter.includes(language)}
+                                />
+                                ))}
+
+                            {/* <Badges badgeList={topLanguages}></Badges> */}
+
+                    </ul>
                     
                 </div>
-                <div className="divider"></div>
+                {/* <div className="divider"></div> */}
                 <div className="filter-section">
                     <p className="filter-section-title">Roles</p>
-                    <div className="filter-content-container">
-                        {allRoles.map((role) => (
-                            <FilterItem 
-                                name={role} 
-                                key={role}
-                                onToggle={handleFilterClickRole}
-                                isSelected={selectedFilter.includes(role)}
-                            />
-                        ))}
-                    </div>
+                    {/* <div className="filter-content-container"> */}
+                        <ul className="skills-list">
+                            {allRoles.map((role) => (
+                                <FilterItem 
+                                    name={role} 
+                                    // key={role}
+                                    // onToggle={handleFilterClickRole}
+                                    // isSelected={selectedFilter.includes(role)}
+                                />
+                            ))}
+                        </ul>
+
+                        {/* <Badges badgeList={allRoles}></Badges> */}
+                    {/* </div> */}
                 </div>
                 {/* <div className="divider"></div>
                 <div className="filter-section">
@@ -142,10 +150,12 @@ function Filter({searchResults, fn}){
 
 function FilterItem({name, onToggle, isSelected}){
     return(
-        <div className={`filter-content ${isSelected ? "selected" : ""}`}>
-            <span className="filter-content-circle" style={{backgroundColor: generatePastelColor(name)}}></span>
-            <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
-        </div>
+        // <div className={`filter-content ${isSelected ? "selected" : ""}`}>
+        //     <span className="filter-content-circle" style={{backgroundColor: generatePastelColor(name)}}></span>
+        //     <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
+        // </div>
+
+        <li className="badge filter-item" ><p>{name}</p></li>
     )
 }
 
