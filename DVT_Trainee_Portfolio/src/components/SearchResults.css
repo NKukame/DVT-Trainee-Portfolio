@@ -21,17 +21,9 @@
   text-transform: capitalize;
   cursor: pointer;
 
-  &:hover,
-  &:active,
-  &:focus{
-    color: var(--yellow);
-    text-decoration-line: underline;
-    text-decoration-color: var(--yellow);
-    text-decoration-thickness: .2em;
-    text-underline-offset: .5em;
-  }
-
 }
+
+
 .result-nav-btns{
   flex: 1;
 }
@@ -42,6 +34,14 @@
   padding: .8em 0em;
   display: flex;
   gap: 1.5em;
+}
+
+.btn-list{
+  color: var(--yellow);
+  text-decoration-line: underline;
+  text-decoration-color: var(--yellow);
+  text-decoration-thickness: .2em;
+  text-underline-offset: .5em;
 }
 
 .r-user-pic {
@@ -239,3 +239,4 @@
   font-weight: 700;
   margin-bottom: .5em;
 }
+

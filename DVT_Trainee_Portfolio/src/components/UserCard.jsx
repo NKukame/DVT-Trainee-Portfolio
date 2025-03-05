@@ -4,17 +4,20 @@ import Tooltip from '@mui/material/Tooltip';
 import './UserCard.css'
 import { Link } from 'react-router-dom';
 import Badges from './Badges';
+import Badge from '@mui/material/Badge';
 
 export default function UserCard({user}) {
   return (
     <div className="users">
       <div className='user-details'>
         <div>
+          <Badge color="secondary" overlap="circular" badgeContent=" ">
           <Avatar
             alt={user.name}
             src={''}
             sx={{ width: 75, height: 75 }}
           />
+      </Badge>
         </div>
         <div className="user-text">
           <p className='username'>{user.name}</p>
@@ -28,9 +31,21 @@ export default function UserCard({user}) {
           </Tooltip>
         </div>
       </div>
-      <p>{user.bio}</p>
+      <div className="div users-data">
+        <div className=" user-more-data">
+          <p className='text-p'>Experience</p>
+          <p>9 years</p>
+        </div>
+        <div className="user-more-data location">
+          <p className='text-p'>Location</p>
+          <p>Lorem, ipsum.</p>
+        </div>
+        <div className="user-more-data">
+          <p className='text-p'>Projects</p>
+          <p>5</p>
+        </div>
+      </div>
       <div>
-        <p className='skills'>Skills</p>
         <Badges badgeList={user.skills} />
       </div>
     </div>

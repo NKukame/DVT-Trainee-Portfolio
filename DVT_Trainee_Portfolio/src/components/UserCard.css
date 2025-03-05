@@ -17,7 +17,7 @@
 .users{
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1.5em;
   width: 350px;
   padding: 1em;
   border-radius: 1em;
@@ -30,4 +30,27 @@
 }
 .role{
   color: var(--gray);
+}
+
+.users-data{
+  display: flex;
+  flex: 1;
+  gap: .5em;
+  justify-items: center;
+}
+
+.user-more-data{
+  font-size: .8em;
+  padding: .5em;
+  border-radius: .5em;
+  box-shadow: -1px -1px var(--blue);
+  text-align: center;
+  color: var(--gray);
+}
+.location{
+  flex: 1;
+}
+.text-p{
+  margin-bottom: 3px;
+  font-weight: 700;
 }

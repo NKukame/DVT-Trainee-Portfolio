@@ -2,16 +2,21 @@ import sort from '../assets/icons8-sort-100 (1).png'
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 
 export default function SearchNav({filter, results}) {
+
   return (
+    
     <div className="result-nav">
       <div className="result-nav-btns">
         <div className="nav-btns">
+          <button className="result-nav-btn btn-list" 
+            onClick={(e)=>{
+              toggleNav(e, results, undefined, filter);}}>All</button>
           <button className="result-nav-btn" 
-            onClick={()=>{filterResults(results, undefined, filter)}} autoFocus>All</button>
+            onClick={(e)=>{toggleNav(e, results, false, filter);}}>
+              Employees</button>
           <button className="result-nav-btn" 
-            onClick={()=>{filterResults(results, false, filter)}}>Employees</button>
-          <button className="result-nav-btn" 
-            onClick={()=>{filterResults(results, true, filter)}}>Projects</button>
+            onClick={(e)=>{
+              toggleNav(e, results, true, filter);}}>Projects</button>
         </div>
       </div>
       <div className='sort-btn-container'>
@@ -36,4 +41,18 @@ function filterResults(results, isProject, filter){
   }
 
   filter(results);
+}
+
+function toggleNav(e, results, isProject, filter ){
+
+  const buttons = e.currentTarget.closest('div').children;
+
+  for(let i = 0;  i < buttons.length; i++){
+    if(e.target === buttons[i]){
+      buttons[i].classList.add('btn-list');
+    }else{
+        buttons[i].classList.remove('btn-list')
+    }
+  }
+  filterResults(results, isProject, filter);
 }
