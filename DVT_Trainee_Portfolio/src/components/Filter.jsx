@@ -34,6 +34,9 @@ function Filter({searchResults, fn}){
             if(newSelectedFilter.length === 0) return true;
             return newSelectedFilter.some((filter) => employee.skills.includes(filter));
         });
+
+        console.log(filteredResults);
+        
         fn(filteredResults);
     }
 

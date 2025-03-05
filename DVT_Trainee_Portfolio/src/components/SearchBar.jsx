@@ -3,11 +3,12 @@ import "./SearchBar.css";
 import SearchIcon from '@mui/icons-material/Search';
 import Header from "./Header";
 import Search from "../Search";
-import {employees} from '../MockSearch.json';
+import {employees, projects} from '../MockSearch.json';
+
 
 function SearchBar(){
   const [search,setSearch] = useState('')
-  const [searchResults, setResults] = useState(employees);
+  const [searchResults, setResults] = useState(employees.concat(projects));
 
   const handleInputChange = (e) => {
     const search = e.target.value;
@@ -15,9 +16,15 @@ function SearchBar(){
 
     const filteredEmployees = employees.filter((employee) => {
     return employee.name.toLowerCase().includes(search.toLowerCase())
+   } )
+
+    const filteredProjects = projects.filter((project) => {
+    return project.title.toLowerCase().includes(search.toLowerCase())
    } 
   );
-  setResults(filteredEmployees)
+
+  const results= filteredEmployees.concat(filteredProjects)
+  setResults(results)
 
   }
 
