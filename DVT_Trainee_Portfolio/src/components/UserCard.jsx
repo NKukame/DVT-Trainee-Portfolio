@@ -1,12 +1,17 @@
 import Avatar from '@mui/material/Avatar';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Tooltip from '@mui/material/Tooltip';
 import './UserCard.css'
 import { Link } from 'react-router-dom';
 import Badges from './Badges';
 import Badge from '@mui/material/Badge';
+import { useState } from 'react';
+
 
 export default function UserCard({user}) {
+  const [isViewMore, setViewMore] = useState(false);
   return (
     <div className="users">
       <div className='user-details'>
@@ -24,13 +29,31 @@ export default function UserCard({user}) {
           <p className='role'> {user.role}</p>
         </div>
         <div className='user-portfolio-link'>
-          <Tooltip title="View portfolio" placement='top' arrow>
+          <Tooltip title="View portfolio"  placement='top' arrow>
             <Link to={'/userportfolio'} className='user-link'>
-              <OpenInNewIcon />
+              <OpenInNewIcon   />
             </Link>
+          </Tooltip>
+          <Tooltip arrow title={isViewMore ? 'see less' : 'see more'}>
+            { 
+              isViewMore ? <button className='arrow' onClick={()=> {setViewMore(false)}} ><KeyboardArrowUpIcon   /> </button>:
+              <button className='arrow' onClick={()=>{setViewMore(true)}}><KeyboardArrowDownIcon className='arrow' /></button> 
+            }
           </Tooltip>
         </div>
       </div>
+      {
+        isViewMore ? <ViewMore user={user} /> : ''
+      }
+      
+    </div>
+  )
+ };
+
+ 
+function ViewMore({user}){
+  return (
+    <>
       <div className="div users-data">
         <div className=" user-more-data">
           <p className='text-p'>Experience</p>
@@ -48,7 +71,6 @@ export default function UserCard({user}) {
       <div>
         <Badges badgeList={user.skills} />
       </div>
-    </div>
+    </>
   )
- };
- 
+}

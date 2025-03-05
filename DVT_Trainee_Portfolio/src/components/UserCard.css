@@ -29,6 +29,16 @@
 
 .user-portfolio-link{
   align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.arrow{
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: white;
 }
 .user-link{
   text-decoration: none;
@@ -62,7 +72,8 @@
   font-size: .8em;
   padding: .5em;
   border-radius: .5em;
-  box-shadow: -1px -1px var(--blue);
+  backdrop-filter: blur(20px);
+  box-shadow: 1px -1.5px var(--blue);
   text-align: center;
   color: var(--gray);
 }
