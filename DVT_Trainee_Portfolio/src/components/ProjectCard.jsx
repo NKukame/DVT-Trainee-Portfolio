@@ -1,6 +1,9 @@
 import Badges from "./Badges";
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
+import './ProjectCard.css'
+import Button from '@mui/material/Button';
+
 export default function ProjectCard({result}) {
   
   return (
@@ -29,7 +32,7 @@ export default function ProjectCard({result}) {
             <Link className="user-name">@Thabane</Link>
           </div>
           <Link to={'/userportfolio'}>
-            <button className="port-btn">View project</button>
+            <Button variant='outlined' size="small">View project</Button>
           </Link>
         </div>
       </div>

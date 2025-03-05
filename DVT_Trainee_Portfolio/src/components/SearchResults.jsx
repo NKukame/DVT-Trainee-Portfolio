@@ -2,6 +2,7 @@ import { Box, Container } from "@mui/material";
 import SearchNav from "./SearchNav";
 import './SearchResults.css';
 import UserCard from "./UserCard";
+import ProjectCard from './ProjectCard'
 
 export default function SearchResults({results, resultsCopy, filter}) {
   
@@ -33,14 +34,14 @@ export function ResultsList({results, id}){
           })
         }
       </Container>
-      {/* <section className="results-list">
+      <Container className="project-list">
         {
           projects.map((result, index) => {
             return ( 
               <ProjectCard result={result} />
             );})
           }
-      </section> */}
+      </Container>
     </>
   )
 }
