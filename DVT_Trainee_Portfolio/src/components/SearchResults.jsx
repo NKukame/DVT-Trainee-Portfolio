@@ -1,8 +1,7 @@
+import { Box, Container } from "@mui/material";
 import SearchNav from "./SearchNav";
 import './SearchResults.css';
 import UserCard from "./UserCard";
-import Pagination from '@mui/material/Pagination';
-import ProjectCard from "./ProjectCard";
 
 export default function SearchResults({results, resultsCopy, filter}) {
   
@@ -27,22 +26,21 @@ export function ResultsList({results, id}){
 
   return (
     <>
-      <div className="users-list">
+      <Container className="users-list" >
         {
           employees.map((user, indes) =>{
             return (<UserCard user={user}  key={indes}/>)
           })
         }
-      </div>
-      <section className="results-list">
+      </Container>
+      {/* <section className="results-list">
         {
           projects.map((result, index) => {
             return ( 
               <ProjectCard result={result} />
             );})
           }
-        <Pagination count={results.length} variant="outlined" color="primary"  className="pagination"/>
-      </section>
+      </section> */}
     </>
   )
 }
