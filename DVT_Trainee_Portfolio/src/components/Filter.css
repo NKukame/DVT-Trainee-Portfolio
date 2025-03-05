@@ -2,7 +2,7 @@
 
 .filter-container{
     /* max-width: 240px; */
-    background-color: rgba(240, 248, 255, 0.408);
+    /* background-color: none; */
     min-height: 500px;
     height: fit-content;
     /* padding-inline: 1em; */
@@ -21,9 +21,8 @@
 }
 
 .divider{
-    height: 2px;
-    background-color: yellow;
-    margin-top: 10px;
+    border-top: .1px solid;
+    margin-top: 1em;
 }
 
 .scroller{
@@ -35,9 +34,12 @@
 } 
 
 
+
 .filter-section-title{
-    font-size: 1em;
-    margin-bottom: .3em;
+    font-size: .575em;
+    
+    color: var(--yellow);
+    margin-bottom: 1em;
     margin-top: .3em;
     font-weight: 600;
 }
@@ -80,3 +82,16 @@
 .header-icon:hover {
     color: var(--yellow);
 } 
+
+.filter-section {
+    margin-top: 1em;
+}
+
+.filter-container:first-child{
+    margin-top: 0;
+}
+
+.filter-item :hover{
+    color: black;
+    cursor: pointer;
+}
