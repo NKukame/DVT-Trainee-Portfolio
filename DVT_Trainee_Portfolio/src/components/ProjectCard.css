@@ -5,7 +5,7 @@
 }
 
 .results {
-  background-color: transparent;
+  background: transparent;
   color:white;
   align-items: start;
   border-radius: 1em;
@@ -35,4 +35,22 @@
   color: var(--white);
   text-decoration: underline;
   text-underline-offset: .3em;
+  text-decoration-color: var(--yellow);
+}
+.user-name:hover{
+  color: var(--yellow);
+}
+.view-btn{
+  background-color: transparent;
+  padding: .5em;
+  outline: none;
+  border: 1px solid var(--yellow);
+  color: white;
+  font-weight: 700;
+  border-radius: 1em;
+  cursor: pointer;
+}
+
+.view-btn:hover{
+  background-color: gray;
 }
