@@ -4,10 +4,12 @@ import { useState } from "react";
 import { generatePastelColor } from "../lib/color";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import Badges from "./Badges";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+
 
 function Filter({searchResults, fn}){
-    console.log(searchResults);
     
     // Get all unique languages and roles
     const languages = searchResults.map((employee) => employee.skills);
@@ -33,10 +35,13 @@ function Filter({searchResults, fn}){
         
         const filteredResults = searchResults.filter((employee) => {
             if(newSelectedFilter.length === 0) return true;
-            return newSelectedFilter.some((filter) => employee.skills.includes(filter));
+            if(employee.skills){
+
+                return newSelectedFilter.some((filter) => employee.skills.includes(filter));
+            }
         });
 
-        console.log(filteredResults);
+
         
         fn(filteredResults);
     }
@@ -63,6 +68,73 @@ function Filter({searchResults, fn}){
         
         fn(filteredResults);
     }
+    
+    const [value, setValue] = useState([0, 10]);
+    
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+
+    const filteredResults = searchResults.filter((employee) => {
+        // console.log(employee);
+        if(!employee.years_active){
+            console.log("years available");
+            
+            return false
+        }
+        console.log(value[0]);
+        
+        // console.log(employee.years_active);
+        
+        if(employee.years_active>value[0] &&  employee.years_active<value[1]){
+            return true
+        }
+        return false
+        
+    })
+
+    fn(filteredResults);
+    
+  };
+
+    const thumbStyle =  {
+        color: 'orange',
+        '& .MuiSlider-thumb': { 
+            height: 20,
+            width: 20,
+            backgroundColor: 'white',
+            border: '2px solid currentColor',
+            '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+            boxShadow: 'inherit',
+            },
+            '&::before': {
+            display: 'none',
+            },
+        },
+
+        '& .MuiSlider-valueLabel': {
+            lineHeight: 1,
+            fontSize: 14,
+            background: 'unset',
+            padding: 0,
+            width: 20,
+            height: 20,
+            borderRadius: '50% 50% 50% 0',
+            backgroundColor: 'orange',
+            transformOrigin: 'bottom left',
+            transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
+            '&::before': { display: 'none' },
+            '&.MuiSlider-valueLabelOpen': {
+                transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
+            },
+            '& > *': {
+                transform: 'rotate(45deg)',
+            },
+        },
+        
+
+
+    }
+
     return(
         <section className="filter-container">
             {/* <div className="filter-title">
@@ -86,10 +158,10 @@ function Filter({searchResults, fn}){
                     <ul className="skills-list">
                         {topLanguages.map((language) => (
                             <FilterItem 
-                                // key={language}
+                                key={language}
                                 name={language} 
-                                // onToggle={handleFilterClickLanguage}
-                                // isSelected={selectedFilter.includes(language)}
+                                onToggle={handleFilterClickLanguage}
+                                isSelected={selectedFilter.includes(language)}
                                 />
                                 ))}
 
@@ -115,6 +187,26 @@ function Filter({searchResults, fn}){
 
                         {/* <Badges badgeList={allRoles}></Badges> */}
                     {/* </div> */}
+                </div>
+                <div className="filter-section">
+                    <p className="filter-section-title">Experience</p>
+                    <Box  sx={{padding:1.5}}>
+                        <Slider
+                            size="small"
+                            min={0}
+                            max={10}
+                            shiftStep={3}
+                            step={1}
+                            value={value}
+                            onChange={handleChange}
+                            valueLabelDisplay="auto"
+                            sx={
+                               thumbStyle
+                            }
+                        />
+                        
+
+                    </Box>
                 </div>
                 {/* <div className="divider"></div>
                 <div className="filter-section">
@@ -148,14 +240,35 @@ function Filter({searchResults, fn}){
 
 
 
-function FilterItem({name, onToggle, isSelected}){
+export function FilterItem({name, onToggle, isSelected}){
+    const [isHover, setIsHover] = useState(false)
+
+    const handleMouseEnter = () => {
+        setIsHover(true)
+    }
+
+    const handleMouseLeave = () => {
+        setIsHover(false)
+    }
+
+    const itemStyle = {
+        borderColor: isSelected
+      ? generatePastelColor(name)
+      : isHover
+      ? generatePastelColor(name)
+      : "rgba(255, 255, 255, 0.315)",
+        cursor: "pointer",
+        transition: "border-width .5s ease-in-out",
+        borderWidth: isSelected ? "2.2px": isHover ? "2px" : "1px"
+    }
+
     return(
         // <div className={`filter-content ${isSelected ? "selected" : ""}`}>
         //     <span className="filter-content-circle" style={{backgroundColor: generatePastelColor(name)}}></span>
         //     <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
         // </div>
 
-        <li className="badge filter-item" ><p>{name}</p></li>
+        <li onClick={() => onToggle(name)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
     )
 }
 
