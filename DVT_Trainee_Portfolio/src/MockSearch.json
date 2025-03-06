@@ -15,6 +15,8 @@
         "portfolio": "https://johndoeportfolio.com",
         "blog": "https://johndoe.dev/blog"
       },
+      "years_active":2
+      ,
       "skills": [
         "JavaScript",
         "React",
@@ -78,6 +80,7 @@
         "Sass",
         "Webpack"
       ],
+      "years_active":5,
       "education": [
         {
           "degree": "Bachelor's in Web Development",
@@ -122,6 +125,7 @@
         "NumPy",
         "TensorFlow"
       ],
+      "years_active":4,
       "education": [
         {
           "degree": "Master's in Data Science",

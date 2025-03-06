@@ -36,11 +36,12 @@
 
 
 .filter-section-title{
-    font-size: .575em;
+    font-size: .675em;
     
     color: var(--yellow);
     margin-bottom: 1em;
     margin-top: .3em;
+
     font-weight: 600;
 }
 
@@ -92,6 +93,6 @@
 }
 
 .filter-item :hover{
-    color: black;
-    cursor: pointer;
+
+    
 }
