@@ -19,7 +19,7 @@ export default function SearchResults({results, resultsCopy, filter}) {
 export function ResultsList({results, id}){
 
   if(results.length == 0){
-    return <h1>Results not Found</h1>
+    return <h1 className="no-results-title">Results not Found</h1>
   }
 
   const employees = results.filter((result) => {return result.project_id === undefined});

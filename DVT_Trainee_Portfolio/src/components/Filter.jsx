@@ -20,6 +20,7 @@ function Filter({searchResults, fn}){
     const allRoles = [...new Set(roles)];
 
     const [selectedFilter, setSelectedFilter] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState([]);
 
     const handleFilterClickLanguage = (filter) => {
         let newSelectedFilter;

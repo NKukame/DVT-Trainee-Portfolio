@@ -109,3 +109,21 @@
   outline-width: 100px;
 }
 
+.badge{
+  padding: .5em;
+  font-size: .7em;
+  font-weight: 700;
+  color: white;
+  border-radius: 2em;
+  max-width: fit-content;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.315);
+  color: white;
+}
+
+.no-results-title{
+  width: 60vw;
+}
