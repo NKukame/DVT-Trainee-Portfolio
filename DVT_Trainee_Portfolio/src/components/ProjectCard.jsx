@@ -28,7 +28,7 @@ export default function ProjectCard({result}) {
             <div className="users-pic">
               <Avatar src="/Gomo.jpg" />
             </div>
-            <Link className="user-name">@ John</Link>
+            <Link className="user-name">@John</Link>
           </div>
           <Link to={'/userportfolio'}>
             <button className="view-btn">View project</button>

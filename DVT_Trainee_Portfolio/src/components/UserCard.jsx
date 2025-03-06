@@ -43,7 +43,7 @@ export default function UserCard({user}) {
         </div>
       </div>
       {
-        isViewMore ? <ViewMore user={user} /> : ''
+        isViewMore ? <ViewMore user={user}  /> : ''
       }
       
     </div>

@@ -5,7 +5,7 @@ export default function Badges({badgeList}) {
     <ul className="skills-list">
       {
         badgeList.map((badge)=>{
-          return (<li><Chip label={badge} size='small' variant='outlined' /></li>)
+          return (<BadgeItems badge={badge} />)
         })
 
       }
@@ -19,3 +19,7 @@ export default function Badges({badgeList}) {
     </ul>
   )
 };
+
+export function BadgeItems({badge}){
+  return (<li><Chip label={badge} size='small' variant='outlined' /></li>);
+}
