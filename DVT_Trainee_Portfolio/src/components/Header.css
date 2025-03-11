@@ -275,3 +275,14 @@ input[type="checkbox"] {
 .dark, .light {
     opacity: 0.5;
 }
+
+@media (max-width: 800px){
+    
+    .navbar {
+        display: none;
+    }
+    .header{
+        justify-content: space-between;
+    }
+}
+
