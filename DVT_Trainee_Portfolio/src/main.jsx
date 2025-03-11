@@ -9,6 +9,7 @@ import Portfolio from './Portfolio.jsx';
 import UserPortfolio from './UserPortfolio.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import ProfileForm from './ProfileForm.jsx';
+import Search from './Search.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,7 +17,7 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/search" element={<SearchBar />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/userportfolio" element={<UserPortfolio />} />

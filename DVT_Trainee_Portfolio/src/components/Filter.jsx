@@ -7,10 +7,11 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { useSearch } from "../contexts/SearchContext";
 
 
-function Filter({searchResults, fn}){
-    
+function Filter(){
+    const [selectedFilter,handleFilterClickLanguage,,searchResults, fn] = useSearch()
     // Get all unique languages and roles
     const languages = searchResults.map((employee) => employee.skills);
     const roles = searchResults.map((employee) => employee.role);
@@ -19,33 +20,32 @@ function Filter({searchResults, fn}){
     const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
     const allRoles = [...new Set(roles)];
 
-    const [selectedFilter, setSelectedFilter] = useState([]);
-    const [selectedFilter, setSelectedFilter] = useState([]);
+    // const [selectedFilter, setSelectedFilter] = useState([]);
 
-    const handleFilterClickLanguage = (filter) => {
-        let newSelectedFilter;
-        if(selectedFilter.includes(filter)){
-            // Remove filter
-            newSelectedFilter = selectedFilter.filter((item) => item !== filter);
-        }else{
-            // Add filter
-            newSelectedFilter =  [...selectedFilter, filter];
-        }
+    // const handleFilterClickLanguage = (filter) => {
+    //     let newSelectedFilter;
+    //     if(selectedFilter.includes(filter)){
+    //         // Remove filter
+    //         newSelectedFilter = selectedFilter.filter((item) => item !== filter);
+    //     }else{
+    //         // Add filter
+    //         newSelectedFilter =  [...selectedFilter, filter];
+    //     }
 
-        setSelectedFilter(newSelectedFilter);
+    //     setSelectedFilter(newSelectedFilter);
         
-        const filteredResults = searchResults.filter((employee) => {
-            if(newSelectedFilter.length === 0) return true;
-            if(employee.skills){
+    //     const filteredResults = searchResults.filter((employee) => {
+    //         if(newSelectedFilter.length === 0) return true;
+    //         if(employee.skills){
 
-                return newSelectedFilter.some((filter) => employee.skills.includes(filter));
-            }
-        });
+    //             return newSelectedFilter.some((filter) => employee.skills.includes(filter));
+    //         }
+    //     });
 
 
         
-        fn(filteredResults);
-    }
+    //     fn(filteredResults);
+    // }
 
     const handleFilterClickRole = (filter) => {
         let newSelectedFilter;

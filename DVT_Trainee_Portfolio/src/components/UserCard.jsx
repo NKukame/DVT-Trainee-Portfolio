@@ -34,18 +34,11 @@ export default function UserCard({user}) {
               <OpenInNewIcon   />
             </Link>
           </Tooltip>
-          <Tooltip arrow title={isViewMore ? 'see less' : 'see more'}>
-            { 
-              isViewMore ? <button className='arrow' onClick={()=> {setViewMore(false)}} ><KeyboardArrowUpIcon   /> </button>:
-              <button className='arrow' onClick={()=>{setViewMore(true)}}><KeyboardArrowDownIcon className='arrow' /></button> 
-            }
-          </Tooltip>
+
         </div>
       </div>
-      {
-        isViewMore ? <ViewMore user={user}  /> : ''
-      }
-      
+      <ViewMore user={user}  />
+  
     </div>
   )
  };
@@ -57,7 +50,7 @@ function ViewMore({user}){
       <div className="div users-data">
         <div className=" user-more-data">
           <p className='text-p'>Experience</p>
-          <p>9 years</p>
+          <p>{user.years_active} years</p>
         </div>
         <div className="user-more-data location">
           <p className='text-p'>Location</p>

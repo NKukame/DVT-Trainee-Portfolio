@@ -152,7 +152,7 @@
   "projects": [
     {
       "project_id": "001",
-      "title": "Portfolio Website",
+      "name": "Portfolio Website",
       "created_on": "2023-08-15",
       "description": "A personal portfolio website showcasing my work and skills.",
       "technologies": ["HTML", "CSS", "JavaScript", "React"],
@@ -166,7 +166,7 @@
     },
     {
       "project_id": "002",
-      "title": "E-commerce Platform",
+      "name": "E-commerce Platform",
       "created_on": "2024-01-10",
       "description": "An online store where users can browse and purchase products.",
       "technologies": ["Node.js", "Express", "MongoDB", "React"],
@@ -180,7 +180,7 @@
     },
     {
       "project_id": "003",
-      "title": "Personal Blog",
+      "name": "Personal Blog",
       "created_on": "2023-11-01",
       "description": "A personal blog to share tech tutorials and articles.",
       "technologies": ["Vue.js", "Sass", "Node.js"],
@@ -194,7 +194,7 @@
     },
     {
       "project_id": "004",
-      "title": "Data Analysis Tool",
+      "name": "Data Analysis Tool",
       "created_on": "2024-02-01",
       "description": "A tool to analyze and visualize large datasets using machine learning.",
       "technologies": ["Python", "TensorFlow", "Pandas"],
@@ -208,7 +208,7 @@
     },
     {
       "project_id": "005",
-      "title": "Task Manager CLI",
+      "name": "Task Manager CLI",
       "created_on": "2024-01-15",
       "description": "A simple command-line interface to manage tasks and to-dos.",
       "technologies": ["Python"],

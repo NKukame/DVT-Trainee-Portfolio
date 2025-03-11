@@ -1,9 +1,9 @@
 .users-list{
   display: grid;
+  align-items: start;
   gap: 1em;
   grid-template-columns: repeat(3, 1fr);
   margin-bottom: 1em;
-  grid-auto-flow: column;
 }
 
 .pagination{
@@ -82,4 +82,9 @@
 .text-p{
   margin-bottom: 3px;
   font-weight: 700;
+}
+@media (max-width:900px){
+  .users-list{
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
