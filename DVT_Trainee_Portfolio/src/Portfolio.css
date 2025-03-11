@@ -281,3 +281,21 @@
     transform: scale(2.5);
     transition: all 0.5s ease-in-out 0.5s;
   }
+
+  .sort-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 15px;
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .sort-button:hover {
+    background-color: var(--dark-blue);
+  }
+  

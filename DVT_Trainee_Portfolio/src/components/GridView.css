@@ -99,9 +99,26 @@
 
 .grid-profile-card-button:hover {
   box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
-   
-    
-    0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.1);
   transform: translateY(0.2em);
+
 }
+
+.sort-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sort-button:hover {
+  background-color: var(--gray);
+}
+
