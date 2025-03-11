@@ -91,6 +91,9 @@
 }
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     position: fixed;
     top: 0;
     right: 0;
@@ -147,13 +150,6 @@
 .sidebar-content h2{
     margin-top: 6.5px;
 }
-
-.dark-mode-enabled {
-    background-color: var(--dark-gray);
-    color: var(--yellow); 
-    border-radius: 20px; 
-}
-
 
 .logout-btn {
     display: flex;
@@ -224,7 +220,7 @@
   }
 
   .log-out{
-    margin-top: 65vh;
+    margin-top: auto;
   }
 
   .switch {
@@ -240,6 +236,7 @@
     padding: 0 10px;
     transition: 0.3s ease-in-out;
     margin-top: 10%;
+    flex-shrink: 0;
 }
 
 .toggle {
@@ -250,11 +247,17 @@
     border-radius: 2rem;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease-in-out;
-    
+    flex-shrink: 0;
 }
 
 .dark-mode-enabled .toggle {
     transform: translateX(7.2rem);
+}
+
+.switch.dark-mode-enabled {
+    background-color: var(--dark-gray);
+    color: var(--yellow); 
+    border-radius: 20px; 
 }
 
 input[type="checkbox"] {
