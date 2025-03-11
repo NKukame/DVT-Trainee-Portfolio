@@ -3,9 +3,11 @@ import './SearchResults.css';
 import UserCard from "./UserCard";
 import Pagination from '@mui/material/Pagination';
 import ProjectCard from "./ProjectCard";
+import { useSearch } from "../contexts/SearchContext";
 
-export default function SearchResults({results, resultsCopy, filter}) {
-  
+export default function SearchResults() {
+  const [selectedFilter, handleFilterClickLanguage,,results, filter] = useSearch()
+  const resultsCopy = results
   return (
     <>
       <section className="results-container">

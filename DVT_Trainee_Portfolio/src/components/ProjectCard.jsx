@@ -7,7 +7,7 @@ export default function ProjectCard({result}) {
     <div className="results">
       <div className="card-text">
         <div className="intro">
-          <p className="results-title">{result.title}</p>
+          <p className="results-title">{result.name}</p>
           <p className="results-type">{result.created_on}</p>
         </div>
 
