@@ -60,16 +60,6 @@ function Portfolio() {
             <Header />
             <section className="Intro">
                 <p className="theTitle">Portfolio</p>
-                <div className="search">
-                    <i className="bi bi-search"></i>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="  Search" 
-                        value={searchQuery}
-                        onChange={handleSearch} 
-                    />
-                </div>
 
                 <div className="view-filter">
                     <select name="view-mode" id="view-mode" className="custom-dropdown" onChange={handleViewChange}>
@@ -77,13 +67,15 @@ function Portfolio() {
                         <option value="grid-view">Grid</option>
                         <option value="carousel-view">Carousel</option>
                     </select>
+
+                    {viewMode === "card-view" && (
+                        <button className="sort-button" onClick={toggleSort}>
+                            Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
+                        </button>
+                    )}
                 </div>
 
-                {viewMode === "card-view" && (
-                    <button className="sort-button" onClick={toggleSort}>
-                        Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
-                    </button>
-                )}
+                
             </section>
 
             {viewMode === "carousel-view" ? (

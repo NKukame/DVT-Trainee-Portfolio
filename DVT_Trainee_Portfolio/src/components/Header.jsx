@@ -11,7 +11,7 @@ import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 
 function Header(){
     const [isOpen, setIsOpen] = useState(false);
@@ -150,8 +150,8 @@ function Header(){
 
                     <div className="sidebar-support-link">
                         <Link to="/">
-                            <QuizOutlinedIcon fontSize="large"/>
-                            <p>FAQ</p>
+                            <CallOutlinedIcon fontSize="large"/>
+                            <p>Contact Us</p>
                         </Link>
                     </div>
                     
