@@ -4,9 +4,14 @@ import './Header.css'
 import dvtLogo from "../assets/dvt_logo.jpg";
 import homeIcon from "../assets/icons8-home-100.png";
 import menuIcon from "../assets/icons8-menu-100.png";
-import supportIcon from "../assets/icons8-support-100.png";
-import darkModeIcon from "../assets/icons8-moon-100.png";
-import logOutIcon from "../assets/icons8-log-out-100.png";
+import profileIcon from "../assets/placeholder.png";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import LoginIcon from '@mui/icons-material/Login';
+import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 
 function Header(){
     const [isOpen, setIsOpen] = useState(false);
@@ -65,14 +70,25 @@ function Header(){
             </div>
 
             <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-                <button className="close-btn" onClick={toggleSidebar}>X</button>
+                <CloseOutlinedIcon fontSize="medium" onClick={toggleSidebar} className="close-btn"/>
 
-                <div className="sidebar-content">
-                    <img src={supportIcon} alt="" className="sidebar-logo"/>
-                    <h2>Support</h2>
+                <label htmlFor="mobile" className="mobile-navigation-label user-view-label">User Profile</label>
+
+                
+                <div className="sidebar-profile">
+
+                        <img src={profileIcon} alt="Profile Picture" className="sidebar-profile-image"/>
+                        <div className="sidebar-profile-text">
+                            <p>Name & Surname</p>
+                            <a href="#">View Profile</a>
+                        </div>
+                       
+
                 </div>
 
-                <div className={` ${darkMode ? "dark-mode-enabled" : ""}`}>
+                <div className="dark-mode-toggle">
+                    <label htmlFor="mobile" className="mobile-navigation-label">Dark Mode</label>
+
                     <label htmlFor="switch" className={`switch ${darkMode ? "dark-mode-enabled" : ""}`}>
                         <input
                             type="checkbox"
@@ -86,6 +102,59 @@ function Header(){
                             <p className="dark">Dark</p>
                         </div>
                     </label>
+                </div>
+
+                <div className="mobile-navigation">
+                    <label htmlFor="mobile" className="mobile-navigation-label">Navigation</label>
+
+                    <div className="mobile-nav-link">
+                        <Link to="/">
+                            <HomeOutlinedIcon fontSize="large"/>
+                            <p>Home</p>
+                        </Link>
+                    </div>
+
+                    <div className="mobile-nav-link">
+                        <Link to="/login">
+                            <LoginIcon fontSize="large"/>
+                            <p>Login</p>
+                        </Link>
+                    </div>
+
+                    <div className="mobile-nav-link">
+                        <Link to="/portfolio">
+                            <FolderSharedOutlinedIcon fontSize="large"/>
+                            <p>Portfolio</p>
+                        </Link>
+                    </div>
+
+                    <div className="mobile-nav-link">
+                        <Link to="/about">
+                            <InfoOutlinedIcon fontSize="large"/>
+                            <p>About</p>
+                        </Link>
+                    </div>
+
+                    <div className="mobile-nav-link">
+                        <Link to="/search">
+                            <SearchOutlinedIcon fontSize="large"/>
+                            <p>Search</p>
+                        </Link>
+                    </div>
+
+                    
+                </div>
+
+                <div className="sidebar-support">
+                    <label htmlFor="mobile" className="mobile-navigation-label">Support</label>
+
+                    <div className="sidebar-support-link">
+                        <Link to="/">
+                            <QuizOutlinedIcon fontSize="large"/>
+                            <p>FAQ</p>
+                        </Link>
+                    </div>
+                    
                 </div>
 
                 <div className="log-out">
