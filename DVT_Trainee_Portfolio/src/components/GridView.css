@@ -105,13 +105,19 @@
 
 }
 
+.grid-sort{
+  transform: translateY(-150%) translateX(70%);
+  z-index: 1;
+  width: 50%;
+}
+
 .sort-button {
   display: block;
   margin: 10px auto;
   padding: 10px 20px;
-  background-color: var(--blue);
-  color: var(--white);
-  border: none;
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid var(--black);
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;

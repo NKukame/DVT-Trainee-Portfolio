@@ -20,9 +20,14 @@ const GridView = ({ team }) => {
   return (
     <section className="grid-wrapper">
       {/* Sorting Button */}
-      <button className="sort-button" onClick={toggleSort}>
-        Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
-      </button>
+
+      <div className="grid-sort">
+        <button className="sort-button" onClick={toggleSort}>
+          Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
+        </button>
+      </div>
+
+      
 
       <div className="grid-container">
         {sortedTeam.map((member, index) => (
