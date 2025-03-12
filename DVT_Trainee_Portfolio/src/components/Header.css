@@ -177,10 +177,15 @@
     border-bottom: 1px solid var(--gray);
 }
 
+.sidebar-support-link:hover{
+    border-left: 2px solid var(--blue);
+}
+
 .sidebar-support-link{
     display: flex;   
     margin-bottom: 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .sidebar-support-link p{
