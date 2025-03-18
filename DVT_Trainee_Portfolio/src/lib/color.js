@@ -8,7 +8,7 @@ export const generatePastelColor = (name) => {
         const hue = Math.abs(hash % 360);
         
         // Use fixed saturation and lightness for pastel effect
-        return `hsl(${hue}, 100%, 50%)`;
+        return `hsl(${hue}, 50%, 50%)`;
 
     }
     return "gray"
