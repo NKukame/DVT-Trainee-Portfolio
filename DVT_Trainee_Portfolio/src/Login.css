@@ -2,7 +2,7 @@
 
 .LoginApp {
     /* background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);  */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,7 +47,7 @@
 }
 
 .login-container button {
-    background-color: #512da8;
+   background-color: #2b5876;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -170,9 +170,9 @@
 }
 
 .login-toggle {
-    background-color: #512da8;
+    background-color: #2b5876;
     height: 100%;
-    background: linear-gradient(to right, #5c6bc0, #512da8);
+    background: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
     color: #fff;
     position: relative;
     left: -100%;
@@ -223,3 +223,4 @@
     font-size: 12px;
     margin: 5px 0;
 }
+
