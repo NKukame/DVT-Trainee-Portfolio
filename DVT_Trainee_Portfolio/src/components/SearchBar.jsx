@@ -4,7 +4,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import Header from "./Header";
 import { useSearch } from "../contexts/SearchContext.jsx";
 
-
 function SearchBar(){
   const [query,setQuery] = useState('')
   const [,,handleInputChange, searchResults, setResults] = useSearch();

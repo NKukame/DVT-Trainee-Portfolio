@@ -1,0 +1,53 @@
+/* Container styles */
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Label styling */
+.dropdown-label {
+  font-weight: 600;
+  font-size: 1em;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Dropdown select box styling */
+.dropdown {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover effect for the dropdown */
+.dropdown:hover {
+  border-color: #007bff;
+}
+
+/* Focus effect */
+.dropdown:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Option styling */
+.dropdown option {
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Additional styles for mobile responsiveness */
+@media (max-width: 768px) {
+  .dropdown-container {
+    width: 100%;
+  }
+}
