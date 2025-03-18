@@ -1,5 +1,3 @@
-import sort from '../assets/icons8-sort-100 (1).png'
-import SwapVertIcon from '@mui/icons-material/SwapVert';
 import Sort from './Sort';
 
 export default function SearchNav({filter, results}) {
@@ -22,11 +20,6 @@ export default function SearchNav({filter, results}) {
       </div>
       <div className='sort-btn-container'>
         <div>
-          {/* <button className="result-nav-btn sort-btn">
-            <span className="sort-txt">Sort</span>
-            <SwapVertIcon/>
-          </button> */}
-
           <Sort></Sort>
         </div>
       </div>
