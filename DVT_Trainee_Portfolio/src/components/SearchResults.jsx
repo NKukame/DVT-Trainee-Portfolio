@@ -5,14 +5,18 @@ import UserCard from "./UserCard";
 import Pagination from '@mui/material/Pagination';
 import ProjectCard from "./ProjectCard";
 import { useSearch } from "../contexts/SearchContext";
+import {useEffect, useState} from 'react';
 
 export default function SearchResults() {
-  const [selectedFilter, handleFilterClickLanguage,,results, filter] = useSearch()
-  const resultsCopy = results
+  
+  const [,,,filteredResults] = useSearch();
+  const [resultsCopy, setCopy] = useState(filteredResults);
+  useEffect(()=>{ setCopy(filteredResults);}, [filteredResults]);
+
   return (
     <>
       <section className="results-container">
-        <SearchNav filter={filter} results={results} />       
+        <SearchNav filter={setCopy} results={filteredResults} />       
         <ResultsList results={resultsCopy} id={'employee_id'}/>
       </section>
     </>
