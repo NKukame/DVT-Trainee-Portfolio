@@ -1,17 +1,16 @@
 import {useState, useContext, createContext, Children} from 'react'
 import {employees, projects} from '../MockSearch.json';
 
-export const SearchContext = createContext({
-    searchResults: [],
-    setSearchResults: () => {},
-})
+export const SearchContext = createContext()
 
 const data = employees.concat(projects)
 
 export const SearchContextProvider = ({children}) => {
     
-    const [searchResults, setSearchResults] = useState(data)
-    const [filteredResults, setFilteredResults] = useState(data)
+    let [searchResults, setSearchResults] = useState(data)
+    let [filteredResults, setFilteredResults] = useState(data)
+    const [value, setValue] = useState([0, 10]);
+    let [selectedFilter, setSelectedFilter] = useState([]);
 
     const handleInputChange = (query) => {
         const filteredResults = data.filter((result) => {
@@ -23,15 +22,9 @@ export const SearchContextProvider = ({children}) => {
         setFilteredResults(results)
     }
 
-
-    
-    let [selectedFilter, setSelectedFilter] = useState([]);
-
-
     const handleFilterClick = (filter, category) => {
         let newSelectedFilter;
-
-
+        let updatedResults = searchResults;
         if(selectedFilter.includes(filter)){
             // Remove filter
             newSelectedFilter = selectedFilter.filter((item) => item !== filter);
@@ -39,13 +32,10 @@ export const SearchContextProvider = ({children}) => {
             // Add filter
             newSelectedFilter =  [...selectedFilter, filter];
         }
-        
         setSelectedFilter(newSelectedFilter);
-        console.log(category);
         
-        let result = []
         if(category.includes("language")){
-            result = searchResults.filter((employee) => {
+            updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
     
@@ -53,23 +43,51 @@ export const SearchContextProvider = ({children}) => {
                 }
             });
         }
+        if(category.includes("role")){
+            updatedResults = searchResults.filter((employee) => {
+                // If no roles selected, show all results
+                if (newSelectedFilter.length === 0) return true;
+                // Show employee if their role matches any of the selected filters
+                return newSelectedFilter.every(f => employee.role === f);
+            });
+        }
 
+        if (category === "location") {
+            updatedResults = searchResults.filter((employee) => {
+                if (newSelectedFilter.length === 0) return true;
+                return newSelectedFilter.every(f => employee.location === f);
+            });
+        }
         
-
-        
-        
-        setFilteredResults(result);
+        setFilteredResults(updatedResults);
     }
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+
+        const filteredResults = searchResults.filter((employee) => {
+            if(!employee.years_active){
+                return false
+            }
+            
+            if(employee.years_active>value[0] &&  employee.years_active<value[1]){
+                return true
+            }
+            return false           
+        })
+
+        setFilteredResults(filteredResults);
+    };
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange,value}}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange,value} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange,value]
 }
