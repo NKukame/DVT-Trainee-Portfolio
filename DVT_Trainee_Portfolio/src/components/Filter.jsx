@@ -27,10 +27,10 @@ function Filter(){
     const thumbStyle =  {
         color: 'orange',
         '& .MuiSlider-thumb': { 
-            height: 20,
-            width: 20,
+            height: 15,
+            width: 15,
             backgroundColor: 'white',
-            border: '2px solid currentColor',
+            border: '2px solid #E2BF00',
             '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
             boxShadow: 'inherit',
             },
@@ -44,10 +44,10 @@ function Filter(){
             fontSize: 14,
             background: 'unset',
             padding: 0,
-            width: 20,
-            height: 20,
+            width: 15,
+            height: 15,
             borderRadius: '50% 50% 50% 0',
-            backgroundColor: 'orange',
+            backgroundColor: "#E2BF00",
             transformOrigin: 'bottom left',
             transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
             '&::before': { display: 'none' },
@@ -58,9 +58,11 @@ function Filter(){
                 transform: 'rotate(45deg)',
             },
         },
-        
-
-
+        '& .MuiSlider-track': {
+            border: 'none',
+            height: 2,
+            backgroundColor: "#E2BF00"
+          }
     }
 
     return(
