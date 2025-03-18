@@ -31,8 +31,17 @@ function Signup() {
     }
   }, []);
 
+  const allowedDomains = ["dvtsoftware.com"];
+
+  // email domain validation
+  const validateEmailDomain = (email) => {
+    const domain = email.split("@")[1];
+    return domain && allowedDomains.includes(domain);
+  };
+
   const validationForm = () => {
     let newErrors = {};
+
     if (isSignUp) {
       if (!formData.name.trim()) newErrors.name = "Name is required";
       if (!formData.confirmPassword) {
@@ -46,6 +55,8 @@ function Signup() {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Email is invalid";
+    }else if(!validateEmailDomain(formData.email)){
+      newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
     }
     
     if (!formData.password) {
@@ -57,6 +68,7 @@ function Signup() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -125,7 +137,7 @@ function Signup() {
         alert("Login successful!");
         // Save login status if needed
         localStorage.setItem("isLoggedIn", "true");
-        navigate("/UserPortfolio");
+        navigate("/");
       } else {
         if (formData.email !== storedUser.email) {
           setErrors({ email: "Email not found" });
