@@ -29,7 +29,7 @@ function Filter(){
         '& .MuiSlider-thumb': { 
             height: 15,
             width: 15,
-            backgroundColor: 'white',
+            backgroundColor: 'rgb(221, 185, 77)',
             border: '2px solid #E2BF00',
             '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
             boxShadow: 'inherit',
