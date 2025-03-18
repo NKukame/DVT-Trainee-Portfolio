@@ -25,13 +25,13 @@ export const SearchContextProvider = ({children}) => {
 
 
     
-    const [selectedFilter, setSelectedFilter] = useState([]);
+    let [selectedFilter, setSelectedFilter] = useState([]);
 
 
-    const handleFilterClickLanguage = (filter) => {
+    const handleFilterClick = (filter, category) => {
         let newSelectedFilter;
 
-        
+
         if(selectedFilter.includes(filter)){
             // Remove filter
             newSelectedFilter = selectedFilter.filter((item) => item !== filter);
@@ -41,29 +41,35 @@ export const SearchContextProvider = ({children}) => {
         }
         
         setSelectedFilter(newSelectedFilter);
+        console.log(category);
         
-        const filteredResults = searchResults.filter((employee) => {
-            if(newSelectedFilter.length === 0) return true;
-            if(employee.skills){
+        let result = []
+        if(category.includes("language")){
+            result = searchResults.filter((employee) => {
+                if(newSelectedFilter.length === 0) return true;
+                if(employee.skills){
+    
+                    return newSelectedFilter.every((filter) => employee.skills.includes(filter));
+                }
+            });
+        }
 
-                return newSelectedFilter.every((filter) => employee.skills.includes(filter));
-            }
-        });
+        
 
         
         
-        setFilteredResults(filteredResults);
+        setFilteredResults(result);
     }
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClickLanguage, handleInputChange, filteredResults, setSearchResults}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults}}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClickLanguage,handleInputChange,filteredResults, setSearchResults} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClickLanguage,handleInputChange,filteredResults, setSearchResults]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults]
 }

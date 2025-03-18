@@ -11,7 +11,7 @@ import { useSearch } from "../contexts/SearchContext";
 
 
 function Filter(){
-    const [selectedFilter,handleFilterClickLanguage,,searchResults, fn] = useSearch()
+    const [selectedFilter,handleFilterClick,,searchResults, fn] = useSearch()
     // Get all unique languages and roles
     const languages = searchResults.map((employee) => employee.skills);
     const roles = searchResults.map((employee) => employee.role);
@@ -161,17 +161,16 @@ function Filter(){
                             <FilterItem 
                                 key={language}
                                 name={language} 
-                                onToggle={handleFilterClickLanguage}
+                                onToggle={handleFilterClick}
+                                category = "language"
                                 isSelected={selectedFilter.includes(language)}
                                 />
                                 ))}
 
-                            {/* <Badges badgeList={topLanguages}></Badges> */}
 
                     </ul>
                     
                 </div>
-                {/* <div className="divider"></div> */}
                 <div className="filter-section">
                     <p className="filter-section-title">Roles</p>
                     {/* <div className="filter-content-container"> */}
@@ -241,7 +240,7 @@ function Filter(){
 
 
 
-export function FilterItem({name, onToggle, isSelected}){
+export function FilterItem({name, onToggle, isSelected, category}){
     const [isHover, setIsHover] = useState(false)
 
     const handleMouseEnter = () => {
@@ -269,7 +268,7 @@ export function FilterItem({name, onToggle, isSelected}){
         //     <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
         // </div>
 
-        <li onClick={() => onToggle(name)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
+        <li onClick={() => onToggle(name, category)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
     )
 }
 
