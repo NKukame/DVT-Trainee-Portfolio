@@ -11,99 +11,26 @@ import { useSearch } from "../contexts/SearchContext";
 
 
 function Filter(){
-    const [selectedFilter,handleFilterClickLanguage,,searchResults, fn] = useSearch()
+    const [selectedFilter,handleFilterClick,,searchResults, fn, handleChange ,value, setValue] = useSearch()
     // Get all unique languages and roles
     const languages = searchResults.map((employee) => employee.skills);
     const roles = searchResults.map((employee) => employee.role);
+    const locations = searchResults.map((employee) => employee.location)
+    
     // Remove duplicates
     const allLanguages = [...new Set(languages.flat())];
     const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
     const allRoles = [...new Set(roles)];
 
-    // const [selectedFilter, setSelectedFilter] = useState([]);
-
-    // const handleFilterClickLanguage = (filter) => {
-    //     let newSelectedFilter;
-    //     if(selectedFilter.includes(filter)){
-    //         // Remove filter
-    //         newSelectedFilter = selectedFilter.filter((item) => item !== filter);
-    //     }else{
-    //         // Add filter
-    //         newSelectedFilter =  [...selectedFilter, filter];
-    //     }
-
-    //     setSelectedFilter(newSelectedFilter);
-        
-    //     const filteredResults = searchResults.filter((employee) => {
-    //         if(newSelectedFilter.length === 0) return true;
-    //         if(employee.skills){
-
-    //             return newSelectedFilter.some((filter) => employee.skills.includes(filter));
-    //         }
-    //     });
-
-
-        
-    //     fn(filteredResults);
-    // }
-
-    const handleFilterClickRole = (filter) => {
-        let newSelectedFilter;
-        if(selectedFilter.includes(filter)){
-            // Remove the filter
-            newSelectedFilter = selectedFilter.filter((item) => item !== filter);
-        } else {
-            // Add the filter
-            newSelectedFilter = [...selectedFilter, filter];
-        }
-        
-        setSelectedFilter(newSelectedFilter);
-        
-        
-        const filteredResults = searchResults.filter((employee) => {
-            // If no roles selected, show all results
-            if (newSelectedFilter.length === 0) return true;
-            // Show employee if their role matches any of the selected filters
-            return newSelectedFilter.some(f => employee.role === f);
-        });
-        
-        fn(filteredResults);
-    }
-    
-    const [value, setValue] = useState([0, 10]);
-    
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-
-    const filteredResults = searchResults.filter((employee) => {
-        // console.log(employee);
-        if(!employee.years_active){
-            console.log("years available");
-            
-            return false
-        }
-        console.log(value[0]);
-        
-        // console.log(employee.years_active);
-        
-        if(employee.years_active>value[0] &&  employee.years_active<value[1]){
-            return true
-        }
-        return false
-        
-    })
-
-    fn(filteredResults);
-    
-  };
+    const allLocations = [...new Set(locations)]
 
     const thumbStyle =  {
         color: 'orange',
         '& .MuiSlider-thumb': { 
-            height: 20,
-            width: 20,
-            backgroundColor: 'white',
-            border: '2px solid currentColor',
+            height: 15,
+            width: 15,
+            backgroundColor: 'rgb(221, 185, 77)',
+            border: '2px solid #E2BF00',
             '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
             boxShadow: 'inherit',
             },
@@ -117,10 +44,10 @@ function Filter(){
             fontSize: 14,
             background: 'unset',
             padding: 0,
-            width: 20,
-            height: 20,
+            width: 15,
+            height: 15,
             borderRadius: '50% 50% 50% 0',
-            backgroundColor: 'orange',
+            backgroundColor: "#E2BF00",
             transformOrigin: 'bottom left',
             transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
             '&::before': { display: 'none' },
@@ -131,9 +58,11 @@ function Filter(){
                 transform: 'rotate(45deg)',
             },
         },
-        
-
-
+        '& .MuiSlider-track': {
+            border: 'none',
+            height: 2,
+            backgroundColor: "#E2BF00"
+          }
     }
 
     return(
@@ -161,33 +90,42 @@ function Filter(){
                             <FilterItem 
                                 key={language}
                                 name={language} 
-                                onToggle={handleFilterClickLanguage}
+                                onToggle={handleFilterClick}
+                                category = "language"
                                 isSelected={selectedFilter.includes(language)}
                                 />
                                 ))}
-
-                            {/* <Badges badgeList={topLanguages}></Badges> */}
-
                     </ul>
                     
                 </div>
-                {/* <div className="divider"></div> */}
                 <div className="filter-section">
                     <p className="filter-section-title">Roles</p>
-                    {/* <div className="filter-content-container"> */}
+
                         <ul className="skills-list">
                             {allRoles.map((role) => (
                                 <FilterItem 
                                     name={role} 
-                                    // key={role}
-                                    // onToggle={handleFilterClickRole}
-                                    // isSelected={selectedFilter.includes(role)}
+                                    key={role}
+                                    onToggle={handleFilterClick}
+                                    isSelected={selectedFilter.includes(role)}
+                                    category="role"
                                 />
                             ))}
                         </ul>
-
-                        {/* <Badges badgeList={allRoles}></Badges> */}
-                    {/* </div> */}
+                </div>
+                <div className="filter-section">
+                    <p className="filter-section-title">Location</p>
+                        <ul className="skills-list">
+                            {allLocations.map((location) => (
+                                <FilterItem 
+                                    name={location} 
+                                    key={location}
+                                    onToggle={handleFilterClick}
+                                    isSelected={selectedFilter.includes(location)}
+                                    category="location"
+                                />
+                            ))}
+                        </ul>
                 </div>
                 <div className="filter-section">
                     <p className="filter-section-title">Experience</p>
@@ -205,35 +143,8 @@ function Filter(){
                                thumbStyle
                             }
                         />
-                        
-
                     </Box>
                 </div>
-                {/* <div className="divider"></div>
-                <div className="filter-section">
-                    <p className="filter-section-title">Tools</p>
-                    <div className="filter-content-container">
-                        <FilterItem name={"React"}/>
-                        <FilterItem name={"Node.js"}/>
-                        <FilterItem name={"Express"}/>
-                        <FilterItem name={"MongoDB"}/>
-                        <FilterItem name={"MySQL"}/>
-                        <FilterItem name={"PostgreSQL"}/>   
-                        <FilterItem name={"Docker"}/>
-                        <FilterItem name={"Jenkins"}/>
-                    </div>
-                </div>
-                <div className="divider"></div>
-                <div className="filter-section">
-                    <p className="filter-section-title">Operating System</p>
-                    <div className="filter-content-container">
-                        <FilterItem name={"Windows"}/>
-                        <FilterItem name={"Linux"}/>
-                        <FilterItem name={"MacOS"}/>
-                        <FilterItem name={"iOS"}/>
-                        <FilterItem name={"Android"}/>
-                    </div>
-                </div> */}
             </div>
         </section>
     );
@@ -241,7 +152,7 @@ function Filter(){
 
 
 
-export function FilterItem({name, onToggle, isSelected}){
+export function FilterItem({name, onToggle, isSelected, category}){
     const [isHover, setIsHover] = useState(false)
 
     const handleMouseEnter = () => {
@@ -269,7 +180,7 @@ export function FilterItem({name, onToggle, isSelected}){
         //     <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
         // </div>
 
-        <li onClick={() => onToggle(name)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
+        <li onClick={() => onToggle(name, category)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
     )
 }
 

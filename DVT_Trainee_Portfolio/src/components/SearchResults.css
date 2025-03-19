@@ -11,6 +11,7 @@
  font-weight: 600;
  font-size: 1.2em;
 }
+
 .result-nav-btn {
   background-color: transparent;
   font-weight: 600;
@@ -20,7 +21,6 @@
   font-size: 1em;
   text-transform: capitalize;
   cursor: pointer;
-
 }
 
 .nav-btns {
@@ -55,8 +55,6 @@
   height: 15px;
   margin: 0em .5em;
 }
-
-
 
 .results:hover{
   border: 1px solid var(--blue);
@@ -95,18 +93,10 @@
 }
 
 .skills-list{
-  /* width: 50%; */
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: .5em;
-}
-.MuiChip-label{
-  color: white;
-}
-.MuiChip-outlined{
-  outline-color: yellow;
-  outline-width: 100px;
 }
 
 .badge{

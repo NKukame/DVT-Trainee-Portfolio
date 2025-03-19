@@ -86,8 +86,8 @@ function Signup() {
       if (validationForm()) {
         // Check if email already exists
         const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser && storedUser.email === formData.email) {
-          setErrors({ email: "This email is already registered" });
+        if (storedUser && storedUser.email === formData.email ) {
+          setErrors({ email: "This email or username is already registered" });
           return;
         }
 
@@ -119,8 +119,8 @@ function Signup() {
         return;
       }
 
-      if (formData.email.trim() === "") {
-        setErrors({ email: "Email is required" });
+      if (formData.email.trim() === "" &&  formData.name.trim() === "") {
+        setErrors({ email: "Email is required or Username" });
         return;
       }
 
@@ -131,16 +131,17 @@ function Signup() {
 
       if (
         storedUser &&
-        formData.email === storedUser.email &&
+        (formData.email === storedUser.email || formData.name === storedUser.name) &&
         formData.password === storedUser.password
+
       ) {
         alert("Login successful!");
         // Save login status if needed
         localStorage.setItem("isLoggedIn", "true");
         navigate("/");
       } else {
-        if (formData.email !== storedUser.email) {
-          setErrors({ email: "Email not found" });
+        if (formData.email !== storedUser.email && formData.name !== storedUser.name) {
+          setErrors({ email: "Email or Username not found" });
         } else {
           setErrors({ password: "Incorrect password" });
         }
@@ -163,7 +164,7 @@ function Signup() {
             <input
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="Username"
               value={formData.name}
               onChange={handleChange}
             />
@@ -209,10 +210,10 @@ function Signup() {
               {/* Social icons if needed */}
             </div>
             <input
-              type="email"
+              type="text"
               name="email"
-              placeholder="Email"
-              value={formData.email}
+              placeholder="Email or Username"
+              value={formData.email || formData.name}
               onChange={handleChange}
             />
             {errors.email && <p className="error">{errors.email}</p>}
