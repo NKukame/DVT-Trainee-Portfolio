@@ -43,19 +43,6 @@
   border-radius: 1em;
 }
 
-
-.sort-btn {
-  color: white;
-  display: flex;
-  align-items: center;
-}
-
-.sort-btn-icon {
-  width: 16px;
-  height: 15px;
-  margin: 0em .5em;
-}
-
 .results:hover{
   border: 1px solid var(--blue);
 }
