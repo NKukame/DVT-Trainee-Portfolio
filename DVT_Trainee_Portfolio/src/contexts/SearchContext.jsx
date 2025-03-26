@@ -11,6 +11,10 @@ export const SearchContextProvider = ({children}) => {
     let [filteredResults, setFilteredResults] = useState(data)
     const [value, setValue] = useState([0, 10]);
     let [selectedFilter, setSelectedFilter] = useState([]);
+    
+    const allLanguages = [...new Set(searchResults.map((employee) => employee.skills).flat())].filter(item => item !== undefined);
+    const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
+    const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
 
     const handleInputChange = (query) => {
         const filteredResults = data.filter((result) => {
@@ -48,14 +52,14 @@ export const SearchContextProvider = ({children}) => {
                 // If no roles selected, show all results
                 if (newSelectedFilter.length === 0) return true;
                 // Show employee if their role matches any of the selected filters
-                return newSelectedFilter.every(f => employee.role === f);
+                return newSelectedFilter.some(f => employee.role === f);
             });
         }
 
         if (category === "location") {
             updatedResults = searchResults.filter((employee) => {
                 if (newSelectedFilter.length === 0) return true;
-                return newSelectedFilter.every(f => employee.location === f);
+                return newSelectedFilter.some(f => employee.location === f);
             });
         }
         
@@ -81,7 +85,7 @@ export const SearchContextProvider = ({children}) => {
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange,value}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange,value, allLanguages, allLocations, allRoles}}>
             {children}
         </SearchContext.Provider>
     )

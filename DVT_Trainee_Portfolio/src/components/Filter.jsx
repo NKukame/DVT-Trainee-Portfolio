@@ -7,22 +7,18 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { useSearch } from "../contexts/SearchContext";
+import { SearchContext, useSearch } from "../contexts/SearchContext";
+import { useContext } from "react";
 
 
 function Filter(){
-    const [selectedFilter,handleFilterClick,,searchResults, fn, handleChange ,value, setValue] = useSearch()
-    // Get all unique languages and roles
-    const languages = searchResults.map((employee) => employee.skills);
-    const roles = searchResults.map((employee) => employee.role);
-    const locations = searchResults.map((employee) => employee.location)
+    const {selectedFilter,handleFilterClick,filteredResults, fn, handleChange ,value, setValue, allLanguages, allLocations, allRoles} = useContext(SearchContext)
+    console.log(useContext(SearchContext));
     
-    // Remove duplicates
-    const allLanguages = [...new Set(languages.flat())];
-    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
-    const allRoles = [...new Set(roles)];
 
-    const allLocations = [...new Set(locations)]
+
+    
+    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
 
     const thumbStyle =  {
         color: 'orange',
@@ -44,8 +40,8 @@ function Filter(){
             fontSize: 14,
             background: 'unset',
             padding: 0,
-            width: 15,
-            height: 15,
+            width: 20,
+            height: 20,
             borderRadius: '50% 50% 50% 0',
             backgroundColor: "#E2BF00",
             transformOrigin: 'bottom left',
@@ -128,7 +124,7 @@ function Filter(){
                         </ul>
                 </div>
                 <div className="filter-section">
-                    <p className="filter-section-title">Experience</p>
+                    <p className="filter-section-title">Experience (years)</p>
                     <Box  sx={{padding:1.5}}>
                         <Slider
                             size="small"
@@ -170,8 +166,8 @@ export function FilterItem({name, onToggle, isSelected, category}){
       ? generatePastelColor(name)
       : "rgba(255, 255, 255, 0.315)",
         cursor: "pointer",
-        transition: "border-width .5s ease-in-out",
-        borderWidth: isSelected ? "2.2px": isHover ? "2px" : "1px"
+        transition: "border-width .05s ease-in-out",
+        borderWidth: isSelected ? "2px": isHover ? "1px" : "1px"
     }
 
     return(
