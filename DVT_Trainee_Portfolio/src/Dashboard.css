@@ -1,0 +1,129 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
+    position: fixed; 
+    top: 0;
+    left: 0;
+    margin-top: 130px;
+    margin-left: 100px;
+    border-radius: 1.5rem;
+    height: 80.7%; 
+    padding-top: 50px; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+
+.profile-img{
+    width: 60%;
+    height: 30%;
+    border: #4a5568 0.5px solid;
+    border-radius: 50%;
+    margin-top: 0;
+    margin-left: 5px;
+}
+
+.profile-info {
+    color: #4a5568;
+    margin-top: 30px;
+    margin-left: 20px;
+    padding: 10px 20px;
+    border-top: 1px solid #cbd5e0;
+    border-bottom: 1px solid #cbd5e0;
+  }
+
+  .manage-prfl{
+    background-color: #4a5568;
+    color: white;
+    margin-top: 5px;
+    padding: 10px 20px;
+  }
+
+  .proficiencies h2{
+    margin-top: 20px;
+    margin-left: 40px;
+    color: #4a5568;
+    text-decoration: #cbd5e0 underline;
+    margin-bottom: 8px;
+  }
+  
+.proficiencies p{
+    margin-left: 40px;
+    color: #4a5568;
+    margin-bottom: 8px
+}
+
+.cv-btn{
+    margin-left: 38px;
+    margin-top: 15px;
+    background-color: #4a5568;
+    color: white;
+    padding: 10px 20px;
+}
+  
+  /* Sidebar Styles */
+  /* .sidebar {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .profile-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #2d3748;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+  }
+  
+  .avatar-placeholder {
+    width: 130px;
+    height: 130px;
+    background-color: #a0aec0;
+    border-radius: 10px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .avatar-icon {
+    font-size: 48px;
+    color: white;
+  }
+  
+  .name {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .role,
+  .experience {
+    color: #4a5568;
+    margin: 4px 0;
+  }
+  
+  .manage-button {
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+  }
+  
+  .manage-button:hover {
+    background-color: #4a5568;
+  }
+  
+  .proficiencies {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  .proficiencies h2 {
+    margin-bottom: 8px;
+  } */
