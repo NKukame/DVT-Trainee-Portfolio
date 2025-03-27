@@ -1,0 +1,12 @@
+.sort-btn {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.sort-btn-icon {
+  width: 16px;
+  height: 15px;
+  margin: 0em .5em;
+}
+

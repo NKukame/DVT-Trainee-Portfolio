@@ -4,132 +4,143 @@ import { useState } from "react";
 import { generatePastelColor } from "../lib/color";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import { SearchContext, useSearch } from "../contexts/SearchContext";
+import { useContext } from "react";
 
-function Filter({searchResults, fn}){
-    console.log(searchResults);
+
+function Filter(){
+    const {selectedFilter,handleFilterClick,filteredResults, fn, handleChange ,value, setValue, allLanguages, allLocations, allRoles} = useContext(SearchContext)
+    console.log(useContext(SearchContext));
     
-    // Get all unique languages and roles
-    const languages = searchResults.map((employee) => employee.skills);
-    const roles = searchResults.map((employee) => employee.role);
-    // Remove duplicates
-    const allLanguages = [...new Set(languages.flat())];
-    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,3))
-    const allRoles = [...new Set(roles)];
 
-    const [selectedFilter, setSelectedFilter] = useState([]);
 
-    const handleFilterClickLanguage = (filter) => {
-        let newSelectedFilter;
-        if(selectedFilter.includes(filter)){
-            // Remove filter
-            newSelectedFilter = selectedFilter.filter((item) => item !== filter);
-        }else{
-            // Add filter
-            newSelectedFilter =  [...selectedFilter, filter];
-        }
+    
+    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
 
-        setSelectedFilter(newSelectedFilter);
-        
-        const filteredResults = searchResults.filter((employee) => {
-            if(newSelectedFilter.length === 0) return true;
-            return newSelectedFilter.some((filter) => employee.skills.includes(filter));
-        });
-        fn(filteredResults);
+    const thumbStyle =  {
+        color: 'orange',
+        '& .MuiSlider-thumb': { 
+            height: 15,
+            width: 15,
+            backgroundColor: 'rgb(221, 185, 77)',
+            border: '2px solid #E2BF00',
+            '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+            boxShadow: 'inherit',
+            },
+            '&::before': {
+            display: 'none',
+            },
+        },
+
+        '& .MuiSlider-valueLabel': {
+            lineHeight: 1,
+            fontSize: 14,
+            background: 'unset',
+            padding: 0,
+            width: 20,
+            height: 20,
+            borderRadius: '50% 50% 50% 0',
+            backgroundColor: "#E2BF00",
+            transformOrigin: 'bottom left',
+            transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
+            '&::before': { display: 'none' },
+            '&.MuiSlider-valueLabelOpen': {
+                transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
+            },
+            '& > *': {
+                transform: 'rotate(45deg)',
+            },
+        },
+        '& .MuiSlider-track': {
+            border: 'none',
+            height: 2,
+            backgroundColor: "#E2BF00"
+          }
     }
 
-    const handleFilterClickRole = (filter) => {
-        let newSelectedFilter;
-        if(selectedFilter.includes(filter)){
-            // Remove the filter
-            newSelectedFilter = selectedFilter.filter((item) => item !== filter);
-        } else {
-            // Add the filter
-            newSelectedFilter = [...selectedFilter, filter];
-        }
-        
-        setSelectedFilter(newSelectedFilter);
-        
-        
-        const filteredResults = searchResults.filter((employee) => {
-            // If no roles selected, show all results
-            if (newSelectedFilter.length === 0) return true;
-            // Show employee if their role matches any of the selected filters
-            return newSelectedFilter.some(f => employee.role === f);
-        });
-        
-        fn(filteredResults);
-    }
     return(
         <section className="filter-container">
-            <div className="filter-title">
+            {/* <div className="filter-title">
                 <h3 className="logo-text">Filter</h3>
                 <FilterAltIcon/>
-            </div>
-            <div className="divider"></div>
+            </div> */}
+            {/* <div className="divider"></div> */}
             <div className="scroller">
                 <div className="filter-section">
                     <div className="header-container">
                         <p className="filter-section-title">Languages</p>
                         <p onClick={()=>{
-                            if(topLanguages.length>3){
-                                setTopLanguages(allLanguages.slice(0,3))
+                            if(topLanguages.length>8){
+                                setTopLanguages(allLanguages.slice(0,8))
                             }else{
                                 setTopLanguages(allLanguages)
                             }}}>
-                            {topLanguages.length>3? <RemoveIcon className="header-icon" fontSize="small"/>:<AddIcon fontSize="small" className="header-icon"/>}
+                            {topLanguages.length>8? <RemoveIcon className="header-icon" fontSize="small"/>:<AddIcon fontSize="small" className="header-icon"/>}
                         </p>
                     </div>
-                    <div className="filter-content-container">
+                    <ul className="skills-list">
                         {topLanguages.map((language) => (
                             <FilterItem 
                                 key={language}
                                 name={language} 
-                                onToggle={handleFilterClickLanguage}
+                                onToggle={handleFilterClick}
+                                category = "language"
                                 isSelected={selectedFilter.includes(language)}
-                            />
-                        ))}
-                    </div>
+                                />
+                                ))}
+                    </ul>
                     
                 </div>
-                <div className="divider"></div>
                 <div className="filter-section">
                     <p className="filter-section-title">Roles</p>
-                    <div className="filter-content-container">
-                        {allRoles.map((role) => (
-                            <FilterItem 
-                                name={role} 
-                                key={role}
-                                onToggle={handleFilterClickRole}
-                                isSelected={selectedFilter.includes(role)}
-                            />
-                        ))}
-                    </div>
+
+                        <ul className="skills-list">
+                            {allRoles.map((role) => (
+                                <FilterItem 
+                                    name={role} 
+                                    key={role}
+                                    onToggle={handleFilterClick}
+                                    isSelected={selectedFilter.includes(role)}
+                                    category="role"
+                                />
+                            ))}
+                        </ul>
                 </div>
-                {/* <div className="divider"></div>
                 <div className="filter-section">
-                    <p className="filter-section-title">Tools</p>
-                    <div className="filter-content-container">
-                        <FilterItem name={"React"}/>
-                        <FilterItem name={"Node.js"}/>
-                        <FilterItem name={"Express"}/>
-                        <FilterItem name={"MongoDB"}/>
-                        <FilterItem name={"MySQL"}/>
-                        <FilterItem name={"PostgreSQL"}/>   
-                        <FilterItem name={"Docker"}/>
-                        <FilterItem name={"Jenkins"}/>
-                    </div>
+                    <p className="filter-section-title">Location</p>
+                        <ul className="skills-list">
+                            {allLocations.map((location) => (
+                                <FilterItem 
+                                    name={location} 
+                                    key={location}
+                                    onToggle={handleFilterClick}
+                                    isSelected={selectedFilter.includes(location)}
+                                    category="location"
+                                />
+                            ))}
+                        </ul>
                 </div>
-                <div className="divider"></div>
                 <div className="filter-section">
-                    <p className="filter-section-title">Operating System</p>
-                    <div className="filter-content-container">
-                        <FilterItem name={"Windows"}/>
-                        <FilterItem name={"Linux"}/>
-                        <FilterItem name={"MacOS"}/>
-                        <FilterItem name={"iOS"}/>
-                        <FilterItem name={"Android"}/>
-                    </div>
-                </div> */}
+                    <p className="filter-section-title">Experience (years)</p>
+                    <Box  sx={{padding:1.5}}>
+                        <Slider
+                            size="small"
+                            min={0}
+                            max={10}
+                            shiftStep={3}
+                            step={1}
+                            value={value}
+                            onChange={handleChange}
+                            valueLabelDisplay="auto"
+                            sx={
+                               thumbStyle
+                            }
+                        />
+                    </Box>
+                </div>
             </div>
         </section>
     );
@@ -137,12 +148,35 @@ function Filter({searchResults, fn}){
 
 
 
-function FilterItem({name, onToggle, isSelected}){
+export function FilterItem({name, onToggle, isSelected, category}){
+    const [isHover, setIsHover] = useState(false)
+
+    const handleMouseEnter = () => {
+        setIsHover(true)
+    }
+
+    const handleMouseLeave = () => {
+        setIsHover(false)
+    }
+
+    const itemStyle = {
+        borderColor: isSelected
+      ? generatePastelColor(name)
+      : isHover
+      ? generatePastelColor(name)
+      : "rgba(255, 255, 255, 0.315)",
+        cursor: "pointer",
+        transition: "border-width .05s ease-in-out",
+        borderWidth: isSelected ? "2px": isHover ? "1px" : "1px"
+    }
+
     return(
-        <div className={`filter-content ${isSelected ? "selected" : ""}`}>
-            <span className="filter-content-circle" style={{backgroundColor: generatePastelColor(name)}}></span>
-            <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
-        </div>
+        // <div className={`filter-content ${isSelected ? "selected" : ""}`}>
+        //     <span className="filter-content-circle" style={{backgroundColor: generatePastelColor(name)}}></span>
+        //     <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
+        // </div>
+
+        <li onClick={() => onToggle(name, category)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
     )
 }
 
