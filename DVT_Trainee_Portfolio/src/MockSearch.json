@@ -15,6 +15,8 @@
         "portfolio": "https://johndoeportfolio.com",
         "blog": "https://johndoe.dev/blog"
       },
+      "years_active":2
+      ,
       "skills": [
         "JavaScript",
         "React",
@@ -23,7 +25,8 @@
         "Express",
         "Python",
         "HTML/CSS",
-        "Docker"
+        "Docker",
+        "Java"
       ],
       "education": [
         {
@@ -78,6 +81,7 @@
         "Sass",
         "Webpack"
       ],
+      "years_active":5,
       "education": [
         {
           "degree": "Bachelor's in Web Development",
@@ -122,6 +126,7 @@
         "NumPy",
         "TensorFlow"
       ],
+      "years_active":4,
       "education": [
         {
           "degree": "Master's in Data Science",
@@ -148,7 +153,7 @@
   "projects": [
     {
       "project_id": "001",
-      "title": "Portfolio Website",
+      "name": "Portfolio Website",
       "created_on": "2023-08-15",
       "description": "A personal portfolio website showcasing my work and skills.",
       "technologies": ["HTML", "CSS", "JavaScript", "React"],
@@ -158,11 +163,11 @@
       "app_type": "Single-page Application",
       "is_cli": false,
       "employee_id": "001",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "002",
-      "title": "E-commerce Platform",
+      "name": "E-commerce Platform",
       "created_on": "2024-01-10",
       "description": "An online store where users can browse and purchase products.",
       "technologies": ["Node.js", "Express", "MongoDB", "React"],
@@ -172,11 +177,11 @@
       "app_type": "Single-page Application",
       "is_cli": false,
       "person_id": "001",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "003",
-      "title": "Personal Blog",
+      "name": "Personal Blog",
       "created_on": "2023-11-01",
       "description": "A personal blog to share tech tutorials and articles.",
       "technologies": ["Vue.js", "Sass", "Node.js"],
@@ -186,11 +191,11 @@
       "app_type": "Single-page Application",
       "is_cli": false,
       "employee_id": "002",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "004",
-      "title": "Data Analysis Tool",
+      "name": "Data Analysis Tool",
       "created_on": "2024-02-01",
       "description": "A tool to analyze and visualize large datasets using machine learning.",
       "technologies": ["Python", "TensorFlow", "Pandas"],
@@ -200,11 +205,11 @@
       "app_type": "Desktop Application",
       "is_cli": false,
       "employee_id": "003",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     },
     {
       "project_id": "005",
-      "title": "Task Manager CLI",
+      "name": "Task Manager CLI",
       "created_on": "2024-01-15",
       "description": "A simple command-line interface to manage tasks and to-dos.",
       "technologies": ["Python"],
@@ -214,7 +219,7 @@
       "app_type": "Command-line Interface",
       "is_cli": true,
       "employee_id": "003",
-      "screenshot": "https://img.icons8.com/ios-filled/50/image.png"
+      "screenshot": "/Adriano.jpg"
     }
   ]
 }

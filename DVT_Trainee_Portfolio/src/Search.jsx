@@ -4,23 +4,20 @@ import './Search.css';
 import Filter from './components/Filter';
 import SearchResults from './components/SearchResults';
 import { useEffect, useState } from 'react';
-
-function Search({searchResults}){
-    const [filteredResults, setFilteredResults] = useState([...searchResults])
-    
-    useEffect(()=>{
-        setFilteredResults([...searchResults])
-    }, [searchResults]);
+import SearchBar from './components/SearchBar'
+import { SearchContextProvider } from './contexts/SearchContext';
+function Search(){
+   
     return(
-        <>
-            
+        <SearchContextProvider>
+            <SearchBar/>
             <section className='search-box'>
                 <div className='r-container-filter'>
-                    <Filter searchResults={searchResults} fn={setFilteredResults}/>
-                    <SearchResults resultsCopy={filteredResults} results={searchResults} filter={setFilteredResults} />
+                    <Filter/>
+                    <SearchResults/>
                 </div>
             </section>
-        </>
+        </SearchContextProvider>
         
     );
 }

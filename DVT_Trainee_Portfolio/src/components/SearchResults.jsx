@@ -1,14 +1,61 @@
-import { Link } from "react-router-dom"
+import { Box, Container } from "@mui/material";
 import SearchNav from "./SearchNav";
-import { generatePastelColor } from "../lib/color";
 import './SearchResults.css';
+import UserCard from "./UserCard";
+import Pagination from '@mui/material/Pagination';
+import ProjectCard from "./ProjectCard";
+import { useSearch } from "../contexts/SearchContext";
+import {useEffect, useState} from 'react';
 
-export default function SearchResults({results, resultsCopy, filter}) {
+export default function SearchResults() {
+  
+  const [,,,filteredResults] = useSearch();
+  const [resultsCopy, setCopy] = useState(filteredResults);
+
+  useEffect(()=>{ setCopy(filteredResults);}, [filteredResults]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const displayedItems = [...resultsCopy].slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <>
       <section className="results-container">
-        <SearchNav filter={filter} results={results} />       
-        <ResultsList results={resultsCopy} id={'employee_id'}/>
+        <SearchNav filter={setCopy} results={filteredResults} />       
+        <ResultsList results={displayedItems} id={'employee_id'}/>
+
+        <Box sx={{display:'flex', justifyContent:'center', margin:'2em'}}>
+          <Pagination 
+          count={Math.ceil(resultsCopy.length / itemsPerPage)} 
+          page={currentPage} onChange={handleChangePage}
+           sx={{
+            '& .MuiPaginationItem-root': {
+              color: 'white',
+              borderColor: 'white',
+            },
+            '& .Mui-selected': {
+              backgroundColor: '#2B5876',
+              color: 'white',
+              borderColor: 'white',
+            },
+            '& .MuiPaginationItem-ellipsis': {
+              color: 'white',
+            },
+            '& .MuiPaginationItem-icon': {
+              color: 'yellow',
+            },
+          }}
+          />
+
+        </Box>
       </section>
     </>
   )
@@ -17,63 +64,29 @@ export default function SearchResults({results, resultsCopy, filter}) {
 export function ResultsList({results, id}){
 
   if(results.length == 0){
-    return <h1>Results not Found</h1>
+    return <h1 className="no-results-title">Results not Found</h1>
   }
-  
-  return (
-    <section className="results-list">
-      {
-        results.map((result, index) => {
-          return (
-            <Link to={'/UserPortfolio'} key={result[id]+index} className="result-link">
-            <Results result={result} isProject={result.employee_id === undefined} /></Link>
-          );})
-        }
-    </section>
-  )
-}
 
-export function Results({result, isProject}) {
+  const employees = results.filter((result) => {return result.project_id === undefined});
+  const projects = results.filter((result) =>{return result.project_id !== undefined});
 
-  return (
-    <div className="results">
-      <div className="r-profile">
-        <div className="results-pic">
-          <img src={isProject ? result.screenshot: result.avatar} alt=""  className={isProject ? "r-project-pic" : 'r-user-pic'}/>
-        </div>
-        
-        <div className="intro">
-          <p className="results-title">{isProject ? result.title: result.name}</p>
-          <p className="results-type">{isProject ? result.created_on : result.role}</p>
-        </div>
-      </div>
-
-      <div className="results-data">
-        <p className="results-bio text-container">{isProject ? result.description : result.bio}</p>
-      </div>
-      <div className="user-skills">
-        {
-          !isProject ? <GenerateBadges badgeList={result.skills} /> : <GenerateBadges badgeList={result.technologies} />
-        }
-      </div>
-    </div>
-  );
-}
-
-
-export function GenerateBadges({badgeList}){
-  const lessList = badgeList.slice(0, 3); 
-  const plusList = badgeList.slice(3);
   return (
     <>
-    <ul className="skills-list">
-      {
-        lessList.map((badge)=>{
-          return (<li><p  className="badge" style={{background: generatePastelColor(badge)}}>{badge}</p></li>)
-        })
-      }
-      <li className="badge" style={{background: 'gray'}}>{`${plusList.length}+`}</li>
-    </ul>
+      <Container className="users-list" >
+        {
+          employees.map((user, indes) =>{
+            return (<UserCard user={user}  key={indes}/>)
+          })
+        }
+      </Container>
+      <Container className="project-list">
+        {
+          projects.map((result, index) => {
+            return ( 
+              <ProjectCard result={result} />
+            );})
+          }
+      </Container>
     </>
   )
 }

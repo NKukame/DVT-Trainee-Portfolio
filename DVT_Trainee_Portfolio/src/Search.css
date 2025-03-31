@@ -1,8 +1,6 @@
 .r-container-filter{
-  display: grid;
-  grid-template-columns: 250px 900px;
-  grid-template-rows: 500px;
+  display: flex;
   justify-self: center;
-  margin: 2em;
+  margin: 2em 4em;
 }
 
