@@ -2,8 +2,6 @@ import './styles.css';
 import './UserPortfolio.css';
 import Dashboard from '/src/Dashboard.jsx';
 import ProjectCard from './ProjectCard';
-import Dashboard from '/src/Dashboard.jsx';
-import ProjectCard from './ProjectCard';
 import Header from './components/Header';
 
 function UserPortfolio() {
