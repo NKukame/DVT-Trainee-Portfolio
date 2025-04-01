@@ -1,18 +1,18 @@
 
 .portfolio-layout {
-  display: flex; /* Keep items in one row */
-  flex-direction: row; /* Horizontal alignment */
-  align-items: flex-start; /* Align items at the top */
-  gap: 16rem; /* Add spacing between dashboard and project container */
-  margin: 20px; /* Adjust as needed */
+  display: flex;
+  flex-direction: row; 
+  align-items: flex-start;
+  gap: 16rem; 
+  margin: 20px; 
 }
   
   /* Main Content Styles */
   .project-container {
-    flex: 0.7; /* Take up remaining space */
+    flex: 0.7; 
     background-color: white;
     border-radius: 1.5rem;
-    min-height: 400px;
+    min-height: 555px;
     padding: 20px;
 }
   
