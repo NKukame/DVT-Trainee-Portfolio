@@ -37,12 +37,12 @@ function Header(){
 
     return(
         <header className='header'>
-            <div className='logo'>
+            {/* <div className='logo'>
                 <img src={dvtLogo} alt="Logo" />
                 <div className='logo-text'>Development <br /> <span className='yellow-text'>Trainee</span></div>
-            </div>
+            </div> */}
 
-            <nav className="navbar">
+            {/* <nav className="navbar">
                 <Link to="/" className={`nav-link ${location.pathname === "/" ? "active" : ""}`}>
                     <img src={homeIcon} alt="Home Icon" className="icon home-icon" />
                 </Link>
@@ -62,7 +62,7 @@ function Header(){
                 <Link to="/search" className={`nav-link ${location.pathname === "/search" ? "active" : ""}`}>
                     Search
                 </Link>
-            </nav>
+            </nav> */}
 
 
             <div className="menu" onClick={toggleSidebar}>

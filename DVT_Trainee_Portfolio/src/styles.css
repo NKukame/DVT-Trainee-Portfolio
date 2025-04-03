@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Recursive:wght@300..1000&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
 *{
     box-sizing: border-box;
     padding: 0;
@@ -10,29 +9,44 @@
     --white: #FFFFFF;
     --yellow: #FFE500;
     --blue: #2B5876;
+    --light-blue: #027FB9;
     --purple: #4e4376;
     --gray: #D1D1D1;
     --black: #000000;
 
     /* Dark Mode Colors */
     --dark-yellow: #E2BF00;
-    --dark-blue: #2B5876;
-    --dark-gray: #888888;
+    --dark-blue: #084677;
+    --dark-gray:   #e7e5e4;
 }
 
 /* Don't Change anything here */
 body{
-    background: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+    /* background: linear-gradient(0deg, #F9FAFB 100%); */
+    background: linear-gradient(90deg, #F9FAFB 0%, #E5E5E5 100%);
     background-attachment: fixed;
     background-size: cover;
-    font-family: "Inter", "Arial";
+    font-family: "Hanken Grotesk", sans-serif;
     color: var(--white);
     transition: 0.5s ease-in-out;
+    
 }
 
 body.dark-mode {
     background: linear-gradient(-20deg, #10212b 0%, #241b34 100%);
     transition: 0.5s ease-in-out;
+}
+
+.app-layout{
+    display: flex;
+    flex-direction: row;
+}
+
+.app-layout-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 ::-webkit-scrollbar{
