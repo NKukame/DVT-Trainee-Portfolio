@@ -1,3 +1,11 @@
+.about-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--dark-blue);
+}
+
 .team-pictures{
     display: flex;
     flex-direction: column;

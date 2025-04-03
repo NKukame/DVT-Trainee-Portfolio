@@ -22,8 +22,8 @@
 
 /* Don't Change anything here */
 body{
-    /* background: linear-gradient(0deg, #F9FAFB 100%); */
-    background: linear-gradient(90deg, #F9FAFB 0%, #E5E5E5 100%);
+    background: linear-gradient(0deg, #F9FAFB 100%);
+    /* background: linear-gradient(90deg, #F9FAFB 0%, #E5E5E5 100%); */
     background-attachment: fixed;
     background-size: cover;
     font-family: "Hanken Grotesk", sans-serif;
@@ -51,7 +51,7 @@ body.dark-mode {
 
 ::-webkit-scrollbar{
     width: 7px;
-    background-color: var(--blue); 
+    background-color: var(--white); 
 }
 
 ::-webkit-scrollbar-track{
@@ -60,7 +60,7 @@ body.dark-mode {
 
 ::-webkit-scrollbar-thumb{
     border-radius: 100px;
-    background-color: var(--white);
+    background-color: var(--blue);
     padding-top: 10px;
 }
 
