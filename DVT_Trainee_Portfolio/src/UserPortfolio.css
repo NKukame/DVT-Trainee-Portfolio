@@ -1,9 +1,15 @@
+.userprofile-body{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
 
 .portfolio-layout {
   display: flex;
   flex-direction: row; 
   align-items: flex-start;
-  gap: 16rem; 
+  gap: 3rem; 
   margin: 20px; 
 }
   
@@ -31,19 +37,19 @@
     margin-bottom: 20px;
   }
 
-  .about-section{
+  /* .about-section{
     min-height: 110px;
     width: 50%;
     margin-left: 35%;
     padding: 10px;
     gap: 10px;
     margin-bottom: 20px;
-  }
+  } */
 
   .about-section{
     min-height: 110px;
     width: 50%;
-    margin-left: 35%;
+    margin-left: 20%;
     padding: 10px;
     background-color: white;
     color: black;
