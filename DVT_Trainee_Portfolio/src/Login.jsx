@@ -77,6 +77,29 @@ function Signup() {
       setErrors(prev => ({ ...prev, [e.target.name]: "" }));
     }
   };
+const handleLogin = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  if (storedUser) {
+    setError({login:"No registered user found. Please sign up first."});
+    return;
+  }
+  if(formData.email.trim() === "" && formData.name.trim() === "") {
+    setErrors({ email: "Email or Username is required" });
+    return;
+  }
+  if(formData.password.trim() === "") {
+    setErrors({ password: "Password is required" });
+    return;
+  }
+  if(storedUser && (formData.email === storedUser.email || formData.name === storedUser.name) 
+    && formData.password === storedUser.password) {
+    alert("Login successful!");
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/");
+
+  } 
+}
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -241,7 +264,6 @@ function Signup() {
               <p>Enter your personal details to use all site features</p>
               <button className="hidden" onClick={() => setIsSignUp(false)}>
                 Sign In
-                
               </button>
               
             </div>
