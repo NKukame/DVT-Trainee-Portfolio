@@ -120,7 +120,7 @@ function Signup() {
       }
 
       if (formData.email.trim() === "" &&  formData.name.trim() === "") {
-        setErrors({ email: "Email is required or Username" });
+        setErrors({ email: "Email or Username is required " });
         return;
       }
 
