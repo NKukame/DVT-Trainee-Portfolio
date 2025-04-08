@@ -1,22 +1,39 @@
+.app-layout-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%; 
+  /* min-width: 250px; */
+  margin-left: 10%;
+  margin-top: 10%;
+  border-radius: 1.5rem;
+  background-color: #a9b4bb;
+}
 
+.portfolio-layout{
+  display: flex;
+  flex-direction: row; 
+  align-items: flex-start;
+  gap: 3rem; 
+  margin: 20px; 
+}
+  
+  
   /* Main Content Styles */
   .project-container {
-    width: 50%;
-    margin-top: 6%;
-    display: flex;
-    flex-direction: row;
-    margin-left: 35%;
-    background-color: white;
+    flex: 1; 
+    background-color: red;
     border-radius: 1.5rem;
-    min-height: 400px;
-    gap: 30%;
-    /* display: block; */
-  }
+    min-height: 300px;
+    width: 1000px;
+    padding: 20px;
+}
   
   .main-content {
     width: 50%;
-    height: 90%;
-    margin-top: 10px;
+    height: 60%;
+    /* margin-top: 10px; */
     margin-left: 30%;
     padding: 20px;
   }
@@ -40,18 +57,7 @@
     margin-top: 10px;
   }
   
-  /* .nav-bar button {
-    background-color: #2d3748;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .nav-bar button:hover {
-    background-color: #4a5568;
-  } */
+
   
   /* Grid Content */
   .grid-content {
@@ -59,9 +65,11 @@
     margin-right: 70px;
     justify-content: center;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
     gap: 16px;
     height: 100%;
+    background-color: blue;
+    width: 100%;
   }
   
   .grid-item {
