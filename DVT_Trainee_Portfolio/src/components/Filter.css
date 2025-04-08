@@ -1,10 +1,10 @@
 
 
 .filter-container{
-    max-width: 250px;
-    /* background-color: none; */
+    /* max-width: 250px;
     min-height: 500px;
-    height: fit-content;
+    height: fit-content; */
+    /* background-color: none; */
     /* padding-inline: 1em; */
     border-radius: .5em;
     padding: 1em;
@@ -27,6 +27,7 @@
 
 .scroller{
     overflow-y: scroll;
+    display: flex;
 }
 
 .scroller::-webkit-scrollbar{

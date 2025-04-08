@@ -12,16 +12,18 @@ function Search() {
       <div className="app-layout">
         <SideBar />
 
-        <div className="app-layout-body">
-          <SearchContextProvider>
-            <SearchBar />
-            <section className="search-box">
-              <div className="r-container-filter">
-                <Filter />
-                <SearchResults />
-              </div>
-            </section>
-          </SearchContextProvider>
+        <div className="app-layout-body search-layout">
+          <div>
+            <SearchContextProvider>
+              <SearchBar />
+              <section className="search-box">
+                <div className="r-container-filter">
+                  <Filter />
+                  <SearchResults />
+                </div>
+              </section>
+            </SearchContextProvider>
+          </div>
         </div>
       </div>
     </>

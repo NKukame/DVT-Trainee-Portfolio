@@ -1,6 +1,11 @@
-.r-container-filter{
+/* .r-container-filter{
   display: flex;
   justify-self: center;
   margin: 2em 4em;
-}
+} */
 
+
+.search-layout{
+  height: 100%;
+  background-color: #f3f4f6;
+}
