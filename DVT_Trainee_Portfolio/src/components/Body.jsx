@@ -48,7 +48,7 @@ function Body() {
             perspectives, cutting-edge skills, and unbridled enthusiasm to our
             team.
           </p>
-          <button className="cta-button">The Team</button>
+          <button className="cta-button"><img src="./Icon.png" alt=""  /> &nbsp; The Team</button>
         </div>
       </div>
     </div>
