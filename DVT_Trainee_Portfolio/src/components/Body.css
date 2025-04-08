@@ -87,7 +87,7 @@
 .home-carousel-wrapper{
   /* position: relative; */
   display: flex;
-  width: 1450px;
+  width: 240%;
   height: max-content;
   overflow: hidden;
   margin-block: 20px;
