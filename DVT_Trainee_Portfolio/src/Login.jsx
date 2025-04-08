@@ -119,10 +119,11 @@ function Signup() {
         return;
       }
 
-      if (formData.email.trim() === "" && formData.name.trim() === "") {
-        setErrors({ email: "Email is required or Username" });
-        return;
-      }
+
+      if (formData.email.trim() === "" &&  formData.name.trim() === "") {
+        setErrors({ email: "Email or Username is required " });
+
+
 
       if (formData.password.trim() === "") {
         setErrors({ password: "Password is required" });
