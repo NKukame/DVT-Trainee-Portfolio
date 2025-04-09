@@ -125,8 +125,13 @@ function Body() {
           <button className="cta-button"><img src="./Icon.png" alt=""  /> &nbsp; The Team</button>
         </div>
       </div>
+
+      <div className="video-header">
+        <h2>See What They're Doing</h2>
+      </div>
       
       <div className="video-carousel"  onMouseEnter={stopAnimation} onMouseLeave={startAnimation}>
+        
 
         <div className="video-track" ref={trackRef}>
           <div className="video-item">
@@ -169,6 +174,17 @@ function Body() {
           </div>
         </div>
 
+      </div>
+
+      <div className="home-content video-bottom">
+        <div className="home-bottom">
+          <p>
+          Our talented team continues to drive meaningful progress through their innovative projects and collaborative 
+          approach. They are consistently developing creative solutions, leveraging their diverse skills to tackle complex 
+          challenges and generate impactful results across multiple domains. 
+          </p>
+          <button className="cta-button video-cta-button"><img src="./Icon.png" alt=""  /> &nbsp; The Work</button>
+        </div>
       </div>
 
 

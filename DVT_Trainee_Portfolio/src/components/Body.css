@@ -236,7 +236,21 @@
     line-height: 1.2; 
 }
 
+.video-header h2{
+  color: var(--dark-blue);
+  font-size: 50px;
+  margin-block: 25px;
+  font-weight: bold;
+}
 
+.video-bottom{
+  margin-block: 25px;
+  height: 180px;
+}
+
+.video-cta-button{
+  text-wrap: nowrap;
+}
 
 @keyframes logo-slider {
   from {
