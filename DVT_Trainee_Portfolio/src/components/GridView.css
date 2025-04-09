@@ -36,8 +36,8 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* When hovering over the grid-container, other cards blur & shrink */
-.grid-container:hover > .grid-portfolio-card:not(:hover) {
+/* When hovering over a card, other cards blur & shrink */
+.grid-container:has(.grid-portfolio-card:hover) .grid-portfolio-card:not(:hover) {
   filter: blur(10px);
   transform: scale(0.9, 0.9);
 }
@@ -128,4 +128,3 @@
   background-color: var(--dark-blue);
   color: var(--white);
 }
-
