@@ -11,7 +11,7 @@ function Search() {
     <div className="app-layout">
         <SideBar />
 
-          <div className="app-layout-body">
+          <div className="app-layout-body search-layout">
             <SearchContextProvider>
               <section className="">
                 <SearchBar />
