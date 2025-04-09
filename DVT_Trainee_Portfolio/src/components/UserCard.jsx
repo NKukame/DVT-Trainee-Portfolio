@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import Badges from './Badges';
 import Badge from '@mui/material/Badge';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+
 export default function UserCard({user}) {
 
   return (
@@ -46,11 +47,13 @@ function ViewMore({user}){
     <>
       <div className="div users-data">
         <div className="user-more-data">
-          <LocationOnIcon sx={{fontSize:25}} />
+          <img src="./Icon.png" alt="" />
           <p>{user.location}</p>
+
         </div>
         <div className=" user-more-data">
-          <VerifiedIcon sx={{fontSize:25}} />
+
+          <img src="/Award-01.png" alt="" />
           <p>{user.years_active}</p>
         </div>
       </div>

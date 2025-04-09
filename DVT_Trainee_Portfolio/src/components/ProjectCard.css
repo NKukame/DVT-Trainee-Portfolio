@@ -59,13 +59,8 @@
 }
 
 .view-btn:hover{
-  color: #4891c2;
-  border: .5px solid #4891c2;
-  box-shadow: 
-    1px 1px 18px rgba(221, 218, 218, 0.5),      /* Top-left shadow */
-    -1px 1px 18px rgba(221, 218, 218, 0.5),     /* Top-right shadow */
-    1px -1px 18px rgb(221, 218, 218, .5),     /* Bottom-left shadow */
-    -1px -1px 18px rgb(221, 218, 218,.5);
+  color: rgba(0, 0, 0, 0.781);
+  border: .5px solid rgba(0, 0, 0, 0.664);
 }
 .results-title{
   font-size: 1.6em;
