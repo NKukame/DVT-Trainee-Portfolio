@@ -8,25 +8,21 @@ import SearchBar from "./components/SearchBar";
 import { SearchContextProvider } from "./contexts/SearchContext";
 function Search() {
   return (
-    <>
-      <div className="app-layout">
+    <div className="app-layout">
         <SideBar />
 
-        <div className="app-layout-body search-layout">
-          <div>
+          <div className="app-layout-body">
             <SearchContextProvider>
-              <SearchBar />
-              <section className="search-box">
-                <div className="r-container-filter">
-                  <Filter />
+              <section className="">
+                <SearchBar />
+                <Filter/>
+                <div className="">
                   <SearchResults />
                 </div>
               </section>
             </SearchContextProvider>
           </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

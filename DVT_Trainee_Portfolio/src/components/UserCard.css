@@ -1,27 +1,28 @@
 .users-list{
   display: grid;
-  align-items: start;
   gap: 1em;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 1em;
 }
 
-.pagination{
-  grid-row: 4;
-  grid-column: 1/4;
-  justify-items: center;
-  margin-bottom: 2em;
-}
-
-.skills{
-  font-weight: 700;
-  margin-bottom: .5em;
+.users{
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  gap: 1.5em;
+  border-radius: .5em;
+  padding: .8em 1em;
+  box-shadow: 
+    1px 1px 1px rgba(221, 218, 218, 0.5),      /* Top-left shadow */
+    -1px 1px 1px rgba(221, 218, 218, 0.5),     /* Top-right shadow */
+    1px -1px 1px rgb(221, 218, 218, .5),     /* Bottom-left shadow */
+    -1px -1px 1px rgb(221, 218, 218,.5);
 }
 
 .user-details{
   display: flex;
-  gap: 1em;
   align-items: center;
+  gap: .5em;
 }
 .user-text{
   flex: 1;
@@ -29,62 +30,37 @@
 
 .user-portfolio-link{
   align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
 }
-.arrow{
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  color: white;
-}
-.user-link{
-  text-decoration: none;
-  color: white;
-}
-.users{
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
-  padding: 1em;
-  border-radius: 1em;
-  border: 1px solid #4891c242;
-}
-.username{
-  font-weight: 800;
-  margin-bottom: .5em;
-}
-.role{
-  color: var(--gray);
-}
-
 .users-data{
   display: flex;
-  flex: 1;
-  gap: .5em;
-  justify-items: center;
+  gap: 4em;
+}
+
+.badge{
+  padding: .2em .5em;
+  border-radius: .3em;
+  box-shadow: 
+    1px 1px 3px rgba(221, 218, 218, 0.5),      /* Top-left shadow */
+    -1px 1px 3px rgba(221, 218, 218, 0.5),     /* Top-right shadow */
+    1px -1px 3px rgb(221, 218, 218, .5),     /* Bottom-left shadow */
+    -1px -1px 3px rgb(221, 218, 218,.5);
+}
+
+.username{
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: .2em;
+}
+.skills-list{
+  list-style: none;
+  display: flex;
+  gap: .6em;
+  flex-wrap: wrap;
 }
 
 .user-more-data{
-  font-size: .8em;
-  padding: .5em;
-  border-radius: .5em;
-  backdrop-filter: blur(20px);
-  box-shadow: 1px -1.5px var(--blue);
-  text-align: center;
-  color: var(--gray);
-}
-.location{
-  flex: 1;
-}
-.text-p{
-  margin-bottom: 3px;
-  font-weight: 700;
-}
-@media (max-width:900px){
-  .users-list{
-    grid-template-columns: repeat(1, 1fr);
-  }
+  color: rgba(0, 0, 0, 0.89);;
+  display: flex;
+  align-items: center;
+  gap: .5em;
 }

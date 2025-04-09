@@ -5,19 +5,19 @@ import './UserCard.css'
 import { Link } from 'react-router-dom';
 import Badges from './Badges';
 import Badge from '@mui/material/Badge';
-
-
+import VerifiedIcon from '@mui/icons-material/Verified';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 export default function UserCard({user}) {
 
   return (
     <div className="users">
       <div className='user-details'>
         <div>
-          <Badge color="secondary" overlap="circular" badgeContent=" ">
+          <Badge color="secondary" overlap="circular" variant='dot' badgeContent=" ">
           <Avatar
             alt={user.name}
             src={''}
-            sx={{ width: 75, height: 75 }}
+            sx={{ width: 50, height: 50 }}
           />
           </Badge>
         </div>
@@ -45,20 +45,16 @@ function ViewMore({user}){
   return (
     <>
       <div className="div users-data">
-        <div className=" user-more-data">
-          <p className='text-p'>Experience</p>
-          <p>{user.years_active} years</p>
-        </div>
-        <div className="user-more-data location">
-          <p className='text-p'>Location</p>
+        <div className="user-more-data">
+          <LocationOnIcon sx={{fontSize:25}} />
           <p>{user.location}</p>
         </div>
-        <div className="user-more-data">
-          <p className='text-p'>Projects</p>
-          <p>5</p>
+        <div className=" user-more-data">
+          <VerifiedIcon sx={{fontSize:25}} />
+          <p>{user.years_active}</p>
         </div>
       </div>
-      <div>
+      <div className='badge-list'>
         <Badges badgeList={user.skills} />
       </div>
     </>

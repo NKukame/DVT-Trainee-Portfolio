@@ -11,7 +11,7 @@ export default function SearchResults() {
   
   const [,,,filteredResults] = useSearch();
   const [resultsCopy, setCopy] = useState(filteredResults);
-
+  const [currentSearch, setCurrentSearch] = useState(true);
   useEffect(()=>{ setCopy(filteredResults);}, [filteredResults]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,41 +27,16 @@ export default function SearchResults() {
   };
 
   return (
-    <>
+    <article className="results-body">
+      <SearchNav filter={setCopy} results={filteredResults}  setCurrentSearch={setCurrentSearch} currentSearch={currentSearch}/>       
       <section className="results-container">
-        <SearchNav filter={setCopy} results={filteredResults} />       
-        <ResultsList results={displayedItems} id={'employee_id'}/>
-
-        <Box sx={{display:'flex', justifyContent:'center', margin:'2em'}}>
-          <Pagination 
-          count={Math.ceil(resultsCopy.length / itemsPerPage)} 
-          page={currentPage} onChange={handleChangePage}
-           sx={{
-            '& .MuiPaginationItem-root': {
-              color: 'white',
-              borderColor: 'white',
-            },
-            '& .Mui-selected': {
-              backgroundColor: '#2B5876',
-              color: 'white',
-              borderColor: 'white',
-            },
-            '& .MuiPaginationItem-ellipsis': {
-              color: 'white',
-            },
-            '& .MuiPaginationItem-icon': {
-              color: 'yellow',
-            },
-          }}
-          />
-
-        </Box>
+        <ResultsList results={displayedItems} id={'employee_id'} currentSearchPeaople={currentSearch}/>
       </section>
-    </>
+    </article>
   )
 };
 
-export function ResultsList({results, id}){
+export function ResultsList({results, id, currentSearchPeaople}){
 
   if(results.length == 0){
     return <h1 className="no-results-title">Results not Found</h1>
@@ -72,6 +47,8 @@ export function ResultsList({results, id}){
 
   return (
     <>
+      {
+        currentSearchPeaople &&
       <Container className="users-list" >
         {
           employees.map((user, indes) =>{
@@ -79,14 +56,18 @@ export function ResultsList({results, id}){
           })
         }
       </Container>
-      <Container className="project-list">
-        {
-          projects.map((result, index) => {
-            return ( 
-              <ProjectCard result={result} />
-            );})
-          }
-      </Container>
+      }
+      {
+        !currentSearchPeaople &&
+          <Container className="project-list">
+            {
+              projects.map((result, index) => {
+                return ( 
+                  <ProjectCard result={result} />
+                );})
+              }
+          </Container>
+      }
     </>
   )
 }

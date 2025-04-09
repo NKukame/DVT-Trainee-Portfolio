@@ -1,21 +1,26 @@
 import Sort from './Sort';
-
-export default function SearchNav({filter, results}) {
+import PeopleIcon from '@mui/icons-material/People';
+import { FolderIcon } from 'lucide-react';
+export default function SearchNav({filter, results, setCurrentSearch,currentSearch}) {
 
   return (
     
     <div className="result-nav">
       <div className="result-nav-btns">
         <div className="nav-btns">
-          <button className="result-nav-btn btn-list" 
+          <button className={`result-nav-btn ${currentSearch ? 'activeSearch' : ''}`}
             onClick={(e)=>{
-              toggleNav(e, results, undefined, filter);}}>All</button>
-          <button className="result-nav-btn" 
-            onClick={(e)=>{toggleNav(e, results, false, filter);}}>
-              Employees</button>
-          <button className="result-nav-btn" 
+              toggleNav(e, results, false, filter);
+              setCurrentSearch(true)
+              }}>
+              <PeopleIcon/> <span>People</span></button>
+          <button className={`result-nav-btn ${!currentSearch ? 'activeSearch' : ''}` }
             onClick={(e)=>{
-              toggleNav(e, results, true, filter);}}>Projects</button>
+              toggleNav(e, results, true, filter);
+              setCurrentSearch(false)
+              }}>
+                <FolderIcon/> <span>Projects</span> 
+                </button>
         </div>
       </div>
       <div className='sort-btn-container'>

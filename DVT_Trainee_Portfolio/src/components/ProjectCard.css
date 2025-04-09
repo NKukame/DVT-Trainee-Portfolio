@@ -5,12 +5,16 @@
 }
 
 .results {
+  color: black;
   background: transparent;
-  color:white;
   align-items: start;
-  border-radius: 1em;
-  padding: 1em;
-  border: 1px solid #4891c242;
+  padding: .5em 1em;
+  border-radius: .5em;
+  box-shadow: 
+    1px 1px 1px rgba(221, 218, 218, 0.5),      /* Top-left shadow */
+    -1px 1px 1px rgba(221, 218, 218, 0.5),     /* Top-right shadow */
+    1px -1px 1px rgb(221, 218, 218, .5),     /* Bottom-left shadow */
+    -1px -1px 1px rgb(221, 218, 218,.5);
 }
 
 .card-text{
@@ -32,29 +36,46 @@
 }
 
 .user-name{
-  color: var(--white);
+  color: var(--black);
   text-decoration: underline;
   text-underline-offset: .3em;
-  text-decoration-color: var(--yellow);
+  text-decoration-color: #4891c2;
+  font-weight: 600;
 }
 .user-name:hover{
-  color: var(--yellow);
+  color: #4891c2;
 }
 .view-btn{
-  background-color: transparent;
-  padding: .5em;
+  background: transparent;
+  padding: .2em .5em;
   outline: none;
-  border: 1px solid var(--yellow);
-  color: white;
   font-weight: 700;
-  border-radius: 1em;
   cursor: pointer;
+  outline: none;
+  color: #4891c2e7;
+  border: .5px solid #4891c29d;
+  
+  border-radius: .4em;
 }
 
 .view-btn:hover{
-  background-color: gray;
+  color: #4891c2;
+  border: .5px solid #4891c2;
+  box-shadow: 
+    1px 1px 18px rgba(221, 218, 218, 0.5),      /* Top-left shadow */
+    -1px 1px 18px rgba(221, 218, 218, 0.5),     /* Top-right shadow */
+    1px -1px 18px rgb(221, 218, 218, .5),     /* Bottom-left shadow */
+    -1px -1px 18px rgb(221, 218, 218,.5);
 }
+.results-title{
+  font-size: 1.6em;
+  margin-bottom: .2em;
+}
+.results-type{
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.507);
 
+}
 @media (max-width:900px){
   .project-list{
     grid-template-columns: repeat(1, 1fr);
