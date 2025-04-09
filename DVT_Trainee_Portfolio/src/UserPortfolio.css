@@ -1,32 +1,32 @@
-.app-layout-body{
+.layout-body{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60%; 
+  height: 700px;
   /* min-width: 250px; */
   margin-left: 10%;
-  margin-top: 10%;
+  margin-top: 20px;
   border-radius: 1.5rem;
-  background-color: #a9b4bb;
+  background-color: #e2e2e2;
 }
 
 .portfolio-layout{
-  display: flex;
-  flex-direction: row; 
-  align-items: flex-start;
-  gap: 3rem; 
-  margin: 20px; 
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start;
+    gap: 50px; 
+    margin: 10px; 
 }
   
   
   /* Main Content Styles */
   .project-container {
-    flex: 1; 
-    background-color: red;
+    background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
     border-radius: 1.5rem;
-    min-height: 300px;
-    width: 1000px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    min-height: 550px;
+    width: 850px;
     padding: 20px;
 }
   
@@ -38,17 +38,11 @@
     padding: 20px;
   }
   
-  /* Navigation Bar */
-  .nav-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
 
   .about-section{
     min-height: 110px;
-    width: 50%;
-    margin-left: 35%;
+    width: 60%;
+    margin-left: 300px;
     padding: 10px;
     background-color: white;
     color: black;
@@ -61,14 +55,15 @@
   
   /* Grid Content */
   .grid-content {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-right: 70px;
     justify-content: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(3, 1fr);
+    /* flex: 1; */
     gap: 16px;
-    height: 100%;
-    background-color: blue;
+    height: 60%;
+    /* background-color: yellow; */
     width: 100%;
   }
   
@@ -76,7 +71,7 @@
     width: 200px;
     height: 130px;
     background-color: #a0aec0;
-    border-radius: 8px;
+    border-radius: 16px;
   }
   
 

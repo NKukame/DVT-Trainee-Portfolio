@@ -14,7 +14,7 @@ function UserPortfolio() {
 
                 <SideBar />
 
-                <div className='app-layout-body'>
+                <div className='layout-body'>
 
 
                     {/* About Section */}
