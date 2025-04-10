@@ -9,6 +9,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 
 function SideBar() {
   return (
@@ -68,6 +69,15 @@ function SideBar() {
         </div>
 
         <div className="sidebar-bottom">
+
+            <div className="sidebar-nav-link">
+                  <Link to="/">
+                    <div className="homeBtn">
+                      <DarkModeOutlinedIcon fontSize="large" />
+                      <p className="home-txt">Dark</p>
+                    </div>
+                  </Link>
+            </div>
 
             <div className="log-out">
                 
