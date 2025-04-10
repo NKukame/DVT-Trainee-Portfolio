@@ -31,6 +31,30 @@ export default function SearchResults() {
       <SearchNav filter={setCopy} results={filteredResults}  setCurrentSearch={setCurrentSearch} currentSearch={currentSearch}/>       
       <section className="results-container">
         <ResultsList results={displayedItems} id={'employee_id'} currentSearchPeaople={currentSearch}/>
+          <Box sx={{display:'flex', justifyContent:'center', justifySelf:'flex-end', margin:'1em'}}>
+          <Pagination 
+          count={Math.ceil(resultsCopy.length / itemsPerPage)} 
+          page={currentPage} onChange={handleChangePage}
+           sx={{
+            '& .MuiPaginationItem-root': {
+              color: 'black',
+              borderColor: 'white',
+            },
+            '& .Mui-selected': {
+              backgroundColor: '#2B5876',
+              color: 'black',
+              borderColor: 'white',
+            },
+            '& .MuiPaginationItem-ellipsis': {
+              color: 'black',
+            },
+            '& .MuiPaginationItem-icon': {
+              color: '#2B5876',
+            },
+          }}
+          />
+
+        </Box>
       </section>
     </article>
   )

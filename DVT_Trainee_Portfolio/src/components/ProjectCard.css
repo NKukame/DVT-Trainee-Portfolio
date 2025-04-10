@@ -10,11 +10,7 @@
   align-items: start;
   padding: .5em 1em;
   border-radius: .5em;
-  box-shadow: 
-    1px 1px 1px rgba(221, 218, 218, 0.5),      /* Top-left shadow */
-    -1px 1px 1px rgba(221, 218, 218, 0.5),     /* Top-right shadow */
-    1px -1px 1px rgb(221, 218, 218, .5),     /* Bottom-left shadow */
-    -1px -1px 1px rgb(221, 218, 218,.5);
+  border: 1px solid rgba(221, 218, 218, 0.5);
 }
 
 .card-text{

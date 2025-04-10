@@ -13,7 +13,7 @@ function Search() {
 
           <div className="app-layout-body search-layout">
             <SearchContextProvider>
-              <section className="">
+              <section className="search-page">
                 <SearchBar />
                 <Filter/>
                 <div className="">

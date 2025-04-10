@@ -1,14 +1,11 @@
 .results-container{
   position: relative;
   background-color: white;
-  /* border-radius: .1em; */
+  border-radius: .1em;
   padding: 2em .5em;
   min-height: 75vh;
-  box-shadow: 
-    1px 1px 1px rgba(221, 218, 218, 0.1),      /* Top-left shadow */
-    -1px 1px 1px rgba(221, 218, 218, 0.1),     /* Top-right shadow */
-    1px -1px 1px rgb(221, 218, 218, 0.1),     /* Bottom-left shadow */
-    -1px -1px 1px rgb(221, 218, 218,0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .search-page{
@@ -26,8 +23,8 @@
   color: rgba(0, 0, 0, 0.61);
   font-size: 1.5em;
   padding: .5rem .5rem;
-  border-top-left-radius: .6em;
-  border-top-right-radius: .6em;
+  border-top-left-radius: .4em;
+  border-top-right-radius: .4em;
   display: flex;
   align-items: center;
   gap: .5em;
@@ -40,12 +37,8 @@
   
   background: white;
   color: rgb(0, 0, 0);
-  /* border: 1px solid ; */
-  box-shadow: 
-    1px 1px 1.5px rgba(221, 218, 218, 0.3),      /* Top-left shadow */
-    -1px 1px 1.5px rgba(221, 218, 218, 0.3),     /* Top-right shadow */
-    1px -1px 1.5px rgb(221, 218, 218, .3),     /* Bottom-left shadow */
-    -1px -1px 1.5px rgb(221, 218, 218,.3);
+  border: 1px solid rgba(221, 218, 218, 0.2);
+  border-bottom: none;
 }
 .role{
   font-size: .9em;
