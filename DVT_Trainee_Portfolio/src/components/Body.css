@@ -218,9 +218,10 @@
   border-radius: 25px;
 }
 
-/* .video-see-more{
-  margin-top: auto;
-} */
+.video-see-more:hover {
+ color: var(--yellow);
+ cursor: pointer;
+}
 
 .video-item:hover .video-item-text {
   opacity: 1;
