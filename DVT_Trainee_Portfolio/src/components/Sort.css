@@ -1,17 +1,13 @@
-.sort-btn {
-  color: white;
+.sort-container{
   display: flex;
+  color: #000000;
   align-items: center;
-}
-
-.sort-btn-icon {
-  width: 16px;
-  height: 15px;
-  margin: 0em .5em;
+  gap: 12px;
 }
 
 
-/* .select-wrapper {
+
+.select-wrapper {
   position: relative;
 }
 
@@ -44,4 +40,6 @@
   border-right: 5px solid transparent;
   border-top: 5px solid #666;
   pointer-events: none;
-} */
+}
+
+
