@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 598px;
   gap: 15px;
 }
 
@@ -67,19 +67,19 @@
   justify-content: center;
   font-size: 28px;
   width: 35%;
-  height: 63px;
+  height: 53px;
   padding: 21px 30px;
-  background: #ffe500;
-  color: black;
+  background: var(--button-blue);
+  color: var(--white);
   border: none;
   font-size: 1.2rem;
-  border-radius: 50px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #b8a603;
+  background-color: var(--button-blue-hover);
 }
 
 /* Carousel Styling */
@@ -87,7 +87,7 @@
 .home-carousel-wrapper{
   /* position: relative; */
   display: flex;
-  width: 1450px;
+  width: 240%;
   height: max-content;
   overflow: hidden;
   margin-block: 20px;
@@ -159,7 +159,106 @@
     line-height: 1.2; 
 }
 
+.video-carousel {
+  margin-left: 40%;
+  /* overflow: hidden; */
+  margin-block: 20px;
+  position: relative;
+  width: 1200px; /* Ensures no overflow issues */
+}
 
+.video-track {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.video-item {
+  flex-shrink: 0;
+  width: 600px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s ease-in-out, opacity 0.7s ease-in-out;
+}
+
+
+/* Animate the top card sliding/fading left */
+.video-item.slide-left {
+  transform: translateX(-120px) scale(0.95);
+  opacity: 0;
+}
+
+/* Image styling */
+.video-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+.video-item-text {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px; 
+  background: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0, 0.4) 100%); 
+  color: white;
+  align-items: center;
+  text-align: start;
+  opacity: 0;
+  transform: translateY(20px); 
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 25px;
+}
+
+.video-see-more:hover {
+ color: var(--yellow);
+ cursor: pointer;
+}
+
+.video-item:hover .video-item-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.video-item-text h3{
+  font-size: 25px;
+}
+
+.video-item-text p{
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.video-item-text h3,
+.video-item-text p {
+    margin: 2px 0; 
+    padding: 0;
+    line-height: 1.8; 
+}
+
+.video-header h2{
+  color: var(--dark-blue);
+  font-size: 50px;
+  margin-block: 25px;
+  font-weight: bold;
+}
+
+.video-bottom{
+  margin-block: 25px;
+  height: 180px;
+}
+
+.video-cta-button{
+  text-wrap: nowrap;
+}
 
 @keyframes logo-slider {
   from {
