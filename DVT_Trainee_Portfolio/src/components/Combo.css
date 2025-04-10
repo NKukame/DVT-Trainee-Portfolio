@@ -15,6 +15,7 @@
     cursor: pointer;
     font-family: sans-serif;
     font-size: 14px;
+    margin-right: 24px;
   }
   
   .popoverContent {

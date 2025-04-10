@@ -10,7 +10,7 @@ import Slider from '@mui/material/Slider';
 import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
 import ComboboxDemo from "./Combo";
-import { Award, Code, User } from "lucide-react";
+import { Award, Building, Code, User } from "lucide-react";
 
 
 function Filter(){
@@ -19,25 +19,31 @@ function Filter(){
     
     return(
         <section className="filter-container">
-            <div className="scroller">
-                <div className="filter-section">
+            <div className="filter-section">
+                <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Roles</p> */}
+                    <Building size={32}    />
                     <ComboboxDemo/>
                 </div>
-                <div className="filter-section">
+                <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Experience (years)</p> */}
-                    <User color="black" size={32} />
+                    <User  size={32} />
                     <ComboboxDemo/>
                 </div>
-                <div className="filter-section">
+                <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Technologies</p> */}
-                    <Code size={32} color="black" />
+                    <Code size={32} />
                     <ComboboxDemo/>
                 </div>
-                <div className="filter-section">
+                <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Location</p> */}
-                    <Award size={32} color="black" />
+                    <Award size={32}  />
                     <ComboboxDemo/>
+                </div>
+            </div>
+            <div className="filter-tag-container">
+                <div className="tag-container">
+                    
                 </div>
             </div>
         </section>
