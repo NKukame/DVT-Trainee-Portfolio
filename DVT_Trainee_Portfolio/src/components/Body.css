@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 598px;
   gap: 15px;
 }
 
@@ -201,6 +201,8 @@
 }
 
 .video-item-text {
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -208,11 +210,17 @@
   padding: 10px; 
   background: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0, 0.4) 100%); 
   color: white;
+  align-items: center;
   text-align: start;
   opacity: 0;
   transform: translateY(20px); 
   transition: opacity 0.3s ease, transform 0.3s ease;
   border-radius: 25px;
+}
+
+.video-see-more:hover {
+ color: var(--yellow);
+ cursor: pointer;
 }
 
 .video-item:hover .video-item-text {
