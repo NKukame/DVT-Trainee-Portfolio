@@ -10,3 +10,38 @@
   margin: 0em .5em;
 }
 
+
+/* .select-wrapper {
+  position: relative;
+}
+
+.select-control {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 280px;
+}
+
+.select-control:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #666;
+  pointer-events: none;
+} */
