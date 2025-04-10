@@ -63,10 +63,10 @@ function Portfolio() {
 
         <div className="app-layout-body">
           <div className="portfolio-body">
-            <section className="Intro">
+            <section className="people-intro">
               <p className="theTitle">Portfolio</p>
 
-              <div className="view-filter">
+              {/* <div className="view-filter">
                 <select
                   name="view-mode"
                   id="view-mode"
@@ -83,7 +83,7 @@ function Portfolio() {
                     Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
                   </button>
                 )}
-              </div>
+              </div> */}
             </section>
 
             { viewMode === "grid-view" ? (

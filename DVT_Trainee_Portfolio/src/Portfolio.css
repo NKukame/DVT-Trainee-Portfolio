@@ -12,6 +12,14 @@
   height: fit-content;
 }
 
+.people-intro{
+  height: 50vh;
+  width: 99vw;
+  background-image: linear-gradient(to top, rgb(229, 229, 229, 0.5), rgb(249, 250, 251, 0.5)), url("./assets/Group-Image.jfif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 75% 30%;
+}
 
 .theTitle {
   display: flex;
