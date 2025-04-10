@@ -64,7 +64,8 @@ function Portfolio() {
         <div className="app-layout-body">
           <div className="portfolio-body">
             <section className="people-intro">
-              <p className="theTitle">Portfolio</p>
+            <h1 className="theTitle">Smart People</h1>
+              <p className="peopleDescription">Our amazing intake of interns are being prepared by our most skilled engineers <br /> to deliver for the future</p>
 
               {/* <div className="view-filter">
                 <select
