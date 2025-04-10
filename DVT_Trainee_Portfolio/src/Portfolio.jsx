@@ -75,7 +75,7 @@ function Portfolio() {
                 >
                   <option value="card-view">Card</option>
                   <option value="grid-view">Grid</option>
-                  <option value="carousel-view">Carousel</option>
+                 
                 </select>
 
                 {viewMode === "card-view" && (
@@ -86,9 +86,7 @@ function Portfolio() {
               </div>
             </section>
 
-            {viewMode === "carousel-view" ? (
-              <CarouselView />
-            ) : viewMode === "grid-view" ? (
+            { viewMode === "grid-view" ? (
               <GridView team={filteredAndSortedTeam} />
             ) : (
               <section className="cards">
