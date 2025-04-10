@@ -115,9 +115,9 @@
   display: block;
   margin: 10px auto;
   padding: 10px 20px;
-  background-color: var(--white);
-  color: var(--black);
-  border: 1px solid var(--black);
+  background-color: var(--gray);
+  color: var(--dark-blue);
+  border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -125,6 +125,7 @@
 }
 
 .sort-button:hover {
-  background-color: var(--gray);
+  background-color: var(--dark-blue);
+  color: var(--white);
 }
 

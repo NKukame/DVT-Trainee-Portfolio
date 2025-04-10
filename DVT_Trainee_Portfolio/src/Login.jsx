@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import Header from "./components/Header";
+import SideBar from "./components/SideBar";
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -26,8 +27,8 @@ function Signup() {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       // Only pre-fill the email, don't pre-fill password for security
-      setFormData(prevData => ({
-        ...prevData
+      setFormData((prevData) => ({
+        ...prevData,
         // email: storedUser.email
       }));
     }
@@ -57,20 +58,19 @@ function Signup() {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Email is invalid";
-    }else if(!validateEmailDomain(formData.email)){
+    } else if (!validateEmailDomain(formData.email)) {
       newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
     }
-    
+
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
 
   const handleChange = (e) => {
     if (e.target.value.includes('@')){
@@ -79,7 +79,7 @@ function Signup() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear errors when user starts typing
     if (errors[e.target.name]) {
-      setErrors(prev => ({ ...prev, [e.target.name]: "" }));
+      setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
     }
   };
 
@@ -323,3 +323,4 @@ function Signup() {
 }
 
 export default Signup;
+
