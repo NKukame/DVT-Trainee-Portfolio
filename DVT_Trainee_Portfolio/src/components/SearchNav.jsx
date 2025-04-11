@@ -1,4 +1,4 @@
-import Sort from './Sort';
+import  { SelectScrollable } from './Sort';
 import PeopleIcon from '@mui/icons-material/People';
 import { FolderIcon } from 'lucide-react';
 export default function SearchNav({filter, results, setCurrentSearch,currentSearch}) {
@@ -25,7 +25,8 @@ export default function SearchNav({filter, results, setCurrentSearch,currentSear
       </div>
       <div className='sort-btn-container'>
         <div>
-          <Sort></Sort>
+          {/* <Sort></Sort> */}
+          <SelectScrollable></SelectScrollable>
         </div>
       </div>
     </div>
