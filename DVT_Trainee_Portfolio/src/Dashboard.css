@@ -1,18 +1,10 @@
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
-    position: fixed; 
-    top: 0;
-    left: 0;
-    margin-top: 130px;
-    margin-left: 100px;
-    border-radius: 1.5rem;
-    height: 80.7%; 
-    padding-top: 50px; 
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
+  width: 250px; /* Keep the width fixed */
+  background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
+  border-radius: 1.5rem;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
 
 
 .profile-img{
