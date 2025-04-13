@@ -2,7 +2,7 @@ import "./styles.css";
 import "./Search.css";
 import SideBar from "./components/SideBar";
 import Filter from "./components/Filter";
-import SearchResults from "./components/SearchResults";
+import SearchResults from "./components/Search/SearchResults";
 import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import { SearchContextProvider } from "./contexts/SearchContext";

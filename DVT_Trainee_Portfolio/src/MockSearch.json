@@ -8,7 +8,7 @@
       "role": "Developer",
       "bio": "She's such a bubbly, kind, and intelligent young lady, always laughing and full of life. I adore everything about her.",
       "location": "Johannesburg, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Pabi.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -50,7 +50,7 @@
       "role": "Developer",
       "bio": "A quiet gentleman who doesn't talk much and can come across as shy, but once you get to know him, he's an absolute sweetheart.",
       "location": "Cape Town, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Gomolemo.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -92,7 +92,7 @@
       "role": "Developer",
       "bio": "Another quiet soul, but he's slowly opening up and getting comfortable in his surroundings. Very nice guy.",
       "location": "Durban, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Thabane.jpeg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -134,7 +134,7 @@
       "role": "Developer",
       "bio": "My son, calm and incredibly smart. Dresses very well. I wouldn't call him shy; he just takes his time to assess his environment before getting comfortable.",
       "location": "Johannesburg, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Njabulo-Kukame-Picture.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -176,7 +176,7 @@
       "role": "Developer",
       "bio": "Mr charmer himself—he's such an amazing soul, smart, always smiling, and naturally gets along with everyone.",
       "location": "Cape Town, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Phemelo.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -258,7 +258,7 @@
       "role": "Developer",
       "bio": "Very calm and quiet but loves to laugh. He doesn't say much except during our one-on-ones, where his true gentleman nature shines through.",
       "location": "Johannesburg, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Andile.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -299,7 +299,7 @@
       "role": "Developer",
       "bio": "He may seem shy around people he doesn't know but quickly warms up when he feels welcomed—a loving soul as well.",
       "location": "Cape Town, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Adrian.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",
@@ -340,7 +340,7 @@
       "role": "Full Stack Developer",
       "bio": "A whirlwind of energy—she's always where the action is and her crazy, amazing soul is unforgettable.",
       "location": "Durban, South Africa",
-      "avatar": "./src/assets/user_placeholder.png",
+      "avatar": "./src/assets/Remo.jpg",
       "social_links": {
         "github": "",
         "linkedin": "",

@@ -5,16 +5,16 @@ export default function SearchNav({filter, results, setCurrentSearch,currentSear
 
   return (
     
-    <div className="result-nav">
+    <div className="flex-row-between">
       <div className="result-nav-btns">
-        <div className="nav-btns">
-          <button className={`result-nav-btn ${currentSearch ? 'activeSearch' : ''}`}
+        <div className="nav-group">
+          <button className={`flex-row-center btn-tab ${currentSearch ? 'btn-tab-active' : ''}`}
             onClick={(e)=>{
               toggleNav(e, results, false, filter);
               setCurrentSearch(true)
               }}>
               <PeopleIcon/> <span>People</span></button>
-          <button className={`result-nav-btn ${!currentSearch ? 'activeSearch' : ''}` }
+          <button className={`flex-row-center btn-tab ${!currentSearch ? 'btn-tab-active' : ''}` }
             onClick={(e)=>{
               toggleNav(e, results, true, filter);
               setCurrentSearch(false)
@@ -25,7 +25,6 @@ export default function SearchNav({filter, results, setCurrentSearch,currentSear
       </div>
       <div className='sort-btn-container'>
         <div>
-          {/* <Sort></Sort> */}
           <SelectScrollable></SelectScrollable>
         </div>
       </div>

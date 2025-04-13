@@ -1,0 +1,42 @@
+/* === Text Utilities === */
+.text-lg-bold {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 0.2em;
+}
+
+.text-md-muted {
+  font-size: 0.9em;
+  color: rgba(0, 0, 0, 0.644);
+}
+
+.text-title-lg {
+  font-size: 1.6em;
+  margin-bottom: 0.2em;
+}
+
+.text-type-muted {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.507);
+}
+
+.text-underline-link {
+  color: var(--black);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-color: #4891c2;
+  font-weight: 600;
+}
+
+.text-underline-link:hover {
+  color: #4891c2;
+}
+
+.text-link{
+  padding: .2em .2em;
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+  border-radius: .2em;
+  background-color: #4891c2;
+}
