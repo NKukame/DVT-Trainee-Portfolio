@@ -16,13 +16,14 @@
 .flex-row-center {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
 }
 
 .flex-row-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1em;
 }
 
 .flex-wrap-gap {

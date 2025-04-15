@@ -1,18 +1,18 @@
 /* === Text Utilities === */
 .text-lg-bold {
-  font-size: 1.3em;
-  font-weight: 600;
-  margin-bottom: 0.2em;
+  font-size: 20px;
+  font-weight: 500;
+  color: #171717;
 }
 
 .text-md-muted {
-  font-size: 0.9em;
-  color: rgba(0, 0, 0, 0.644);
+  font-size: 12px;
+  font-weight: 400;
+  color: #171717;
 }
 
 .text-title-lg {
-  font-size: 1.6em;
-  margin-bottom: 0.2em;
+  font-size: 20px;
 }
 
 .text-type-muted {
@@ -43,8 +43,15 @@
 
 .info-text{
   width: 170px;
+  font-size: 14px;
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #525252;
+  font-weight: 400;
+}
+
+.more-skills{
+  white-space: nowrap;
 }

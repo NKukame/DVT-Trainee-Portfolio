@@ -7,7 +7,7 @@ export function UserCard({ user, showPortfolioLink = true, showDetails = true })
     <div className="card-user flex-col-start">
       <div className='flex-row-center'>
         <Avatar alt={user.name} src={user.avatar || ''} sx={{ width: 52, height: 52 }} />
-        <div className="flex-col-fill">
+        <div>
           <p className='text-lg-bold'>{user.name}</p>
           <p className='text-md-muted'>{user.role}</p>
         </div>

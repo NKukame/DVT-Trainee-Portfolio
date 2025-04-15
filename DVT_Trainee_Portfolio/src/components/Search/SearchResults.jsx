@@ -13,7 +13,7 @@ export default function SearchResults() {
   const [resultsCopy, setCopy] = useState(filteredResults);
   const [currentSearch, setCurrentSearch] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
 
   useEffect(() => {
     const finalResults = currentSearch ? resultsCopy.filter(result => !result.project_id)

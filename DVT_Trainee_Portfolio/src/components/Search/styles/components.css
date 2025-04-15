@@ -17,7 +17,5 @@
   border-top-left-radius: 0px;
   padding: 24px;
   max-width: 1280px;
-  max-height: 688px;
-  display: flex;
-  flex-direction: column;
+  min-height: 688px;
 }

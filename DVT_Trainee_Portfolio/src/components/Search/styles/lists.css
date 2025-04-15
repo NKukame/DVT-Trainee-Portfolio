@@ -1,7 +1,10 @@
 /* === Lists === */
 .skills-list {
+  font-size: 12px;
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6em;
+  align-items: center;
+  font-weight: 500;
+  color: #344054;
+  gap: 10px;
 }
