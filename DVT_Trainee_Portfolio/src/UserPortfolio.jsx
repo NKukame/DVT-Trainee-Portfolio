@@ -6,7 +6,7 @@ import Header from './components/Header';
 import SideBar from './components/SideBar';
 
 function UserPortfolio() {
-    // const projects = [0, 0, 0, 0];
+   
     return (
         <>
 
