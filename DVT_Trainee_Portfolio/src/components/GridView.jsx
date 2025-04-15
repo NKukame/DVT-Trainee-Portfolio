@@ -3,34 +3,10 @@ import { Link } from "react-router-dom";
 import "./GridView.css"; 
 
 const GridView = ({ team }) => {
-  const [sortOrder, setSortOrder] = useState("asc");
-
-  // Function to toggle sorting order
-  const toggleSort = () => {
-    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-  };
-
-  // Sort the team members
-  const sortedTeam = [...team].sort((a, b) => {
-    return sortOrder === "asc"
-      ? a.name.localeCompare(b.name)
-      : b.name.localeCompare(a.name);
-  });
-
   return (
     <section className="grid-wrapper">
-      {/* Sorting Button */}
-
-      <div className="grid-sort">
-        <button className="sort-button" onClick={toggleSort}>
-          Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
-        </button>
-      </div>
-
-      
-
       <div className="grid-container">
-        {sortedTeam.map((member, index) => (
+        {team.map((member, index) => (
           <div key={index} className="grid-portfolio-card">
             <div
               className="grid-profile-pic"
@@ -55,5 +31,6 @@ const GridView = ({ team }) => {
     </section>
   );
 };
+
 
 export default GridView;
