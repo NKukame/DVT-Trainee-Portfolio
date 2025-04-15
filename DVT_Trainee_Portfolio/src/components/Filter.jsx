@@ -11,6 +11,7 @@ import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
 import ComboboxDemo from "./Combo";
 import { Award, Building, Code, User } from "lucide-react";
+import { Badge } from "./Search/Badge";
 
 
 function Filter(){
@@ -43,7 +44,8 @@ function Filter(){
             </div>
             <div className="filter-tag-container">
                 <div className="tag-container">
-                    
+                    <Badge onClose={true}>React</Badge>
+                    <Badge onClose={true}>Javascript</Badge>
                 </div>
             </div>
         </section>
