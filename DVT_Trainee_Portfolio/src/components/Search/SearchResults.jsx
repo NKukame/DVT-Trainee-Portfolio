@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import PaginationControls from './PaginationControls';
 import ResultsList from './ResultsList';
 
-import './styles/index.css';
+import './styles/SearchPage.css';
 
 export default function SearchResults() {
 
@@ -41,7 +41,7 @@ export default function SearchResults() {
         isPeopleSearch={currentSearch} 
       />
 
-      <section className="results-container flex-col-fill">
+      <section className="results-container">
         <div style={{flex:1}}>
           <ResultsList results={displayedItems} isEmployeeSearch={currentSearch} />
         </div>

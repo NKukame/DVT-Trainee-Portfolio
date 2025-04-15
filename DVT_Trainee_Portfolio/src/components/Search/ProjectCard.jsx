@@ -1,4 +1,4 @@
-import Badges from '../../Badges';
+import Badges from '../Badges';
 import { Link } from 'react-router-dom';
 
 export default function ProjectCard({ result, showAuthor = true, showTech = true, showButton = true }) {

@@ -12,28 +12,29 @@ export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
   return (
     
     <div className="flex-row flex-row-between align-items-center flex-wrap">
-      <div>
-        <div className="flex-row align-items-center">
-          <button className={`flex-row align-items-center btn-tab ${isPeopleSearch ? 'btn-tab-active' : ''}`}
-            onClick={() => { handleSearchFilter(false);}}>
-              <PeopleIcon/> <span>People</span>
-              </button>
 
-          <button className={`flex-row align-items-center btn-tab ${!isPeopleSearch ? 'btn-tab-active' : ''}` }
-            onClick={() => { handleSearchFilter(true);}}>
-            <FolderIcon/> <span>Projects</span> 
-            </button>
-            
-        </div>
+      <div className="flex-row align-items-center">
+        <TabButton text={'People'} Icon={PeopleIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
+        <TabButton text={'Projects'} Icon={FolderIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
       </div>
+
       <div>
-        <div>
-          <SelectScrollable></SelectScrollable>
-        </div>
+        <SelectScrollable></SelectScrollable>
       </div>
+
     </div>
   )
 };
+
+function TabButton({text, Icon, handleSearchFilter,isPeopleSearch}){
+  
+  return (
+    <button className={`flex-row align-items-center btn-tab gap-10-px ${!isPeopleSearch ? 'btn-tab-active' : ''}` }
+            onClick={() => { handleSearchFilter(true);}}>
+            <Icon/> <span>{text}</span> 
+    </button>
+  )
+}
 
 function filterResults(results, isProject, filter){
 
