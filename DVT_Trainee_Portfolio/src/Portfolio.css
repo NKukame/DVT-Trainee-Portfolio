@@ -137,16 +137,33 @@
 
 .carousel .carousel-navigation {
   color: var(--dark-blue);
-  background: none;
+  background-color: white; /* adds clean base */
   outline: none;
   margin: auto 3.5rem;
-  font-size: 30px;
-  font-weight: 200;
-  padding: 1rem;
+  font-size: 24px; /* slightly smaller for subtlety */
+  font-weight: 600; /* more defined weight */
+  padding: 0.8rem;
   height: max-content;
   cursor: pointer;
-  border: 4px solid var(--dark-blue);
-  border-radius: 25%;
+  border: 2px solid var(--dark-blue); /* thinner, sleeker */
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel .carousel-navigation:hover {
+  background-color: var(--dark-blue);
+  color: white;
+  transform: scale(1.05);
+}
+
+.carousel .carousel-navigation:active {
+  transform: scale(0.95);
+}
+
+.carousel .carousel-navigation svg {
+  display: block;
+  margin: auto;
 }
 
 .view-filter {

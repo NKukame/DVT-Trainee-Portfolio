@@ -10,8 +10,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SideBar from "./components/SideBar";
-import { AArrowDown } from 'lucide-react';
-import { AArrowUp } from 'lucide-react';
+import { AArrowDown } from "lucide-react";
+import { AArrowUp } from "lucide-react";
 
 function Portfolio() {
   const [team, setTeam] = useState([]);
@@ -27,14 +27,13 @@ function Portfolio() {
   };
 
   const handleGridClick = () => {
-    setViewMode('grid-view');
+    setViewMode("grid-view");
   };
 
   const handleCardClick = () => {
-    setViewMode('card-view');
+    setViewMode("card-view");
   };
 
-  
   useEffect(() => {
     fetch("/team-portfolio.json")
       .then((response) => response.json())
@@ -73,8 +72,6 @@ function Portfolio() {
 
   if (team.length === 0) return <p>Loading...</p>;
 
-  
-
   return (
     <>
       <div className="app-layout">
@@ -83,8 +80,11 @@ function Portfolio() {
         <div className="app-layout-body">
           <div className="portfolio-body">
             <section className="people-intro">
-            <h1 className="theTitle">Smart People</h1>
-              <p className="peopleDescription">Our amazing intake of interns are being prepared by our most skilled engineers <br /> to deliver for the future</p>
+              <h1 className="theTitle">Smart People</h1>
+              <p className="peopleDescription">
+                Our amazing intake of interns are being prepared by our most
+                skilled engineers <br /> to deliver for the future
+              </p>
 
               {/* <div className="view-filter">
                 <select
@@ -106,102 +106,139 @@ function Portfolio() {
               </div> */}
             </section>
 
-
             <div className="selection-banner">
-              
               <div className="people-view-container">
-                <div  className={`people-view ${viewMode === 'card-view' ? 'active' : ''}`} onClick={handleCardClick}>Card</div>
-                <div  className={`people-view ${viewMode === 'grid-view' ? 'active' : ''}`} onClick={handleGridClick}>Grid</div>
+                <div
+                  className={`people-view ${
+                    viewMode === "card-view" ? "active" : ""
+                  }`}
+                  onClick={handleCardClick}
+                >
+                  Card
+                </div>
+                <div
+                  className={`people-view ${
+                    viewMode === "grid-view" ? "active" : ""
+                  }`}
+                  onClick={handleGridClick}
+                >
+                  Grid
+                </div>
               </div>
 
               <div className="sort-button-container">
-                <button className="sort-button" onClick={toggleSort}>{sortOrder === "asc" ? <AArrowDown /> : <AArrowUp />}</button>
+                <button className="sort-button" onClick={toggleSort}>
+                  {sortOrder === "asc" ? <AArrowDown /> : <AArrowUp />}
+                </button>
               </div>
             </div>
 
             <div className="portfolio-view-container">
+              {viewMode === "grid-view" ? (
+                <GridView
+                  team={filteredAndSortedTeam}
+                  key={sortOrder + searchQuery}
+                />
+              ) : (
+                <section className="cards">
+                  <div className="carousel">
+                    <button
+                      className="carousel-navigation prev"
+                      onClick={handlePrev}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="40"
+                        height="40"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M9.146 4.146a.5.5 0 0 1 .708.708L6.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5z"
+                        />
+                      </svg>
+                    </button>
+                    {filteredAndSortedTeam.length > 0 ? (
+                      <div className="portfolio-card">
+                        <button className="mail">
+                          <EmailOutlinedIcon fontSize="large" />
+                        </button>
 
+                        <Link to="/UserPortfolio">
+                          <div
+                            className="profile-pic"
+                            style={{
+                              backgroundImage: `url(${filteredAndSortedTeam[currentIndex].image})`,
+                            }}
+                          ></div>
+                        </Link>
 
-            { viewMode === "grid-view" ? (
-              <GridView team={filteredAndSortedTeam} key={sortOrder + searchQuery} />
-            ) : (
-              <section className="cards">
-                <div className="carousel">
-                  <button
-                    className="carousel-navigation prev"
-                    onClick={handlePrev}
-                  >
-                    &#10094;
-                  </button>
-                  {filteredAndSortedTeam.length > 0 ? (
-                    <div className="portfolio-card">
-                      <button className="mail">
-                        <EmailOutlinedIcon fontSize="large" />
-                      </button>
-
-                      <Link to="/UserPortfolio">
-                        <div
-                          className="profile-pic"
-                          style={{
-                            backgroundImage: `url(${filteredAndSortedTeam[currentIndex].image})`,
-                          }}
-                        ></div>
-                      </Link>
-
-                      <div className="bottom">
-                        <div className="content">
-                          <span className="name">
-                            {filteredAndSortedTeam[currentIndex].name}
-                          </span>
-                          <span className="about-me">
-                            {filteredAndSortedTeam[currentIndex].description}
-                          </span>
-                          <span className="about-me">
-                            {filteredAndSortedTeam[currentIndex].techStack}
-                          </span>
-                        </div>
-                        <div className="bottom-bottom">
-                          <div className="social-links-container">
-                            <Link
-                              to={
-                                filteredAndSortedTeam[currentIndex].github ||
-                                "/"
-                              }
-                            >
-                              <GitHubIcon
-                                className="social-links"
-                                fontSize="large"
-                                />
-                            </Link>
-
-                            <Link
-                              to={
-                                filteredAndSortedTeam[currentIndex].linkedin ||
-                                "/"
-                              }
-                            >
-                              <LinkedInIcon
-                                className="social-links"
-                                fontSize="large"
-                              />
-                            </Link>
+                        <div className="bottom">
+                          <div className="content">
+                            <span className="name">
+                              {filteredAndSortedTeam[currentIndex].name}
+                            </span>
+                            <span className="about-me">
+                              {filteredAndSortedTeam[currentIndex].description}
+                            </span>
+                            <span className="about-me">
+                              {filteredAndSortedTeam[currentIndex].techStack}
+                            </span>
                           </div>
-                          <button className="button">Contact Me</button>
+                          <div className="bottom-bottom">
+                            <div className="social-links-container">
+                              <Link
+                                to={
+                                  filteredAndSortedTeam[currentIndex].github ||
+                                  "/"
+                                }
+                              >
+                                <GitHubIcon
+                                  className="social-links"
+                                  fontSize="large"
+                                />
+                              </Link>
+
+                              <Link
+                                to={
+                                  filteredAndSortedTeam[currentIndex]
+                                    .linkedin || "/"
+                                }
+                              >
+                                <LinkedInIcon
+                                  className="social-links"
+                                  fontSize="large"
+                                />
+                              </Link>
+                            </div>
+                            <button className="button">Contact Me</button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <p>No results found</p>
-                  )}
-                  <button
-                    className="carousel-navigation next"
-                    onClick={handleNext}
+                    ) : (
+                      <p>No results found</p>
+                    )}
+                    <button
+                      className="carousel-navigation next"
+                      onClick={handleNext}
                     >
-                    &#10095;
-                  </button>
-                </div>
-              </section>
-            )}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="40"
+                        height="40"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M6.854 11.854a.5.5 0 0 1-.708-.708L9.293 8 6.146 4.854a.5.5 0 1 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </section>
+              )}
             </div>
           </div>
         </div>
