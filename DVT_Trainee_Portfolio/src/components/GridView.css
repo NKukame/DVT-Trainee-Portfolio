@@ -120,20 +120,4 @@
   width: 150px;
 }
 
-.sort-button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  background-color: var(--gray);
-  color: var(--dark-blue);
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
 
-.sort-button:hover {
-  background-color: var(--dark-blue);
-  color: var(--white);
-}
