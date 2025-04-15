@@ -1,11 +1,18 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 40px;
-  padding: 20px;
-  margin-inline: 12.5%;
-  margin-top: 3%;
+  gap: 70px;
+  padding: 40px;
+  margin: 5% auto;
+  max-width: 1200px;
   justify-content: center;
+}
+
+.grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 /* Portfolio Card */
@@ -36,8 +43,8 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* When hovering over the grid-container, other cards blur & shrink */
-.grid-container:hover > .grid-portfolio-card:not(:hover) {
+/* When hovering over a card, other cards blur & shrink */
+.grid-container:has(.grid-portfolio-card:hover) .grid-portfolio-card:not(:hover) {
   filter: blur(10px);
   transform: scale(0.9, 0.9);
 }
@@ -106,9 +113,11 @@
 }
 
 .grid-sort{
-  transform: translateY(-150%) translateX(70%);
+  align-self: flex-end;
+  margin-right: 10%;
+  margin-bottom: 20px;
   z-index: 1;
-  width: 50%;
+  width: 150px;
 }
 
 .sort-button {
@@ -128,4 +137,3 @@
   background-color: var(--dark-blue);
   color: var(--white);
 }
-
