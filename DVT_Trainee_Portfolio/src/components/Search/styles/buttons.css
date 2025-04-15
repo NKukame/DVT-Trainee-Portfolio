@@ -35,7 +35,7 @@
 }
 
 .badge-default {
-  padding: 0.2em 0.5em;
+  padding: 12px;
   border-radius: 0.3em;
-  border: 1px solid rgba(180, 179, 179, 0.5);
+  border: 1px solid #D0D5DD;
 }

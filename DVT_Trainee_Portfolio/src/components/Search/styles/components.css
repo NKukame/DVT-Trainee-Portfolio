@@ -1,18 +1,27 @@
 .card-user,
 .card-project {
   color: black;
-  border-radius: 0.5em;
-  padding: 0.8em 1em;
+  border-radius: 12px;
+  padding: 12px;
   border: 1px solid rgba(221, 218, 218, 0.5);
-  background: transparent;
+  background: #FFFFFF;
+  width: 328px;
+  height: 208px;
 }
 
 .results-container {
   position: relative;
   background-color: white;
-  border-radius: 0.1em;
-  padding: 2em 0.5em;
-  min-height: 75vh;
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  padding: 24px;
+  width: 1280px;
+  height: 688px;
   display: flex;
   flex-direction: column;
+}
+
+.card-project p, .card-user p{
+  padding: 0;
+  margin: 0;
 }

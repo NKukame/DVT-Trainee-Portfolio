@@ -29,14 +29,14 @@
 }
 
 .text-underline-link:hover {
-  color: #4891c2;
+  color: #027FB9;
 }
 
 .text-link{
-  padding: .2em .2em;
-  font-size: 1.2em;
+  padding: 5px 12px;
+  font-size: 14px;
   color: white;
   text-align: center;
-  border-radius: .2em;
-  background-color: #4891c2;
+  border-radius: 4px;
+  background-color: #027FB9;
 }
