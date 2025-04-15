@@ -119,6 +119,9 @@ function Portfolio() {
               </div>
             </div>
 
+            <div className="portfolio-view-container">
+
+
             { viewMode === "grid-view" ? (
               <GridView team={filteredAndSortedTeam} key={sortOrder + searchQuery} />
             ) : (
@@ -168,7 +171,7 @@ function Portfolio() {
                               <GitHubIcon
                                 className="social-links"
                                 fontSize="large"
-                              />
+                                />
                             </Link>
 
                             <Link
@@ -193,12 +196,13 @@ function Portfolio() {
                   <button
                     className="carousel-navigation next"
                     onClick={handleNext}
-                  >
+                    >
                     &#10095;
                   </button>
                 </div>
               </section>
             )}
+            </div>
           </div>
         </div>
       </div>

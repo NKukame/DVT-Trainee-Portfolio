@@ -118,6 +118,12 @@
   color: var(--dark-blue);
 }
 
+.portfolio-view-container{
+  background-color: var(--white);
+  border-radius: 25px;
+  margin: 30px 30px 30px 120px;
+}
+
 .cards {
   display: flex;
   place-content: center;
