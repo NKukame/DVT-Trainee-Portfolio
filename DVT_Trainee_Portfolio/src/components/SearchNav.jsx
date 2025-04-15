@@ -1,29 +1,32 @@
 import  { SelectScrollable } from './Sort';
 import PeopleIcon from '@mui/icons-material/People';
 import { FolderIcon } from 'lucide-react';
-export default function SearchNav({filter, results, setCurrentSearch,currentSearch}) {
+
+export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
+
+  const handleSearchFilter = (isPeople) =>{
+    filterResults(results, isPeople, filter);
+    setSearch(!isPeople);
+  }
 
   return (
     
-    <div className="flex-row-between">
-      <div className="result-nav-btns">
-        <div className="nav-group">
-          <button className={`flex-row-center btn-tab ${currentSearch ? 'btn-tab-active' : ''}`}
-            onClick={(e)=>{
-              toggleNav(e, results, false, filter);
-              setCurrentSearch(true)
-              }}>
-              <PeopleIcon/> <span>People</span></button>
-          <button className={`flex-row-center btn-tab ${!currentSearch ? 'btn-tab-active' : ''}` }
-            onClick={(e)=>{
-              toggleNav(e, results, true, filter);
-              setCurrentSearch(false)
-              }}>
-                <FolderIcon/> <span>Projects</span> 
-                </button>
+    <div className="flex-row flex-row-between align-items-center flex-wrap">
+      <div>
+        <div className="flex-row align-items-center">
+          <button className={`flex-row align-items-center btn-tab ${isPeopleSearch ? 'btn-tab-active' : ''}`}
+            onClick={() => { handleSearchFilter(false);}}>
+              <PeopleIcon/> <span>People</span>
+              </button>
+
+          <button className={`flex-row align-items-center btn-tab ${!isPeopleSearch ? 'btn-tab-active' : ''}` }
+            onClick={() => { handleSearchFilter(true);}}>
+            <FolderIcon/> <span>Projects</span> 
+            </button>
+            
         </div>
       </div>
-      <div className='sort-btn-container'>
+      <div>
         <div>
           <SelectScrollable></SelectScrollable>
         </div>
@@ -42,18 +45,4 @@ function filterResults(results, isProject, filter){
   }
 
   filter(results);
-}
-
-function toggleNav(e, results, isProject, filter ){
-
-  const buttons = e.currentTarget.closest('div').children;
-
-  for(let i = 0;  i < buttons.length; i++){
-    if(e.target === buttons[i]){
-      buttons[i].classList.add('btn-list');
-    }else{
-        buttons[i].classList.remove('btn-list')
-    }
-  }
-  filterResults(results, isProject, filter);
 }

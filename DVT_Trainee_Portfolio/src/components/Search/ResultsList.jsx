@@ -1,6 +1,5 @@
 import { UserCard } from "./User/UserCard";
 import ProjectCard from './ProjectCard/ProjectCard';
-import { Container } from "@mui/material";
 
 export default function ResultsList({ results, isEmployeeSearch }) {
   
@@ -11,19 +10,19 @@ export default function ResultsList({ results, isEmployeeSearch }) {
   return (
     <>
       {isEmployeeSearch && (
-        <Container className="grid-3-cols">
+        <section className="grid-3-cols gap-24-px">
           {results.map((user, i) => (
             <UserCard key={user.employee_id || i} user={user} />
           ))}
-        </Container>
+        </section>
       )}
 
       {!isEmployeeSearch && (
-        <Container className="grid-3-cols">
+        <section className="grid-3-cols gap-24-px">
           {results.map((project, i) => (
             <ProjectCard key={project.project_id || i} result={project} />
           ))}
-        </Container>
+        </section>
       )}
     </>
   );

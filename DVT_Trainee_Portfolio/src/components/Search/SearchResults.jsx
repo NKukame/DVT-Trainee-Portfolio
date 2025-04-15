@@ -37,12 +37,14 @@ export default function SearchResults() {
       <SearchNav 
         filter={setCopy} 
         results={filteredResults} 
-        setCurrentSearch={setCurrentSearch} 
-        currentSearch={currentSearch} 
+        setSearch={setCurrentSearch} 
+        isPeopleSearch={currentSearch} 
       />
 
       <section className="results-container flex-col-fill">
-        <ResultsList results={displayedItems} isEmployeeSearch={currentSearch} />
+        <div style={{flex:1}}>
+          <ResultsList results={displayedItems} isEmployeeSearch={currentSearch} />
+        </div>
 
         <PaginationControls
           totalItems={resultsCopy.length} 
