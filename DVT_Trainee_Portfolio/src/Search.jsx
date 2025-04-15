@@ -3,7 +3,6 @@ import "./Search.css";
 import SideBar from "./components/SideBar";
 import Filter from "./components/Filter";
 import SearchResults from "./components/Search/SearchResults";
-import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import { SearchContextProvider } from "./contexts/SearchContext";
 function Search() {
@@ -13,7 +12,7 @@ function Search() {
 
           <div className="app-layout-body search-layout">
             <SearchContextProvider>
-              <section className="search-page">
+              <section className="search-page flex-col-center">
                 <SearchBar />
                 <Filter/>
                 <div className="">

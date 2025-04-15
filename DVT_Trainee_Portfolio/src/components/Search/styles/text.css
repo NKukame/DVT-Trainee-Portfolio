@@ -40,3 +40,11 @@
   border-radius: 4px;
   background-color: #027FB9;
 }
+
+.info-text{
+  width: 170px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

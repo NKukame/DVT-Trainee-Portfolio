@@ -6,7 +6,7 @@ export default function PaginationControls({ totalItems, itemsPerPage, currentPa
   if (totalPages <= 1) return null;
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
+    <Box sx={{ display: 'flex', flex:1, justifyContent: 'center', alignSelf:'center', margin: '3em 0em' }}>
       <Pagination
         count={totalPages}
         page={currentPage}
