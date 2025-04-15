@@ -2,6 +2,7 @@ import "./styles.css";
 import "./Portfolio.css";
 import Header from "./components/Header";
 import CarouselView from "./components/CarouselView";
+import React, { useState, useEffect } from "react";
 import GridView from "./components/GridView";
 import { Link } from "react-router-dom";
 import UserProfile from "./UserPortfolio";
@@ -9,7 +10,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SideBar from "./components/SideBar";
-import React, { useState, useEffect } from "react";
+import { AArrowDown } from 'lucide-react';
+import { AArrowUp } from 'lucide-react';
 
 function Portfolio() {
   const [team, setTeam] = useState([]);
@@ -18,6 +20,21 @@ function Portfolio() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [searchQuery, setSearchQuery] = useState(""); // New search state
 
+  const [isActive, setIsActive] = useState(false);
+
+  const handleClick = () => {
+    setIsActive(true);
+  };
+
+  const handleGridClick = () => {
+    setViewMode('grid-view');
+  };
+
+  const handleCardClick = () => {
+    setViewMode('card-view');
+  };
+
+  
   useEffect(() => {
     fetch("/team-portfolio.json")
       .then((response) => response.json())
@@ -56,6 +73,8 @@ function Portfolio() {
 
   if (team.length === 0) return <p>Loading...</p>;
 
+  
+
   return (
     <>
       <div className="app-layout">
@@ -87,8 +106,21 @@ function Portfolio() {
               </div> */}
             </section>
 
+
+            <div className="selection-banner">
+              
+              <div className="people-view-container">
+                <div  className={`people-view ${viewMode === 'card-view' ? 'active' : ''}`} onClick={handleCardClick}>Card</div>
+                <div  className={`people-view ${viewMode === 'grid-view' ? 'active' : ''}`} onClick={handleGridClick}>Grid</div>
+              </div>
+
+              <div className="sort-button-container">
+                <button className="sort-button" onClick={toggleSort}>{sortOrder === "asc" ? <AArrowDown /> : <AArrowUp />}</button>
+              </div>
+            </div>
+
             { viewMode === "grid-view" ? (
-              <GridView team={filteredAndSortedTeam} />
+              <GridView team={filteredAndSortedTeam} key={sortOrder + searchQuery} />
             ) : (
               <section className="cards">
                 <div className="carousel">
