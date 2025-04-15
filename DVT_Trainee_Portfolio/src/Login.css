@@ -15,7 +15,26 @@
 .form-container h1, h4{
     color: var(--black);
     gap: 20px;
+    font-family: 'Hanken Grotesk' sans-serif;
+    font-weight: 500;
+    
 
+}
+.form-container h6{
+    font-family: 'Hanken Grotesk' sans-serif;
+    font-weight: 500;
+    color: #344054;
+    text-align: start;
+  
+}
+.form-container label{
+    font-family: 'Hanken Grotesk' sans-serif;
+    font:medium 12px/20px 'Hanken Grotesk', sans-serif;
+    color: #344054;
+    text-align: start;
+    letter-spacing: 0%;
+    line-height: 20px;
+    font-weight: 500;
 }
 
 .login-container{
@@ -49,7 +68,7 @@
 }
 
 .login-container button {
-   background-color: #298bcc;
+   background-color: #072549;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -82,8 +101,8 @@
 }
 
 .login-container input {
-    background-color: #f0f0f0;
-    border: none;
+    background-color: white;
+    border: 1px solid #ccc;
     margin: 8px 0;
     padding: 10px 15px;
     font-size: 13px;
@@ -93,7 +112,7 @@
 }
 
 input:focus {
-    border: 1px solid #298bcc;
+    border: 1px solid #072549;
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -207,19 +226,48 @@ h1{
     height: 100%;
     overflow: hidden;
     transition: all 0.6s ease-in-out;
-    border-radius: 150px 0 0 100px;
+    /* border-radius: 150px 0 0 100px; */
     z-index: 1000;
 }
 
 .login-container.active .toggle-login-container{
     transform: translateX(-100%);
-    border-radius: 0 150px 100px 0;
+    /* border-radius: 0 150px 100px 0; */
+}
+
+.password-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.password-container input {
+    width: 90%;
+    margin: 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    border: none;
+}
+
+.password-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+
 }
 
 .login-toggle {
-    background-color: #298bcc;
+    background-color: #072549;
     height: 100%;
-    background: linear-gradient(-20deg, #298bcc 0%, #298bcc 100%);
+    background: linear-gradient(-20deg, #072549 30%, #298bcc 100%);
     color: #fff;
     position: relative;
     left: -100%;
@@ -298,4 +346,8 @@ input.error-border {
     margin: 0 10px;
     text-align: start;
 
+}
+
+.password-input{
+    color: #040404;
 }
