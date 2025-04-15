@@ -24,7 +24,7 @@ function UserPortfolio() {
                         </p>
                     </div>
 
-                    {/* New flex container */}
+                    
                     <div className="portfolio-layout">
                         <Dashboard />
                         <div className="project-container">
