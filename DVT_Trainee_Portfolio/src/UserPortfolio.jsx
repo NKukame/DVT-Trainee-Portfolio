@@ -6,7 +6,7 @@ import Header from './components/Header';
 import SideBar from './components/SideBar';
 
 function UserPortfolio() {
-    // const projects = [0, 0, 0, 0];
+   
     return (
         <>
 
@@ -24,7 +24,7 @@ function UserPortfolio() {
                         </p>
                     </div>
 
-                    {/* New flex container */}
+                    
                     <div className="portfolio-layout">
                         <Dashboard />
                         <div className="project-container">
