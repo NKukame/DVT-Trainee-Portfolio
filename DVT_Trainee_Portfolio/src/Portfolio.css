@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  
 }
 
 
@@ -12,6 +13,26 @@
   height: fit-content;
 }
 
+.people-intro{
+  height: 50vh;
+  width: 99vw;
+  background-image: 
+    linear-gradient(to top, 
+      rgb(229, 229, 229) 0%,       
+      rgb(249, 250, 251, 0.5) 90%, 
+      rgba(249, 250, 251, 0.3) 95%,
+      rgba(249, 250, 251, 0.1) 98%,
+      rgba(249, 250, 251, 0.1) 100%
+    ), 
+    url("./assets/theone.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 75% 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 .theTitle {
   display: flex;
@@ -24,6 +45,14 @@
   line-height: 65px;
   margin-top: 30px;
   padding: 10px;
+  margin-bottom: 40px;
+}
+
+.peopleDescription{
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--dark-blue);
 }
 
 .cards {
