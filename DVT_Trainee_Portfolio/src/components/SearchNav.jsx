@@ -4,9 +4,9 @@ import { FolderIcon } from 'lucide-react';
 
 export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
 
-  const handleSearchFilter = (isPeople) =>{
-    filterResults(results, isPeople, filter);
-    setSearch(!isPeople);
+  const handleSearchFilter = () =>{
+    filterResults(results, isPeopleSearch, filter);
+    setSearch(!isPeopleSearch);
   }
 
   return (
@@ -14,7 +14,7 @@ export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
     <div className="flex-row flex-row-between align-items-center flex-wrap">
 
       <div className="flex-row align-items-center">
-        <TabButton text={'People'} Icon={PeopleIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
+        <TabButton text={'People'} Icon={PeopleIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={!isPeopleSearch} />
         <TabButton text={'Projects'} Icon={FolderIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
       </div>
 
@@ -29,8 +29,8 @@ export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
 function TabButton({text, Icon, handleSearchFilter,isPeopleSearch}){
   
   return (
-    <button className={`flex-row align-items-center btn-tab gap-10-px ${!isPeopleSearch ? 'btn-tab-active' : ''}` }
-            onClick={() => { handleSearchFilter(true);}}>
+    <button className={`flex-row align-items-center font-size-20-px btn-tab gap-10-px font-weight-400 text-gray ${!isPeopleSearch ? 'btn-tab-active border-radius-10-px text-black' : ''}` }
+            onClick={handleSearchFilter}>
             <Icon/> <span>{text}</span> 
     </button>
   )

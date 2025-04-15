@@ -38,7 +38,6 @@
   justify-content: space-between;
 }
 
-
 /* === Text Utilities === */
 .font-size-20-px{
   font-size: 20px;
@@ -61,6 +60,11 @@
 
 .border-radius-4-px{
   border-radius: 4px;
+}
+
+.border-radius-10-px{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .text-center{
@@ -93,6 +97,10 @@
   background-color: #027FB9;
 }
 
+.flex-1{
+  flex: 1;
+}
+
 .badge-list {
   list-style: none;
   font-weight: 500;
@@ -104,8 +112,6 @@
                0px 2.25px 10.02px #00000009, 0px 4.02px 17.87px #0000000B, 
                0px 7.52px 33.42px hsla(0, 0%, 0%, 0.051), 0px 18px 80px #00000012;
 }
-
-
 
 /* === Component Utilities === */
 .card-user,
@@ -119,7 +125,6 @@
 }
 
 .results-container {
-  position: relative;
   background-color: white;
   border-radius: 12px;
   border-top-left-radius: 0px;
@@ -129,7 +134,7 @@
 
 /* === Buttons & Badges === */
 .btn-tab {
-  padding: 0.5rem;
+  padding: 12px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -137,11 +142,8 @@
 
 .btn-tab-active {
   background: white;
-  color: rgb(0, 0, 0);
-  border: 1px solid rgba(221, 218, 218, 0.2);
   border-bottom: none;
 }
-
 
 .badge-default {
   padding: 3px 3px;

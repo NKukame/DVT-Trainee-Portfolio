@@ -1,34 +1,31 @@
 import Badges from '../Badges';
 import { Link } from 'react-router-dom';
 
-export default function ProjectCard({ result, showAuthor = true, showTech = true, showButton = true }) {
+export default function ProjectCard({ result, showAuthor = false, showTech = true, showButton = true }) {
+  
   return (
-    <div className="card-project">
-      <div className="flex-col-start">
-        <div>
-          <p className="text-title-lg">{result.name}</p>
-          <p className="text-type-muted">{result.created_on}</p>
-        </div>
-
-        <div>
-          <p className="text-container">{result.description}</p>
-        </div>
-
-        {showTech && (
-          <div className="skills-list">
-            <Badges badgeList={result.technologies} />
-          </div>
-        )}
-
-        <div className="flex-row-between">
-          {showAuthor && <Link className="text-underline-link">@John</Link>}
-          {showButton && (
-            <Link to={'/userportfolio'}>
-              <button className="btn-view">View project</button>
-            </Link>
-          )}
-        </div>
+    <div className="card-project shadow flex-col gap-10-px">
+      <div>
+        <p className="font-size-20-px">{result.name}</p>
+        <p className="font-size-12-px text-gray">{result.created_on}</p>
       </div>
+
+      <div>
+        <p className="font-size-14-px">{result.description}</p>
+      </div>
+
+      {showTech && (<Badges badgeList={result.technologies} />  )}
+
+      {showAuthor && <Link className="text-underline-link">@John</Link>}
+
+      <div className="link-style border-radius-4-px py-4-px ">
+        {showButton && (
+          <Link to={'/userportfolio'} className='text-color-white'>
+            View project
+          </Link>
+        )}
+      </div>
+
     </div>
   );
 }

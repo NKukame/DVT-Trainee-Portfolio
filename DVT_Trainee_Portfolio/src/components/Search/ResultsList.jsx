@@ -1,10 +1,10 @@
-import { UserCard } from "./User/UserCard";
-import ProjectCard from './ProjectCard/ProjectCard';
+import { UserCard } from "./UserCard";
+import ProjectCard from './ProjectCard';
 
 export default function ResultsList({ results, isEmployeeSearch }) {
   
   if (results.length === 0) {
-    return <h1 className="text-title-lg">Results not Found</h1>;
+    return <h1 className="font-size-20-px">Results not Found</h1>;
   }
 
   return (

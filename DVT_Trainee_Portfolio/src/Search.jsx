@@ -1,5 +1,4 @@
 import "./styles.css";
-import "./Search.css";
 import SideBar from "./components/SideBar";
 import Filter from "./components/Filter";
 import SearchResults from "./components/Search/SearchResults";
@@ -10,14 +9,12 @@ function Search() {
     <div className="app-layout">
         <SideBar />
 
-          <div className="app-layout-body search-layout">
+          <div className="app-layout-body">
             <SearchContextProvider>
-              <section className="search-page flex-col-center">
+              <section className="flex-col align-items-center justify-items-center gap-24-px">
                 <SearchBar />
                 <Filter/>
-                <div className="">
-                  <SearchResults />
-                </div>
+                <SearchResults />
               </section>
             </SearchContextProvider>
           </div>

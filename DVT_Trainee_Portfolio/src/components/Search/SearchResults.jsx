@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import PaginationControls from './PaginationControls';
 import ResultsList from './ResultsList';
 
-import './styles/SearchPage.css';
+import './SearchPage.css';
 
 export default function SearchResults() {
 
@@ -33,7 +33,7 @@ export default function SearchResults() {
   };
 
   return (
-    <article className="">
+    <article className="flex-col">
       <SearchNav 
         filter={setCopy} 
         results={filteredResults} 
@@ -41,18 +41,15 @@ export default function SearchResults() {
         isPeopleSearch={currentSearch} 
       />
 
-      <section className="results-container">
-        <div style={{flex:1}}>
+      <section className="flex-1 results-container">
           <ResultsList results={displayedItems} isEmployeeSearch={currentSearch} />
-        </div>
-
+      </section>
         <PaginationControls
           totalItems={resultsCopy.length} 
           itemsPerPage={itemsPerPage} 
           currentPage={currentPage} 
           onPageChange={handleChangePage} 
         />
-      </section>
     </article>
   );
 }
