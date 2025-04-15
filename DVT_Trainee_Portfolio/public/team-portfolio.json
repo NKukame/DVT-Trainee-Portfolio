@@ -6,7 +6,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Pabs.jpg"
+        "image": "./src/assets/Pabi.jpg"
     },
     
     {
@@ -16,7 +16,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/owl.jpg"
+        "image": "./src/assets/Phemelo.jpg"
     },
     
     {
@@ -26,7 +26,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Gomo.jpg"
+        "image": "./src/assets/Gomolemo.jpg"
     },
     
     {
@@ -36,7 +36,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Adriano.jpg"
+        "image": "./src/assets/Adrian.jpg"
     },
     
     {
@@ -46,7 +46,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Njabs.jpg"
+        "image": "./src/assets/Njabulo-Kukame-Picture.jpg"
     },
     
     {
@@ -66,7 +66,7 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Thabane.jpg"
+        "image": "./src/assets/Thabane.jpeg"
     },
     
     {
@@ -76,17 +76,18 @@
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
         "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Remow.jpg"
+        "image": "./src/assets/Remo.jpg"
     },
     
+
     {
-        "name": "Slindokuhle Ngcobo",
+        "name": "Dylan Fernandes",
         "description": "Personality Trait: He's a vibe.",
         "email": "Email Address",
         "github": "Github Username",
         "linkedin": "LinkedIn Profile Link",
-        "techStack": "HTML, CSS, JavaScript",
-        "image": "./src/assets/Sli.jpg"
+        "techStack": "UI/UX",
+        "image": "./src/assets/Dylan.jpg"
     }
 
 ]
