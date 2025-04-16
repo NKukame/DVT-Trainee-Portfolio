@@ -1,5 +1,6 @@
 import  { SelectScrollable } from './Sort';
 import PeopleIcon from '@mui/icons-material/People';
+import { Folder, Users01 } from '@untitled-ui/icons-react';
 import { FolderIcon } from 'lucide-react';
 export default function SearchNav({filter, results, setCurrentSearch,currentSearch}) {
 
@@ -13,13 +14,17 @@ export default function SearchNav({filter, results, setCurrentSearch,currentSear
               toggleNav(e, results, false, filter);
               setCurrentSearch(true)
               }}>
-              <PeopleIcon/> <span>People</span></button>
+              <Users01/> <span style={{
+                fontSize:"24px"
+              }}>People</span></button>
           <button className={`flex-row-center btn-tab ${!currentSearch ? 'btn-tab-active' : ''}` }
             onClick={(e)=>{
               toggleNav(e, results, true, filter);
               setCurrentSearch(false)
               }}>
-                <FolderIcon/> <span>Projects</span> 
+                <Folder/> <span style={{
+                  fontSize:"24px"
+                }}>Projects</span> 
                 </button>
         </div>
       </div>

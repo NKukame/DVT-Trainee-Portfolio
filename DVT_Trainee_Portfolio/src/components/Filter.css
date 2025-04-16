@@ -18,6 +18,7 @@
 .filter-dropdown{
     display: flex;
     gap: 12px;
+    align-items: center;
 }
 .filter-section-title{
     font-size: .675em;
