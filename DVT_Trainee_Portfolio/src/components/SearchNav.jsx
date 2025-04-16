@@ -2,40 +2,40 @@ import  { SelectScrollable } from './Sort';
 import PeopleIcon from '@mui/icons-material/People';
 import { Folder, Users01 } from '@untitled-ui/icons-react';
 import { FolderIcon } from 'lucide-react';
-export default function SearchNav({filter, results, setCurrentSearch,currentSearch}) {
+
+export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
+
+  const handleSearchFilter = () =>{
+    filterResults(results, isPeopleSearch, filter);
+    setSearch(!isPeopleSearch);
+  }
 
   return (
     
-    <div className="flex-row-between">
-      <div className="result-nav-btns">
-        <div className="nav-group">
-          <button className={`flex-row-center btn-tab ${currentSearch ? 'btn-tab-active' : ''}`}
-            onClick={(e)=>{
-              toggleNav(e, results, false, filter);
-              setCurrentSearch(true)
-              }}>
-              <Users01/> <span style={{
-                fontSize:"24px"
-              }}>People</span></button>
-          <button className={`flex-row-center btn-tab ${!currentSearch ? 'btn-tab-active' : ''}` }
-            onClick={(e)=>{
-              toggleNav(e, results, true, filter);
-              setCurrentSearch(false)
-              }}>
-                <Folder/> <span style={{
-                  fontSize:"24px"
-                }}>Projects</span> 
-                </button>
-        </div>
+    <div className="flex-row flex-row-between align-items-center flex-wrap">
+
+      <div className="flex-row align-items-center">
+        <TabButton text={'People'} Icon={Users01} handleSearchFilter={handleSearchFilter} isPeopleSearch={!isPeopleSearch} />
+        <TabButton text={'Projects'} Icon={Folder} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
       </div>
-      <div className='sort-btn-container'>
-        <div>
-          <SelectScrollable></SelectScrollable>
-        </div>
+
+      <div>
+        <SelectScrollable></SelectScrollable>
       </div>
+
     </div>
   )
 };
+
+function TabButton({text, Icon, handleSearchFilter,isPeopleSearch}){
+  
+  return (
+    <button className={`flex-row align-items-center font-size-20-px btn-tab gap-10-px font-weight-400 text-gray ${!isPeopleSearch ? 'btn-tab-active border-radius-10-px text-black' : ''}` }
+            onClick={handleSearchFilter}>
+            <Icon/> <span>{text}</span> 
+    </button>
+  )
+}
 
 function filterResults(results, isProject, filter){
 
@@ -47,18 +47,4 @@ function filterResults(results, isProject, filter){
   }
 
   filter(results);
-}
-
-function toggleNav(e, results, isProject, filter ){
-
-  const buttons = e.currentTarget.closest('div').children;
-
-  for(let i = 0;  i < buttons.length; i++){
-    if(e.target === buttons[i]){
-      buttons[i].classList.add('btn-list');
-    }else{
-        buttons[i].classList.remove('btn-list')
-    }
-  }
-  filterResults(results, isProject, filter);
 }

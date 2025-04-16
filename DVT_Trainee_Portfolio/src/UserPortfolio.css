@@ -1,15 +1,16 @@
+/* Container for the user profile information */
 .layout-body{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 700px;
-  /* min-width: 250px; */
   margin-left: 10%;
   margin-top: 20px;
   border-radius: 1.5rem;
   background-color: #e2e2e2;
 }
+
 
 .portfolio-layout{
     display: flex;
@@ -21,6 +22,8 @@
   
   
   /* Main Content Styles */
+
+  
   .project-container {
     background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
     border-radius: 1.5rem;
@@ -33,7 +36,6 @@
   .main-content {
     width: 50%;
     height: 60%;
-    /* margin-top: 10px; */
     margin-left: 30%;
     padding: 20px;
   }
@@ -47,7 +49,6 @@
     background-color: white;
     color: black;
     border-radius: 1rem;
-    /* margin-right: 90px; */
     margin-top: 10px;
   }
   
@@ -60,10 +61,8 @@
     justify-content: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* flex: 1; */
     gap: 16px;
     height: 60%;
-    /* background-color: yellow; */
     width: 100%;
   }
   
