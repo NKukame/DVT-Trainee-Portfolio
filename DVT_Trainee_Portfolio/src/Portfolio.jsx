@@ -63,10 +63,11 @@ function Portfolio() {
 
         <div className="app-layout-body">
           <div className="portfolio-body">
-            <section className="Intro">
-              <p className="theTitle">Portfolio</p>
+            <section className="people-intro">
+            <h1 className="theTitle">Smart People</h1>
+              <p className="peopleDescription">Our amazing intake of interns are being prepared by our most skilled engineers <br /> to deliver for the future</p>
 
-              <div className="view-filter">
+              {/* <div className="view-filter">
                 <select
                   name="view-mode"
                   id="view-mode"
@@ -75,7 +76,7 @@ function Portfolio() {
                 >
                   <option value="card-view">Card</option>
                   <option value="grid-view">Grid</option>
-                  <option value="carousel-view">Carousel</option>
+                 
                 </select>
 
                 {viewMode === "card-view" && (
@@ -83,12 +84,10 @@ function Portfolio() {
                     Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
                   </button>
                 )}
-              </div>
+              </div> */}
             </section>
 
-            {viewMode === "carousel-view" ? (
-              <CarouselView />
-            ) : viewMode === "grid-view" ? (
+            { viewMode === "grid-view" ? (
               <GridView team={filteredAndSortedTeam} />
             ) : (
               <section className="cards">
