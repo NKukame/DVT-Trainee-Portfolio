@@ -127,6 +127,7 @@ function Portfolio() {
               </div>
 
               <div className="sort-button-container">
+                <label htmlFor="#">Sort</label>
                 <button className="sort-button" onClick={toggleSort}>
                   {sortOrder === "asc" ? <AArrowDown /> : <AArrowUp />}
                 </button>

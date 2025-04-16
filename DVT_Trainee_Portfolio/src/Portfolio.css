@@ -98,6 +98,15 @@
   height: 100%;
 }
 
+.sort-button-container label{
+  color: var(--dark-blue);
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
 
 .sort-button {
   height: 100%;
