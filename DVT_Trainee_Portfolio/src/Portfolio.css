@@ -18,10 +18,10 @@
   width: 99vw;
   background-image: 
     linear-gradient(to top, 
-      rgb(229, 229, 229) 0%,       
-      rgb(249, 250, 251, 0.5) 90%, 
-      rgba(249, 250, 251, 0.3) 95%,
-      rgba(249, 250, 251, 0.1) 98%,
+      rgb(255, 255, 255, 0.8) 0%,       
+      rgb(255, 255, 251, 0.5) 50%, 
+      rgba(249, 250, 251, 0.3) 70%,
+      rgba(249, 250, 251, 0.1) 90%,
       rgba(249, 250, 251, 0.1) 100%
     ), 
     url("./assets/theone.jpg");
@@ -55,6 +55,75 @@
   color: var(--dark-blue);
 }
 
+.selection-banner{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 85px;
+  height: max-content;
+  background: rgb(255, 255, 255, 0.8);
+  /* box-shadow: 0px 5px 6px 6px rgba(0, 0, 0, 0.2); */
+}
+
+.people-view-container {
+  display: flex;
+  justify-content: center; /* Center the people-view buttons */
+  flex-grow: 1; /* Allow the container to take up available space */
+}
+
+.people-view{
+  /* display: flex; */
+  all: unset;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 8px 20px;
+  margin: 10px;
+  color: var(--dark-blue);
+  background: var(--white);
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow:  0px 5px 15px rgba(0, 0, 0, 0.1) ;
+}
+
+
+.people-view.active{
+  border: 1px solid var(--dark-blue);
+}
+
+.sort-button-container{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  height: 100%;
+}
+
+
+.sort-button {
+  height: 100%;
+  background:  var(--dark-blue);
+  padding: 8px 20px;
+  margin: 10px 0 10px 5px;
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow:  0px 5px 15px rgba(0, 0, 0, 0.1) ;
+}
+
+.sort-button:hover {
+  background-color: var(--white);
+  color: var(--dark-blue);
+}
+
+.portfolio-view-container{
+  background-color: var(--white);
+  border-radius: 25px;
+  margin: 30px 30px 30px 120px;
+}
+
 .cards {
   display: flex;
   place-content: center;
@@ -68,16 +137,33 @@
 
 .carousel .carousel-navigation {
   color: var(--dark-blue);
-  background: none;
+  background-color: white; /* adds clean base */
   outline: none;
   margin: auto 3.5rem;
-  font-size: 30px;
-  font-weight: 200;
-  padding: 1rem;
+  font-size: 24px; /* slightly smaller for subtlety */
+  font-weight: 600; /* more defined weight */
+  padding: 0.8rem;
   height: max-content;
   cursor: pointer;
-  border: 4px solid var(--dark-blue);
-  border-radius: 25%;
+  border: 2px solid var(--dark-blue); /* thinner, sleeker */
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel .carousel-navigation:hover {
+  background-color: var(--dark-blue);
+  color: white;
+  transform: scale(1.05);
+}
+
+.carousel .carousel-navigation:active {
+  transform: scale(0.95);
+}
+
+.carousel .carousel-navigation svg {
+  display: block;
+  margin: auto;
 }
 
 .view-filter {
@@ -302,7 +388,7 @@
   transition: all 0.5s ease-in-out 0.5s;
 }
 
-.sort-button {
+/* .sort-button {
   width: fit-content;
   display: block;
   padding: 10px 15px;
@@ -315,8 +401,8 @@
   transition: background 0.3s ease;
   transform: translateX(calc(100% + 80px));
   z-index: 0;
-}
+} */
 
-.sort-button:hover {
+/* .sort-button:hover {
   background-color: var(--dark-blue);
-}
+} */
