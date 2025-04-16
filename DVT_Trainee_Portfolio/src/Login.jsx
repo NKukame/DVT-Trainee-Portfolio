@@ -3,12 +3,13 @@
 // import Header from './components/Header';
 // import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
-import LockIcon from '@mui/icons-material/Lock';
+// import LockIcon from '@mui/icons-material/Lock';
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
+import { Eye, EyeClosed, Mail, Lock } from "lucide-react";
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -18,6 +19,9 @@ function Signup() {
     password: "",
     confirmPassword: "",
   });
+
+// State to manage password visibility
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -151,6 +155,7 @@ function Signup() {
     }
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -164,6 +169,19 @@ function Signup() {
   const getInputClass = (field) => {
     return errors[field] ? "error-border" : "";
   }
+
+// Eye icon toggle function
+  const handleToggle = (event, isPassword) => {
+    if(isPassword){
+      event.currentTarget.closest("div").querySelector("input").type = 'text'
+    }
+    else{
+      event.currentTarget.closest("div").querySelector("input").type = 'password'
+    }
+    setIsPasswordVisible(isPassword)
+  };
+      
+  
 
   return (
     <>
@@ -241,38 +259,52 @@ function Signup() {
           
             <h4>Welcome back! Please enter your DVT credentials.</h4>
             <h6>Email/Username</h6>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter email or username"
-              value={formData.email || formData.name}
-              onChange={handleChange}
-              className={getInputClass("email")}
+
+            <div className="email-input-container">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter email or username"
+                  value={formData.email || formData.name}
+                  onChange={handleChange}
+                  className={getInputClass("email")+" email-input"}
             />
+            <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+            </div>
+
             {errors.email && <p className="error">{errors.email}</p>}
-     
-            <label for="pwd">Password</label>
+
+            <h6>Password</h6>
             <div className="password-container">
               <input  
-              className="password-input"
+              // className="password-input"
               type="password"
               name="password"
               placeholder="Password" 
               value={formData.password}
               onChange={handleChange}
-              classname={getInputClass("password")}
+              classname={getInputClass("password")+" password-input"}
             />
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" className="password-icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
+            {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
+              
+              handleToggle(event, false)
+            }}/>:
+
+            <EyeClosed className="eyeclosed-icon password-icon" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+              handleToggle(event, true);
+            }} />
+            }
+            <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
+
+            {/* <Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} /> */}
             </div>
-            
             
             {errors.password && <p className="error">{errors.password}</p>}
             {errors.login && <p className="error">{errors.login}</p>}
-
+      
             <Link to="#">Forgot Your Password?</Link>
+
+            
             <button type="submit">Sign In</button>
           </form>
         </div>
@@ -326,4 +358,5 @@ function Signup() {
 }
 
 export default Signup;
+
 

@@ -20,22 +20,15 @@
     
 
 }
-.form-container h6{
+.login-container h6{
     font-family: 'Hanken Grotesk' sans-serif;
     font-weight: 500;
     color: #344054;
     text-align: start;
+    left: 0;
   
 }
-.form-container label{
-    font-family: 'Hanken Grotesk' sans-serif;
-    font:medium 12px/20px 'Hanken Grotesk', sans-serif;
-    color: #344054;
-    text-align: start;
-    letter-spacing: 0%;
-    line-height: 20px;
-    font-weight: 500;
-}
+
 
 .login-container{
     background-color: #fff;
@@ -102,7 +95,7 @@
 
 .login-container input {
     background-color: white;
-    border: 1px solid #ccc;
+    border: 1px solid #D0D5DD;
     margin: 8px 0;
     padding: 10px 15px;
     font-size: 13px;
@@ -112,7 +105,7 @@
 }
 
 input:focus {
-    border: 1px solid #072549;
+    border: 1px solid #027FB9;
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -122,8 +115,9 @@ input::placeholder {
     
 }
 input[type="Password"] {
-   
     cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #D0D5DD;
     
 }
 
@@ -152,6 +146,7 @@ h4{
     gap: 12px;
     margin: 0 0 20px;
 }
+
 h1{
     font: 24px;
     line-height: 32px;
@@ -236,34 +231,166 @@ h1{
 }
 
 .password-container {
+    /* border: 1px solid #027FB9; */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
+    
+    /* background-color: #fff; */
+    /* background-color: #ff0a26; */
+    /* border: 1px solid #D0D5DD; */
+    border-radius: 10px;
 }
 
-.password-container input {
-    width: 90%;
+.password-container.active{
+    border: 1px solid #027FB9;
+    background-color: #6cd521;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.eye-icon{
+    position: absolute;
+    right: 0;
+}
+
+.eyeclosed-icon{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    Color: #a0a0a0;
+    margin: 0 10px;
+}
+
+.password-container{
+    position: relative;
+}
+
+/* .password-container {
+    width: 100%;
     margin: 0;
     padding: 10px 15px;
     font-size: 13px;
-    border-radius: 8px;
-    background-color: #f0f0f0;
+    border-radius: 10px;
+    background-color: #fff;
     border: none;
+} */
+
+.password-container:focus input {
+    outline: none;
+    border: 1px solid #027FB9;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 100%
 }
 
 .password-icon {
-    width: 24px;
-    height: 24px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    transition: all 0.5s ease-in-out;
 
 }
 
+.lock-icon{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    left: 0%;
+    top: 15px;   
+}
+
+.mail-icon {
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    left: 0%;
+    top: 15px;  
+
+
+}
+
+.email-input-container{
+    width: 100%;
+    position: relative;
+    margin: 0 10px;
+    padding: auto;
+
+}
+.email-input{
+    padding-left: 100px;
+}
+  
+/* 
+ .remember-me {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+ .remember-me input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+ .slider-switch {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider-switch:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider-switch {
+    background-color: #072549;
+  }
+  input:checked + .slider-switch:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+    .slider-switch.round {
+        border-radius: 34px;
+    }
+
+    .slider-switch.round:before {
+        border-radius: 50%;
+    } */
+    
 .login-toggle {
     background-color: #072549;
     height: 100%;
@@ -348,6 +475,15 @@ input.error-border {
 
 }
 
-.password-input{
-    color: #040404;
+/* .password-input{
+    color: ;
+} */
+
+.email-input-container input{
+    padding-left: 40px;
+
+}
+
+.password-container input{
+    padding-left: 40px;
 }
