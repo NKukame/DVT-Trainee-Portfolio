@@ -10,8 +10,9 @@ import Slider from '@mui/material/Slider';
 import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
 import {Combobox} from "./Combo";
-import { Award, Building, Code, User } from "lucide-react";
+// import { Award, Building, Code, User } from "lucide-react";
 import { Badge } from "./Search/Badge";
+import { Award01, Building05, Code02, User01 } from "@untitled-ui/icons-react";
 
 
 function Filter(){
@@ -23,29 +24,36 @@ function Filter(){
             <div className="filter-section">
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Roles</p> */}
-                    <Building size={32}    />
+                    {/* <Building size={32}    /> */}
+                    <Building05/>
                     <Combobox/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Experience (years)</p> */}
-                    <User  size={32} />
+                    {/* <User  size={32} /> */}
+                    <User01/>
                     <Combobox/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Technologies</p> */}
-                    <Code size={32} />
+                    {/* <Code size={32} />
+                     */}
+                    <Code02/>
                     <Combobox/>
                 </div>
                 <div className="filter-dropdown">
-                    {/* <p className="filter-section-title">Location</p> */}
-                    <Award size={32}  />
+                    {/* <p className="filter-section-title">Location</p> */
+                    }
+                    
+                    {/* <Award size={32}  /> */}
+                    <Award01/>
                     <Combobox/>
                 </div>
             </div>
             <div className="filter-tag-container">
                 <div className="tag-container">
                     <Badge onClose={true}>React</Badge>
-                    <Badge onClose={true}>Javascript</Badge>
+                    <Badge >Javascript</Badge>
                     <Badge onClose={true}>Tailwind</Badge>
                     <Badge onClose={true}>Docker</Badge>
                 </div>
