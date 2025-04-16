@@ -31,14 +31,14 @@ function SideBar() {
             </Link>
           </div>
 
-          <div className="sidebar-nav-link">
+          {/* <div className="sidebar-nav-link">
             <Link to="/login">
               <div className="homeBtn">
                 <LoginIcon fontSize="large" />
                 <p className="home-txt">Login</p>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           <div className="sidebar-nav-link">
             <Link to="/portfolio">
