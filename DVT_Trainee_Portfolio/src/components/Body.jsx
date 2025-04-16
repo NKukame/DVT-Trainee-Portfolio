@@ -122,7 +122,7 @@ function Body() {
             team.
           </p>
           <button className="cta-button">
-            <img src="./Icon.png" alt="" /> &nbsp; The Team
+            <img src="./IconCTA.png" alt="" /> &nbsp; The Team
           </button>
         </div>
       </div>
@@ -215,7 +215,7 @@ function Body() {
             across multiple domains.
           </p>
           <button className="cta-button video-cta-button">
-            <img src="./Icon.png" alt="" /> &nbsp; The Work
+            <img src="./IconCTA.png" alt="" /> &nbsp; The Work
           </button>
         </div>
       </div>
