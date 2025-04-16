@@ -1,26 +1,31 @@
-import Sort from './Sort';
-
-export default function SearchNav({filter, results}) {
+import  { SelectScrollable } from './Sort';
+import PeopleIcon from '@mui/icons-material/People';
+import { FolderIcon } from 'lucide-react';
+export default function SearchNav({filter, results, setCurrentSearch,currentSearch}) {
 
   return (
     
-    <div className="result-nav">
+    <div className="flex-row-between">
       <div className="result-nav-btns">
-        <div className="nav-btns">
-          <button className="result-nav-btn btn-list" 
+        <div className="nav-group">
+          <button className={`flex-row-center btn-tab ${currentSearch ? 'btn-tab-active' : ''}`}
             onClick={(e)=>{
-              toggleNav(e, results, undefined, filter);}}>All</button>
-          <button className="result-nav-btn" 
-            onClick={(e)=>{toggleNav(e, results, false, filter);}}>
-              Employees</button>
-          <button className="result-nav-btn" 
+              toggleNav(e, results, false, filter);
+              setCurrentSearch(true)
+              }}>
+              <PeopleIcon/> <span>People</span></button>
+          <button className={`flex-row-center btn-tab ${!currentSearch ? 'btn-tab-active' : ''}` }
             onClick={(e)=>{
-              toggleNav(e, results, true, filter);}}>Projects</button>
+              toggleNav(e, results, true, filter);
+              setCurrentSearch(false)
+              }}>
+                <FolderIcon/> <span>Projects</span> 
+                </button>
         </div>
       </div>
       <div className='sort-btn-container'>
         <div>
-          <Sort></Sort>
+          <SelectScrollable></SelectScrollable>
         </div>
       </div>
     </div>

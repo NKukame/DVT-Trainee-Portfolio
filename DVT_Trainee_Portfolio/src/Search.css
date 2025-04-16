@@ -1,6 +1,19 @@
-.r-container-filter{
+/* .r-container-filter{
   display: flex;
   justify-self: center;
   margin: 2em 4em;
+} */
+
+
+.search-layout{
+  padding-inline: 4rem;
 }
 
+.search-page{
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3em;
+}

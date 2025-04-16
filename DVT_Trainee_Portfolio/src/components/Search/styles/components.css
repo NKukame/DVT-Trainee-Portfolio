@@ -1,0 +1,23 @@
+.card-user,
+.card-project {
+  color: black;
+  border-radius: 12px;
+  padding: 12px;
+  background: #FFFFFF;
+  min-width: 328px;
+  min-height: 208px;
+  box-shadow:  0px 0.5px 2.21px #00000005, 0px 1.2px 5.32px #00000007, 0px 2.25px 10.02px #00000009, 0px 4.02px 17.87px #0000000B, 0px 7.52px 33.42px hsla(0, 0%, 0%, 0.051), 0px 18px 80px #00000012;
+
+}
+
+.results-container {
+  position: relative;
+  background-color: white;
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  padding: 24px;
+  max-width: 1280px;
+  max-height: 688px;
+  display: flex;
+  flex-direction: column;
+}

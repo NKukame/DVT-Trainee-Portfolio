@@ -9,7 +9,7 @@ export default function Badges({badgeList}) {
     <ul className="skills-list">
       {
         badgeList.map((badge)=>{
-          return (<li><p  className='badge' style={selectedFilter.includes(badge)? {borderColor:generatePastelColor(badge), borderWidth: '2.2px'}:{}}>{badge}</p></li>)
+          return (<li><p  className='badge-default' style={selectedFilter.includes(badge)? {borderColor:generatePastelColor(badge), borderWidth: '2.2px'}:{}}>{badge}</p></li>)
         })
 
       }

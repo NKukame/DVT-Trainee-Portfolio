@@ -1,40 +1,24 @@
-
-
 .filter-container{
-    max-width: 250px;
-    /* background-color: none; */
-    min-height: 500px;
-    height: fit-content;
-    /* padding-inline: 1em; */
-    border-radius: .5em;
-    padding: 1em;
-    margin-right: 1.5em;
-
+    margin-inline: 2rem;
+    
 
 }
-
-.filter-title{
+.filter-section{
     display: flex;
-    justify-content: space-between;
-    /* padding-bottom: .5em; */
-    padding-top: .5em;
+    gap: 0;
+    /* width: fit-content; */
+    justify-content: space-evenly;
+    background-color: var(--navy-blue);
+    padding-block: 1rem;
+    border-radius: 0.875rem;
+    padding-inline: 24px;
+    box-shadow:  0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
-.divider{
-    border-top: .1px solid;
-    margin-top: 1em;
+.filter-dropdown{
+    display: flex;
+    gap: 12px;
 }
-
-.scroller{
-    overflow-y: scroll;
-}
-
-.scroller::-webkit-scrollbar{
-    display: none;
-} 
-
-
-
 .filter-section-title{
     font-size: .675em;
     
@@ -44,51 +28,24 @@
 
     font-weight: 600;
 }
+.filter-tag-container{
+    width: 100%;
+    height: 48px;
+    /* background-color: aliceblue; */
+    /* margin-inline: 12px; */
+    padding-inline: 12px;
 
-.filter-content-name{
-    font-size: .875em;
 }
 
-.filter-content-name:hover{
-    color: var(--blue);
-}
-
-.selected{
-    color: var(--yellow);
-    font-weight: 600;
-}
-
-.filter-content-circle{
-    height: 10px;
-    width: 10px;
-    margin-inline-end: 5px;
-    border-radius: 999px;
-    background-color: blanchedalmond;
-}
-
-.filter-content{
+.tag-container{
+    background-color: var(--white);
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 12px 12px;
+    box-shadow:  0 0.5px 2.21px 0 rgb(0 0 0 / 0.197), 0 1.2px 5.32px 0 rgb(0 0 0 / 0.283), 0 2.25px 10.02px 0 rgb(0 0 0 / 0.35);
+    padding-block: 12px;
+    padding-inline: 24px;
     display: flex;
-    align-items: center;
-    cursor: pointer;
-    width:fit-content;
-    margin-top: .2em;
+    gap: 12px;
+    align-items: flex-start;
 }
-
-.header-container{
-    display: flex;  
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-icon:hover {
-    color: var(--yellow);
-} 
-
-.filter-section {
-    margin-top: 1em;
-}
-
-.filter-container:first-child{
-    margin-top: 0;
-}
-
