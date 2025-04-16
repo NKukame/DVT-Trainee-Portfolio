@@ -85,25 +85,7 @@ function Portfolio() {
                 Our amazing intake of interns are being prepared by our most
                 skilled engineers <br /> to deliver for the future
               </p>
-
-              {/* <div className="view-filter">
-                <select
-                  name="view-mode"
-                  id="view-mode"
-                  className="custom-dropdown"
-                  onChange={handleViewChange}
-                >
-                  <option value="card-view">Card</option>
-                  <option value="grid-view">Grid</option>
-                 
-                </select>
-
-                {viewMode === "card-view" && (
-                  <button className="sort-button" onClick={toggleSort}>
-                    Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
-                  </button>
-                )}
-              </div> */}
+              
             </section>
 
             <div className="selection-banner">
