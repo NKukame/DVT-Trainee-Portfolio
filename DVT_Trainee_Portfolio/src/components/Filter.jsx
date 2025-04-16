@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
-import ComboboxDemo from "./Combo";
+import {Combobox} from "./Combo";
 import { Award, Building, Code, User } from "lucide-react";
 import { Badge } from "./Search/Badge";
 
@@ -24,28 +24,30 @@ function Filter(){
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Roles</p> */}
                     <Building size={32}    />
-                    <ComboboxDemo/>
+                    <Combobox/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Experience (years)</p> */}
                     <User  size={32} />
-                    <ComboboxDemo/>
+                    <Combobox/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Technologies</p> */}
                     <Code size={32} />
-                    <ComboboxDemo/>
+                    <Combobox/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Location</p> */}
                     <Award size={32}  />
-                    <ComboboxDemo/>
+                    <Combobox/>
                 </div>
             </div>
             <div className="filter-tag-container">
                 <div className="tag-container">
                     <Badge onClose={true}>React</Badge>
                     <Badge onClose={true}>Javascript</Badge>
+                    <Badge onClose={true}>Tailwind</Badge>
+                    <Badge onClose={true}>Docker</Badge>
                 </div>
             </div>
         </section>

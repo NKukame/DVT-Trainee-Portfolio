@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Combo.css";
 
-const ComboboxDemo = () => {
+export const Combobox = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -149,4 +149,4 @@ const ComboboxDemo = () => {
   );
 };
 
-export default ComboboxDemo;
+export default Combobox;

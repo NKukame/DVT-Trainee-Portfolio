@@ -18,11 +18,11 @@ export function Badge({ children, onClose }) {
         paddingBlock: "2px",
         paddingLeft: "9px",
         paddingRight: "4px",
-        lineHeight: "1",
+        // lineHeight: "1",
       }}
     >
         <span style={{
-            lineHeight: "20px",
+            marginBlock:"10px",
             display: "inline-block",
             color: "#344054"
         }}>
