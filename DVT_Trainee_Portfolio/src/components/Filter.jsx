@@ -9,8 +9,10 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
-import ComboboxDemo from "./Combo";
-import { Award, Building, Code, User } from "lucide-react";
+import {Combobox} from "./Combo";
+// import { Award, Building, Code, User } from "lucide-react";
+import { Badge } from "./Search/Badge";
+import { Award01, Building05, Code02, User01 } from "@untitled-ui/icons-react";
 
 
 function Filter(){
@@ -22,28 +24,38 @@ function Filter(){
             <div className="filter-section">
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Roles</p> */}
-                    <Building size={32}    />
-                    <ComboboxDemo/>
+                    {/* <Building size={32}    /> */}
+                    <Building05/>
+                    <Combobox placeholder="Industries"/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Experience (years)</p> */}
-                    <User  size={32} />
-                    <ComboboxDemo/>
+                    {/* <User  size={32} /> */}
+                    <User01/>
+                    <Combobox placeholder="Roles"/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Technologies</p> */}
-                    <Code size={32} />
-                    <ComboboxDemo/>
+                    {/* <Code size={32} />
+                     */}
+                    <Code02/>
+                    <Combobox placeholder="Technologies"/>
                 </div>
                 <div className="filter-dropdown">
-                    {/* <p className="filter-section-title">Location</p> */}
-                    <Award size={32}  />
-                    <ComboboxDemo/>
+                    {/* <p className="filter-section-title">Location</p> */
+                    }
+                    
+                    {/* <Award size={32}  /> */}
+                    <Award01/>
+                    <Combobox placeholder="Experience"/>
                 </div>
             </div>
             <div className="filter-tag-container">
                 <div className="tag-container">
-                    
+                    <Badge onClose={true}>React</Badge>
+                    <Badge >Javascript</Badge>
+                    <Badge onClose={true}>Tailwind</Badge>
+                    <Badge onClose={true}>Docker</Badge>
                 </div>
             </div>
         </section>
