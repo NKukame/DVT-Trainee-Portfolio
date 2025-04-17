@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
-import { Eye, EyeClosed, Mail, Lock } from "lucide-react";
+import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -146,7 +146,7 @@ function Signup() {
       navigate("/");
     } else {
       // Check if email or username is incorrect
-      if (formData.email !== storedUser.email || formData.name.trim().toLocaleLowerCase() !== storedUser.name.trim().toLocaleLowerCase()) {
+      if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
         console.log(formData.email ,storedUser.name)
         setErrors({ email: "Email or Username not found" });
       } else {
@@ -185,7 +185,7 @@ function Signup() {
 
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <div className="LoginApp">
       <div className={`login-container ${isSignUp ? "active" : ""}`}>
         {/* Sign Up Form */}
@@ -193,40 +193,44 @@ function Signup() {
           <form onSubmit={handleSubmit}>
             <h1>Create Account</h1>
 
+            <div className="sign-up-form">
             <h6>Name</h6>
             <input
               type="text"
               name="name"
               placeholder="Username"
               value={formData.name}
+              required
               onChange={handleChange}
               className={getInputClass("name")}
 
               // className={errors.name ? "error-border" : ""}
             />
-            {errors.name && <p className="error-in">{errors.name}</p>}
+            {errors.name && <p className="signup-error">{errors.name}</p>}
             <h6>Email</h6>
             <input
               type="email"
               name="email"
               placeholder=" Enter email address"
               value={formData.email}
+              required
               onChange={handleChange}
               className={getInputClass("email")}
             />
-            {errors.email && <p className="error-in">{errors.email}</p>}
+            {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
             
-            <h6>Password</h6>
+            <h6> Password</h6>
             <input
               type="password"
               name="password"
               placeholder="Enter password"
               value={formData.password}
+              required
               onChange={handleChange}
               className={getInputClass("password")}
             />
-            {errors.password && <p className="error-in">{errors.password}</p>}
+            {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
             <h6>Confirm Password</h6>
             <input
               type="password"
@@ -236,8 +240,9 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("confirmPassword")}
             />
-            {errors.confirmPassword && <p className="error-in">{errors.confirmPassword}</p>}
+            {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
 
+            </div>
             <button className="submit" type="submit">Sign Up</button>
             <p className="signInBlack">Already have an account?<Link to="#" onClick={() =>{
                setIsSignUp(false)
@@ -248,65 +253,73 @@ function Signup() {
                 confirmPassword: "",
               }))
               setErrors({})
-               }}>Log In</Link></p>
+
+               }}> Log In</Link></p>
           </form>
         </div>
 
         {/* Sign In Form */}
+        <div className="login-container-form">
         <div className="form-container sign-in">
           <form onSubmit={handleSubmit}>
             <h1>Welcome</h1>
           
             <h4>Welcome back! Please enter your DVT credentials.</h4>
-            <h6>Email/Username</h6>
 
-            <div className="email-input-container">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter email or username"
-                  value={formData.email || formData.name}
-                  onChange={handleChange}
-                  className={getInputClass("email")+" email-input"}
-            />
-            <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
-            </div>
+            <div className="sign-in-h6">
+            <h6 >Email or Username</h6>
 
-            {errors.email && <p className="error">{errors.email}</p>}
+                    <div className="email-input-container">
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Enter email or username"
+                          value={formData.email || formData.name}
+                          required
+                          onChange={handleChange}
+                          className={getInputClass("email")+" email-input"}
+                    />
+                    <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+                    </div>
 
-            <h6>Password</h6>
-            <div className="password-container">
-              <input  
-              // className="password-input"
-              type="password"
-              name="password"
-              placeholder="Password" 
-              value={formData.password}
-              onChange={handleChange}
-              classname={getInputClass("password")+" password-input"}
-            />
-            {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
-              
-              handleToggle(event, false)
-            }}/>:
+                    {errors.email ? (<p className="login-error">{errors.email}</p>) : <p className="login-error"></p>}
 
-            <EyeClosed className="eyeclosed-icon password-icon" strokeWidth="1"  size={"20px"} onClick={(event)=>{
-              handleToggle(event, true);
-            }} />
-            }
-            <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
+                    <h6 >Password</h6>
+                    <div className="password-container">
+                      <input  
+                      // className="password-input"
+                      type="password"
+                      name="password"
+                      placeholder="Password" 
+                      value={formData.password}
+                      required
+                      onChange={handleChange}
+                      classname={getInputClass("password")+" password-input"}
+                    />
+                    {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                      
+                      handleToggle(event, false)
+                    }}/>:
 
-            {/* <Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} /> */}
+                    <EyeClosed className="eyeclosed-icon password-icon" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                      handleToggle(event, true);
+                    }} />
+                    }
+                    <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
+
+                    </div>
+
+                    {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
+                    {errors.login ? (<p className="login-error">{errors.login}</p>) : <p className="login-error"></p>}
+
             </div>
             
-            {errors.password && <p className="error">{errors.password}</p>}
-            {errors.login && <p className="error">{errors.login}</p>}
-      
-            <Link to="#">Forgot Your Password?</Link>
-
             
+            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password? </Link>
+          
             <button type="submit">Sign In</button>
           </form>
+        </div>
         </div>
 
         {/* Toggle Container */}

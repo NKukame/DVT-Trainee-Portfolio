@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 .LoginApp {
-    /* background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);  */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +8,7 @@
     height: 100vh;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+    background-size: cover;
 }
 
 .form-container h1, h4{
@@ -20,14 +19,9 @@
     
 
 }
-.login-container h6{
-    font-family: 'Hanken Grotesk' sans-serif;
-    font-weight: 500;
-    color: #344054;
-    text-align: start;
-    left: 0;
+/* .form-container .sign-up{
   
-}
+} */
 
 
 .login-container{
@@ -39,13 +33,14 @@
     width: 768px;
     max-width: 100%;
     min-height: 480px;
+    -webkit-box-reflect: below 0px linear-gradient(transparent, rgba(230, 222, 222, 0.11));
 }
 
 .login-container p {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     letter-spacing: 0.3px;
-    margin: 20px 0;
+    
   
 }
 
@@ -114,10 +109,10 @@ input::placeholder {
     font-size: 13px;
     
 }
-input[type="Password"] {
+input[type="Password"] :focus {
     cursor: pointer;
     background-color: #fff;
-    border: 1px solid #D0D5DD;
+    border: 1px solid #027FB9;
     
 }
 
@@ -125,6 +120,8 @@ input[type="Password"] {
     position: absolute;
     top: 0;
     height: 100%;
+    margin-top: 2px;
+    margin-bottom: auto;
     transition: all 0.6s ease-in-out;
 }
 
@@ -136,7 +133,36 @@ input[type="Password"] {
     gap: 12px;
     
 }
-h4{
+.sign-up-form{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+
+}
+
+    .sign-in-h6{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        width: 100%;
+     
+    }
+
+ .login-container h6 {
+    font: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #344054;
+    font-family: 'Hanken Grotesk' sans-serif;
+    gap: 12px;
+ 
+ 
+
+}
+h4 {
     font: 16px;
     line-height: 24px;
     font-weight: 500;
@@ -147,7 +173,7 @@ h4{
     margin: 0 0 20px;
 }
 
-h1{
+h1 {
     font: 24px;
     line-height: 32px;
     font-weight: 600;
@@ -169,15 +195,25 @@ h1{
     width: 50%;
     opacity: 0;
     z-index: 1;
+    
+    
 }
 
+
 .sign-up p{
-    color: red;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    color: rgb(226, 19, 19);
+    font-size: 12px;
+    font-family: 'Hanken Grotesk' sans-serif;
+    font-weight: 500;
+    /* margin: 0 20px; */
+   
 }
 .sign-up .signInBlack{
-    color: black;
+    color: #257A99;
+    margin: 10px;
+    font-size: 13px;
+    font-family: 'Hanken Grotesk' sans-serif;
+    font-weight: 500;
 }
 
 .login-container.active .sign-up {
@@ -197,21 +233,6 @@ h1{
         z-index: 5;
     }
 }
-/* 
-.social-icons {
-    margin: 20px 0;
-} */
-/* 
-.social-icons a {
-    border: 1px solid #ccc;
-    border-radius: 20%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 3px;
-    width: 40px;
-    height: 40px;
-} */
 
 .toggle-login-container{
     position: absolute;
@@ -221,33 +242,22 @@ h1{
     height: 100%;
     overflow: hidden;
     transition: all 0.6s ease-in-out;
-    /* border-radius: 150px 0 0 100px; */
     z-index: 1000;
 }
 
 .login-container.active .toggle-login-container{
     transform: translateX(-100%);
-    /* border-radius: 0 150px 100px 0; */
+
 }
 
 .password-container {
-    /* border: 1px solid #027FB9; */
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    
-    /* background-color: #fff; */
-    /* background-color: #ff0a26; */
-    /* border: 1px solid #D0D5DD; */
     border-radius: 10px;
-}
-
-.password-container.active{
-    border: 1px solid #027FB9;
-    background-color: #6cd521;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .eye-icon{
@@ -263,27 +273,14 @@ h1{
     margin: 0 10px;
 }
 
-.password-container{
-    position: relative;
-}
-
-/* .password-container {
-    width: 100%;
-    margin: 0;
-    padding: 10px 15px;
-    font-size: 13px;
-    border-radius: 10px;
-    background-color: #fff;
-    border: none;
-} */
-
-.password-container:focus input {
+.password-container:focus {
     outline: none;
     border: 1px solid #027FB9;
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     width: 100%
 }
+
 
 .password-icon {
     cursor: pointer;
@@ -328,7 +325,6 @@ h1{
 .email-input-container{
     width: 100%;
     position: relative;
-    margin: 0 10px;
     padding: auto;
 
 }
@@ -336,60 +332,6 @@ h1{
     padding-left: 100px;
 }
   
-/* 
- .remember-me {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
- .remember-me input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
- .slider-switch {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-
-  .slider-switch:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-
-  input:checked + .slider-switch {
-    background-color: #072549;
-  }
-  input:checked + .slider-switch:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-
-    .slider-switch.round {
-        border-radius: 34px;
-    }
-
-    .slider-switch.round:before {
-        border-radius: 50%;
-    } */
     
 .login-toggle {
     background-color: #072549;
@@ -449,17 +391,29 @@ h1{
     transform: translateX(200%);
 }
 
-.error {
-    color: red;
+
+.login-error {
+    color: rgb(255, 0, 0);
     font-size: 12px;
-    margin: 5px 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-weight: 500;
+}
+
+.signup-error {
+    color: rgb(255, 0, 0);
+    font-size: 12px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-weight: 500;
+  
 }
 
 input.error-border {
     border: 1px solid #ff0a26;
     background-color: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    outline: none;
+
 }
 
 
@@ -475,9 +429,6 @@ input.error-border {
 
 }
 
-/* .password-input{
-    color: ;
-} */
 
 .email-input-container input{
     padding-left: 40px;
@@ -486,4 +437,12 @@ input.error-border {
 
 .password-container input{
     padding-left: 40px;
+}
+
+ #reset-password-link{
+    color: #257A99;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+    font-family: 'Hanken Grotesk' sans-serif;
 }
