@@ -349,7 +349,7 @@
       },
       "years_active": 1,
       "skills": [
-        "JavaScript",
+        "Java",
         "React",
         "Node.js",
         "Express",
@@ -368,6 +368,7 @@
         }
       ],
       "achievements": [
+        "Employee of the Year",
         "Completed Full Stack Bootcamp",
         "Launched multiple full stack projects"
       ],
