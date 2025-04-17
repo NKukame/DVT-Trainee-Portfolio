@@ -10,8 +10,12 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import { useDarkMode } from './DarkModeProvider';
 
-function SideBar() {
+function SideBar() { // adjust the path
+
+  const { darkMode, setDarkMode } = useDarkMode();
+
   return (
     <>
       <div className="sidebar-container">
@@ -70,11 +74,11 @@ function SideBar() {
 
         <div className="sidebar-bottom">
 
-            <div className="sidebar-nav-link">
+            <div className="sidebar-nav-link" onClick={() => setDarkMode(prev => !prev)}>
                   <Link to="/">
                     <div className="homeBtn">
                       <DarkModeOutlinedIcon fontSize="large" />
-                      <p className="home-txt">Dark</p>
+                      <p className="home-txt"> {darkMode ? 'Light' : 'Dark'}</p>
                     </div>
                   </Link>
             </div>
