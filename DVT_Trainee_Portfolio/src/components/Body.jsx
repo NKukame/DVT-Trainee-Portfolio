@@ -1,7 +1,7 @@
 import "./Body.css";
 import profileIcon from "../assets/placeholder.png";
 import projects from "../modal-resources/projects-modal.json";
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function Body() {
   const [team, setTeam] = useState([]);
@@ -216,7 +216,7 @@ function Body() {
             </p>
 
             <h4 className="modal-technologies">Technologies Used:</h4>
-            <ul className="skills-list">
+            <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
               {selectedProject.technologies.map((tech, index) => (
                 (<li key={index}><p  className='badge-default'>{tech}</p></li>)
               ))}
