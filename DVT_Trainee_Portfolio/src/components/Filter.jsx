@@ -26,20 +26,20 @@ function Filter(){
                     {/* <p className="filter-section-title">Roles</p> */}
                     {/* <Building size={32}    /> */}
                     <Building05/>
-                    <Combobox/>
+                    <Combobox placeholder="Industries"/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Experience (years)</p> */}
                     {/* <User  size={32} /> */}
                     <User01/>
-                    <Combobox/>
+                    <Combobox placeholder="Roles"/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Technologies</p> */}
                     {/* <Code size={32} />
                      */}
                     <Code02/>
-                    <Combobox/>
+                    <Combobox placeholder="Technologies"/>
                 </div>
                 <div className="filter-dropdown">
                     {/* <p className="filter-section-title">Location</p> */
@@ -47,7 +47,7 @@ function Filter(){
                     
                     {/* <Award size={32}  /> */}
                     <Award01/>
-                    <Combobox/>
+                    <Combobox placeholder="Experience"/>
                 </div>
             </div>
             <div className="filter-tag-container">
