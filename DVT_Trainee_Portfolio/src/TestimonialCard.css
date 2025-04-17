@@ -51,7 +51,7 @@
     -webkit-box-orient: vertical;
     margin-top: 5px;
     color: #027FB9;
-    font-size: 12px; /* Adjust the font size to make the text smaller */
-    line-height: 1.5rem; /* Adjust line height for better spacing */
-    max-height: 3rem; /* Limit the height to prevent overflow */
+    font-size: 12px; 
+    line-height: 1.5rem; 
+    max-height: 3rem; 
   }
