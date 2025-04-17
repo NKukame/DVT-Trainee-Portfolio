@@ -1,5 +1,6 @@
 import  { SelectScrollable } from './Sort';
 import PeopleIcon from '@mui/icons-material/People';
+import { Folder, Users01 } from '@untitled-ui/icons-react';
 import { FolderIcon } from 'lucide-react';
 
 export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
@@ -14,8 +15,8 @@ export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
     <div className="flex-row flex-row-between align-items-center flex-wrap">
 
       <div className="flex-row align-items-center">
-        <TabButton text={'People'} Icon={PeopleIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={!isPeopleSearch} />
-        <TabButton text={'Projects'} Icon={FolderIcon} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
+        <TabButton text={'People'} Icon={Users01} handleSearchFilter={handleSearchFilter} isPeopleSearch={!isPeopleSearch} />
+        <TabButton text={'Projects'} Icon={Folder} handleSearchFilter={handleSearchFilter} isPeopleSearch={isPeopleSearch} />
       </div>
 
       <div>
