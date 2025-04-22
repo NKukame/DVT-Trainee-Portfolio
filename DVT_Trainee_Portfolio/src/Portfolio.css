@@ -111,9 +111,18 @@
   box-shadow:  0px 5px 15px rgba(0, 0, 0, 0.1) ;
 }
 
+.dark-mode .people-view{
+  background: var(--dark-blue);
+  color: var(--white);
+  border: 1px solid var(--white);
+}
 
 .people-view.active{
   border: 1px solid var(--dark-blue);
+}
+
+.dark-mode .people-view.active{
+  border: 2px solid var(--yellow);
 }
 
 .sort-button-container{
