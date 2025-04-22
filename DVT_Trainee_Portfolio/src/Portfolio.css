@@ -34,6 +34,18 @@
   flex-direction: column;
 }
 
+.dark-mode .people-intro{
+  background-image: 
+    linear-gradient(to top, 
+      rgb(4, 34, 61, 0.8) 0%,       
+      rgb(4, 34, 61, 0.5) 50%,
+      rgb(4, 34, 61, 0.3) 70%,     
+      rgb(4, 34, 61, 0.1) 90%,     
+      rgb(4, 34, 61, 0.1) 100%
+    ), 
+    url("./assets/theone.jpg");
+}
+
 .theTitle {
   display: flex;
   justify-content: center;
