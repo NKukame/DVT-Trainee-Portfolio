@@ -21,7 +21,7 @@
 .sidebar-container:hover {
     width: 11%;
     transition: 0.5s ease-in-out;
-   
+    border-right: 2px solid var(--blue);  
 }
 
 
