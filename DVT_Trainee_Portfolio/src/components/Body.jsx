@@ -2,6 +2,7 @@ import "./Body.css";
 import profileIcon from "../assets/placeholder.png";
 import React, { useState, useEffect, useRef } from "react";
 
+
 function Body() {
   const [team, setTeam] = useState([]);
 
@@ -128,7 +129,7 @@ function Body() {
       </div>
 
       <div className="video-header">
-        <h2>See What They're Doing</h2>
+        <h2 id="theTitle">See What They're Doing</h2>
       </div>
 
       <div

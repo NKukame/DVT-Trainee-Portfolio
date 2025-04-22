@@ -22,6 +22,10 @@
     --dark-mode-blue: #052B4C;
     --dark-cerulean: #084677;
     --dark-gray:   #e7e5e4;
+    --dark-mode-title-white: #e5e5e5;
+    --dark-mode-paragragh-white: #fafafa;
+    --dark-mode-ctaButton: #F4F5F7;
+    --dark-mode-buttonText: #052B4C;
 }
 
 /* Don't Change anything here */
@@ -37,10 +41,12 @@ body{
 }
 
 body.dark-mode {
-    background: linear-gradient(-20deg, #10212b 0%, #241b34 100%);
+    background: linear-gradient(-20deg, #04223D 0%, #02111E 100%);
     transition: 0.5s ease-in-out;
 }
-
+/* body.dark-mode #theTitle {
+    color: red;
+} */
 .app-layout{
     display: flex;
     flex-direction: row;

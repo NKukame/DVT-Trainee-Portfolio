@@ -74,13 +74,13 @@ function SideBar() { // adjust the path
 
         <div className="sidebar-bottom">
 
-            <div className="sidebar-nav-link" onClick={() => setDarkMode(prev => !prev)}>
-                  <Link to="/">
-                    <div className="homeBtn">
+            <div className="sidebar-nav-link" onClick={() => setDarkMode(!darkMode)}>
+                  {/* <Link to="/"> */}
+                    <div  className="homeBtn">
                       <DarkModeOutlinedIcon fontSize="large" />
                       <p className="home-txt"> {darkMode ? 'Light' : 'Dark'}</p>
                     </div>
-                  </Link>
+                  {/* </Link> */}
             </div>
 
             <div className="log-out">

@@ -15,6 +15,10 @@
   /* height: 83.7vh; */
   color: #072549;
 }
+.dark-mode .content{
+  color: #ffffff;
+}
+
 .home-content{
   display: flex;
   justify-content: center;
@@ -25,6 +29,9 @@
   
   font-size: 1.2rem;
 }
+.dark-mode .home-content{
+  color: var(--dark-mode-paragragh-white);
+}
 
 #theTitle {
   flex-wrap: nowrap;
@@ -34,6 +41,9 @@
   text-align: center;
   font-weight: 700;
   color: var(--dark-blue);
+}
+.dark-mode #theTitle{
+  color: var(--dark-mode-title-white);
 }
 
 .content h2 {
@@ -79,8 +89,16 @@
   transition: background 0.3s ease;
 }
 
+.dark-mode .cta-button{
+  background: var(--dark-mode-ctaButton);
+  color: var(--dark-mode-buttonText);
+}
+
 .cta-button:hover {
   background-color: var(--button-blue-hover);
+}
+.dark-mode.cta-button:hover {
+  background-color: var(--dark-mode-ctaButton);
 }
 
 /* Carousel Styling */
