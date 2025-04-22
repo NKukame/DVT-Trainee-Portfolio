@@ -42,7 +42,7 @@
     {
         "title": "Unit Converter",
         "owner": "Phemelo Makwatse",
-        "shortDescription": "A simple web app that can convert between different units of measurement.",
+        "shortDescription": "An app that can convert between different units of measurement.",
         "description": "A simple web app that can convert between different units of measurement. It can convert units of length, weight, volume, area, temperature, and more.",
         "technologies": ["CSS", "JavaScript", "HTML"],
         "image": "./src/modal-resources/Unit Converter - Screenshot.png",
