@@ -217,7 +217,8 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("email")}
             />
-            {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
+            <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+          {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
             
             <h6> Password</h6>
@@ -230,6 +231,7 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("password")}
             />
+            
             {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
             <h6>Confirm Password</h6>
             <input
