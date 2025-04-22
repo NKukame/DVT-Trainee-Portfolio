@@ -27,9 +27,10 @@
 }
 
 .big-picture{
-    width: 980px;
+    width: 100%;
     height: 500px;
     border-radius: 20px;
+    object-fit: fill;
     margin: 25px;
 }
 

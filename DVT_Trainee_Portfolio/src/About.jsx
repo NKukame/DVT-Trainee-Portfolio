@@ -4,7 +4,7 @@ import "./About.css";
 import PeopleList from "./components/PeopleList"; // Import the component
 import Header from "./components/Header";
 import Card from "./components/Card";
-import placeHolder from "./assets/placeholder.png";
+import placeHolder from "./assets/group-picture.jfif";
 import SideBar from "./components/SideBar";
 
 function About() {
