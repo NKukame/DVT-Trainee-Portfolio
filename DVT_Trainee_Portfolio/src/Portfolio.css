@@ -121,6 +121,10 @@
   justify-content: center;
 }
 
+.dark-mode .sort-button-container label{
+  color: var(--white);
+}
+
 .sort-button {
   height: 100%;
   background:  var(--dark-blue);
