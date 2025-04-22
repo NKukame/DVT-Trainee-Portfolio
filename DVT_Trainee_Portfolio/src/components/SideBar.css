@@ -13,6 +13,10 @@
     overflow: hidden; /* Prevent overflow issues */
     z-index: 1;
 }
+.dark-mode .sidebar-container{
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+}
 
 .sidebar-container:hover {
     width: 11%;
@@ -81,6 +85,9 @@
     background-color: var(--light-gray); /* Optional hover effect */
     cursor: pointer;
 }
+.dark-mode .home-txt{
+    color: var(--white);
+}
 
 .logo-txt{
     font-size: 11px;
@@ -106,6 +113,10 @@
 .sidebar-nav-link a{
     color: var(--light-blue);
     transition: width 0.5s ease-in-out;
+}
+
+.dark-mode .sidebar-nav-link a{
+    color: var(--white);
 }
 
 .sidebar-nav-link a:hover{
