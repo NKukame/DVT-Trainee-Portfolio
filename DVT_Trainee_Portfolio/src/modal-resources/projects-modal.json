@@ -1,0 +1,52 @@
+[
+    {
+        "title": "Coding Quiz App",
+        "owner": "Njabulo Kukame",
+        "shortDescription": "A Quiz App that allows you to tailor the quiz to your style.",
+        "description": "A Quiz App that allows you to choose your preferred programming language, and tailor the quiz to your style with options for time limits and question count.",
+        "technologies": ["React", "CSS", "JavaScript", "HTML"],
+        "image": "./src/modal-resources/Screenshot - Coding Quiz App.png",
+        "video": "./src/modal-resources/Screen Recording - Coding Quiz.mp4",
+        "link": "https://github.com/NKukame/Coding-Quiz-App"
+    },
+    {
+        "title": "SubReddit",
+        "owner": "Gomolemo Motlhamme",
+        "shortDescription": "A Reddit client that displays multiple subreddits in separate lanes.",
+        "description": "A browser-based Reddit client that displays multiple subreddits in separate, customizable lanes.",
+        "technologies": ["CSS", "JavaScript", "HTML"],
+        "image": "./src/modal-resources/subbreddit-screenshot.png",
+        "video": "./src/modal-resources/subbreddit-screenrecording.mp4",
+        "link": "https://github.com/GomoAtDVT/Subreddit"
+    },
+    {
+        "title": "Personal Portfolio",
+        "owner": "Andile Mhlongo",
+        "shortDescription": "A personal portfolio website to showcase my projects and skills.",
+        "description": "A personal portfolio website to showcase my projects and skills. It includes sections for my work experience, education, and contact information.",
+        "technologies": ["CSS", "JavaScript", "HTML"],
+        "image": "./src/modal-resources/AM Portfolio Screenshot.png",
+        "video": "./src/modal-resources/AM Portfolio Screen Recording.mp4",
+        "link": "https://github.com/amhlongo-dvt/dvt-fullstackdeveopler-roadmap/tree/main/portfolio"
+    },
+    {
+        "title": "AI Chef",
+        "owner": "Njabulo Kukame",
+        "shortDescription": "Claude Chef uses powerful AI models to suggest recipes.",
+        "description": "Claude Chef is a web application that uses Hugging Face's powerful AI models to suggest recipes based on the ingredients you have. Simply input a list of ingredients, and the app will provide a creative, markdown-formatted recipe tailored to your pantry.",
+        "technologies": ["CSS", "JavaScript", "HTML", "React", "Mistral AI"],
+        "image": "./src/modal-resources/AI Chef - Screenshot.png",
+        "video": "./src/modal-resources/AI Chef - Screen Recording.mp4",
+        "link": "https://github.com/NKukame/AI-Chef"
+    },
+    {
+        "title": "Unit Converter",
+        "owner": "Phemelo Makwatse",
+        "shortDescription": "A simple web app that can convert between different units of measurement.",
+        "description": "A simple web app that can convert between different units of measurement. It can convert units of length, weight, volume, area, temperature, and more.",
+        "technologies": ["CSS", "JavaScript", "HTML"],
+        "image": "./src/modal-resources/Unit Converter - Screenshot.png",
+        "video": "./src/modal-resources/Unit Converter -Recording.mp4",
+        "link": "https://github.com/PhimiTm/Unit-Converter"
+    }
+]
