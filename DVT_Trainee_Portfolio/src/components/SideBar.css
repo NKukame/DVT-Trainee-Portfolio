@@ -13,13 +13,19 @@
     overflow: hidden; /* Prevent overflow issues */
     z-index: 1;
 }
+.dark-mode .sidebar-container{
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+}
 
 .sidebar-container:hover {
     width: 11%;
-    transition: 0.5s ease-in-out;
-   
+    transition: 0.5s ease-in-out;  
 }
 
+.dark-mode .sidebar-container:hover {
+  border-right: 2px solid var(--blue);    
+}
 
 .sidebar-container-logo{
     display: flex;
@@ -68,18 +74,26 @@
     transition: background-color 0.3s ease;
 }
 
-.homeBtn > svg {
+.homeBtn > svg, .sidebar-nav-link > svg {
     margin: 0 auto; /* Center the icon within the sidebar */
     transition: margin 0.5s ease; /* Smoothly adjust alignment */
 }
 
-.sidebar-container:hover .homeBtn > svg {
+.sidebar-container:hover .homeBtn > svg, .sidebar-nav-link:hover > svg {
     margin: 0; /* Align the icon to the left when expanded */
+    margin-left: 20px;
 }
 
 .homeBtn:hover {
     background-color: var(--light-gray); /* Optional hover effect */
     cursor: pointer;
+}
+.dark-mode .home-txt{
+    color: var(--white);
+}
+
+.dark-mode .home-txt:hover{
+    color: var(--light-blue);
 }
 
 .logo-txt{
@@ -108,18 +122,44 @@
     transition: width 0.5s ease-in-out;
 }
 
+.dark-mode .sidebar-nav-link a{
+    color: var(--white);
+}
+
 .sidebar-nav-link a:hover{
     color: var(--purple);
 }
 
+.dark-mode .sidebar-nav-link a:hover{
+    color: var(--light-blue);
+}
+
 .sidebar-bottom{
     width: 100%;
+    margin-right: 13%;
     margin-top: auto;
     text-align: center;
     /* This might be a problem */
     margin-bottom: 20px;
+    color: var(--light-blue);
 }
 
+.sidebar-bottom .homeBtn:hover{
+  color: var(--purple);
+}
+
+.dark-mode .sidebar-bottom{
+    color: var(--white);
+}
+
+.sidebar-bottom .homeBtn:hover{
+  color: var(--light-blue);
+}
+
+.sidebar-container:hover .sidebar-bottom{
+    transform: translateX(calc(5% - 20px)); 
+    transition: 0.5s ease-in-out;
+}
 
 .logout-btn {
     display: flex;

@@ -1,6 +1,8 @@
 import "./Body.css";
 import profileIcon from "../assets/placeholder.png";
+import projects from "../modal-resources/projects-modal.json";
 import React, { useState, useEffect, useRef } from "react";
+
 
 function Body() {
   const [team, setTeam] = useState([]);
@@ -85,6 +87,20 @@ function Body() {
     return () => stopAnimation();
   }, []);
 
+  // Modal Code
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="container">
       <div className="content">
@@ -107,7 +123,16 @@ function Body() {
               <div className="home-carousel-item-text">
                 <h3>{person.name}</h3>
                 <p>{person.description}</p>
-                <p>{person.techStack}</p>
+                <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list flex-wrap py-4-px m-10px">
+                  {(Array.isArray(person.techStack)
+                    ? person.techStack
+                    : []
+                  ).map((tech, index) => (
+                    <li key={index}>
+                      <p className="badge-default">{tech}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           ))}
@@ -122,13 +147,13 @@ function Body() {
             team.
           </p>
           <button className="cta-button">
-            <img src="./Icon.png" alt="" /> &nbsp; The Team
+            <img src="./IconCTA.png" alt="" /> &nbsp; The Team
           </button>
         </div>
       </div>
 
       <div className="video-header">
-        <h2>See What They're Doing</h2>
+        <h2 id="theTitle">See What They're Doing</h2>
       </div>
 
       <div
@@ -137,71 +162,24 @@ function Body() {
         onMouseLeave={startAnimation}
       >
         <div className="video-track" ref={trackRef}>
-          <div className="video-item">
-            <img src={profileIcon} alt="Video Thumbnail" />
+          {projects.map((project, index) => (
+            <div key={index} className="video-item">
+              <img src={project.image} alt="Video Thumbnail" />
 
-            <div className="video-item-text">
-              <div className="video-item-text-inner">
-                <h3>Video 1</h3>
-                <p>Video description goes here.</p>
+              <div className="video-item-text">
+                <div className="video-item-text-inner">
+                  <h3>{project.title}</h3>
+                  <p>{project.shortDescription}</p>
+                </div>
+                <div
+                  className="video-see-more"
+                  onClick={() => openModal(project)}
+                >
+                  See More
+                </div>
               </div>
-              <div className="video-see-more">See More</div>
             </div>
-          </div>
-          <div className="video-item">
-            <img
-              src="https://cdn.pixabay.com/photo/2021/12/04/20/59/animal-6845972_1280.jpg"
-              alt="Video Thumbnail"
-            />
-            <div className="video-item-text">
-              <div className="video-item-text-inner">
-                <h3>Video 1</h3>
-                <p>Video description goes here.</p>
-              </div>
-              <div className="video-see-more">See More</div>
-            </div>
-          </div>
-          <div className="video-item">
-            <img
-              src="https://cdn.pixabay.com/photo/2024/08/09/12/04/monstera-8957004_1280.jpg"
-              alt="Video Thumbnail"
-            />
-            <div className="video-item-text">
-              <div className="video-item-text-inner">
-                <h3>Video 1</h3>
-                <p>Video description goes here.</p>
-              </div>
-              <div className="video-see-more">See More</div>
-            </div>
-          </div>
-          <div className="video-item">
-            <img
-              src="https://cdn.pixabay.com/photo/2025/03/19/19/40/square-9481441_1280.jpg"
-              alt="Video Thumbnail"
-            />
-
-            <div className="video-item-text">
-              <div className="video-item-text-inner">
-                <h3>Video 1</h3>
-                <p>Video description goes here.</p>
-              </div>
-              <div className="video-see-more">See More</div>
-            </div>
-          </div>
-          <div className="video-item">
-            <img
-              src="https://cdn.pixabay.com/photo/2024/02/22/19/14/mosaic-8590725_1280.jpg"
-              alt="Video Thumbnail"
-            />
-
-            <div className="video-item-text">
-              <div className="video-item-text-inner">
-                <h3>Video 1</h3>
-                <p>Video description goes here.</p>
-              </div>
-              <div className="video-see-more">See More</div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -215,10 +193,49 @@ function Body() {
             across multiple domains.
           </p>
           <button className="cta-button video-cta-button">
-            <img src="./Icon.png" alt="" /> &nbsp; The Work
+            <img src="./IconCTA.png" alt="" /> &nbsp; The Work
           </button>
         </div>
       </div>
+      {isModalOpen && selectedProject && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              X
+            </button>
+
+            <h2>{selectedProject.title}</h2>
+
+            {selectedProject.video && (
+              <video
+                src={selectedProject.video}
+                controls
+                width="100%"
+                style={{ borderRadius: "15px", marginTop: "1rem" }}
+              />
+            )}
+
+            <p className="modal-owner">
+              <strong>Owner:</strong> {selectedProject.owner}
+            </p>
+
+            <p className="modal-project-link"><a href={selectedProject.link}>Click Here For The Link</a></p>
+
+            <p className="modal-description">
+            <strong>Description:</strong> <br />{selectedProject.description}
+            </p>
+
+            <h4 className="modal-technologies">Technologies Used:</h4>
+            <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
+              {selectedProject.technologies.map((tech, index) => (
+                (<li key={index}><p  className='badge-default'>{tech}</p></li>)
+              ))}
+            </ul>
+
+            
+          </div>
+        </div>
+      )}
     </div>
   );
 }
