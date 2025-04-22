@@ -1,6 +1,7 @@
 import {Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import Badges from '../Badges';
+import { Award02, MarkerPin01 } from "@untitled-ui/icons-react";
 
 export function UserCard({ user,showDetails = true }) {
   
@@ -24,8 +25,14 @@ function UserDetails({ user }) {
   return (
     <>
       <div className="flex-row align-items-center gap-10-px">
-        <InfoItem icon="./Icon.png" text={user.location} />
-        <InfoItem icon="/Award-01.png" text={`${user.years_active} Years`} />
+        <div className="flex-row align-items-center gap-4-px">
+          <MarkerPin01 width={13} height={17}/>
+          <p className="text-gray font-size-12-px whitespace-nowrap">{user.location}</p>
+        </div>
+        <div className="flex-row align-items-center gap-4-px">
+          <Award02 strokeWidth={"90px"} width={13} height={17}/>
+          <p className="text-gray font-size-12-px whitespace-nowrap">{`${user.years_active} Years`}</p>
+        </div>
       </div>
       <div className='skills-list'>
         <Badges badgeList={user.skills} />
@@ -34,10 +41,10 @@ function UserDetails({ user }) {
   );
 }
 
-function InfoItem({ icon, text }) {
+function InfoItem({ Icon, text }) {
   return (
     <div className="flex-row align-items-center gap-10-px">
-      <img src={icon} alt="" />
+      {Icon}
       <p className="text-gray font-size-12-px whitespace-nowrap">{text}</p>
     </div>
   );

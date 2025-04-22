@@ -38,6 +38,11 @@
 
 }
 
+.dark-mode .filter-section{
+    background-color: #04223D;
+    color: var(--white);
+}
+
 .tag-container{
     background-color: var(--white);
     width: 100%;
@@ -49,4 +54,9 @@
     display: flex;
     gap: 12px;
     align-items: flex-start;
+}
+
+.dark-mode .tag-container{
+    background-color: #04223D;
+    color: var(--white);
 }
