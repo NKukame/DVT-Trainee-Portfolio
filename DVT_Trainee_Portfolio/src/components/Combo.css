@@ -17,6 +17,12 @@
     font-size: 14px;
     margin-right: 24px;
   }
+
+  .dark-mode .button {
+    background-color: #04223D;
+    color: white;
+    border: 1px solid #374151;
+  }
   
   .popoverContent {
     position: absolute;
@@ -29,6 +35,12 @@
     box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
     z-index: 100;
     padding: 0;
+  }
+
+  .dark-mode .popoverContent {
+    background-color: #052B4C;
+    color: var(--white);
+    border: 1px solid #374151;
   }
   
   .commandContainer {
@@ -45,6 +57,15 @@
     font-size: 14px;
     height: 36px;
   }
+  .dark-mode .commandInput::placeholder{
+    color: var(--dark-mode-title-white);
+  }
+
+  .dark-mode .commandInput {
+    background-color: #052B4C;
+    color: white;
+    border-bottom: 1px solid #374151;
+  }
   
   .commandList {
     max-height: 200px;
@@ -55,6 +76,10 @@
     padding: 10px 12px;
     color: #224b9d;
     font-size: 14px;
+  }
+
+  .dark-mode .commandEmpty {
+    color: white;
   }
   
   .commandGroup {
@@ -75,5 +100,10 @@
   
   .commandItemSelected {
     background-color: #f9fafb;
+  }
+
+  .dark-mode .commandItemSelected {
+    background-color: #052B4C;
+    color: var(--dark-mode-title-white);
   }
   
