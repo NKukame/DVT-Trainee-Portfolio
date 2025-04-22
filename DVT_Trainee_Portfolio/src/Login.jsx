@@ -3,12 +3,13 @@
 // import Header from './components/Header';
 // import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
-import LockIcon from '@mui/icons-material/Lock';
+// import LockIcon from '@mui/icons-material/Lock';
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
+import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -18,6 +19,9 @@ function Signup() {
     password: "",
     confirmPassword: "",
   });
+
+// State to manage password visibility
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -142,7 +146,7 @@ function Signup() {
       navigate("/");
     } else {
       // Check if email or username is incorrect
-      if (formData.email !== storedUser.email || formData.name.trim().toLocaleLowerCase() !== storedUser.name.trim().toLocaleLowerCase()) {
+      if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
         console.log(formData.email ,storedUser.name)
         setErrors({ email: "Email or Username not found" });
       } else {
@@ -151,6 +155,7 @@ function Signup() {
     }
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -165,9 +170,22 @@ function Signup() {
     return errors[field] ? "error-border" : "";
   }
 
+// Eye icon toggle function
+  const handleToggle = (event, isPassword) => {
+    if(isPassword){
+      event.currentTarget.closest("div").querySelector("input").type = 'text'
+    }
+    else{
+      event.currentTarget.closest("div").querySelector("input").type = 'password'
+    }
+    setIsPasswordVisible(isPassword)
+  };
+      
+  
+
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <div className="LoginApp">
       <div className={`login-container ${isSignUp ? "active" : ""}`}>
         {/* Sign Up Form */}
@@ -175,40 +193,46 @@ function Signup() {
           <form onSubmit={handleSubmit}>
             <h1>Create Account</h1>
 
+            <div className="sign-up-form">
             <h6>Name</h6>
             <input
               type="text"
               name="name"
               placeholder="Username"
               value={formData.name}
+              required
               onChange={handleChange}
               className={getInputClass("name")}
 
               // className={errors.name ? "error-border" : ""}
             />
-            {errors.name && <p className="error-in">{errors.name}</p>}
+            {errors.name && <p className="signup-error">{errors.name}</p>}
             <h6>Email</h6>
             <input
               type="email"
               name="email"
               placeholder=" Enter email address"
               value={formData.email}
+              required
               onChange={handleChange}
               className={getInputClass("email")}
             />
-            {errors.email && <p className="error-in">{errors.email}</p>}
+            {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
+          {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
             
-            <h6>Password</h6>
+            <h6> Password</h6>
             <input
               type="password"
               name="password"
               placeholder="Enter password"
               value={formData.password}
+              required
               onChange={handleChange}
               className={getInputClass("password")}
             />
-            {errors.password && <p className="error-in">{errors.password}</p>}
+            
+            {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
             <h6>Confirm Password</h6>
             <input
               type="password"
@@ -218,8 +242,9 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("confirmPassword")}
             />
-            {errors.confirmPassword && <p className="error-in">{errors.confirmPassword}</p>}
+            {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
 
+            </div>
             <button className="submit" type="submit">Sign Up</button>
             <p className="signInBlack">Already have an account?<Link to="#" onClick={() =>{
                setIsSignUp(false)
@@ -230,51 +255,73 @@ function Signup() {
                 confirmPassword: "",
               }))
               setErrors({})
-               }}>Log In</Link></p>
+
+               }}> Log In</Link></p>
           </form>
         </div>
 
         {/* Sign In Form */}
+        <div className="login-container-form">
         <div className="form-container sign-in">
           <form onSubmit={handleSubmit}>
             <h1>Welcome</h1>
           
             <h4>Welcome back! Please enter your DVT credentials.</h4>
-            <h6>Email/Username</h6>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter email or username"
-              value={formData.email || formData.name}
-              onChange={handleChange}
-              className={getInputClass("email")}
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-     
-            <label for="pwd">Password</label>
-            <div className="password-container">
-              <input  
-              className="password-input"
-              type="password"
-              name="password"
-              placeholder="Password" 
-              value={formData.password}
-              onChange={handleChange}
-              classname={getInputClass("password")}
-            />
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" className="password-icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
+
+            <div className="sign-in-h6">
+            <h6 >Email or Username</h6>
+
+                    <div className="email-input-container">
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Enter email or username"
+                          value={formData.email || formData.name}
+                          required
+                          onChange={handleChange}
+                          className={getInputClass("email")+" email-input"}
+                    />
+                    <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+                    </div>
+
+                    {errors.email ? (<p className="login-error">{errors.email}</p>) : <p className="login-error"></p>}
+
+                    <h6 >Password</h6>
+                    <div className="password-container">
+                      <input  
+                      // className="password-input"
+                      type="password"
+                      name="password"
+                      placeholder="Password" 
+                      value={formData.password}
+                      required
+                      onChange={handleChange}
+                      classname={getInputClass("password")+" password-input"}
+                    />
+                    {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                      
+                      handleToggle(event, false)
+                    }}/>:
+
+                    <EyeClosed className="eyeclosed-icon password-icon" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                      handleToggle(event, true);
+                    }} />
+                    }
+                    <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
+
+                    </div>
+
+                    {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
+                    {errors.login ? (<p className="login-error">{errors.login}</p>) : <p className="login-error"></p>}
+
             </div>
             
             
-            {errors.password && <p className="error">{errors.password}</p>}
-            {errors.login && <p className="error">{errors.login}</p>}
-
-            <Link to="#">Forgot Your Password?</Link>
+            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password? </Link>
+          
             <button type="submit">Sign In</button>
           </form>
+        </div>
         </div>
 
         {/* Toggle Container */}
@@ -326,4 +373,5 @@ function Signup() {
 }
 
 export default Signup;
+
 
