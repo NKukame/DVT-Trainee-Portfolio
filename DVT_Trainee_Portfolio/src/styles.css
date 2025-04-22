@@ -64,6 +64,10 @@ body.dark-mode {
     background-color: var(--white); 
 }
 
+.dark-mode::-webkit-scrollbar{
+    background-color: var(--dark-blue); 
+}
+
 ::-webkit-scrollbar-track{
     margin-block: 1em;
 }
@@ -72,6 +76,10 @@ body.dark-mode {
     border-radius: 100px;
     background-color: var(--blue);
     padding-top: 10px;
+}
+
+.dark-mode::-webkit-scrollbar-thumb{
+    background-color: var(--white);
 }
 
 ::-webkit-scrollbar-thumb:hover{
