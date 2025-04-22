@@ -186,6 +186,15 @@
   display: flex;
 }
 
+.tech-label{
+  font-size: 20px;
+  margin-block: 20px;
+  font-weight: bolder;
+}
+
+.tech-stack-portfolio{
+  transform: translateY(calc(10% - 70px));
+}
 
 .carousel .carousel-navigation {
   color: var(--dark-blue);

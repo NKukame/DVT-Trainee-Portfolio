@@ -54,7 +54,7 @@
 /* Portfolio Card Content */
 .grid-portfolio-card-content {
   position: absolute;
-  margin-top: 35%;
+  margin-top: 30%;
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -84,13 +84,14 @@
 }
 
 .grid-portfolio-card:hover .grid-portfolio-card-title {
-  padding-bottom: 100px;
+  padding-bottom: 120px;
   transition: padding-bottom 0.5s ease-in-out;
 }
 
 .grid-portfolio-card-description {
   margin: 15px 0 0;
   font-size: 16px;
+  padding-bottom: 15px;
 }
 
 

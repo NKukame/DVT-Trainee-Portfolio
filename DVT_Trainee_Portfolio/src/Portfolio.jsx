@@ -2,7 +2,7 @@ import "./styles.css";
 import "./Portfolio.css";
 import Header from "./components/Header";
 import CarouselView from "./components/CarouselView";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import GridView from "./components/GridView";
 import { Link } from "react-router-dom";
 import UserProfile from "./UserPortfolio";
@@ -85,7 +85,6 @@ function Portfolio() {
                 Our amazing intake of interns are being prepared by our most
                 skilled engineers <br /> to deliver for the future
               </p>
-              
             </section>
 
             <div className="selection-banner">
@@ -165,8 +164,17 @@ function Portfolio() {
                             <span className="about-me">
                               {filteredAndSortedTeam[currentIndex].description}
                             </span>
-                            <span className="about-me">
-                              {filteredAndSortedTeam[currentIndex].techStack}
+                            <span className="about-me tech-stack-portfolio">
+                              {/* <label htmlFor="#" className="tech-label">Technologies</label> */}
+                              <ul className="flex-row flex-wrap badge-list-white gap-10-px ">
+                                {filteredAndSortedTeam[
+                                  currentIndex
+                                ]?.techStack?.map((tech, index) => (
+                                  <li key={index}>
+                                    <p className="badge-default">{tech}</p>
+                                  </li>
+                                ))}
+                              </ul>
                             </span>
                           </div>
                           <div className="bottom-bottom">
