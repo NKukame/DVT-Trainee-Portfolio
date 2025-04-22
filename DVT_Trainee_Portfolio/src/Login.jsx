@@ -217,7 +217,7 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("email")}
             />
-            <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+            {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
           {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
             
