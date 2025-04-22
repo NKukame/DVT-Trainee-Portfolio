@@ -203,6 +203,12 @@
   transition: all 0.3s ease-in-out;
 }
 
+.dark-mode .carousel-navigation{
+  background-color: #052B4C;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
 .carousel .carousel-navigation:hover {
   background-color: var(--dark-blue);
   color: white;
