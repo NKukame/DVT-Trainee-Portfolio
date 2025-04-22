@@ -1,8 +1,8 @@
 
 .search-card {
     position: relative;
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 230px;
+    min-height: 230px;
     padding: 20px;
     overflow-y: auto;
     box-sizing: border-box;
