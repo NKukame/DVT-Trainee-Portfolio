@@ -31,9 +31,9 @@ function Dashboard() {
 
                     <Link to='/ProfileForm'><button className='manage-prfl'>Manage Profile</button></Link>
 
-                    <p><img src={Medal} alt='Role Icon' className="icon" />Experience</p>
-                    <p><img src={Calender} alt="Experience Icon" className="icon" /> Availability</p>
-                    <p><img src={Location} alt="Location Icon" className="icon" /> Location</p>
+                    <p><img src={Medal} alt='Role Icon' className="dashboard-icon" />Experience</p>
+                    <p><img src={Calender} alt="Experience Icon" className="dashboard-icon" /> Availability</p>
+                    <p><img src={Location} alt="Location Icon" className="dashboard-icon" /> Location</p>
 
 
 
