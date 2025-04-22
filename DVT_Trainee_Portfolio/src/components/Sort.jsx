@@ -1,14 +1,47 @@
-import './Sort.css';  // Import the CSS file
-import SwapVertIcon from '@mui/icons-material/SwapVert';
+import { useState } from "react";
+import "./Sort.css"
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { FilterLines } from "@untitled-ui/icons-react";
 
-const SortDropdown = () => {
-  
+export function SelectScrollable() {
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   return (
-    <button className="result-nav-btn sort-btn" onClick={''}>
-          <span className="sort-txt">Sort</span>
-          <SwapVertIcon/>
-    </button>
-  );
-};
+    <div className= "sort-container">
+    
+    <div className="select-wrapper">
+      <select
+        value={selectedValue}
+        onChange={handleChange}
+        className="select-control w-[280px]"
+      >
+        <option value="" disabled>
+          Sort by
+        </option>
+        
+        <optgroup label="Alphabetical">
+          <option value="Asc">Ascending </option>
+          <option value="Desc">Descending</option>
+          
+        </optgroup>
+        
+        <optgroup label="Date">
+          <option value="New">Newest</option>
+          <option value="Old">Oldest</option>
+          
+        </optgroup>
+        
+      </select>
+    </div>
+      <FilterLines/>
+      {/* <FilterListIcon sx={{fontSize:36}}></FilterListIcon> */}
+    </div>
 
-export default SortDropdown;
+  );
+}
+
+

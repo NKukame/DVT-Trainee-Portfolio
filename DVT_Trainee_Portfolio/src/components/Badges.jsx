@@ -1,22 +1,27 @@
-import Chip from '@mui/material/Chip';
-import { useContext } from 'react';
-import { SearchContext } from '../contexts/SearchContext';
-import { generatePastelColor } from '../lib/color';
 
-export default function Badges({badgeList}) {
-  const {selectedFilter} = useContext(SearchContext);
+export default function Badges({ badgeList, sliceList=true }) {
+
+  const visibleBadges = sliceList ?  badgeList.slice(0, 3) : badgeList;
+  const itemsLeft = badgeList.length - visibleBadges.length;
+
   return (
-    <ul className="skills-list">
-      {
-        badgeList.map((badge)=>{
-          return (<li><p  className='badge' style={selectedFilter.includes(badge)? {borderColor:generatePastelColor(badge), borderWidth: '2.2px'}:{}}>{badge}</p></li>)
-        })
+    <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
+      {visibleBadges.map((badge, index) => (
+        <li key={index}>
+          <Badge badge={badge} />
+        </li>
+      ))}
 
-      }
+      {itemsLeft > 0 && (
+        <li>
+          <p className="text-md-muted more-skills">{itemsLeft} more...</p>
+        </li>
+      )}
     </ul>
-  )
-};
+  );
+}
 
-export function BadgeItems({badge}){
-  return (<li><Chip label={badge} size='small' variant='outlined' /></li>);
+
+function Badge({badge}){
+  return (<p className="badge-default">{badge}</p>)
 }
