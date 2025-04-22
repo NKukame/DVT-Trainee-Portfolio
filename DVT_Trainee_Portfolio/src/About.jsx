@@ -26,9 +26,9 @@ function About() {
                 className="big-picture"
               />
 
-              <h2>Meet The Team</h2>
+              {/* <h2>Meet The Team</h2> */}
 
-              <div className="meet-the-team">
+              {/* <div className="meet-the-team">
                 <img
                   src={placeHolder}
                   alt="Team Picture"
@@ -44,9 +44,9 @@ function About() {
                     <span className="yellow-text">Team</span> Picture 1
                   </h3>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="meet-the-team">
+              {/* <div className="meet-the-team">
                 <img
                   src={placeHolder}
                   alt="Team Picture"
@@ -62,7 +62,7 @@ function About() {
                     <span className="yellow-text">Team</span> Picture 2
                   </h3>
                 </div>
-              </div>
+              </div> */}
             </section>
 
             <section className="team-info">
@@ -110,14 +110,14 @@ function About() {
               </div>
             </section>
 
-            <section className="people-info">
+            {/* <section className="people-info">
               <div className="about-us">
                 <h1>
                   The Team Through our <br /> Manager's Eyes
                 </h1>
               </div>
               <PeopleList />
-            </section>
+            </section> */}
           </div>
         </div>
       </div>

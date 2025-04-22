@@ -90,8 +90,8 @@
 }
 
 .dark-mode .cta-button{
-  background: var(--dark-mode-ctaButton);
-  color: var(--dark-mode-buttonText);
+  background: var(--dark-blue);
+  color: var(--dark-mode-title-white);
 }
 
 .cta-button:hover {
