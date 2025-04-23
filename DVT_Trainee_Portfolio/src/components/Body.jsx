@@ -123,7 +123,7 @@ function Body() {
               <div className="home-carousel-item-text">
                 <h3>{person.name}</h3>
                 <p>{person.description}</p>
-                <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list flex-wrap m-10px">
+                <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list-white flex-wrap m-10px">
                   {(Array.isArray(person.techStack)
                     ? person.techStack
                     : []
