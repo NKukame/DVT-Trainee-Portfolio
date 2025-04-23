@@ -149,11 +149,12 @@
   left: 0;
   width: 100%;
   padding: 10px; 
-  background: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0, 0.4) 100%); 
+  background: linear-gradient(180deg, rgb(0, 0, 0, 0) 0%, rgb(0,0,0) 50%, rgb(0,0,0,1) 100%); 
   color: white;
   text-align: start;
   opacity: 0;
   transform: translateY(20px); 
+  height: fit-content;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -347,11 +348,38 @@
   margin-top: 25px;
 }
 
-.modal-project-link{
+.modal-project-link a{
   text-decoration: none;
-  color: var(--blue);
+  color: var(--purple);
   margin-block: 10px;
 }
+
+/* Modal Dark Mode */
+.dark-mode .modal-overlay{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-content{
+  background: var(--dark-blue);
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-close{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-owner{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-technologies{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-project-link a{
+  color: var(--yellow);
+}
+
 
 @keyframes logo-slider {
   from {
