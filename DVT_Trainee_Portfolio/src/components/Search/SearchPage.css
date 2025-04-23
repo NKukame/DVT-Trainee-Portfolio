@@ -17,6 +17,10 @@
   gap: 4px;
 }
 
+.m-10px{
+  margin-bottom: 10px;
+}
+
 .align-items-center{
   align-items: center;
 }
@@ -113,6 +117,12 @@
 
 .dark-mode .badge-list {
   color: var(--dark-mode-title-white);
+}
+
+.badge-list-white{
+  list-style: none;
+  font-weight: 500;
+  color: var(--white)
 }
 
 .shadow{
