@@ -360,7 +360,7 @@
 }
 
 .dark-mode .modal-content{
-  background: var(--dark-blue);
+  background: linear-gradient(0deg, var(--dark-mode-buttonText) 0%, var(--dark-blue) 100%) ;
   color: var(--dark-mode-title-white);
 }
 
