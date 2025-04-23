@@ -13,6 +13,14 @@
   gap: 10px;
 }
 
+.gap-4-px{
+  gap: 4px;
+}
+
+.m-10px{
+  margin-bottom: 10px;
+}
+
 .align-items-center{
   align-items: center;
 }
@@ -107,6 +115,16 @@
   color: #344054;
 }
 
+.dark-mode .badge-list {
+  color: var(--dark-mode-title-white);
+}
+
+.badge-list-white{
+  list-style: none;
+  font-weight: 500;
+  color: var(--white)
+}
+
 .shadow{
   box-shadow:  0px 0.5px 2.21px #00000005, 0px 1.2px 5.32px #00000007, 
                0px 2.25px 10.02px #00000009, 0px 4.02px 17.87px #0000000B, 
@@ -124,12 +142,27 @@
   max-height: 208px;
 }
 
+.dark-mode .card-user,
+.dark-mode .card-project {
+  background: linear-gradient(0deg, #04223D 0%, #02111E 100%);
+  color: white;
+}
+
+.dark-mode .text-black, 
+.dark-mode .text-gray {
+  color: white;
+}
+
 .results-container {
   background-color: white;
   border-radius: 12px;
   border-top-left-radius: 0px;
   padding: 24px;
   max-width: 1280px;
+}
+
+.dark-mode .results-container {
+  background-color: #052B4C;
 }
 
 /* === Buttons & Badges === */
@@ -143,6 +176,11 @@
 .btn-tab-active {
   background: white;
   border-bottom: none;
+}
+
+.dark-mode .btn-tab-active {
+  background: #052B4C;
+  color: white;
 }
 
 .badge-default {

@@ -34,6 +34,18 @@
   flex-direction: column;
 }
 
+.dark-mode .people-intro{
+  background-image: 
+    linear-gradient(to top, 
+      rgb(4, 34, 61, 0.8) 0%,       
+      rgb(4, 34, 61, 0.5) 50%,
+      rgb(4, 34, 61, 0.3) 70%,     
+      rgb(4, 34, 61, 0.1) 90%,     
+      rgb(4, 34, 61, 0.1) 100%
+    ), 
+    url("./assets/theone.jpg");
+}
+
 .theTitle {
   display: flex;
   justify-content: center;
@@ -48,11 +60,19 @@
   margin-bottom: 40px;
 }
 
+.dark-mode .theTitle {
+  color: var(--dark-mode-alt-white);
+}
+
 .peopleDescription{
   font-size: 30px;
   font-weight: 600;
   text-align: center;
   color: var(--dark-blue);
+}
+
+.dark-mode .peopleDescription {
+  color: var(--dark-mode-alt-white);
 }
 
 .selection-banner{
@@ -65,11 +85,16 @@
   /* box-shadow: 0px 5px 6px 6px rgba(0, 0, 0, 0.2); */
 }
 
+.dark-mode .selection-banner {
+  background: #04223D
+}
+
 .people-view-container {
   display: flex;
   justify-content: center; /* Center the people-view buttons */
   flex-grow: 1; /* Allow the container to take up available space */
 }
+
 
 .people-view{
   /* display: flex; */
@@ -86,24 +111,47 @@
   box-shadow:  0px 5px 15px rgba(0, 0, 0, 0.1) ;
 }
 
+.dark-mode .people-view{
+  background: var(--dark-blue);
+  color: var(--white);
+  border: 1px solid var(--white);
+}
 
 .people-view.active{
   border: 1px solid var(--dark-blue);
+}
+
+.dark-mode .people-view.active{
+  border: 2px solid var(--yellow);
 }
 
 .sort-button-container{
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
+  margin-left: -90px;
   height: 100%;
 }
 
+.sort-button-container label{
+  color: var(--dark-blue);
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.dark-mode .sort-button-container label{
+  color: var(--white);
+}
 
 .sort-button {
   height: 100%;
   background:  var(--dark-blue);
   padding: 8px 20px;
-  margin: 10px 0 10px 5px;
+  margin: 10px 0 10px 0px;
   color: var(--white);
   border: none;
   border-radius: 5px;
@@ -124,6 +172,10 @@
   margin: 30px 30px 30px 120px;
 }
 
+.dark-mode .portfolio-view-container {
+  background-color: #052B4C;
+}
+
 .cards {
   display: flex;
   place-content: center;
@@ -134,6 +186,15 @@
   display: flex;
 }
 
+.tech-label{
+  font-size: 20px;
+  margin-block: 20px;
+  font-weight: bolder;
+}
+
+.tech-stack-portfolio{
+  transform: translateY(calc(10% - 70px));
+}
 
 .carousel .carousel-navigation {
   color: var(--dark-blue);
@@ -149,6 +210,12 @@
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
   transition: all 0.3s ease-in-out;
+}
+
+.dark-mode .carousel-navigation{
+  background-color: #052B4C;
+  color: var(--white);
+  border: 2px solid var(--white);
 }
 
 .carousel .carousel-navigation:hover {

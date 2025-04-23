@@ -15,6 +15,10 @@
   /* height: 83.7vh; */
   color: #072549;
 }
+.dark-mode .content{
+  color: #ffffff;
+}
+
 .home-content{
   display: flex;
   justify-content: center;
@@ -25,6 +29,9 @@
   
   font-size: 1.2rem;
 }
+.dark-mode .home-content{
+  color: var(--dark-mode-paragragh-white);
+}
 
 #theTitle {
   flex-wrap: nowrap;
@@ -33,6 +40,10 @@
   line-height: 85px;
   text-align: center;
   font-weight: 700;
+  color: var(--dark-blue);
+}
+.dark-mode #theTitle{
+  color: var(--dark-mode-title-white);
 }
 
 .content h2 {
@@ -78,8 +89,16 @@
   transition: background 0.3s ease;
 }
 
+.dark-mode .cta-button{
+  background: var(--dark-blue);
+  color: var(--dark-mode-title-white);
+}
+
 .cta-button:hover {
   background-color: var(--button-blue-hover);
+}
+.dark-mode.cta-button:hover {
+  background-color: var(--dark-mode-ctaButton);
 }
 
 /* Carousel Styling */
@@ -130,11 +149,12 @@
   left: 0;
   width: 100%;
   padding: 10px; 
-  background: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0, 0.4) 100%); 
+  background: linear-gradient(180deg, rgb(0, 0, 0, 0) 0%, rgb(0,0,0) 50%, rgb(0,0,0,1) 100%); 
   color: white;
   text-align: start;
   opacity: 0;
   transform: translateY(20px); 
+  height: fit-content;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -158,6 +178,8 @@
     padding: 0;
     line-height: 1.9; 
 }
+
+/* Video Carousel for Projects */
 
 .video-carousel {
   margin-left: 40%;
@@ -196,9 +218,21 @@
 .video-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 25px;
+  margin: 0 auto;
+  display: block;
 }
+
+/* .video-item img {
+  max-width: 100%;
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 25px;
+} */
 
 .video-item-text {
   display: flex;
@@ -233,8 +267,9 @@
 }
 
 .video-item-text p{
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
+  padding-right: 30px;
 }
 
 .video-item-text h3,
@@ -259,6 +294,92 @@
 .video-cta-button{
   text-wrap: nowrap;
 }
+
+/* Modal Code */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  color: var(--dark-blue);
+}
+
+.modal-content {
+  background: var(--white);
+  padding: 2rem;
+  max-width: 700px;
+  width: 90%;
+  border-radius: 20px;
+  position: relative;
+  overflow-y: hidden;
+  max-height: 95vh;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2rem;
+  background: transparent;
+  color: var(--dark-blue);
+  border: none;
+  cursor: pointer;
+}
+
+.modal-owner{
+  font-size: 1.5rem;
+  padding-block: 5px;
+}
+
+.modal-technologies{
+  font-size: 1.2rem;
+  margin-top: 15px;
+  color: var(--blue);
+}
+
+.modal-description{
+  font-size: 1.2rem;
+  margin-top: 25px;
+}
+
+.modal-project-link a{
+  text-decoration: none;
+  color: var(--purple);
+  margin-block: 10px;
+}
+
+/* Modal Dark Mode */
+.dark-mode .modal-overlay{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-content{
+  background: linear-gradient(0deg, var(--dark-mode-buttonText) 0%, var(--dark-blue) 100%) ;
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-close{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-owner{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-technologies{
+  color: var(--dark-mode-title-white);
+}
+
+.dark-mode .modal-project-link a{
+  color: var(--yellow);
+}
+
 
 @keyframes logo-slider {
   from {

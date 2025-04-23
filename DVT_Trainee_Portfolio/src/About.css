@@ -6,6 +6,7 @@
     color: var(--dark-blue);
 }
 
+
 .team-pictures{
     display: flex;
     flex-direction: column;
@@ -16,13 +17,20 @@
 
 .team-pictures h1{
     font-size: 55px;
-    border-bottom: 2px solid var(--yellow);
+    /* border-bottom: 2px solid var(--yellow); */
+    color: var(--dark-blue);
+    margin-top: 5%;
+}
+
+.dark-mode .team-pictures h1{
+    color: var(--dark-mode-title-white);
 }
 
 .big-picture{
-    width: 980px;
+    width: 100%;
     height: 500px;
     border-radius: 20px;
+    object-fit: fill;
     margin: 25px;
 }
 
@@ -35,7 +43,7 @@
 
 .team-pictures h2{
     font-size: 45px;
-    border-bottom: 2px solid var(--yellow);
+    /* border-bottom: 2px solid var(--yellow); */
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -84,10 +92,17 @@
 }
 .team-info-text h1, .about-us h1{
     font-size: 55px;
-    border-bottom: 2px solid var(--yellow);
+    /* border-bottom: 2px solid var(--yellow); */
     margin-bottom: 4.5%;
+    color: var(--dark-blue);
 }
 
+.dark-mode .team-info-text h1, .dark-mode .about-us h1{
+    color: var(--dark-mode-title-white);
+}
+.team-info-text{
+    margin-bottom: 5%;
+}
 .team-info-text p{
     font-size: 27px;
     margin-top: 10px;
@@ -96,6 +111,10 @@
     margin-inline: 10%;
     line-height: 1.2;
     margin-bottom: 2%;
+}
+
+.dark-mode .team-info-text p{
+    color: var(--dark-mode-paragragh-white);
 }
 
 .about-us h1{

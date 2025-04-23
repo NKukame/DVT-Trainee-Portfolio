@@ -14,10 +14,20 @@
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
  }
 
+ .dark-mode .search-card {
+    background: linear-gradient(0deg, #04223D 0%, #02111E 100%);
+
+ }
+
  .project__techstack{
     margin: 10px 0 10px;
     font-size: 12px;
     color: #777;
+    line-height: 1.4;
+}
+
+.dark-mode .project__techstack{
+    color: var(--dark-mode-title-white);
     line-height: 1.4;
 }
 
@@ -27,7 +37,11 @@
     color: #777;
     line-height: 1.4;
 }
-  
+
+.dark-mode .project__contributors {
+    color: var(--dark-mode-title-white);
+}
+
   .search-card svg {
     width: 48px;
     fill: #333;
@@ -43,6 +57,10 @@
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
   }
+
+  .dark-mode .search-card:hover {
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0);
+  }
   
   .card__content {
     position: absolute;
@@ -57,6 +75,10 @@
     transform-origin: bottom;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
+
+  .dark-mode .card__content {
+    background: linear-gradient(0deg, #04223D 0%, #02111E 100%);
+  }
   
   .search-card:hover .card__content {
     transform: rotateX(0deg);
@@ -67,6 +89,10 @@
     font-size: 20px;
     color: #333;
     font-weight: 700;
+  }
+
+  .dark-mode .card__title {
+    color: var(--dark-mode-title-white);
   }
   
   .search-card:hover svg {
@@ -79,6 +105,10 @@
     color: #777;
     line-height: 1.4;
   }
+
+  .dark-mode .card__description {
+    color: var(--dark-mode-paragragh-white);
+  }
   
   .card__button {
     padding: 5px;
@@ -86,11 +116,22 @@
     background: #777;
     border: none;
     color: white;
+    margin-right: 12px; /* Space between the two buttons. Subject to approval */
+  }
+
+  .dark-mode .card__button {
+    background: var(--dark-mode-alt-white);
+    color: var(--dark-mode-blue);
   }
   
   .secondary {
     background:#333;
     color: #777;
     border: 1px solid #777;
+  }
+
+  .dark-mode .secondary {
+    background: var(--dark-mode-alt-white);
+    color: var(--dark-mode-blue);
   }
   

@@ -10,9 +10,12 @@ import UserPortfolio from './UserPortfolio.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import ProfileForm from './ProfileForm.jsx';
 import Search from './Search.jsx';
+import { DarkModeProvider } from './components/DarkModeProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <DarkModeProvider>
+      
     <Router>
       <Routes>
         <Route path="/home" element={<Home />} />
@@ -25,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         
       </Routes>
     </Router>
+    </DarkModeProvider>
   </StrictMode>
 )
  
