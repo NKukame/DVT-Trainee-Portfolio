@@ -8,6 +8,12 @@
     box-shadow: 0 20px 30px -20px rgba(5, 5, 5, 0.24);
   }
   
+  .dark-mode .testimonial-card {
+    background: linear-gradient(0deg, #04223D 0%,  #02111E 100%);
+    color: white;
+    /* box-shadow: 0 20px 30px -20px rgba(5, 5, 5, 0.24); */
+  }
+
   .header {
     display: flex;
     align-items: center;
@@ -44,6 +50,10 @@
     --tw-text-opacity: 1;
     color: #027FB9;
   }
+
+  .dark-mode .name {
+    color: var(--dark-mode-paragragh-white);
+  }
   
   .message {
     overflow: hidden;
@@ -54,4 +64,8 @@
     font-size: 12px; 
     line-height: 1.5rem; 
     max-height: 3rem; 
+  }
+
+  .dark-mode .message {
+    color: var(--dark-mode-paragragh-white);
   }
