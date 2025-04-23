@@ -7,7 +7,7 @@
     background-color: #d6d3d1; 
     height: 100vh;
     color: var(--blue);
-    width: 6%;
+    width: 6.4%;
     gap: 5%;
     transition: width 0.5s ease-in-out;
     overflow: hidden; /* Prevent overflow issues */
@@ -58,6 +58,15 @@
     transform: translateX(28%);
 }
 
+/* Change to four once you remove the login from the sidebar */
+.sidebar-container-content .sidebar-nav-link:nth-child(5){
+    transform: translateX(4%);
+}
+
+.sidebar-container:hover  .sidebar-nav-link:nth-child(5){
+    transform: translateX(0);
+}
+
 .sidebar-container:hover .sidebar-container-content, .sidebar-container:hover  .sidebar-bottom .sidebar-nav-link  {
     justify-content: flex-start; /* Move icons and text to the left */
     align-items: flex-start; /* Align content to the left */
@@ -72,6 +81,10 @@
     padding: 10px; /* Add padding for better spacing */
     gap: 10px; /* Space between icon and text */
     transition: background-color 0.3s ease;
+}
+
+.homeBtn:nth-child(2){
+  transform: translateX(50%);
 }
 
 .homeBtn > svg, .sidebar-nav-link > svg {
