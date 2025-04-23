@@ -15,10 +15,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/userportfolio" element={<UserPortfolio />} />
         <Route path="/profileform" element={<ProfileForm />} />

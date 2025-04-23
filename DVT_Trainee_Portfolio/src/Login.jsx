@@ -143,7 +143,7 @@ function Signup() {
       alert("Login successful!");
       // Save login status if needed
       localStorage.setItem("isLoggedIn", "true");
-      navigate("/");
+      navigate("/home");
     } else {
       // Check if email or username is incorrect
       if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
@@ -299,7 +299,6 @@ function Signup() {
                       classname={getInputClass("password")+" password-input"}
                     />
                     {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
-                      
                       handleToggle(event, false)
                     }}/>:
 
@@ -307,8 +306,8 @@ function Signup() {
                       handleToggle(event, true);
                     }} />
                     }
-                    <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
 
+                    <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
                     </div>
 
                     {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
