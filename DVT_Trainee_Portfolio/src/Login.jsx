@@ -3,7 +3,8 @@
 // import Header from './components/Header';
 // import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
-// import LockIcon from '@mui/icons-material/Lock';
+import OffRememberMeIcon from "./assets/OffRemeber-me-icon.png";
+import OnRememberMeIcon from "./assets/OnRemember-me-icon.png";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -194,19 +195,20 @@ function Signup() {
             <h1>Create Account</h1>
 
             <div className="sign-up-form">
-            <h6>Name</h6>
-            <input
-              type="text"
-              name="name"
-              placeholder="Username"
-              value={formData.name}
-              required
-              onChange={handleChange}
-              className={getInputClass("name")}
-
-              // className={errors.name ? "error-border" : ""}
-            />
-            {errors.name && <p className="signup-error">{errors.name}</p>}
+                 <h6>Name</h6>
+                <div className="username-container">
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Username"
+                        value={formData.name}
+                        required
+                        onChange={handleChange}
+                        className={getInputClass("name")}/>
+                      {errors.name && <p className="signup-error">{errors.name}</p>}
+                      <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+                </div>
+        
             <h6>Email</h6>
             <input
               type="email"
@@ -217,6 +219,7 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("email")}
             />
+             
             {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
           {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
@@ -308,15 +311,19 @@ function Signup() {
                     }
 
                     <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
+                    
                     </div>
-
+                    <img src={OffRememberMeIcon} alt="i" />
+                    <img src={OnRememberMeIcon} alt="" />
                     {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
                     {errors.login ? (<p className="login-error">{errors.login}</p>) : <p className="login-error"></p>}
 
+                    
+
             </div>
+             
             
-            
-            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password? </Link>
+            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password?</Link>
           
             <button type="submit">Sign In</button>
           </form>
