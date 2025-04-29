@@ -11,7 +11,7 @@ import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
 import {Combobox} from "./Combo";
 // import { Award, Building, Code, User } from "lucide-react";
-import { Badge } from "./Search/Badge";
+import { Badge } from "./Badge";
 import { Award01, Building05, Code02, User01 } from "@untitled-ui/icons-react";
 
 
