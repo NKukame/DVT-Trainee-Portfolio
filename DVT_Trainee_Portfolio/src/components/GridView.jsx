@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./GridView.css"; 
+import "./GridView.css";
 
 const GridView = ({ team }) => {
   return (
@@ -13,17 +13,24 @@ const GridView = ({ team }) => {
               style={{ backgroundImage: `url(${member.image})` }}
             ></div>
 
-            <div className="grid-portfolio-card-content">
+            <div className="grid-title-container">
               <p className="grid-portfolio-card-title">{member.name}</p>
-              <p className="grid-portfolio-card-description">
-                {member.description}
-              </p>
-              <p className="grid-portfolio-card-description">
-                {member.techStack}
-              </p>
-              <Link to="/UserPortfolio">
-                <button className="grid-profile-card-button">Profile</button>
-              </Link>
+
+              <div className="grid-portfolio-card-content">
+                <p className="grid-portfolio-card-description">
+                  {member.description}
+                </p>
+                <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list-white flex-wrap py-4-px m-10px">
+                  {(Array.isArray(member.techStack)
+                    ? member.techStack
+                    : []
+                  ).map((tech, index) => (
+                    <li key={index}>
+                      <p className="badge-default">{tech}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         ))}
@@ -31,6 +38,5 @@ const GridView = ({ team }) => {
     </section>
   );
 };
-
 
 export default GridView;

@@ -45,11 +45,22 @@
     box-shadow: none;
     font-size: 24px;
 }
+
+.dark-mode .input-container input[type="text"]{
+    background-color: #052B4C;
+    color: var(--dark-mode-title-white);
+    
+}
 .input-container input[type="text"]::placeholder{
     color: grey;
     font-size: 24px;
     
 }
+
+.dark-mode .input-container input[type="text"]::placeholder{
+    color: var(--dark-mode-title-white);
+}
+
 .input-container input{
     width: 30%;
     height: 30%;

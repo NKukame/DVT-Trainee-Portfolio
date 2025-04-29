@@ -64,9 +64,7 @@ export function Combobox({
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredOptions = options
 
   return (
     <div ref={popoverRef} className={`popoverContainer ${className}`} style={style}>
@@ -123,7 +121,7 @@ export function Combobox({
                           setOpen(false);
                         }}
                       >
-                        {option.label}
+                        {option}
                         <CheckIcon visible={value === option.value} />
                       </div>
                     )
