@@ -1,6 +1,6 @@
 
-import SearchNav from "../SearchNav";
-import { useSearch } from "../../contexts/SearchContext";
+import SearchNav from "./SearchNav";
+import { useSearch } from "../contexts/SearchContext";
 import { useEffect, useState } from 'react';
 import PaginationControls from './PaginationControls';
 import ResultsList from './ResultsList';
