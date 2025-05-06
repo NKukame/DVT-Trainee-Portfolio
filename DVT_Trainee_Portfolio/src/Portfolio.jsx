@@ -2,7 +2,7 @@ import "./styles.css";
 import "./Portfolio.css";
 import Header from "./components/Header";
 import CarouselView from "./components/CarouselView";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import GridView from "./components/GridView";
 import { Link } from "react-router-dom";
 import UserProfile from "./UserPortfolio";
@@ -85,25 +85,6 @@ function Portfolio() {
                 Our amazing intake of interns are being prepared by our most
                 skilled engineers <br /> to deliver for the future
               </p>
-
-              {/* <div className="view-filter">
-                <select
-                  name="view-mode"
-                  id="view-mode"
-                  className="custom-dropdown"
-                  onChange={handleViewChange}
-                >
-                  <option value="card-view">Card</option>
-                  <option value="grid-view">Grid</option>
-                 
-                </select>
-
-                {viewMode === "card-view" && (
-                  <button className="sort-button" onClick={toggleSort}>
-                    Sort {sortOrder === "asc" ? "A-Z" : "Z-A"}
-                  </button>
-                )}
-              </div> */}
             </section>
 
             <div className="selection-banner">
@@ -127,6 +108,7 @@ function Portfolio() {
               </div>
 
               <div className="sort-button-container">
+                <label htmlFor="#">Sort</label>
                 <button className="sort-button" onClick={toggleSort}>
                   {sortOrder === "asc" ? <AArrowDown /> : <AArrowUp />}
                 </button>
@@ -182,8 +164,17 @@ function Portfolio() {
                             <span className="about-me">
                               {filteredAndSortedTeam[currentIndex].description}
                             </span>
-                            <span className="about-me">
-                              {filteredAndSortedTeam[currentIndex].techStack}
+                            <span className="about-me tech-stack-portfolio">
+                              {/* <label htmlFor="#" className="tech-label">Technologies</label> */}
+                              <ul className="flex-row flex-wrap badge-list-white gap-10-px ">
+                                {filteredAndSortedTeam[
+                                  currentIndex
+                                ]?.techStack?.map((tech, index) => (
+                                  <li key={index}>
+                                    <p className="badge-default">{tech}</p>
+                                  </li>
+                                ))}
+                              </ul>
                             </span>
                           </div>
                           <div className="bottom-bottom">

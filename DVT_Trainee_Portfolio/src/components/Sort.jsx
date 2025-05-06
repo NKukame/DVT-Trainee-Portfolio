@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Sort.css"
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { FilterLines } from "@untitled-ui/icons-react";
 
 export function SelectScrollable() {
   const [selectedValue, setSelectedValue] = useState("");
@@ -36,8 +37,8 @@ export function SelectScrollable() {
         
       </select>
     </div>
-      
-      <FilterListIcon sx={{fontSize:36}}></FilterListIcon>
+      {/* <FilterLines/> */}
+      {/* <FilterListIcon sx={{fontSize:36}}></FilterListIcon> */}
     </div>
 
   );
