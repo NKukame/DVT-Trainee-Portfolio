@@ -12,14 +12,13 @@ function SearchBar(){
 
     return(
       <>
-      <Header />
+      {/* <Header /> */}
         <div class="input-container">
           <SearchIcon/>
-          <input type="text"  placeholder="Search" onChange={(e) => handleInputChange(e.target.value)}/>
+          <input type="text"  placeholder="Find people or projects" onChange={(e) => handleInputChange(e.target.value)}/>
         </div>
       </>
     )
 }
 export default SearchBar;
-
 

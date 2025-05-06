@@ -1,66 +1,51 @@
-import Avatar from '@mui/material/Avatar';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import Tooltip from '@mui/material/Tooltip';
-import './UserCard.css'
-import { Link } from 'react-router-dom';
+import {Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
 import Badges from './Badges';
-import Badge from '@mui/material/Badge';
+import { Award02, MarkerPin01 } from "@untitled-ui/icons-react";
 
-
-export default function UserCard({user}) {
-
+export function UserCard({ user,showDetails = true }) {
+  
   return (
-    <div className="users">
-      <div className='user-details'>
+    <div className="card-user flex-col gap-10-px shadow">
+      <div className='flex-row align-items-center gap-10-px'>
+        <Avatar alt={user.name} src={user.avatar || ''} sx={{ width: 52, height: 52 }} />
         <div>
-          <Badge color="secondary" overlap="circular" badgeContent=" ">
-          <Avatar
-            alt={user.name}
-            src={''}
-            sx={{ width: 75, height: 75 }}
-          />
-          </Badge>
-        </div>
-        <div className="user-text">
-          <p className='username'>{user.name}</p>
-          <p className='role'> {user.role}</p>
-        </div>
-        <div className='user-portfolio-link'>
-          <Tooltip title="View portfolio"  placement='top' arrow>
-            <Link to={'/userportfolio'} className='user-link'>
-              <OpenInNewIcon   />
-            </Link>
-          </Tooltip>
-
+          <p className='font-size-20-px text-black'>{user.name}</p>
+          <p className='font-size-12-px font-waight-400'>{user.role}</p>
         </div>
       </div>
-      <ViewMore user={user}  />
-  
+      {showDetails && <UserDetails user={user} />}
+      <Link className="text-color-white font-size-14-px link-style border-radius-4-px py-4-px" to={'/userportfolio'}>View Profile</Link>
     </div>
-  )
- };
+  );
+}
 
- 
-function ViewMore({user}){
+
+function UserDetails({ user }) {
   return (
     <>
-      <div className="div users-data">
-        <div className=" user-more-data">
-          <p className='text-p'>Experience</p>
-          <p>{user.years_active} years</p>
+      <div className="flex-row align-items-center gap-10-px">
+        <div className="flex-row align-items-center gap-4-px">
+          <MarkerPin01 width={13} height={17}/>
+          <p className="text-gray font-size-12-px whitespace-nowrap">{user.location}</p>
         </div>
-        <div className="user-more-data location">
-          <p className='text-p'>Location</p>
-          <p>{user.location}</p>
-        </div>
-        <div className="user-more-data">
-          <p className='text-p'>Projects</p>
-          <p>5</p>
+        <div className="flex-row align-items-center gap-4-px">
+          <Award02 strokeWidth={"90px"} width={13} height={17}/>
+          <p className="text-gray font-size-12-px whitespace-nowrap">{`${user.years_active} Years`}</p>
         </div>
       </div>
-      <div>
+      <div className='skills-list'>
         <Badges badgeList={user.skills} />
       </div>
     </>
-  )
+  );
+}
+
+function InfoItem({ Icon, text }) {
+  return (
+    <div className="flex-row align-items-center gap-10-px">
+      {Icon}
+      <p className="text-gray font-size-12-px whitespace-nowrap">{text}</p>
+    </div>
+  );
 }

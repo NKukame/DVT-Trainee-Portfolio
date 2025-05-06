@@ -13,16 +13,24 @@
     --purple: #4e4376;
     --gray: #D1D1D1;
     --black: #000000;
-
+    --button-blue: #027FB9;
+    --button-blue-hover: #006492;
+    --navy-blue: #072549;
     /* Dark Mode Colors */
     --dark-yellow: #E2BF00;
     --dark-blue: #084677;
+    --dark-mode-blue: #052B4C;
+    --dark-cerulean: #084677;
     --dark-gray:   #e7e5e4;
+    --dark-mode-title-white: #e5e5e5;
+    --dark-mode-paragragh-white: #fafafa;
+    --dark-mode-alt-white: #F4F5F7;
+    --dark-mode-buttonText: #052B4C;
 }
 
 /* Don't Change anything here */
 body{
-    background: linear-gradient(0deg, #F9FAFB 100%);
+    background: linear-gradient(180deg, #E5E5E5 10%, #F9FAFB 100%);
     /* background: linear-gradient(90deg, #F9FAFB 0%, #E5E5E5 100%); */
     background-attachment: fixed;
     background-size: cover;
@@ -33,10 +41,12 @@ body{
 }
 
 body.dark-mode {
-    background: linear-gradient(-20deg, #10212b 0%, #241b34 100%);
+    background: linear-gradient(-20deg, #04223D 0%, #02111E 100%);
     transition: 0.5s ease-in-out;
 }
-
+/* body.dark-mode #theTitle {
+    color: red;
+} */
 .app-layout{
     display: flex;
     flex-direction: row;
@@ -54,6 +64,10 @@ body.dark-mode {
     background-color: var(--white); 
 }
 
+.dark-mode::-webkit-scrollbar{
+    background-color: var(--dark-blue); 
+}
+
 ::-webkit-scrollbar-track{
     margin-block: 1em;
 }
@@ -62,6 +76,10 @@ body.dark-mode {
     border-radius: 100px;
     background-color: var(--blue);
     padding-top: 10px;
+}
+
+.dark-mode::-webkit-scrollbar-thumb{
+    background-color: var(--white);
 }
 
 ::-webkit-scrollbar-thumb:hover{

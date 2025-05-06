@@ -1,40 +1,31 @@
-import Badges from "./Badges";
-import { Link } from "react-router-dom";
-import Avatar from '@mui/material/Avatar';
-import './ProjectCard.css'
+import Badges from './Badges';
+import { Link } from 'react-router-dom';
 
-export default function ProjectCard({result}) {
+export default function ProjectCard({ result, showAuthor = false, showTech = true, showButton = true }) {
   
   return (
-    <div className="results">
-      <div className="card-text">
-        <div className="intro">
-          <p className="results-title">{result.name}</p>
-          <p className="results-type">{result.created_on}</p>
-        </div>
-
-        <div className="results-data">
-          <div className="results-p">
-            <p className="results-bio text-container">{result.description}</p>
-          </div>
-        </div>
-        <div className="user-skills">
-          {
-            <Badges badgeList={result.technologies} />
-          }
-        </div>
-        <div className="card-footer">
-          <div className="user-profile">
-            <div className="users-pic">
-              <Avatar src="/Gomo.jpg" />
-            </div>
-            <Link className="user-name">@John</Link>
-          </div>
-          <Link to={'/userportfolio'}>
-            <button className="view-btn">View project</button>
-          </Link>
-        </div>
+    <div className="card-project shadow flex-col gap-10-px">
+      <div>
+        <p className="font-size-20-px">{result.name}</p>
+        <p className="font-size-12-px text-gray">{result.created_on}</p>
       </div>
-      </div> 
+
+      <div>
+        <p className="font-size-14-px">{result.description}</p>
+      </div>
+
+      {showTech && (<Badges badgeList={result.technologies} />  )}
+
+      {showAuthor && <Link className="text-underline-link">@John</Link>}
+
+      <div className="link-style border-radius-4-px py-4-px ">
+        {showButton && (
+          <Link to={'/userportfolio'} className='text-color-white'>
+            View project
+          </Link>
+        )}
+      </div>
+
+    </div>
   );
-};
+}

@@ -9,137 +9,55 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { SearchContext, useSearch } from "../contexts/SearchContext";
 import { useContext } from "react";
+import {Combobox} from "./Combo";
+// import { Award, Building, Code, User } from "lucide-react";
+import { Badge } from "./Badge";
+import { Award01, Building05, Code02, User01 } from "@untitled-ui/icons-react";
+import Badges from "./Badges";
 
 
 function Filter(){
     const {selectedFilter,handleFilterClick,filteredResults, fn, handleChange ,value, setValue, allLanguages, allLocations, allRoles} = useContext(SearchContext)
     console.log(useContext(SearchContext));
     
-
-
-    
-    const [topLanguages, setTopLanguages] = useState(allLanguages.slice(0,8))
-
-    const thumbStyle =  {
-        color: 'orange',
-        '& .MuiSlider-thumb': { 
-            height: 15,
-            width: 15,
-            backgroundColor: 'rgb(221, 185, 77)',
-            border: '2px solid #E2BF00',
-            '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-            boxShadow: 'inherit',
-            },
-            '&::before': {
-            display: 'none',
-            },
-        },
-
-        '& .MuiSlider-valueLabel': {
-            lineHeight: 1,
-            fontSize: 14,
-            background: 'unset',
-            padding: 0,
-            width: 20,
-            height: 20,
-            borderRadius: '50% 50% 50% 0',
-            backgroundColor: "#E2BF00",
-            transformOrigin: 'bottom left',
-            transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
-            '&::before': { display: 'none' },
-            '&.MuiSlider-valueLabelOpen': {
-                transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
-            },
-            '& > *': {
-                transform: 'rotate(45deg)',
-            },
-        },
-        '& .MuiSlider-track': {
-            border: 'none',
-            height: 2,
-            backgroundColor: "#E2BF00"
-          }
-    }
-
     return(
         <section className="filter-container">
-            {/* <div className="filter-title">
-                <h3 className="logo-text">Filter</h3>
-                <FilterAltIcon/>
-            </div> */}
-            {/* <div className="divider"></div> */}
-            <div className="scroller">
-                <div className="filter-section">
-                    <div className="header-container">
-                        <p className="filter-section-title">Languages</p>
-                        <p onClick={()=>{
-                            if(topLanguages.length>8){
-                                setTopLanguages(allLanguages.slice(0,8))
-                            }else{
-                                setTopLanguages(allLanguages)
-                            }}}>
-                            {topLanguages.length>8? <RemoveIcon className="header-icon" fontSize="small"/>:<AddIcon fontSize="small" className="header-icon"/>}
-                        </p>
-                    </div>
-                    <ul className="skills-list">
-                        {topLanguages.map((language) => (
-                            <FilterItem 
-                                key={language}
-                                name={language} 
-                                onToggle={handleFilterClick}
-                                category = "language"
-                                isSelected={selectedFilter.includes(language)}
-                                />
-                                ))}
-                    </ul>
+            <div className="filter-section">
+                <div className="filter-dropdown">
+                    {/* <p className="filter-section-title">Roles</p> */}
+                    {/* <Building size={32}    /> */}
+                    <Building05/>
+                    <Combobox placeholder="Industries" options={["Sports", "Finance", "Retail"]}/>
+                </div>
+                <div className="filter-dropdown">
+                    {/* <p className="filter-section-title">Experience (years)</p> */}
+                    {/* <User  size={32} /> */}
+                    <User01/>
+                    <Combobox placeholder="Roles" options={["Intern", "Junior", "Intermediate", "Senior", "Lead"]}/>
+                </div>
+                <div className="filter-dropdown">
+                    {/* <p className="filter-section-title">Technologies</p> */}
+                    {/* <Code size={32} />
+                     */}
+                    <Code02/>
+                    <Combobox placeholder="Technologies" options={["Docker", "iOS", "Android"]}/>
+                </div>
+                <div className="filter-dropdown">
+                    {/* <p className="filter-section-title">Location</p> */
+                    }
                     
+                    {/* <Award size={32}  /> */}
+                    <Award01/>
+                    <Combobox placeholder="Experience" options={["0-2 Years", "2-5 Years", "6-10 Years"]}/>
                 </div>
-                <div className="filter-section">
-                    <p className="filter-section-title">Roles</p>
-
-                        <ul className="skills-list">
-                            {allRoles.map((role) => (
-                                <FilterItem 
-                                    name={role} 
-                                    key={role}
-                                    onToggle={handleFilterClick}
-                                    isSelected={selectedFilter.includes(role)}
-                                    category="role"
-                                />
-                            ))}
-                        </ul>
-                </div>
-                <div className="filter-section">
-                    <p className="filter-section-title">Location</p>
-                        <ul className="skills-list">
-                            {allLocations.map((location) => (
-                                <FilterItem 
-                                    name={location} 
-                                    key={location}
-                                    onToggle={handleFilterClick}
-                                    isSelected={selectedFilter.includes(location)}
-                                    category="location"
-                                />
-                            ))}
-                        </ul>
-                </div>
-                <div className="filter-section">
-                    <p className="filter-section-title">Experience (years)</p>
-                    <Box  sx={{padding:1.5}}>
-                        <Slider
-                            size="small"
-                            min={0}
-                            max={10}
-                            shiftStep={3}
-                            step={1}
-                            value={value}
-                            onChange={handleChange}
-                            valueLabelDisplay="auto"
-                            sx={
-                               thumbStyle
-                            }
-                        />
-                    </Box>
+            </div>
+            <div className="filter-tag-container">
+                <div className="tag-container">
+                    <Badges badgeList={["HTML", "Javascript", "Docker", "Node"]} sliceList={false}  />
+                    {/* <Badge onClose={true}>React</Badge>
+                    <Badge >Javascript</Badge>
+                    <Badge onClose={true}>Tailwind</Badge>
+                    <Badge onClose={true}>Docker</Badge> */}
                 </div>
             </div>
         </section>
