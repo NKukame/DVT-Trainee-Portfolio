@@ -53,7 +53,7 @@ function SideBar() {
           </div>
 
           <div className="sidebar-nav-link">
-            <Link to="/login">
+            <Link to="/">
               <div className="homeBtn">
                 <svg
                   width="25px"
