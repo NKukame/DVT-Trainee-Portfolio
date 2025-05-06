@@ -89,6 +89,7 @@
 }
 
 .login-container input {
+    position: relative;
     background-color: white;
     border: 1px solid #D0D5DD;
     margin: 8px 0;
@@ -142,7 +143,7 @@ input[type="Password"] :focus {
 
 }
 
-    .sign-in-h6{
+.sign-in-h6{
         display: flex;
         flex-direction: column;
         align-items: start;
@@ -151,7 +152,7 @@ input[type="Password"] :focus {
      
     }
 
- .login-container h6 {
+.login-container h6 {
     font: 14px;
     line-height: 20px;
     font-weight: 500;
