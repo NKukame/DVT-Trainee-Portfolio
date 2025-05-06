@@ -2,6 +2,7 @@
 import SearchNav from "../SearchNav";
 import { useSearch } from "../../contexts/SearchContext";
 import { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import PaginationControls from './PaginationControls';
 import ResultsList from './ResultsList';
 
@@ -9,6 +10,10 @@ import './SearchPage.css';
 
 export default function SearchResults() {
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const isProject = queryParams.get("isProject") === "true";
+  const [curentProject, setCurrentProject] = useState(isProject);
   const [,,, filteredResults] = useSearch();
   const [resultsCopy, setCopy] = useState(filteredResults);
   const [currentSearch, setCurrentSearch] = useState(true);
@@ -16,12 +21,24 @@ export default function SearchResults() {
   const itemsPerPage = 9;
 
   useEffect(() => {
-    const finalResults = currentSearch ? resultsCopy.filter(result => !result.project_id)
-      : resultsCopy.filter(result => result.project_id);
-      
-    setCopy(finalResults);
-    setCurrentPage(1); // reset page on new search
-  }, [filteredResults]);
+    setCurrentProject(isProject);
+    setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
+  }, [isProject]);
+
+useEffect(() => {
+  console.log("isProject:", isProject);
+  console.log("Filtered Results:", filteredResults);
+
+  const finalResults = currentSearch
+    ? filteredResults.filter((result) => !result.project_id) // Non-project results
+    : filteredResults.filter((result) => result.project_id); // Project results
+
+  console.log("Final Results:", finalResults);
+
+  setCopy(finalResults);
+  setCurrentPage(1); // Reset to the first page on new search
+  setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
+}, [filteredResults, currentSearch]);
 
   const displayedItems = resultsCopy.slice(
     (currentPage - 1) * itemsPerPage,

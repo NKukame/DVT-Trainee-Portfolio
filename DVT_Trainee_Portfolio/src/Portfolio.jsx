@@ -90,17 +90,15 @@ function Portfolio() {
             <div className="selection-banner">
               <div className="people-view-container">
                 <div
-                  className={`people-view ${
-                    viewMode === "card-view" ? "active" : ""
-                  }`}
+                  className={`people-view ${viewMode === "card-view" ? "active" : ""
+                    }`}
                   onClick={handleCardClick}
                 >
                   Card
                 </div>
                 <div
-                  className={`people-view ${
-                    viewMode === "grid-view" ? "active" : ""
-                  }`}
+                  className={`people-view ${viewMode === "grid-view" ? "active" : ""
+                    }`}
                   onClick={handleGridClick}
                 >
                   Grid
@@ -143,9 +141,12 @@ function Portfolio() {
                     </button>
                     {filteredAndSortedTeam.length > 0 ? (
                       <div className="portfolio-card">
-                        <button className="mail">
+                        <a
+                          href={`mailto:${filteredAndSortedTeam[currentIndex].email || "/"}`}
+                          className="mail"
+                        >
                           <EmailOutlinedIcon fontSize="large" />
-                        </button>
+                        </a>
 
                         <Link to="/UserPortfolio">
                           <div
