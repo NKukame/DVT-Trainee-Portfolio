@@ -30,7 +30,7 @@ function SideBar() {
 
         <div className="sidebar-container-content">
           <div className="sidebar-nav-link">
-            <Link to="/">
+            <Link to="/home">
               <div className="homeBtn">
                 <svg
                   width="25px"
