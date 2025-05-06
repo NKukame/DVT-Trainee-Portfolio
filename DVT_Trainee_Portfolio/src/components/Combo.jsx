@@ -1,45 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Combo.css";
-
-const CheckIcon = ({ visible }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    style={{ opacity: visible ? 1 : 0, marginLeft: "auto" }}
-  >
-    <path
-      d="M13.5 4.5L6 12L2.5 8.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const ChevronIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    style={{ opacity: 0.5 }}
-  >
-    <path
-      d="M4 6L8 10L12 6"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+import { Check, ChevronDown } from "@untitled-ui/icons-react";
 
 export function Combobox({
   options = [],
-  value,
+  value = [],
   onChange,
   placeholder = "Select...",
   searchPlaceholder = "Search...",
@@ -47,11 +12,17 @@ export function Combobox({
   style = {},
   popoverClassName = "",
   popoverStyle = {},
-  renderOption, // optional custom render function
+  renderOption,
+  multiple = true,
 }) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const popoverRef = useRef(null);
+  
+  // Calculate filtered options based on search query
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -59,12 +30,27 @@ export function Combobox({
         setOpen(false);
       }
     };
+    
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const filteredOptions = options
+  const handleSelect = (optionValue) => {
+    if (multiple) {
+      // For multiple selection
+      if (value.includes(optionValue)) {
+        // Remove if already selected
+        onChange(value.filter(v => v !== optionValue));
+      } else {
+        // Add to selection
+        onChange([...value, optionValue]);
+      }
+    } else {
+      // For single selection
+      onChange(optionValue === value[0] ? [] : [optionValue]);
+      setOpen(false);
+    }
+  };
 
   return (
     <div ref={popoverRef} className={`popoverContainer ${className}`} style={style}>
@@ -75,16 +61,15 @@ export function Combobox({
         role="combobox"
         type="button"
       >
-        <span>
-          {value
-            ? options.find((option) => option.value === value)?.label
-            : placeholder}
-        </span>
-        <ChevronIcon />
+        <span className="placeholder">{placeholder}</span>
+        <ChevronDown width={"16px"} />
       </button>
 
       {open && (
-        <div className={`popoverContent ${popoverClassName}`} style={popoverStyle}>
+        <div
+          className={`popoverContent ${popoverClassName}`}
+          style={popoverStyle}
+        >
           <div className="commandContainer">
             <input
               type="text"
@@ -100,32 +85,18 @@ export function Combobox({
                 <div className="commandEmpty">No options found.</div>
               ) : (
                 <div className="commandGroup">
-                  {filteredOptions.map((option) =>
-                    renderOption ? (
-                      renderOption({
-                        option,
-                        selected: value === option.value,
-                        onClick: () => {
-                          onChange(option.value === value ? "" : option.value);
-                          setOpen(false);
-                        },
-                      })
-                    ) : (
-                      <div
-                        key={option.value}
-                        className={`commandItem ${
-                          value === option.value ? "commandItemSelected" : ""
-                        }`}
-                        onClick={() => {
-                          onChange(option.value === value ? "" : option.value);
-                          setOpen(false);
-                        }}
-                      >
-                        {option}
-                        <CheckIcon visible={value === option.value} />
-                      </div>
-                    )
-                  )}
+                  {filteredOptions.map((option) => (
+                    <div
+                      key={option.value}
+                      className={`commandItem ${
+                        value.includes(option.value) ? "commandItemSelected" : ""
+                      }`}
+                      onClick={() => handleSelect(option.value)}
+                    >
+                      {renderOption ? renderOption(option) : option.label}
+                      {value.includes(option.value) && <Check width={"16px"} />}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
