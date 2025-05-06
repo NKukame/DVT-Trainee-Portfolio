@@ -40,12 +40,3 @@ function UserDetails({ user }) {
     </>
   );
 }
-
-function InfoItem({ Icon, text }) {
-  return (
-    <div className="flex-row align-items-center gap-10-px">
-      {Icon}
-      <p className="text-gray font-size-12-px whitespace-nowrap">{text}</p>
-    </div>
-  );
-}
