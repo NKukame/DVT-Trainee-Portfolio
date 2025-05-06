@@ -1,6 +1,6 @@
 
-import SearchNav from "../SearchNav";
-import { useSearch } from "../../contexts/SearchContext";
+import SearchNav from "./SearchNav";
+import { useSearch } from "../contexts/SearchContext";
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import PaginationControls from './PaginationControls';
