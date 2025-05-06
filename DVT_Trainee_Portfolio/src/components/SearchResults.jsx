@@ -11,34 +11,26 @@ import './SearchPage.css';
 export default function SearchResults() {
 
   const location = useLocation();
+  const [,,, filteredResults] = useSearch();
   const queryParams = new URLSearchParams(location.search);
   const isProject = queryParams.get("isProject") === "true";
-  const [curentProject, setCurrentProject] = useState(isProject);
-  const [,,, filteredResults] = useSearch();
-  const [resultsCopy, setCopy] = useState(filteredResults);
-  const [currentSearch, setCurrentSearch] = useState(true);
+  const [curentProject, setCurrentProject] = useState(!isProject);
+  const [resultsCopy, setCopy] = useState([]);
+  // const [isPeopleSearch, setCurrentSearch] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
   useEffect(() => {
-    setCurrentProject(isProject);
-    setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
-  }, [isProject]);
+    
+    const results =  curentProject ? filteredResults.filter((result)=> !result.project_id) 
+                    : filteredResults.filter((result)=> result.project_id);
 
-useEffect(() => {
-  console.log("isProject:", isProject);
-  console.log("Filtered Results:", filteredResults);
-
-  const finalResults = currentSearch
-    ? filteredResults.filter((result) => !result.project_id) // Non-project results
-    : filteredResults.filter((result) => result.project_id); // Project results
-
-  console.log("Final Results:", finalResults);
-
-  setCopy(finalResults);
-  setCurrentPage(1); // Reset to the first page on new search
-  setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
-}, [filteredResults, currentSearch]);
+    setCopy(results);
+    setCurrentPage(1);
+    // setCurrentProject((prev) => prev); // Toggle currentProject based on isProject
+    // setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
+  }, [filteredResults]);
+    
 
   const displayedItems = resultsCopy.slice(
     (currentPage - 1) * itemsPerPage,
@@ -54,12 +46,12 @@ useEffect(() => {
       <SearchNav 
         filter={setCopy} 
         results={filteredResults} 
-        setSearch={setCurrentSearch} 
-        isPeopleSearch={currentSearch} 
+        setSearch={setCurrentProject} 
+        isPeopleSearch={curentProject} 
       />
 
       <section className="flex-1 results-container">
-          <ResultsList results={displayedItems} isEmployeeSearch={currentSearch} />
+          <ResultsList results={displayedItems} isEmployeeSearch={curentProject} />
       </section>
         <PaginationControls
           totalItems={resultsCopy.length} 
