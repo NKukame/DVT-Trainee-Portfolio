@@ -1,8 +1,10 @@
 import "./Filter.css"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Building05, User01, Code02, Award01 } from "@untitled-ui/icons-react";
 import { Combobox } from "./Combo";
 import { Badge } from "./Badge";
+import { SearchContext } from "../contexts/SearchContext";
+import { toDropdownOptions } from "../lib/util";
 
 function Filter() {
   const [industriesSelected, setIndustriesSelected] = useState([]);
@@ -12,6 +14,12 @@ function Filter() {
   const [shouldShowTags, setShouldShowTags] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
+  const {allLanguages, allRoles} = useContext(SearchContext)
+
+
+  
+
+
   // Options for each dropdown
   const industryOptions = [
     { value: "sports", label: "Sports" },
@@ -19,28 +27,17 @@ function Filter() {
     { value: "retail", label: "Retail" }
   ];
   
-  const roleOptions = [
-    { value: "intern", label: "Intern" },
-    { value: "junior", label: "Junior" },
-    { value: "intermediate", label: "Intermediate" },
-    { value: "senior", label: "Senior" },
-    { value: "lead", label: "Lead" }
-  ];
+
   
-  const techOptions = [
-    { value: "docker", label: "Docker" },
-    { value: "ios", label: "iOS" },
-    { value: "android", label: "Android" },
-    { value: "react", label: "React" },
-    { value: "javascript", label: "Javascript" },
-    { value: "tailwind", label: "Tailwind" }
-  ];
+  const techOptions = toDropdownOptions(allLanguages);
+  const roleOptions = toDropdownOptions(allRoles);
   
   const expOptions = [
     { value: "0-2", label: "0-2 Years" },
     { value: "2-5", label: "2-5 Years" },
     { value: "6-10", label: "6-10 Years" }
   ];
+  
 
   // All selected filters
   const allSelectedFilters = [
@@ -97,7 +94,7 @@ function Filter() {
       // Wait for animation to complete before hiding
       const timer = setTimeout(() => {
         setShouldShowTags(false);
-      }, 600); // Match this to your animation duration
+      },100); // Match this to your animation duration
       
       return () => clearTimeout(timer);
     }
