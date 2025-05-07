@@ -5,7 +5,6 @@ import Header from "./Header";
 import { SearchContext, useSearch } from "../contexts/SearchContext.jsx";
 
 function SearchBar(){
-  const [query,setQuery] = useState('')
   const {handleInputChange} = useContext(SearchContext);
   
   

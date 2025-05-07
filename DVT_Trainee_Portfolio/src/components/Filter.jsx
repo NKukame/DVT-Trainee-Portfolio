@@ -18,7 +18,7 @@ import Badges from "./Badges";
 
 function Filter(){
     const {selectedFilter,handleFilterClick,filteredResults, fn, handleChange ,value, setValue, allLanguages, allLocations, allRoles} = useContext(SearchContext)
-    console.log(useContext(SearchContext));
+    // console.log(useContext(SearchContext));
     
     return(
         <section className="filter-container">
