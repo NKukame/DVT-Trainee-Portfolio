@@ -52,7 +52,7 @@ function SideBar() {
             </Link>
           </div>
 
-          
+
           <div className="sidebar-nav-link">
             <Link to="/portfolio">
               <div className="homeBtn">

@@ -2,9 +2,9 @@
     {
         "name": "Paballo Thobei",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "pthobei@dvtsoftware.com",
+        "github": "https://github.com/pthobei",
+        "linkedin": "https://www.linkedin.com/in/paballo-thobei-2b532a27b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         "techStack": ["HTML ", "CSS", "JavaScript", "Java", "C#", "Python"],
         "image": "./src/assets/Pabi.jpg"
     },
@@ -12,9 +12,9 @@
     {
         "name": "Phemelo Makwatse",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "PMakwatse@dvtsoftware.com",
+        "github": "https://github.com/PhimiTm",
+        "linkedin": "https://www.linkedin.com/in/phemelo-makwatse?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         "techStack": ["CSS", "JavaScript", "Java", "TypeScript", "SQL", "React"],
         "image": "./src/assets/Phemelo.jpg"
     },
@@ -22,9 +22,9 @@
     {
         "name": "Gomolemo Motlhamme",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "GMotlhamme@dvtsoftware.com",
+        "github": "https://github.com/GomoAtDVT",
+        "linkedin": "https://www.linkedin.com/in/mrgmotlhamme",
         "techStack": ["React",  "Kotlin", "JavaScript",  "SQL",  "Tailwind CSS"],
         "image": "./src/assets/Gomolemo.jpg"
     },
@@ -32,9 +32,9 @@
     {
         "name": "Adrian Majavu",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "AMajavu@dvtsoftware.com",
+        "github": "https://github.com/Adrian19Jan",
+        "linkedin": "https://www.linkedin.com/in/majavuadrian?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         "techStack": ["HTML", "CSS", "JavaScript", "Java", "C++", "Kotlin", "C#"],
         "image": "./src/assets/Adrian.jpg"
     },
@@ -42,9 +42,9 @@
     {
         "name": "Njabulo Kukame",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "NKukame@dvtsoftware.com",
+        "github": "https://github.com/NKukame",
+        "linkedin": "https://www.linkedin.com/in/njabulo-kukame-05a223227?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         "techStack": ["React","Java", "CSS", "JavaScript",  "PHP", "SQL"],
         "image": "./src/assets/Njabulo-Kukame-Picture.jpg"
     },
@@ -52,9 +52,9 @@
     {
         "name": "Andile Mhlongo",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "AMhlongo@dvtsoftware.com",
+        "github": "https://github.com/amhlongo-dvt",
+        "linkedin": "https://www.linkedin.com/in/andile-mhlongo-a025a5b1/",
         "techStack": ["HTML ", "CSS", "JavaScript", "Java", "C#", "TypeScript"],
         "image": "./src/assets/Andile.jpg"
     },
@@ -62,9 +62,9 @@
     {
         "name": "Thabane Ngobe",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "TNgobe@dvtsoftware.com",
+        "github": "https://github.com/Ngobe-Thabane",
+        "linkedin": "https://www.linkedin.com/in/thabane-ngobe-thabanengobe?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         "techStack": ["HTML", "CSS", "JavaScript", "Java", "Python", "C"],
         "image": "./src/assets/Thabane.jpeg"
     },
@@ -72,9 +72,9 @@
     {
         "name": "Remow Rammekwa",
         "description": "Full Stack Intern",
-        "email": "Email Address",
-        "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "email": "RRammekwa@dvtsoftware.com",
+        "github": "https://github.com/REMOW-web",
+        "linkedin": "https://www.linkedin.com/in/remoneilwe-rammekwa-525571270?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         "techStack": ["HTML", "JavaScript", "Java", "React", "Tailwind CSS"],
         "image": "./src/assets/Remo.jpg"
     },
@@ -83,9 +83,9 @@
     {
         "name": "Dylan Fernandes",
         "description": "UI/UX Intern",
-        "email": "Email Address",
+        "email": "DFernandes@dvtsoftware.com",
         "github": "Github Username",
-        "linkedin": "LinkedIn Profile Link",
+        "linkedin": "https://www.linkedin.com/in/dylan-fernandes-615996345/",
         "techStack": ["Figma"],
         "image": "./src/assets/Dylan.jpg"
     }
