@@ -252,32 +252,51 @@ function Portfolio() {
               X
             </button>
 
-            <h2>{filteredAndSortedTeam[currentIndex].name}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].email}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].chat}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].phone}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].location}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].company}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].department}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].birthday}</h2>
-            <h2>{filteredAndSortedTeam[currentIndex].role}</h2>
-
-           
-
-            <p className="modal-owner">
-              <strong>Owner:</strong> 
-            </p>
-
+            <div>
+              <p>Name:</p>
+              <p>{filteredAndSortedTeam[currentIndex].name}</p>
+            </div>
             
+            <div>
+              <p>Email:</p>
+              <p>{filteredAndSortedTeam[currentIndex].email}</p>
+            </div>
 
-            <p className="modal-description">
-            <strong>Description:</strong> <br />
-            </p>
+            <div>
+              <p>Chat:</p>
+               <p>{filteredAndSortedTeam[currentIndex].Chat}</p>
+            </div>
 
-            <h4 className="modal-technologies">Technologies Used:</h4>
-            
+            <div>
+              <p>Phone:</p>
+              <p>{filteredAndSortedTeam[currentIndex].Phone}</p>
+            </div>
 
-            
+            <div>
+              <p>Location:</p>
+              <p>{filteredAndSortedTeam[currentIndex].Location}</p>
+            </div>
+
+            <div>
+              <p>Company:</p>
+              <p>{filteredAndSortedTeam[currentIndex].Company}</p>
+            </div>
+
+            <div>
+              <p>Department:</p>
+              <p>{filteredAndSortedTeam[currentIndex].Department}</p>
+            </div>
+
+            <div>
+              <p>Role:</p>
+              <p>{filteredAndSortedTeam[currentIndex].Role}</p>
+            </div>
+
+            <div>
+              <p>Birthday:</p>
+              <p>{filteredAndSortedTeam[currentIndex].Birthday}</p>
+            </div>
+   
           </div>
         </div>
       )}
