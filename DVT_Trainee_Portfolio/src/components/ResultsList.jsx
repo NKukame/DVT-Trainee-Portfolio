@@ -11,17 +11,19 @@ export default function ResultsList({ results, isEmployeeSearch }) {
     <>
       {isEmployeeSearch && (
         <section className="grid-3-cols gap-24-px">
-          {results.map((user, i) => (
-            <UserCard key={user.employee_id || i} user={user} />
-          ))}
+          {results.map((user, i) => {
+            const timeStamp = new Date().getTime();
+            return(<UserCard key={`${Math.random()+timeStamp}-${user.employee_id}`} user={user} />
+          )})}
         </section>
       )}
 
       {!isEmployeeSearch && (
         <section className="grid-3-cols gap-24-px">
-          {results.map((project, i) => (
-            <ProjectCard key={project.project_id || i} result={project} />
-          ))}
+          {results.map((project, i) => {
+            const timeStamp = new Date().getTime();
+            return( <ProjectCard key={`${Math.random()+timeStamp}-${project.project_id}`} result={project} />
+          )})}
         </section>
       )}
     </>
