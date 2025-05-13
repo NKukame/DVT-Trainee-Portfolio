@@ -1,8 +1,9 @@
-import Badges from './Badges';
+import { useState } from 'react';
+import Badges, { Badge } from './Badges';
 import { Link } from 'react-router-dom';
 
 export default function ProjectCard({ result, showAuthor = false, showTech = true, showButton = true }) {
-  
+  const [open, setOpen] = useState(false)
   return (
     <div className="card-project shadow flex-col gap-10-px">
       <div>
@@ -20,11 +21,52 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
 
       <div className="link-style border-radius-4-px py-4-px ">
         {showButton && (
-          <Link to={'/userportfolio'} className='text-color-white'>
+          <button to={'/userportfolio'} className='text-color-white' onClick={()=> setOpen(true)}>
             View project
-          </Link>
+          </button>
         )}
       </div>
+
+      {
+       open && 
+       <div className='modal-overlay'> 
+          <div className='modal-content flex-col project-modal-width gap-10-px rounded'>
+            <button className='modal-close' onClick={()=> setOpen(false)}>X</button>
+
+            <div className='flex flex-row flex-row-between'> 
+              <h1>{result.name}</h1>
+              <div>
+                <p>Author/s</p>
+              </div>
+            </div>
+
+            <div>
+              <img src={`./${result.screenshot}` }
+              className='modal-project-image'
+              alt="" />
+            </div>
+            <div>
+              <p>{result.description}</p>
+            </div>
+            <div className='h-1 w-full bg-gray'></div>
+            <div>
+              <h2>Industries</h2>
+              <Badge badge={result.platform} />
+            </div>
+
+            <div className='h-1 w-full bg-gray'></div>
+            <div>
+              <h2>Tech Stack</h2>
+              <Badges badgeList={result.technologies} sliceList={false}/>
+            </div>
+            <div className='h-1 w-full bg-gray'></div>
+            <div className='flex-row flex-row-between'>
+              <button className='project-btn'>Repo</button>
+              <button className='project-btn'>Demo</button>
+            </div>
+          </div>
+       </div> 
+      }
 
     </div>
   );

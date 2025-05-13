@@ -69,7 +69,9 @@
 .border-radius-4-px{
   border-radius: 4px;
 }
-
+.rounded{
+  border-radius: 10px;
+}
 .border-radius-10-px{
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -193,4 +195,28 @@
   margin-block: 40px;
 }
 
+.modal-project-image{
+  position: relative;
+  width: 100%;
+}
 
+.h-1{
+  height: 1px;
+}
+.w-full{
+  width: 100%;
+}
+.bg-gray{
+  background-color: gray;
+}
+.project-modal-width{
+  width: 400px;
+}
+
+.project-btn{
+  border: none;
+  background: var(--white);
+  font-size: 20px;
+  padding: 5px 20px;
+  border-radius: 4px;
+}

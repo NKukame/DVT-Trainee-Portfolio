@@ -22,6 +22,6 @@ export default function Badges({ badgeList, sliceList=true }) {
 }
 
 
-function Badge({badge}){
+export  function Badge({badge}){
   return (<p className="badge-default">{badge}</p>)
-}
+} 

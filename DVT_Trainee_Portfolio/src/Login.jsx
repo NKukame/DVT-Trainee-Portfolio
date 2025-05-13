@@ -108,7 +108,7 @@ function Signup() {
       );
       alert("User registered successfully!");
       setIsSignUp(false);
-      navigate("/Login");
+      navigate("/home");
       // Clear form except email for login
       setFormData(prev => ({
         ...prev,
