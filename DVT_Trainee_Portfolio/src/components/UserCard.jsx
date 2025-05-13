@@ -1,6 +1,6 @@
 import {Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import Badges from '../Badges';
+import Badges from './Badges';
 import { Award02, MarkerPin01 } from "@untitled-ui/icons-react";
 
 export function UserCard({ user,showDetails = true }) {
@@ -38,14 +38,5 @@ function UserDetails({ user }) {
         <Badges badgeList={user.skills} />
       </div>
     </>
-  );
-}
-
-function InfoItem({ Icon, text }) {
-  return (
-    <div className="flex-row align-items-center gap-10-px">
-      {Icon}
-      <p className="text-gray font-size-12-px whitespace-nowrap">{text}</p>
-    </div>
   );
 }
