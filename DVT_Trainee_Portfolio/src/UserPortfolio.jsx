@@ -9,6 +9,27 @@ import SideBar from './components/SideBar';
 
 function UserPortfolio() {
 
+    const testimonials = [
+        {
+            name: "John Doe",
+            title: "Software Engineer",
+            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
+            rating: 4,
+        },
+        {
+            name: "Jane Smith",
+            title: "Project Manager",
+            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
+            rating: 5,
+        },
+        {
+            name: "Bob Johnson",
+            title: "UX Designer",
+            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
+            rating: 3,
+        },
+    ];
+
     const projects = [
         {
             name: "Scientific Calculator",
@@ -61,15 +82,15 @@ function UserPortfolio() {
                             </div>
 
                             <div className="testimonial-section">
-
-                                {Array.from({ length: 3 }).map((_, index) => (
+                                {testimonials.map((testimonial, index) => (
                                     <TestimonialCard
                                         key={index}
-                                        name={`John Doe ${index + 1}`}
-                                        message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                                        name={testimonial.name}
+                                        title={testimonial.title}
+                                        message={testimonial.message}
+                                        rating={testimonial.rating}
                                     />
                                 ))}
-
                             </div>
                             <main className="main-content">
 

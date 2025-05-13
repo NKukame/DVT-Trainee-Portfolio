@@ -36,7 +36,7 @@
 
   .project-container {
     background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
-    border-radius: 1.5rem;
+    border-radius: 12px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     min-height: 780px;
     width: 850px;
@@ -98,7 +98,7 @@
     margin-left: 90px;
     padding: 10px;
     background-color: white;
-    color: #027FB9;
+    color: #525252;
     border-radius: 1rem;
     margin-top: 10px;
   }
@@ -106,11 +106,8 @@
     background: linear-gradient(0deg, #052B4C 0%, #052B4C 100%);
     color: var(--dark-mode-paragragh-white);
   }
+  
   .testimonial-section {
-
-    /* margin: 30px 30px 50px 30px; */
-    /* margin-top: 30px; */
-    /* margin-right: 60px; */
     justify-content: center;
     align-items: center;
     display: grid;
