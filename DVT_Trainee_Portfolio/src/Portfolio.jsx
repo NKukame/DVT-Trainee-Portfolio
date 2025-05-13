@@ -19,7 +19,7 @@ function Portfolio() {
   const [viewMode, setViewMode] = useState("card-view");
   const [sortOrder, setSortOrder] = useState("asc");
   const [searchQuery, setSearchQuery] = useState(""); // New search state
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
@@ -71,6 +71,16 @@ function Portfolio() {
     });
 
   if (team.length === 0) return <p>Loading...</p>;
+
+  
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -203,7 +213,7 @@ function Portfolio() {
                                 />
                               </Link>
                             </div>
-                            <button className="button">Contact Me</button>
+                            <button className="button" onClick={() => openModal()}>Contact Me</button>
                           </div>
                         </div>
                       </div>
@@ -234,6 +244,42 @@ function Portfolio() {
           </div>
         </div>
       </div>
+      {isModalOpen &&  (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="contact-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="contact-modal-close" onClick={closeModal}>
+              X
+            </button>
+
+            <h2>{filteredAndSortedTeam[currentIndex].name}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].email}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].chat}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].phone}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].location}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].company}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].department}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].birthday}</h2>
+            <h2>{filteredAndSortedTeam[currentIndex].role}</h2>
+
+           
+
+            <p className="modal-owner">
+              <strong>Owner:</strong> 
+            </p>
+
+            
+
+            <p className="modal-description">
+            <strong>Description:</strong> <br />
+            </p>
+
+            <h4 className="modal-technologies">Technologies Used:</h4>
+            
+
+            
+          </div>
+        </div>
+      )}
     </>
   );
 }
