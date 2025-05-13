@@ -10,17 +10,18 @@ import './SearchPage.css';
 export default function SearchResults() {
 
   const [,,, filteredResults] = useSearch();
-  const [resultsCopy, setCopy] = useState(filteredResults);
-  const [currentSearch, setCurrentSearch] = useState(true);
+  const [resultsCopy, setCopy] = useState([]);
+  const [isPeopleSearch, setCurrentSearch] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
   useEffect(() => {
-    const finalResults = currentSearch ? resultsCopy.filter(result => !result.project_id)
-      : resultsCopy.filter(result => result.project_id);
-      
-    setCopy(finalResults);
-    setCurrentPage(1); // reset page on new search
+    
+    const results =  isPeopleSearch ? filteredResults.filter((result)=> !result.project_id) 
+                    : filteredResults.filter((result)=> result.project_id);
+
+    setCopy(results);
+    setCurrentPage(1);
   }, [filteredResults]);
 
   const displayedItems = resultsCopy.slice(
@@ -38,11 +39,11 @@ export default function SearchResults() {
         filter={setCopy} 
         results={filteredResults} 
         setSearch={setCurrentSearch} 
-        isPeopleSearch={currentSearch} 
+        isPeopleSearch={isPeopleSearch} 
       />
 
       <section className="flex-1 results-container">
-          <ResultsList results={displayedItems} isEmployeeSearch={currentSearch} />
+          <ResultsList results={displayedItems} isEmployeeSearch={isPeopleSearch} />
       </section>
         <PaginationControls
           totalItems={resultsCopy.length} 
