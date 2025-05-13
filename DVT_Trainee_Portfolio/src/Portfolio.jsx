@@ -252,49 +252,52 @@ function Portfolio() {
               X
             </button>
 
-            <div>
-              <p>Name:</p>
-              <p>{filteredAndSortedTeam[currentIndex].name}</p>
-            </div>
-            
-            <div>
-              <p>Email:</p>
-              <p>{filteredAndSortedTeam[currentIndex].email}</p>
-            </div>
+            <div className="contact-me-modal-content">
 
-            <div>
-              <p>Chat:</p>
-               <p>{filteredAndSortedTeam[currentIndex].Chat}</p>
-            </div>
+              <div>
+                <p className="contact-me-name">Name:</p>
+                <p>{filteredAndSortedTeam[currentIndex].name}</p>
+              </div>
 
-            <div>
-              <p>Phone:</p>
-              <p>{filteredAndSortedTeam[currentIndex].Phone}</p>
-            </div>
+              <div>
+                <p className="contact-me-email">Email:</p>
+                <p>{filteredAndSortedTeam[currentIndex].email}</p>
+              </div>
 
-            <div>
-              <p>Location:</p>
-              <p>{filteredAndSortedTeam[currentIndex].Location}</p>
-            </div>
+              <div>
+                <p className="contact-me-chat">Chat:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Chat}</p>
+              </div>
 
-            <div>
-              <p>Company:</p>
-              <p>{filteredAndSortedTeam[currentIndex].Company}</p>
-            </div>
+              <div>
+                <p className="contact-me-phone">Phone:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Phone}</p>
+              </div>
 
-            <div>
-              <p>Department:</p>
-              <p>{filteredAndSortedTeam[currentIndex].Department}</p>
-            </div>
+              <div>
+                <p className="contact-me-location">Location:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Location}</p>
+              </div>
 
-            <div>
-              <p>Role:</p>
-              <p>{filteredAndSortedTeam[currentIndex].Role}</p>
-            </div>
+              <div>
+                <p className="contact-me-company">Company:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Company}</p>
+              </div>
 
-            <div>
-              <p>Birthday:</p>
-              <p>{filteredAndSortedTeam[currentIndex].Birthday}</p>
+              <div>
+                <p className="contact-me-department">Department:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Department}</p>
+              </div>
+
+              <div>
+                <p className="contact-me-role">Role:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Role}</p>
+              </div>
+
+              <div>
+                <p className="contact-me-birthday">Birthday:</p>
+                <p>{filteredAndSortedTeam[currentIndex].Birthday}</p>
+              </div>
             </div>
    
           </div>
