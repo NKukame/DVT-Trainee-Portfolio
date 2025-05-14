@@ -24,7 +24,9 @@
 .align-items-center{
   align-items: center;
 }
-
+.align-content-center{
+  align-content: center;
+}
 .justify-items-center{
   justify-items: center;
 }
@@ -211,6 +213,11 @@
 }
 .project-modal-width{
   width: 400px;
+}
+
+.profile-image{
+  width: 28px;
+  height: 28px;
 }
 
 .project-btn{
