@@ -460,20 +460,41 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding:100px 200px;
+  padding:70px 100px;
   background: var(--white);
-  border-radius: 2rem;
+  border-radius: 1rem;
 }
 
 .contact-modal-close{
   position: absolute;
-  top: 190px;
-  right: 500px;
+  top: 225px;
+  right: 280px;
   font-size: 20px;
   background: transparent;
   border: none;
+  cursor: pointer;
+  color: var(--dark-blue);
+}
+.dark-mode .contact-modal-close{
+  color: var(--white);
 }
 
+.dark-mode .contact-modal-content{
+  color: var(--white);
+  background: var(--dark-blue);
+}
+.contact-me-modal-content{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 30px 60px;
+}
+
+.contact-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 /* Container for the modal content
 .contact-me-modal-content {
   background-color: #1a1a1a;
