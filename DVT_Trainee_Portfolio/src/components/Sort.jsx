@@ -29,12 +29,13 @@ export function SelectScrollable({ filter, results }) {
       b.name.toLowerCase().localeCompare(a.name.toLowerCase())
     );
     break;
-    case 'New':
-      results = results.sort((a, b) => new Date(b.date) - new Date(a.date));
-      break;
-    case 'Old':
-      results = results.sort((a, b) => new Date(a.date) - new Date(b.date));
-      break;
+    case "availability_asc":
+    results = [...results].sort((a, b) => new Date(a.availability_date) - new Date(b.availability_date));
+    break;
+  case "availability_desc":
+    results = [...results].sort((a, b) => new Date(b.availability_date) - new Date(a.availability_date));
+
+    break;
     default:
       break;
   }
@@ -59,11 +60,16 @@ export function SelectScrollable({ filter, results }) {
             <option value="Asc">Ascending</option>
             <option value="Desc">Descending</option>
           </optgroup>
+         
+          <optgroup label="Availability">
+            <option value="availability_asc">Earliest</option>
+            <option value="availability_desc">Latest</option>
+          </optgroup>
 
-          <optgroup label="Date">
+          {/* <optgroup label="Date">
             <option value="New">Newest</option>
             <option value="Old">Oldest</option>
-          </optgroup>
+          </optgroup> */}
         </select>
       </div>
 
