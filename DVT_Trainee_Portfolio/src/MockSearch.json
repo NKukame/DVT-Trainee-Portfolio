@@ -17,6 +17,7 @@
       },
       "years_active": 1,
       "start_date": "2020-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "JavaScript",
         "React",
@@ -60,6 +61,7 @@
       },
       "years_active": 1,
       "start_date": "2019-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "Python",
         "Django",
@@ -103,6 +105,7 @@
       },
       "years_active": 1,
       "start_date": "2018-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "C#",
         ".NET",
@@ -146,6 +149,7 @@
       },
       "years_active": 1,
       "start_date": "2020-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "Java",
         "Spring Boot",
@@ -189,6 +193,7 @@
       },
       "years_active": 1,
       "start_date": "2018-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "PHP",
         "Laravel",
@@ -231,6 +236,7 @@
       },
       "years_active": 1,
       "start_date": "2019-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "Ruby",
         "Rails",
@@ -273,6 +279,7 @@
       },
       "years_active": 1,
       "start_date": "2017-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "Go",
         "Docker",
@@ -315,6 +322,7 @@
       },
       "years_active": 1,
       "start_date": "2020-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "Flutter",
         "Dart",
@@ -357,6 +365,7 @@
       },
       "years_active": 1,
       "start_date": "2021-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "Java",
         "React",
@@ -403,6 +412,7 @@
       },
       "years_active": 1,
       "start_date": "2018-01-01",
+      "availability_date": "2025-05-14",
       "skills": [
         "JavaScript",
         "Angular",
@@ -431,111 +441,110 @@
     }
   ],
   "projects": [
-  {
-    "project_id": "001",
-    "name": "Portfolio Website",
-    "created_on": "2023-08-15",
-    "description": "A personal portfolio website showcasing my work and skills.",
-    "technologies": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React"
-    ],
-    "status": "Completed",
-    "category": "Web Development",
-    "platform": "Web",
-    "app_type": "Single-page Application",
-    "is_cli": false,
-    "employee_id": "001",
-    "username": "paballo",
-    "avatar": "./src/assets/Pabi.jpg",
-    "screenshot": "/Adriano.jpg",
-    "industries": ["Personal Branding", "Technology"]
-  },
-  {
-    "project_id": "002",
-    "name": "E-commerce Platform",
-    "created_on": "2024-01-10",
-    "description": "An online store where users can browse and purchase products.",
-    "technologies": [
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "React"
-    ],
-    "status": "In Progress",
-    "category": "Web Development",
-    "platform": "Web",
-    "app_type": "Single-page Application",
-    "is_cli": false,
-    "employee_id": "001",
-    "username": "paballo",
-    "avatar": "./src/assets/Pabi.jpg",
-    "screenshot": "/Adriano.jpg",
-    "industries": ["E-commerce", "Retail"]
-  },
-  {
-    "project_id": "003",
-    "name": "Personal Blog",
-    "created_on": "2023-11-01",
-    "description": "A personal blog to share tech tutorials and articles.",
-    "technologies": [
-      "Vue.js",
-      "Sass",
-      "Node.js"
-    ],
-    "status": "Completed",
-    "category": "Blog",
-    "platform": "Web",
-    "app_type": "Single-page Application",
-    "is_cli": false,
-    "employee_id": "002",
-    "username": "gomolemo",
-    "avatar": "./src/assets/Gomolemo.jpg",
-    "screenshot": "/Adriano.jpg",
-    "industries": ["Education", "Technology", "Media"]
-  },
-  {
-    "project_id": "004",
-    "name": "Data Analysis Tool",
-    "created_on": "2024-02-01",
-    "description": "A tool to analyze and visualize large datasets using machine learning.",
-    "technologies": [
-      "Python",
-      "TensorFlow",
-      "Pandas"
-    ],
-    "status": "In Progress",
-    "category": "Data Science",
-    "platform": "Desktop",
-    "app_type": "Desktop Application",
-    "is_cli": false,
-    "employee_id": "003",
-    "username": "thabane",
-    "avatar": "./src/assets/Thabane.jpeg",
-    "screenshot": "/Adriano.jpg",
-    "industries": ["Data Science", "Analytics", "Technology"]
-  },
-  {
-    "project_id": "005",
-    "name": "Task Manager CLI",
-    "created_on": "2024-01-15",
-    "description": "A simple command-line interface to manage tasks and to-dos.",
-    "technologies": [
-      "Python"
-    ],
-    "status": "Completed",
-    "category": "CLI Application",
-    "platform": "Cross-platform",
-    "app_type": "Command-line Interface",
-    "is_cli": true,
-    "employee_id": "003",
-    "username": "thabane",
-    "avatar": "./src/assets/Thabane.jpeg",
-    "screenshot": "/Adriano.jpg",
-    "industries": ["Productivity", "Technology"]
-  }
-]
-
+    {
+      "project_id": "001",
+      "name": "Portfolio Website",
+      "created_on": "2023-08-15",
+      "description": "A personal portfolio website showcasing my work and skills.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React"
+      ],
+      "status": "Completed",
+      "category": "Web Development",
+      "platform": "Web",
+      "app_type": "Single-page Application",
+      "is_cli": false,
+      "employee_id": "001",
+      "username": "paballo",
+      "avatar": "./src/assets/Pabi.jpg",
+      "screenshot": "/Adriano.jpg",
+      "industries": ["Personal Branding", "Technology"]
+    },
+    {
+      "project_id": "002",
+      "name": "E-commerce Platform",
+      "created_on": "2024-01-10",
+      "description": "An online store where users can browse and purchase products.",
+      "technologies": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "React"
+      ],
+      "status": "In Progress",
+      "category": "Web Development",
+      "platform": "Web",
+      "app_type": "Single-page Application",
+      "is_cli": false,
+      "employee_id": "001",
+      "username": "paballo",
+      "avatar": "./src/assets/Pabi.jpg",
+      "screenshot": "/Adriano.jpg",
+      "industries": ["E-commerce", "Retail"]
+    },
+    {
+      "project_id": "003",
+      "name": "Personal Blog",
+      "created_on": "2023-11-01",
+      "description": "A personal blog to share tech tutorials and articles.",
+      "technologies": [
+        "Vue.js",
+        "Sass",
+        "Node.js"
+      ],
+      "status": "Completed",
+      "category": "Blog",
+      "platform": "Web",
+      "app_type": "Single-page Application",
+      "is_cli": false,
+      "employee_id": "002",
+      "username": "gomolemo",
+      "avatar": "./src/assets/Gomolemo.jpg",
+      "screenshot": "/Adriano.jpg",
+      "industries": ["Education", "Technology", "Media"]
+    },
+    {
+      "project_id": "004",
+      "name": "Data Analysis Tool",
+      "created_on": "2024-02-01",
+      "description": "A tool to analyze and visualize large datasets using machine learning.",
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "Pandas"
+      ],
+      "status": "In Progress",
+      "category": "Data Science",
+      "platform": "Desktop",
+      "app_type": "Desktop Application",
+      "is_cli": false,
+      "employee_id": "003",
+      "username": "thabane",
+      "avatar": "./src/assets/Thabane.jpeg",
+      "screenshot": "/Adriano.jpg",
+      "industries": ["Data Science", "Analytics", "Technology"]
+    },
+    {
+      "project_id": "005",
+      "name": "Task Manager CLI",
+      "created_on": "2024-01-15",
+      "description": "A simple command-line interface to manage tasks and to-dos.",
+      "technologies": [
+        "Python"
+      ],
+      "status": "Completed",
+      "category": "CLI Application",
+      "platform": "Cross-platform",
+      "app_type": "Command-line Interface",
+      "is_cli": true,
+      "employee_id": "003",
+      "username": "thabane",
+      "avatar": "./src/assets/Thabane.jpeg",
+      "screenshot": "/Adriano.jpg",
+      "industries": ["Productivity", "Technology"]
+    }
+  ]
 }
