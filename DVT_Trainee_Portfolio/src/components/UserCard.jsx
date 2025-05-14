@@ -4,7 +4,7 @@ import Badges from './Badges';
 import { Award02, MarkerPin01 } from "@untitled-ui/icons-react";
 
 export function UserCard({ user,showDetails = true }) {
-  
+  console.log(user)
   return (
     <div className="card-user flex-col gap-10-px shadow">
       <div className='flex-row align-items-center gap-10-px'>
