@@ -4,7 +4,7 @@ import { Building05, User01, Code02, Award01 } from "@untitled-ui/icons-react";
 import { Combobox } from "./Combo";
 import { Badge } from "./Badge";
 import { SearchContext } from "../contexts/SearchContext";
-import { toDropdownOptions } from "../lib/util";
+import { capitalizeFirstLetter, toDropdownOptions } from "../lib/util";
 
 function Filter() {
   const [industriesSelected, setIndustriesSelected] = useState([]);
@@ -70,12 +70,15 @@ function Filter() {
         setIndustriesSelected(prev => prev.filter(v => v !== value));
         break;
       case "role":
+        handleFilterClick(value, "Roles")
         setRolesSelected(prev => prev.filter(v => v !== value));
         break;
       case "technology":
+        handleFilterClick(value, "Technologies")
         setTechnologiesSelected(prev => prev.filter(v => v !== value));
         break;
-      case "experience":
+        case "experience":
+        handleFilterClick(value, "Experience")
         setExperienceSelected(prev => prev.filter(v => v !== value));
         break;
       default:
@@ -112,6 +115,7 @@ function Filter() {
             value={industriesSelected}
             onChange={setIndustriesSelected}
             multiple={true}
+            handleFilterClick={handleFilterClick}
           />
         </div>
         <div className="filter-dropdown">
@@ -122,6 +126,7 @@ function Filter() {
             value={rolesSelected}
             onChange={setRolesSelected}
             multiple={true}
+            handleFilterClick={handleFilterClick}
           />
         </div>
         <div className="filter-dropdown">
@@ -134,7 +139,7 @@ function Filter() {
             onChange={setTechnologiesSelected}
             multiple={true}
             handleFilterClick={handleFilterClick}
-          />
+            />
         </div>
         <div className="filter-dropdown">
           <Award01 />
@@ -144,6 +149,7 @@ function Filter() {
             value={experienceSelected}
             onChange={setExperienceSelected}
             multiple={true}
+            handleFilterClick={handleFilterClick}
             
           />
         </div>

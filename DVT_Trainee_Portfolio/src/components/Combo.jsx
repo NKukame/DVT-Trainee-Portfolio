@@ -43,10 +43,11 @@ export function Combobox({
       if (value.includes(optionValue)) {
         // Remove if already selected
         onChange(value.filter(v => v !== optionValue));
+        handleFilterClick(optionValue.toLowerCase(), placeholder)
       } else {
         // Add to selection
         onChange([...value, optionValue]);
-        handleFilterClick(capitalizeFirstLetter(optionValue), placeholder)
+        handleFilterClick(optionValue.toLowerCase(), placeholder)
       }
     } else {
       // For single selection
