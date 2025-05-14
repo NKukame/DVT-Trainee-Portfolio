@@ -12,6 +12,7 @@ export const SearchContextProvider = ({children}) => {
     let [selectedFilter, setSelectedFilter] = useState([]);
     
     const allLanguages = [...new Set(searchResults.map((employee) => employee.skills).flat())].filter(item => item !== undefined);
+    const allIndustries = [...new Set(searchResults.map((employee) => employee.industries).flat())].filter(item => item !== undefined);
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
 
@@ -108,7 +109,7 @@ export const SearchContextProvider = ({children}) => {
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries}}>
             {children}
         </SearchContext.Provider>
     )

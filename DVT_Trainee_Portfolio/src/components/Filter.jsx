@@ -14,18 +14,14 @@ function Filter() {
   const [shouldShowTags, setShouldShowTags] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
-  const {allLanguages, allRoles, handleFilterClick} = useContext(SearchContext)
+  const {allLanguages, allRoles, handleFilterClick, allIndustries} = useContext(SearchContext)
 
 
   
 
 
   // Options for each dropdown
-  const industryOptions = [
-    { value: "sports", label: "Sports" },
-    { value: "finance", label: "Finance" },
-    { value: "retail", label: "Retail" }
-  ];
+  const industryOptions = toDropdownOptions(allIndustries)
   
 
   
