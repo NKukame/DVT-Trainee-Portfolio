@@ -238,6 +238,10 @@ function Body() {
               ))}
             </ul>
 
+            <button className="modal-project-link">
+              <a href={selectedProject.link}>Repository</a>
+            </button>
+
 
           </div>
         </div>
