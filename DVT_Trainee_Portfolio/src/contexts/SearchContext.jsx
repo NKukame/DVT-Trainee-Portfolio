@@ -68,7 +68,7 @@ export const SearchContextProvider = ({children}) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.industries){
                     const lowerIndustries = employee.industries.map(x => x.toLowerCase())
-                    console.log(lowerSkills);        
+                    console.log(filter);      
                     
                     return newSelectedFilter.some((filter) => lowerIndustries.includes(filter.toLowerCase()));
                 }
