@@ -14,7 +14,7 @@ function Filter() {
   const [shouldShowTags, setShouldShowTags] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
-  const {allLanguages, allRoles} = useContext(SearchContext)
+  const {allLanguages, allRoles, handleFilterClick} = useContext(SearchContext)
 
 
   
@@ -81,6 +81,7 @@ function Filter() {
       default:
         break;
     }
+
   };
 
   useEffect(() => {
@@ -127,10 +128,12 @@ function Filter() {
           <Code02 />
           <Combobox
             placeholder="Technologies"
+            className=""
             options={techOptions}
             value={technologiesSelected}
             onChange={setTechnologiesSelected}
             multiple={true}
+            handleFilterClick={handleFilterClick}
           />
         </div>
         <div className="filter-dropdown">
@@ -141,6 +144,7 @@ function Filter() {
             value={experienceSelected}
             onChange={setExperienceSelected}
             multiple={true}
+            
           />
         </div>
       </div>

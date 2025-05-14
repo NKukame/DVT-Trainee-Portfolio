@@ -38,14 +38,19 @@ export const SearchContextProvider = ({children}) => {
         }
         setSelectedFilter(newSelectedFilter);
         
-        if(category.includes("language")){
+        console.log(filter, category);
+        
+        
+        if(category.includes("Technologies")){
+            
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
-    
+                    
                     return newSelectedFilter.every((filter) => employee.skills.includes(filter));
                 }
             });
+            console.log(updatedResults.length);
         }
         if(category.includes("role")){
             updatedResults = searchResults.filter((employee) => {

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Combo.css";
 import { Check, ChevronDown } from "@untitled-ui/icons-react";
+import { capitalizeFirstLetter } from "../lib/util";
 
 export function Combobox({
   options = [],
@@ -14,6 +15,7 @@ export function Combobox({
   popoverStyle = {},
   renderOption,
   multiple = true,
+  handleFilterClick
 }) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -44,6 +46,7 @@ export function Combobox({
       } else {
         // Add to selection
         onChange([...value, optionValue]);
+        handleFilterClick(capitalizeFirstLetter(optionValue), placeholder)
       }
     } else {
       // For single selection
