@@ -5,7 +5,7 @@
       "name": "Paballo",
       "username": "paballo",
       "email": "paballo@example.com",
-      "role": "Developer",
+      "role": "Frontend Developer",
       "bio": "She's such a bubbly, kind, and intelligent young lady, always laughing and full of life. I adore everything about her.",
       "location": "Johannesburg, South Africa",
       "avatar": "./src/assets/Pabi.jpg",
@@ -16,6 +16,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2020-01-01",
       "skills": [
         "JavaScript",
         "React",
@@ -47,7 +48,7 @@
       "name": "Gomolemo",
       "username": "gomolemo",
       "email": "gomolemo@example.com",
-      "role": "Developer",
+      "role": "Backend Developer",
       "bio": "A quiet gentleman who doesn't talk much and can come across as shy, but once you get to know him, he's an absolute sweetheart.",
       "location": "Cape Town, South Africa",
       "avatar": "./src/assets/Gomolemo.jpg",
@@ -58,6 +59,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2019-01-01",
       "skills": [
         "Python",
         "Django",
@@ -89,7 +91,7 @@
       "name": "Thabane",
       "username": "thabane",
       "email": "thabane@example.com",
-      "role": "Developer",
+      "role": "Systems Architect",
       "bio": "Another quiet soul, but he's slowly opening up and getting comfortable in his surroundings. Very nice guy.",
       "location": "Durban, South Africa",
       "avatar": "./src/assets/Thabane.jpeg",
@@ -100,6 +102,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2018-01-01",
       "skills": [
         "C#",
         ".NET",
@@ -131,7 +134,7 @@
       "name": "Njabulo",
       "username": "njabulo",
       "email": "njabulo@example.com",
-      "role": "Developer",
+      "role": "Backend Developer",
       "bio": "My son, calm and incredibly smart. Dresses very well. I wouldn't call him shy; he just takes his time to assess his environment before getting comfortable.",
       "location": "Johannesburg, South Africa",
       "avatar": "./src/assets/Njabulo-Kukame-Picture.jpg",
@@ -142,6 +145,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2020-01-01",
       "skills": [
         "Java",
         "Spring Boot",
@@ -173,7 +177,7 @@
       "name": "Phemelo",
       "username": "phemelo",
       "email": "phemelo@example.com",
-      "role": "Developer",
+      "role": "Full Stack Developer",
       "bio": "Mr charmer himself—he's such an amazing soul, smart, always smiling, and naturally gets along with everyone.",
       "location": "Cape Town, South Africa",
       "avatar": "./src/assets/Phemelo.jpg",
@@ -184,6 +188,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2018-01-01",
       "skills": [
         "PHP",
         "Laravel",
@@ -214,7 +219,7 @@
       "name": "Tshenolo",
       "username": "tshenolo",
       "email": "tshenolo@example.com",
-      "role": "Developer",
+      "role": "Software Engineer",
       "bio": "She's truly special—a calm and kind soul who doesn't say much but is incredibly smart as well. We share a connection that no one else could ever understand. I love her to bits.",
       "location": "Durban, South Africa",
       "avatar": "./src/assets/user_placeholder.png",
@@ -225,6 +230,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2019-01-01",
       "skills": [
         "Ruby",
         "Rails",
@@ -255,7 +261,7 @@
       "name": "Andile",
       "username": "andile",
       "email": "andile@example.com",
-      "role": "Developer",
+      "role": "DevOps Engineer",
       "bio": "Very calm and quiet but loves to laugh. He doesn't say much except during our one-on-ones, where his true gentleman nature shines through.",
       "location": "Johannesburg, South Africa",
       "avatar": "./src/assets/Andile.jpg",
@@ -266,6 +272,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2017-01-01",
       "skills": [
         "Go",
         "Docker",
@@ -296,7 +303,7 @@
       "name": "Adrian",
       "username": "adrian",
       "email": "adrian@example.com",
-      "role": "Developer",
+      "role": "Mobile Developer",
       "bio": "He may seem shy around people he doesn't know but quickly warms up when he feels welcomed—a loving soul as well.",
       "location": "Cape Town, South Africa",
       "avatar": "./src/assets/Adrian.jpg",
@@ -307,6 +314,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2020-01-01",
       "skills": [
         "Flutter",
         "Dart",
@@ -337,7 +345,7 @@
       "name": "Remoneilwe",
       "username": "remoneilwe",
       "email": "remoneilwe@example.com",
-      "role": "Full Stack Developer",
+      "role": "Technical Team Lead",
       "bio": "A whirlwind of energy—she's always where the action is and her crazy, amazing soul is unforgettable.",
       "location": "Durban, South Africa",
       "avatar": "./src/assets/Remo.jpg",
@@ -348,6 +356,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2021-01-01",
       "skills": [
         "Java",
         "React",
@@ -382,7 +391,7 @@
       "name": "Slindokuhle",
       "username": "slindokuhle",
       "email": "slindokuhle@example.com",
-      "role": "Developer",
+      "role": "UI/UX Designer",
       "bio": "He's like the male version of Remocrazy but so sweet—I admire his hard-working nature and determination to achieve his goals. A true family man.",
       "location": "Johannesburg, South Africa",
       "avatar": "./src/assets/user_placeholder.png",
@@ -393,6 +402,7 @@
         "blog": ""
       },
       "years_active": 1,
+      "start_date": "2018-01-01",
       "skills": [
         "JavaScript",
         "Angular",
@@ -421,95 +431,111 @@
     }
   ],
   "projects": [
-    {
-      "project_id": "001",
-      "name": "Portfolio Website",
-      "created_on": "2023-08-15",
-      "description": "A personal portfolio website showcasing my work and skills.",
-      "technologies": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "React"
-      ],
-      "status": "Completed",
-      "category": "Web Development",
-      "platform": "Web",
-      "app_type": "Single-page Application",
-      "is_cli": false,
-      "employee_id": "001",
-      "screenshot": "/Adriano.jpg"
-    },
-    {
-      "project_id": "002",
-      "name": "E-commerce Platform",
-      "created_on": "2024-01-10",
-      "description": "An online store where users can browse and purchase products.",
-      "technologies": [
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "React"
-      ],
-      "status": "In Progress",
-      "category": "Web Development",
-      "platform": "Web",
-      "app_type": "Single-page Application",
-      "is_cli": false,
-      "employee_id": "001",
-      "screenshot": "/Adriano.jpg"
-    },
-    {
-      "project_id": "003",
-      "name": "Personal Blog",
-      "created_on": "2023-11-01",
-      "description": "A personal blog to share tech tutorials and articles.",
-      "technologies": [
-        "Vue.js",
-        "Sass",
-        "Node.js"
-      ],
-      "status": "Completed",
-      "category": "Blog",
-      "platform": "Web",
-      "app_type": "Single-page Application",
-      "is_cli": false,
-      "employee_id": "002",
-      "screenshot": "/Adriano.jpg"
-    },
-    {
-      "project_id": "004",
-      "name": "Data Analysis Tool",
-      "created_on": "2024-02-01",
-      "description": "A tool to analyze and visualize large datasets using machine learning.",
-      "technologies": [
-        "Python",
-        "TensorFlow",
-        "Pandas"
-      ],
-      "status": "In Progress",
-      "category": "Data Science",
-      "platform": "Desktop",
-      "app_type": "Desktop Application",
-      "is_cli": false,
-      "employee_id": "003",
-      "screenshot": "/Adriano.jpg"
-    },
-    {
-      "project_id": "005",
-      "name": "Task Manager CLI",
-      "created_on": "2024-01-15",
-      "description": "A simple command-line interface to manage tasks and to-dos.",
-      "technologies": [
-        "Python"
-      ],
-      "status": "Completed",
-      "category": "CLI Application",
-      "platform": "Cross-platform",
-      "app_type": "Command-line Interface",
-      "is_cli": true,
-      "employee_id": "003",
-      "screenshot": "/Adriano.jpg"
-    }
-  ]
+  {
+    "project_id": "001",
+    "name": "Portfolio Website",
+    "created_on": "2023-08-15",
+    "description": "A personal portfolio website showcasing my work and skills.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React"
+    ],
+    "status": "Completed",
+    "category": "Web Development",
+    "platform": "Web",
+    "app_type": "Single-page Application",
+    "is_cli": false,
+    "employee_id": "001",
+    "username": "paballo",
+    "avatar": "./src/assets/Pabi.jpg",
+    "screenshot": "/Adriano.jpg",
+    "industries": ["Personal Branding", "Technology"]
+  },
+  {
+    "project_id": "002",
+    "name": "E-commerce Platform",
+    "created_on": "2024-01-10",
+    "description": "An online store where users can browse and purchase products.",
+    "technologies": [
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "React"
+    ],
+    "status": "In Progress",
+    "category": "Web Development",
+    "platform": "Web",
+    "app_type": "Single-page Application",
+    "is_cli": false,
+    "employee_id": "001",
+    "username": "paballo",
+    "avatar": "./src/assets/Pabi.jpg",
+    "screenshot": "/Adriano.jpg",
+    "industries": ["E-commerce", "Retail"]
+  },
+  {
+    "project_id": "003",
+    "name": "Personal Blog",
+    "created_on": "2023-11-01",
+    "description": "A personal blog to share tech tutorials and articles.",
+    "technologies": [
+      "Vue.js",
+      "Sass",
+      "Node.js"
+    ],
+    "status": "Completed",
+    "category": "Blog",
+    "platform": "Web",
+    "app_type": "Single-page Application",
+    "is_cli": false,
+    "employee_id": "002",
+    "username": "gomolemo",
+    "avatar": "./src/assets/Gomolemo.jpg",
+    "screenshot": "/Adriano.jpg",
+    "industries": ["Education", "Technology", "Media"]
+  },
+  {
+    "project_id": "004",
+    "name": "Data Analysis Tool",
+    "created_on": "2024-02-01",
+    "description": "A tool to analyze and visualize large datasets using machine learning.",
+    "technologies": [
+      "Python",
+      "TensorFlow",
+      "Pandas"
+    ],
+    "status": "In Progress",
+    "category": "Data Science",
+    "platform": "Desktop",
+    "app_type": "Desktop Application",
+    "is_cli": false,
+    "employee_id": "003",
+    "username": "thabane",
+    "avatar": "./src/assets/Thabane.jpeg",
+    "screenshot": "/Adriano.jpg",
+    "industries": ["Data Science", "Analytics", "Technology"]
+  },
+  {
+    "project_id": "005",
+    "name": "Task Manager CLI",
+    "created_on": "2024-01-15",
+    "description": "A simple command-line interface to manage tasks and to-dos.",
+    "technologies": [
+      "Python"
+    ],
+    "status": "Completed",
+    "category": "CLI Application",
+    "platform": "Cross-platform",
+    "app_type": "Command-line Interface",
+    "is_cli": true,
+    "employee_id": "003",
+    "username": "thabane",
+    "avatar": "./src/assets/Thabane.jpeg",
+    "screenshot": "/Adriano.jpg",
+    "industries": ["Productivity", "Technology"]
+  }
+]
+
 }
