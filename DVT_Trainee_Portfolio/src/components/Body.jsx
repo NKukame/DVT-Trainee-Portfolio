@@ -1,8 +1,7 @@
+import React, { useState, useEffect, useRef } from "react";
 import "./Body.css";
 import profileIcon from "../assets/placeholder.png";
 import projects from "../modal-resources/projects-modal.json";
-import React, { useState, useEffect, useRef } from "react";
-
 
 function Body() {
   const [team, setTeam] = useState([]);
@@ -129,7 +128,12 @@ function Body() {
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p className="badge-default" style={{paddingInline: "5px"}}>{tech}</p>
+                      <p
+                        className="badge-default"
+                        style={{ paddingInline: "5px" }}
+                      >
+                        {tech}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -200,38 +204,45 @@ function Body() {
       {isModalOpen && selectedProject && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
+            {/* <button className="modal-close" onClick={closeModal}>
               X
-            </button>
+            </button> */}
 
-            <h2>{selectedProject.title}</h2>
+            <div className="modal-header">
+              <h2>{selectedProject.title}</h2>
+              <div className="modal-owner-container">
+                <img src={selectedProject.ownerimage} alt="" className="modal-owner-img" />
+                <p className="modal-owner">{selectedProject.owner}</p>
+              </div>
+            </div>
 
             {selectedProject.video && (
               <video
                 src={selectedProject.video}
                 controls
                 width="100%"
-                style={{ borderRadius: "15px", marginTop: "1rem" }}
+                style={{ borderRadius: "5px" }}
               />
             )}
 
-            <p className="modal-owner">
-              <strong>Owner:</strong> {selectedProject.owner}
-            </p>
-
-            <p className="modal-project-link"><a href={selectedProject.link}>Click Here For The Link</a></p>
 
             <p className="modal-description">
-            <strong>Description:</strong> <br />{selectedProject.description}
+              <strong>Description:</strong> <br />
+              {selectedProject.description}
             </p>
 
             <h4 className="modal-technologies">Technologies Used:</h4>
             <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
               {selectedProject.technologies.map((tech, index) => (
-                (<li key={index}><p  className='badge-default'>{tech}</p></li>)
+                <li key={index}>
+                  <p className="badge-default">{tech}</p>
+                </li>
               ))}
             </ul>
 
+            <button className="modal-project-link">
+              <a href={selectedProject.link}>Repository</a>
+            </button>
             
           </div>
         </div>
