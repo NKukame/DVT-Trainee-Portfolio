@@ -109,6 +109,11 @@
   background-color: #027FB9;
 }
 
+.dark-mode .link-style{
+  background-color: var(--dark-mode-alt-white);
+  color: var(--dark-mode-buttonText);
+}
+
 .flex-1{
   flex: 1;
 }
