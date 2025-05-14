@@ -63,6 +63,7 @@ function Filter() {
   const handleRemoveFilter = (type, value) => {
     switch (type) {
       case "industry":
+        handleFilterClick(value, "Industries")
         setIndustriesSelected(prev => prev.filter(v => v !== value));
         break;
       case "role":

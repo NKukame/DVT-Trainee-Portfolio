@@ -62,6 +62,22 @@ export const SearchContextProvider = ({children}) => {
             });
             console.log(updatedResults.length);
         }
+        if(category.includes("Industries")){
+            
+            updatedResults = searchResults.filter((employee) => {
+                if(newSelectedFilter.length === 0) return true;
+                if(employee.industries){
+                    const lowerIndustries = employee.industries.map(x => x.toLowerCase())
+                    console.log(lowerSkills);        
+                    
+                    return newSelectedFilter.some((filter) => lowerIndustries.includes(filter.toLowerCase()));
+                }
+            });
+            console.log(updatedResults.length);
+        }
+
+        
+
         if(category.includes("Roles")){
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
