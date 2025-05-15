@@ -1,7 +1,3 @@
-// import './styles.css';
-// import './Login.css';
-// import Header from './components/Header';
-// import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
 import OffRememberMeIcon from "./assets/OffRemeber-me-icon.png";
 import OnRememberMeIcon from "./assets/OnRemember-me-icon.png";
@@ -11,6 +7,7 @@ import "./Login.css";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
 import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
+import { use } from "react";
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -24,8 +21,27 @@ function Signup() {
 // State to manage password visibility
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  const [rememberMe, setRememberMe] = useState(false);
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const rememberedCredentials = JSON.parse(
+      localStorage.getItem("rememberedCredentials"));
+
+      if(rememberedCredentials) {
+        setFormData((prevData) => ({
+          ...prevData,
+          email: rememberedCredentials.email || "",
+        name: rememberedCredentials.name || "",
+        password: rememberedCredentials.password || ""
+        }));
+
+        setRememberMe(true);
+      }
+  }, []);
+
 
   // Load saved credentials on component mount
   useEffect(() => {
@@ -86,6 +102,11 @@ function Signup() {
     }
   };
 
+  const handleRememberMeToggle = () =>{
+    setRememberMe(!rememberMe);
+
+  };
+
   const handleSignup = () => {
     if (validationForm()) {
       // Check if email already exists
@@ -106,7 +127,7 @@ function Signup() {
       );
       alert("User registered successfully!");
       setIsSignUp(false);
-      navigate("/Login");
+      navigate("/");
       // Clear form except email for login
       setFormData(prev => ({
         ...prev,
@@ -139,6 +160,20 @@ function Signup() {
       (formData.email === storedUser.email || formData.name === storedUser.name) &&
       formData.password === storedUser.password
     ) {
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedCredentials", JSON.stringify({
+          email: formData.email,
+          name: formData.name,
+          password: formData.password
+        }));
+      } else {
+
+        localStorage.removeItem("rememberedCredentials");
+
+      }
+
+
       alert("Login successful!");
       // Save login status if needed
       localStorage.setItem("isLoggedIn", "true");
@@ -318,17 +353,18 @@ function Signup() {
                 <div className="remember-me-container">
                      <div className="remember-me">
                         <div class="toggle-switch">
-                          <input class="toggle-input" id="toggle" type="checkbox"/>
+                          <input class="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
+                          onChange={handleRememberMeToggle}/>
                           <label class="toggle-label" for="toggle"></label>
                         </div>
                         <p>Remember me</p>
                      </div>
                         <Link to="#" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
-            </div>
-                  
+            </div>    
           
             <button type="submit">Sign In</button>
+
           </form>
         </div>
         </div>
