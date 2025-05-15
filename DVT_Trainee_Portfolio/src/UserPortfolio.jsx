@@ -1,12 +1,62 @@
 import './styles.css';
 import './UserPortfolio.css';
 import Dashboard from '/src/Dashboard.jsx';
-import ProjectCard from './ProjectCard';
+import ProjectCard from './Projects';
+import ProjectList from '/src/components/ProjectList.jsx';
 import TestimonialCard from '/src/TestimonialCard';
 import Header from './components/Header';
 import SideBar from './components/SideBar';
 
 function UserPortfolio() {
+
+    const testimonials = [
+        {
+            name: "John Doe",
+            title: "Software Engineer",
+            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
+            rating: 4,
+        },
+        {
+            name: "Jane Smith",
+            title: "Project Manager",
+            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
+            rating: 5,
+        },
+        {
+            name: "Bob Johnson",
+            title: "UX Designer",
+            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
+            rating: 3,
+        },
+    ];
+
+    const projects = [
+        {
+            name: "Scientific Calculator",
+            techStack: ["HTML", "CSS", "JavaScript"],
+            contributors: ["Bob Johnson", "Alice Smith"],
+            description: "A scientific calculator with advanced features.",
+            liveDemo: "https://example.com/demo",
+            sourceCode: "https://github.com/example/scientific-calculator",
+        },
+        {
+            name: "Portfolio Website",
+            techStack: ["React", "CSS"],
+            contributors: ["John Doe"],
+            description: "A personal portfolio website showcasing projects.",
+            liveDemo: "https://example.com/portfolio",
+            sourceCode: "https://github.com/example/portfolio",
+        },
+        {
+            name: "E-commerce App",
+            techStack: ["Node.js", "Express", "MongoDB"],
+            contributors: ["Jane Doe"],
+            description: "A full-stack e-commerce platform with user authentication.",
+            liveDemo: "https://example.com/ecommerce",
+            sourceCode: "https://github.com/example/ecommerce",
+        },
+    ];
+
 
     return (
         <>
@@ -17,45 +67,39 @@ function UserPortfolio() {
 
                 <div className='layout-body'>
 
-
                     {/* About Section */}
-
-
 
                     <div className="portfolio-layout">
                         <Dashboard />
                         <div className="project-container">
-                               <div className="about-section">
+                            <div className="about-section">
                                 {/* <h1 className='about-header'>
                                     Hello World!
                                 </h1> */}
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+                                    As a graduate Software Developer with hands-on experience in Java, Python, C# and SQLite for backend development, and HTML, CSS, JS and React, I am passionate about creating innovative solutions that make a difference. I thrive in collaborative environments and am eager to contribute my skills to impactful projects. My goal is to leverage technology to solve real-world problems and continuously learn and grow in the field of software development.
                                 </p>
                             </div>
 
                             <div className="testimonial-section">
-                                
-                                {Array.from({ length: 3 }).map((_, index) => (
+                                {testimonials.map((testimonial, index) => (
                                     <TestimonialCard
                                         key={index}
-                                        name={`John Doe ${index + 1}`}
-                                        message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                                        name={testimonial.name}
+                                        title={testimonial.title}
+                                        message={testimonial.message}
+                                        rating={testimonial.rating}
                                     />
                                 ))}
-                                
                             </div>
                             <main className="main-content">
 
                                 <h2>Featured Projects</h2>
                                 <section className="grid-content">
-
-                                    {Array.from({ length: 3 }).map((_, index) => (
-                                        <ProjectCard
-                                            key={index}
-                                            title={`Project ${index + 1}`}
-                                            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                                        />
+                                    {projects.map((project, index) => (
+                                        <div className="grid-item" key={index}>
+                                            <ProjectCard project={project} />
+                                        </div>
                                     ))}
                                 </section>
                             </main>

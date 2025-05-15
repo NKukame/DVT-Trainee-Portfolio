@@ -1,11 +1,13 @@
 import "./Body.css";
 import profileIcon from "../assets/placeholder.png";
 import projects from "../modal-resources/projects-modal.json";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 
 
 function Body() {
   const [team, setTeam] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/team-portfolio.json")
@@ -129,7 +131,7 @@ function Body() {
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p className="badge-default" style={{paddingInline: "5px"}}>{tech}</p>
+                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech}</p>
                     </li>
                   ))}
                 </ul>
@@ -146,9 +148,11 @@ function Body() {
             perspectives, cutting-edge skills, and unbridled enthusiasm to our
             team.
           </p>
-          <button className="cta-button">
+
+          <button className="cta-button" onClick={() => navigate("/about")}>
             <img src="./IconCTA.png" alt="" /> &nbsp; The Team
           </button>
+
         </div>
       </div>
 
@@ -192,7 +196,7 @@ function Body() {
             skills to tackle complex challenges and generate impactful results
             across multiple domains.
           </p>
-          <button className="cta-button video-cta-button">
+          <button className="cta-button video-cta-button"  onClick={() => navigate("/search?isProject=true")}>
             <img src="./IconCTA.png" alt="" /> &nbsp; The Work
           </button>
         </div>
@@ -222,17 +226,17 @@ function Body() {
             <p className="modal-project-link"><a href={selectedProject.link}>Click Here For The Link</a></p>
 
             <p className="modal-description">
-            <strong>Description:</strong> <br />{selectedProject.description}
+              <strong>Description:</strong> <br />{selectedProject.description}
             </p>
 
             <h4 className="modal-technologies">Technologies Used:</h4>
             <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
               {selectedProject.technologies.map((tech, index) => (
-                (<li key={index}><p  className='badge-default'>{tech}</p></li>)
+                (<li key={index}><p className='badge-default'>{tech}</p></li>)
               ))}
             </ul>
 
-            
+
           </div>
         </div>
       )}

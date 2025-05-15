@@ -3,7 +3,8 @@
 // import Header from './components/Header';
 // import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
-// import LockIcon from '@mui/icons-material/Lock';
+import OffRememberMeIcon from "./assets/OffRemeber-me-icon.png";
+import OnRememberMeIcon from "./assets/OnRemember-me-icon.png";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -30,10 +31,8 @@ function Signup() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
-      // Only pre-fill the email, don't pre-fill password for security
       setFormData((prevData) => ({
         ...prevData,
-        // email: storedUser.email
       }));
     }
   }, []);
@@ -143,7 +142,7 @@ function Signup() {
       alert("Login successful!");
       // Save login status if needed
       localStorage.setItem("isLoggedIn", "true");
-      navigate("/");
+      navigate("/home");
     } else {
       // Check if email or username is incorrect
       if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
@@ -194,19 +193,20 @@ function Signup() {
             <h1>Create Account</h1>
 
             <div className="sign-up-form">
-            <h6>Name</h6>
-            <input
-              type="text"
-              name="name"
-              placeholder="Username"
-              value={formData.name}
-              required
-              onChange={handleChange}
-              className={getInputClass("name")}
-
-              // className={errors.name ? "error-border" : ""}
-            />
-            {errors.name && <p className="signup-error">{errors.name}</p>}
+                 <h6>Name</h6>
+                <div className="username-container">
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="username"
+                        value={formData.name}
+                        required
+                        onChange={handleChange}
+                        className={getInputClass("name")}/>
+                      {errors.name && <p className="signup-error">{errors.name}</p>}
+                      {/* <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/> */}
+                </div>
+        
             <h6>Email</h6>
             <input
               type="email"
@@ -217,6 +217,7 @@ function Signup() {
               onChange={handleChange}
               className={getInputClass("email")}
             />
+             
             {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
           {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
@@ -299,7 +300,6 @@ function Signup() {
                       classname={getInputClass("password")+" password-input"}
                     />
                     {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
-                      
                       handleToggle(event, false)
                     }}/>:
 
@@ -307,17 +307,26 @@ function Signup() {
                       handleToggle(event, true);
                     }} />
                     }
+
                     <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
-
+                    
                     </div>
-
                     {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
                     {errors.login ? (<p className="login-error">{errors.login}</p>) : <p className="login-error"></p>}
 
+                    
+                <div className="remember-me-container">
+                     <div className="remember-me">
+                        <div class="toggle-switch">
+                          <input class="toggle-input" id="toggle" type="checkbox"/>
+                          <label class="toggle-label" for="toggle"></label>
+                        </div>
+                        <p>Remember me</p>
+                     </div>
+                        <Link to="#" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
+                </div> 
             </div>
-            
-            
-            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password? </Link>
+                  
           
             <button type="submit">Sign In</button>
           </form>
