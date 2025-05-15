@@ -31,10 +31,8 @@ function Signup() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
-      // Only pre-fill the email, don't pre-fill password for security
       setFormData((prevData) => ({
         ...prevData,
-        // email: storedUser.email
       }));
     }
   }, []);
@@ -200,13 +198,13 @@ function Signup() {
                       <input
                         type="text"
                         name="name"
-                        placeholder="Username"
+                        placeholder="username"
                         value={formData.name}
                         required
                         onChange={handleChange}
                         className={getInputClass("name")}/>
                       {errors.name && <p className="signup-error">{errors.name}</p>}
-                      <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+                      {/* <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/> */}
                 </div>
         
             <h6>Email</h6>
@@ -313,17 +311,22 @@ function Signup() {
                     <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
                     
                     </div>
-                    <img src={OffRememberMeIcon} alt="i" />
-                    <img src={OnRememberMeIcon} alt="" />
                     {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
                     {errors.login ? (<p className="login-error">{errors.login}</p>) : <p className="login-error"></p>}
 
                     
-
+                <div className="remember-me-container">
+                     <div className="remember-me">
+                        <div class="toggle-switch">
+                          <input class="toggle-input" id="toggle" type="checkbox"/>
+                          <label class="toggle-label" for="toggle"></label>
+                        </div>
+                        <p>Remember me</p>
+                     </div>
+                        <Link to="#" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
+                </div> 
             </div>
-             
-            
-            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password?</Link>
+                  
           
             <button type="submit">Sign In</button>
           </form>
