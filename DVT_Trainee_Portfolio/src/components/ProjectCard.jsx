@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Badges, { Badge } from './Badges';
 import { Link } from 'react-router-dom';
+import { LinkExternal01 } from '@untitled-ui/icons-react';
 
 export default function ProjectCard({ result, showAuthor = false, showTech = true, showButton = true }) {
   const [open, setOpen] = useState(false)
@@ -17,58 +18,51 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
 
       {showTech && (<Badges badgeList={result.technologies} />  )}
 
-      {showAuthor && <Link className="text-underline-link">@John</Link>}
-
-      <div className="link-style border-radius-4-px py-4-px ">
-        {showButton && (
-          <button to={'/userportfolio'} className='text-color-white' onClick={()=> setOpen(true)}>
-            View project
-          </button>
-        )}
-      </div>
+      <button className="link-style border-radius-4-px py-4-px project-btn " onClick={()=> setOpen(true)}>
+       View Project
+      </button>
 
       {
        open && 
-       <div className='modal-overlay'> 
-          <div className='modal-content flex-col gap-10-px project-modal-width gap-10-px rounded shadow'>
-            <button className='modal-close' onClick={()=> setOpen(false)}>X</button>
+       <div className='modal-overlay' onClick={()=>setOpen(false)}> 
+          <div className='modal-content project-modal-width rounded shadow'>
+            <button className='modal-close project-close-btn' onClick={()=> setOpen(false)}>X</button>
 
-            <div className='flex-row align-items-center flex-row-between'> 
+            <div className='modal-title-project'> 
+              <h1 className='font-size-20-px'>{result.name}</h1>
               <div>
-                <h1 className='font-size-20-px'>{result.name}</h1>
-              </div>
-              <div className='flex-row gap-4-px'>
-                <div>
-                  <img src={result.avatar} alt="" className='profile-image' />
+                <div className='flex-row gap-4-px align-items-center test'>
+                  <img src={result.avatar} alt="" className='profile-image' /> 
+                  <p className='font-size-14-px capitalize'>{result.username}</p>
                 </div>
-                <p className='font-size-14-px'>{result.username}</p>
+
               </div>
             </div>
 
-            <div>
+            <div className='image-div'>
               <img src={`./${result.screenshot}` }
               className='modal-project-image rounded'
               alt="" />
             </div>
-            <div>
-              <h2 className='m-10px'>Project Description</h2>
+            <div className='m-bottom-10-px'>
+              <h2 className='m-bottom-10-px'>Project Description</h2>
               <p>{result.description}</p>
             </div>
-            <div className='h-1 w-full bg-gray'></div>
-            <div>
-              <h2 className='m-10-px'>Industries</h2>
-              <Badge badge={result.platform} />
+            <div className='h-1 w-full bg-gray m-bottom-20-px'></div>
+            <div className='m-bottom-10-px'>
+              <h2 className='m-10-px m-bottom-10-px'>Industries</h2>
+              <Badges badgeList={result.industries} />
             </div>
 
-            <div className='h-1 w-full bg-gray'></div>
-            <div>
-              <h2 className='m-10-px'>Tech Stack</h2>
+            <div className='h-1 w-full bg-gray m-bottom-20-px'></div>
+            <div className='m-bottom-10-px'>
+              <h2 className='m-10-px m-bottom-10-px'>Tech Stack</h2>
               <Badges badgeList={result.technologies} sliceList={false}/>
             </div>
-            <div className='h-1 w-full bg-gray'></div>
-            <div className='flex-row flex-row-between'>
-              <button className='project-btn'>Repo</button>
-              <button className='project-btn'>Demo</button>
+            <div className='h-1 w-full bg-gray m-bottom-20-px'></div>
+            <div className='flex-row flex-row-between m-top-10-px'>
+              <Link to={''} className='repo-btn flex-row align-items-center gap-10-px '> <LinkExternal01/> <span>Repo</span></Link>
+              <Link to={''} className='project-btn demo-btn flex-row align-items-center gap-10-px'> <LinkExternal01/> <span>Demo</span> </Link >
             </div>
           </div>
        </div> 

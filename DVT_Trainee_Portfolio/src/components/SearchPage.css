@@ -201,12 +201,32 @@
 .m-20-px{
   margin-block: 40px;
 }
+.m-bottom-20-px{
+  margin-bottom: 10px;
+}
 
+.m-bottom-10-px{
+  margin-bottom: 10px;
+}
+.m-top-10-px{
+  margin-top: 20px;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
+.modal-title-project{
+  border: 1px solid red;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* justify-items: center; */
+}
 .modal-project-image{
   position: relative;
   width: 100%;
 }
-
 .h-1{
   height: 1px;
 }
@@ -218,6 +238,7 @@
 }
 .project-modal-width{
   width: 400px;
+  color: #072549;
 }
 
 .profile-image{
@@ -227,8 +248,38 @@
 
 .project-btn{
   border: none;
-  background: var(--white);
-  font-size: 20px;
-  padding: 5px 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.repo-btn{
+  padding: 5px 30px;
+  border: 1px solid #027FB9;
+  color: #027FB9;
   border-radius: 4px;
+  font-size: 14px;
+}
+
+.demo-btn{
+  background-color: #027FB9;
+  border-radius: 4px;
+  padding: 5px 30px;
+  color: white;
+  font-size: 14px;
+}
+.dark-mode .modal-title-project h1{
+  color: white;
+}
+
+.dark-mode .repo-btn{
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+.dark-mode .demo-btn{
+  background-color: white;
+  color: #072549;
+}
+.project-close-btn{
+  position: absolute;
 }
