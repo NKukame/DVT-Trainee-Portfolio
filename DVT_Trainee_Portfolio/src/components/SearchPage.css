@@ -193,7 +193,7 @@
 }
 
 .badge-default {
-  padding: 3px 3px;
+  padding: 1px 10px;
   border-radius: 4.5px;
   border: 1px solid #D0D5DD;
 }
@@ -202,33 +202,113 @@
   margin-block: 40px;
 }
 
-.modal-project-image{
-  position: relative;
-  width: 100%;
-}
 
-.h-1{
-  height: 1px;
-}
-.w-full{
-  width: 100%;
-}
-.bg-gray{
-  background-color: gray;
-}
 .project-modal-width{
   width: 400px;
-}
-
-.profile-image{
-  width: 28px;
-  height: 28px;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+  color: #072549;
+  line-height: 1.2500em;
+  font-size: 0.875rem;
 }
 
 .project-btn{
   border: none;
-  background: var(--white);
-  font-size: 20px;
   padding: 5px 20px;
   border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.project-avatar{
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-modal-title{
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.username-capitalize{
+  text-transform: capitalize;
+  color: #084677;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+.w-full{
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-badge-heading{
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+
+.m-top{
+  margin-top: 10px;
+}
+
+.btn-project{
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 1.125em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.repo-btn{
+  border: 1px solid #027FB9;
+  color: #027FB9;
+}
+
+.demo-btn{
+  background-color: #027FB9;
+  color: #FFFFFF;
+}
+
+.dark-mode .repo-btn{
+  color: white;
+  border: 1px solid white;
+}
+.dark-mode .username-capitalize{
+  color: #E5E5E5;
+}
+.dark-mode .demo-btn{
+  background-color: #F4F5F7;
+  color: #052B4C;
+}
+
+.separator{
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background-color: #D4D4D4;
+}
+.separator-padding{
+  padding: 0px 8px;
+}
+
+.close-modal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px 10px;
+  cursor: pointer;
 }

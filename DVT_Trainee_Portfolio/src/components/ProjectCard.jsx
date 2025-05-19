@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import Badges, { Badge } from './Badges';
+import Badges from './Badges';
 import { Link } from 'react-router-dom';
+import { LinkExternal01, XClose } from '@untitled-ui/icons-react';
 
-export default function ProjectCard({ result, showAuthor = false, showTech = true, showButton = true }) {
-  const [open, setOpen] = useState(false)
+export default function ProjectCard({ result, showAuthor = false, showTech = true}) {
+
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="card-project shadow flex-col gap-10-px">
       <div>
@@ -19,61 +22,69 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
 
       {showAuthor && <Link className="text-underline-link">@John</Link>}
 
-      <div className="link-style border-radius-4-px py-4-px ">
-        {showButton && (
-          <button to={'/userportfolio'} className='text-color-white' onClick={()=> setOpen(true)}>
-            View project
-          </button>
-        )}
-      </div>
+      <button  className='text-color-white link-style border-radius-4-px py-4-px project-btn' onClick={()=> setOpen(true)}>
+        View project
+      </button>
 
-      {
-       open && 
-       <div className='modal-overlay'> 
-          <div className='modal-content flex-col gap-10-px project-modal-width gap-10-px rounded shadow'>
-            <button className='modal-close' onClick={()=> setOpen(false)}>X</button>
-
-            <div className='flex-row align-items-center flex-row-between'> 
-              <div>
-                <h1 className='font-size-20-px'>{result.name}</h1>
-              </div>
-              <div className='flex-row gap-4-px'>
-                <div>
-                  <img src={result.avatar} alt="" className='profile-image' />
-                </div>
-                <p className='font-size-14-px'>{result.username}</p>
-              </div>
-            </div>
-
-            <div>
-              <img src={`./${result.screenshot}` }
-              className='modal-project-image rounded'
-              alt="" />
-            </div>
-            <div>
-              <h2 className='m-10px'>Project Description</h2>
-              <p>{result.description}</p>
-            </div>
-            <div className='h-1 w-full bg-gray'></div>
-            <div>
-              <h2 className='m-10-px'>Industries</h2>
-              <Badge badge={result.platform} />
-            </div>
-
-            <div className='h-1 w-full bg-gray'></div>
-            <div>
-              <h2 className='m-10-px'>Tech Stack</h2>
-              <Badges badgeList={result.technologies} sliceList={false}/>
-            </div>
-            <div className='h-1 w-full bg-gray'></div>
-            <div className='flex-row flex-row-between'>
-              <button className='project-btn'>Repo</button>
-              <button className='project-btn'>Demo</button>
-            </div>
-          </div>
-       </div> 
-      }
-
+      {open && <ProjectModal setOpen={setOpen} project={result} />}
     </div>
   );
+}
+
+
+function ProjectModal({setOpen, project}){
+
+  return (
+    <div className='modal-overlay shadow'  onClick={()=>setOpen(false)}>
+      <div className='modal-content project-modal-width shadow'>
+        <div className='flex-row align-items-center '>
+          <p className='flex-1 project-modal-title'>{project.name}</p>
+          <div className='flex-row gap-10-px align-items-center'>
+            <img src={project.avatar} alt="" className='project-avatar'  />
+            <p className='username-capitalize'>{project.username}</p>
+          </div>
+          <XClose onClick={()=>setOpen(false)} className='close-modal' />
+        
+        </div>
+
+        <div>
+          <img src={`./${project.screenshot}` } className='w-full'
+          alt="" />
+        </div>
+        <div>
+          <p className='project-badge-heading'>Project Description</p>
+          <p>{project.description}</p>
+        </div>
+
+        <div className='flex-col separator-padding'>
+          <div className='separator'></div>
+        </div>
+
+        <ProjectBadges list={project.industries} badgeHeading={'Industries'} />
+        <div className='flex-col separator-padding'>
+          <div className='separator'></div>
+        </div>
+        <ProjectBadges list={project.technologies} badgeHeading={'Tech Stack'} />
+        <div className='flex-col separator-padding'>
+          <div className='separator'></div>
+        </div>
+
+        <div className='flex-row gap-24-px m-top'>
+          <Link className='btn-project repo-btn'> <LinkExternal01 fontSize={15}/> <span>Repo</span> </Link>
+          <Link className='btn-project demo-btn'> <LinkExternal01 fontSize={15}/> <span>Demo</span></Link>
+          
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ProjectBadges({list, badgeHeading}){
+
+  return (
+    <div>
+      <p className='project-badge-heading'>{badgeHeading}</p>
+      <Badges badgeList={list} sliceList={false} />
+    </div>
+  )
 }
