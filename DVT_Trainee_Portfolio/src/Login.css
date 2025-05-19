@@ -206,16 +206,14 @@ h1 {
     font-size: 12px;
     font-family: 'Hanken Grotesk' sans-serif;
     font-weight: 500;
-    /* margin: 0 20px; */
+    
    
 }
 .sign-up .signInBlack{
-    color: #257A99;
     margin: 10px;
-    font-size: 13px;
-    font-family: 'Hanken Grotesk' sans-serif;
-    font-weight: 500;
+    font-family: 'Hanken Grotesk' sans-serif;  
 }
+
 
 .login-container.active .sign-up {
     transform: translateX(100%);

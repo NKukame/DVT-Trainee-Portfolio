@@ -282,7 +282,7 @@ function Signup() {
 
             </div>
             <button className="submit" type="submit">Sign Up</button>
-            <p className="signInBlack">Already have an account?<Link to="#" onClick={() =>{
+            <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
                setFormData(prev => ({
                 name: "",
@@ -292,7 +292,7 @@ function Signup() {
               }))
               setErrors({})
 
-               }}> Log In</Link></p>
+               }}> Sign in </Link></p>
           </form>
         </div>
 
@@ -359,7 +359,7 @@ function Signup() {
                         </div>
                         <p>Remember me</p>
                      </div>
-                        <Link to="#" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
+                        <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
             </div>    
           
