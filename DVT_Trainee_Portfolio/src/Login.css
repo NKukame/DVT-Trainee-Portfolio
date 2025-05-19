@@ -403,26 +403,22 @@ h1 {
 
 
 .login-error {
-    color: rgb(255, 0, 0);
-    font-size: 12px;
-    margin-top: auto;
-    margin-bottom: auto;
-    font-weight: 500;
+    color: #ff0a26;
+  font-size: 12px;
+  margin: 4px 0 0;
+  font-weight: 500;
 }
 
 .signup-error {
-    color: rgb(255, 0, 0);
-    font-size: 12px;
-    margin-top: auto;
-    margin-bottom: auto;
-    font-weight: 500;
+  color: #ff0a26;
+  font-size: 12px;
+  margin:0 0 4px 0 0;
+  font-weight: 500;
   
 }
 
 input.error-border {
     border: 1px solid #ff0a26;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
 }
 

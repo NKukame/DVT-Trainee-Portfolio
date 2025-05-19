@@ -20,9 +20,7 @@ function Signup() {
 
 // State to manage password visibility
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
   const [rememberMe, setRememberMe] = useState(false);
-
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -235,7 +233,6 @@ function Signup() {
                         name="name"
                         placeholder="username"
                         value={formData.name}
-                        required
                         onChange={handleChange}
                         className={getInputClass("name")}/>
                       {errors.name && <p className="signup-error">{errors.name}</p>}
@@ -248,7 +245,6 @@ function Signup() {
               name="email"
               placeholder=" Enter email address"
               value={formData.email}
-              required
               onChange={handleChange}
               className={getInputClass("email")}
             />
@@ -263,7 +259,6 @@ function Signup() {
               name="password"
               placeholder="Enter password"
               value={formData.password}
-              required
               onChange={handleChange}
               className={getInputClass("password")}
             />
@@ -313,13 +308,11 @@ function Signup() {
                           name="name"
                           placeholder="Enter email or username"
                           value={formData.email || formData.name}
-                          required
                           onChange={handleChange}
                           className={getInputClass("email")+" email-input"}
                     />
                     <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
                     </div>
-
                     {errors.email ? (<p className="login-error">{errors.email}</p>) : <p className="login-error"></p>}
 
                     <h6 >Password</h6>
@@ -330,7 +323,6 @@ function Signup() {
                       name="password"
                       placeholder="Password" 
                       value={formData.password}
-                      required
                       onChange={handleChange}
                       classname={getInputClass("password")+" password-input"}
                     />

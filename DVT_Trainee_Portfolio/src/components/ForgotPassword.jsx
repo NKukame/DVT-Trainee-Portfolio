@@ -6,7 +6,7 @@ import "./ForgotPassword.css";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [step, setStep] = useState(1); // 1: Enter Email, 2: Check Email, 3: Set New Password, 4: Password Reset Success
+  const [step, setStep] = useState(1); 
   const [errors, setErrors] = useState({});
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -98,7 +98,7 @@ function ForgotPassword() {
     switch (step) {
       case 1:
         return (
-          <div className="form-container">
+          <div className="form-container-forgot-password">
             <h1>Forgot password?</h1>
             <h4>No worries, we'll send you reset instructions.</h4>
             
@@ -113,7 +113,7 @@ function ForgotPassword() {
                     onChange={(e) => setEmail(e.target.value)}
                     className={errors.email ? "error-border" : ""}
                   />
-                  <Mail className="mail-icon" strokeWidth={1} size={"20px"} />
+                  <Mail className="mail-icon-forgot-password" strokeWidth={1} size={"20px"} />
                 </div>
                 {errors.email && <p className="error-message">{errors.email}</p>}
               </div>
@@ -130,7 +130,7 @@ function ForgotPassword() {
       
       case 2:
         return (
-          <div className="form-container">
+          <div className="form-container-forgot-password">
             <h1>Check your email</h1>
             <h4>We sent a password reset link to<br />{email}</h4>
             
@@ -151,7 +151,7 @@ function ForgotPassword() {
       
       case 3:
         return (
-          <div className="form-container">
+          <div className="form-container-forgot-password">
             <h1>Set new password</h1>
             <h4>Your new password must be different to<br />previously used passwords.</h4>
             
@@ -211,7 +211,7 @@ function ForgotPassword() {
       
       case 4:
         return (
-          <div className="form-container">
+          <div className="form-container-forgot-password">
             <h1>Password reset</h1>
             <h4>Your password has been successfully reset.<br />Click below to log in magically.</h4>
             
