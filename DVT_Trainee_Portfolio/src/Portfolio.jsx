@@ -12,6 +12,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SideBar from "./components/SideBar";
 import { AArrowDown } from "lucide-react";
 import { AArrowUp } from "lucide-react";
+import { Building01, CalendarCheck01, Laptop01, Mail01, MarkerPin01, MessageChatCircle, Phone, User02, User03, Users03 } from "@untitled-ui/icons-react";
 
 function Portfolio() {
   const [team, setTeam] = useState([]);
@@ -19,7 +20,7 @@ function Portfolio() {
   const [viewMode, setViewMode] = useState("card-view");
   const [sortOrder, setSortOrder] = useState("asc");
   const [searchQuery, setSearchQuery] = useState(""); // New search state
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
@@ -72,6 +73,14 @@ function Portfolio() {
 
   if (team.length === 0) return <p>Loading...</p>;
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div className="app-layout">
@@ -90,15 +99,17 @@ function Portfolio() {
             <div className="selection-banner">
               <div className="people-view-container">
                 <div
-                  className={`people-view ${viewMode === "card-view" ? "active" : ""
-                    }`}
+                  className={`people-view ${
+                    viewMode === "card-view" ? "active" : ""
+                  }`}
                   onClick={handleCardClick}
                 >
                   Card
                 </div>
                 <div
-                  className={`people-view ${viewMode === "grid-view" ? "active" : ""
-                    }`}
+                  className={`people-view ${
+                    viewMode === "grid-view" ? "active" : ""
+                  }`}
                   onClick={handleGridClick}
                 >
                   Grid
@@ -142,7 +153,9 @@ function Portfolio() {
                     {filteredAndSortedTeam.length > 0 ? (
                       <div className="portfolio-card">
                         <a
-                          href={`mailto:${filteredAndSortedTeam[currentIndex].email || "/"}`}
+                          href={`mailto:${
+                            filteredAndSortedTeam[currentIndex].email || "/"
+                          }`}
                           className="mail"
                         >
                           <EmailOutlinedIcon fontSize="large" />
@@ -204,7 +217,12 @@ function Portfolio() {
                                 />
                               </Link>
                             </div>
-                            <button className="button">Contact Me</button>
+                            <button
+                              className="button"
+                              onClick={() => openModal()}
+                            >
+                              Contact Me
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -235,6 +253,92 @@ function Portfolio() {
           </div>
         </div>
       </div>
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div
+            className="contact-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="contact-modal-close" onClick={closeModal}>
+              X
+            </button>
+
+            <section className="contact-me-modal-content">
+              <div className="contact-item">
+                <User02 />
+                <div>
+                  <p className="contact-me-name">Name:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].name}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <Mail01 />
+                <div>
+                  <p className="contact-me-email">Email:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].email}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <Phone />
+                <div>
+                  <p className="contact-me-phone">Mobile:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Phone}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <MarkerPin01 />
+                <div>
+                  <p className="contact-me-location">Location:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Location}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <MessageChatCircle />
+                <div>
+                  <p className="contact-me-chat">Chat:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Chat}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+              <Building01 />
+                <div>
+                  <p className="contact-me-company">Company:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Company}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <Users03 />
+                <div>
+                  <p className="contact-me-department">Department:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Department}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <Laptop01 />
+                <div>
+                  <p className="contact-me-role">Role:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Role}</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <CalendarCheck01 />
+                <div>
+                  <p className="contact-me-birthday">Birthday:</p>
+                  <p>{filteredAndSortedTeam[currentIndex].Birthday}</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      )}
     </>
   );
 }
