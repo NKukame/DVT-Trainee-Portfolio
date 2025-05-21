@@ -7,7 +7,8 @@
         "technologies": ["React", "CSS", "JavaScript", "HTML"],
         "image": "./src/modal-resources/Screenshot - Coding Quiz App.png",
         "video": "./src/modal-resources/Screen Recording - Coding Quiz.mp4",
-        "link": "https://github.com/NKukame/Coding-Quiz-App"
+        "link": "https://github.com/NKukame/Coding-Quiz-App",
+        "ownerimage": "./src/assets/Njabulo-Kukame-Picture.jpg"
     },
     {
         "title": "SubReddit",
@@ -17,7 +18,8 @@
         "technologies": ["CSS", "JavaScript", "HTML"],
         "image": "./src/modal-resources/subbreddit-screenshot.png",
         "video": "./src/modal-resources/subbreddit-screenrecording.mp4",
-        "link": "https://github.com/GomoAtDVT/Subreddit"
+        "link": "https://github.com/GomoAtDVT/Subreddit",
+        "ownerimage": "./src/assets/Gomolemo.jpg"
     },
     {
         "title": "Personal Portfolio",
@@ -27,7 +29,8 @@
         "technologies": ["CSS", "JavaScript", "HTML"],
         "image": "./src/modal-resources/AM Portfolio Screenshot.png",
         "video": "./src/modal-resources/AM Portfolio Screen Recording.mp4",
-        "link": "https://github.com/amhlongo-dvt/dvt-fullstackdeveopler-roadmap/tree/main/portfolio"
+        "link": "https://github.com/amhlongo-dvt/dvt-fullstackdeveopler-roadmap/tree/main/portfolio",
+        "ownerimage": "./src/assets/Andile.jpg"
     },
     {
         "title": "AI Chef",
@@ -37,7 +40,8 @@
         "technologies": ["CSS", "JavaScript", "HTML", "React", "Mistral AI"],
         "image": "./src/modal-resources/AI Chef - Screenshot.png",
         "video": "./src/modal-resources/AI Chef - Screen Recording.mp4",
-        "link": "https://github.com/NKukame/AI-Chef"
+        "link": "https://github.com/NKukame/AI-Chef",
+        "ownerimage": "./src/assets/Njabulo-Kukame-Picture.jpg"
     },
     {
         "title": "Unit Converter",
@@ -47,6 +51,7 @@
         "technologies": ["CSS", "JavaScript", "HTML"],
         "image": "./src/modal-resources/Unit Converter - Screenshot.png",
         "video": "./src/modal-resources/Unit Converter -Recording.mp4",
-        "link": "https://github.com/PhimiTm/Unit-Converter"
+        "link": "https://github.com/PhimiTm/Unit-Converter",
+        "ownerimage": "./src/assets/Phemelo.jpg"
     }
 ]
