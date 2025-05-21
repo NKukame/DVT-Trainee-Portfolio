@@ -457,8 +457,7 @@ input.error-border {
 }
 
 
-/* From Uiverse.io by ClawHack1 */ 
-/* Genel stil */
+
 .toggle-switch {
     position: relative;
     display: inline-block;
@@ -466,13 +465,12 @@ input.error-border {
     height: 24px;
     /* margin: 10px; */
   }
-  
-  /* Giriş stil */
+
   .toggle-switch .toggle-input {
     display: none;
   }
   
-  /* Anahtarın stilinin etrafındaki etiketin stil */
+  
   .toggle-switch .toggle-label {
     position: absolute;
     top: 10px;
@@ -485,7 +483,7 @@ input.error-border {
     transition: background-color 0.3s;
   }
   
-  /* Anahtarın yuvarlak kısmının stil */
+  
   .toggle-switch .toggle-label::before {
     content: "";
     position: absolute;

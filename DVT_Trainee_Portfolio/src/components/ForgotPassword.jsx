@@ -122,7 +122,7 @@ function ForgotPassword() {
             </form>
             
             <div className="back-to-login">
-              <ArrowLeft size={16} strokeWidth={2} />
+              <ArrowLeft size={16} strokeWidth={2} color="black" />
               <Link to="/">Back to log in</Link>
             </div>
           </div>
@@ -143,7 +143,7 @@ function ForgotPassword() {
             </div>
             
             <div className="back-to-login">
-              <ArrowLeft size={16} strokeWidth={2} />
+              <ArrowLeft size={16} strokeWidth={2} color="black"/>
               <Link to="/">Back to log in</Link>
             </div>
           </div>
@@ -203,7 +203,7 @@ function ForgotPassword() {
             </form>
             
             <div className="back-to-login">
-              <ArrowLeft size={16} strokeWidth={2} />
+              <ArrowLeft size={16} strokeWidth={2} color="black"/>
               <Link to="/">Back to log in</Link>
             </div>
           </div>
@@ -220,7 +220,7 @@ function ForgotPassword() {
             </button>
             
             <div className="back-to-login">
-              <ArrowLeft size={16} strokeWidth={2} />
+              <ArrowLeft size={16} strokeWidth={2} color="black"/>
               <Link to="/">Back to log in</Link>
             </div>
           </div>
