@@ -105,17 +105,6 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
-          <Building05 />
-          <Combobox
-            placeholder="Industries"
-            options={industryOptions}
-            value={industriesSelected}
-            onChange={setIndustriesSelected}
-            multiple={true}
-            handleFilterClick={handleFilterClick}
-          />
-        </div>
-        <div className="filter-dropdown">
           <User01 />
           <Combobox
             placeholder="Roles"
@@ -124,6 +113,18 @@ function Filter() {
             onChange={setRolesSelected}
             multiple={true}
             handleFilterClick={handleFilterClick}
+          />
+        </div>
+        <div className="filter-dropdown">
+          <Award01 />
+          <Combobox
+            placeholder="Experience"
+            options={expOptions}
+            value={experienceSelected}
+            onChange={setExperienceSelected}
+            multiple={true}
+            handleFilterClick={handleFilterClick}
+            
           />
         </div>
         <div className="filter-dropdown">
@@ -139,15 +140,14 @@ function Filter() {
             />
         </div>
         <div className="filter-dropdown">
-          <Award01 />
+          <Building05 />
           <Combobox
-            placeholder="Experience"
-            options={expOptions}
-            value={experienceSelected}
-            onChange={setExperienceSelected}
+            placeholder="Industries"
+            options={industryOptions}
+            value={industriesSelected}
+            onChange={setIndustriesSelected}
             multiple={true}
             handleFilterClick={handleFilterClick}
-            
           />
         </div>
       </div>
