@@ -98,47 +98,12 @@
     color: black;
   }
   
+  .commandItemSelected {
+    background-color: #f9fafb;
+  }
 
-
-  .dark-mode .commandItem {
+  .dark-mode .commandItemSelected {
     background-color: #052B4C;
     color: var(--dark-mode-title-white);
-  }
-  
-
-  .selectedTags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    max-width: calc(100% - 24px);
-  }
-  
-  .tag {
-    display: flex;
-    align-items: center;
-    background-color: #f1f5f9;
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-size: 12px;
-  }
-  
-  .tagRemoveBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 4px;
-    color: #64748b;
-  }
-  
-  .tagRemoveBtn:hover {
-    color: #ef4444;
-  }
-  
-  .placeholder {
-    color: #94a3b8;
   }
   

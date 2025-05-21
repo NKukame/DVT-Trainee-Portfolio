@@ -4,9 +4,7 @@
 
 }
 .filter-section{
-    position: relative;
     display: flex;
-    z-index: 10;
     gap: 0;
     /* width: fit-content; */
     justify-content: space-evenly;
@@ -37,21 +35,8 @@
     /* background-color: aliceblue; */
     /* margin-inline: 12px; */
     padding-inline: 12px;
-    
-    animation: slideDown 0.3s ease forwards;
+
 }
-
-@keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
 
 .dark-mode .filter-section{
     background-color: #04223D;
@@ -75,25 +60,3 @@
     background-color: #04223D;
     color: var(--white);
 }
-.dark-mode .tag-container{
-    background-color: #04223D;
-    color: var(--white);
-}
-.empty-tags-message{
-    color: black;
-}
-
-.filter-tag-container-exit {
-    animation: slideUp 0.4s ease forwards;
-  }
-  
-  @keyframes slideUp {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-  }

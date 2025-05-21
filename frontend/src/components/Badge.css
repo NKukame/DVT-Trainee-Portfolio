@@ -3,7 +3,7 @@
     align-items: center;
     font-size: 14px;
     font-weight: 500;
-    color: #344054;
+    color: #A3A3A3;
     border: 1px solid #d0d5dd;
     border-radius: 0.375rem;
     gap: 3px;
@@ -11,18 +11,18 @@
     padding-block: 2px;
     padding-left: 9px;
     padding-right: 4px;
-
+    background-color: #fff;
   }
 
-  .dark-mode .badge-container {
-    background: #052B4C;
-    color: var(--dark-mode-title-white); 
+  .dark .badge-container {
+    background: #052B4C; 
   }
   
   
   .badge-label {
     margin-block: 10px;
     display: inline-block;
+    color: #A3A3A3;
   }
   
   .badge-close {
