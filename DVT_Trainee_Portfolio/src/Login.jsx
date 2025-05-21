@@ -107,14 +107,12 @@ function Signup() {
 
   const handleSignup = () => {
     if (validationForm()) {
-      // Check if email already exists
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.email === formData.email ) {
         setErrors({ email: "This email or username is already registered" });
         return;
       }
 
-      // Save new user
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -173,11 +171,10 @@ function Signup() {
 
 
       alert("Login successful!");
-      // Save login status if needed
+
       localStorage.setItem("isLoggedIn", "true");
       navigate("/home");
     } else {
-      // Check if email or username is incorrect
       if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
         console.log(formData.email ,storedUser.name)
         setErrors({ email: "Email or Username not found" });
@@ -187,7 +184,7 @@ function Signup() {
     }
   };
 
-  // Handle form submission
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     
