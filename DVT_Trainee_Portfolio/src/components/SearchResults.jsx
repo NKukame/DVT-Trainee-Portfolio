@@ -29,7 +29,7 @@ export default function SearchResults() {
     setCurrentPage(1);
     // setCurrentProject((prev) => prev); // Toggle currentProject based on isProject
     // setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
-  }, [filteredResults]);
+  }, [filteredResults, curentProject]);
     
 
   const displayedItems = resultsCopy.slice(
@@ -45,7 +45,7 @@ export default function SearchResults() {
     <article className="flex-col">
       <SearchNav 
         filter={setCopy} 
-        results={filteredResults} 
+        results={resultsCopy} 
         setSearch={setCurrentProject} 
         isPeopleSearch={curentProject} 
       />
