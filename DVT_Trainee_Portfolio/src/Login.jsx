@@ -1,7 +1,3 @@
-// import './styles.css';
-// import './Login.css';
-// import Header from './components/Header';
-// import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
 import OffRememberMeIcon from "./assets/OffRemeber-me-icon.png";
 import OnRememberMeIcon from "./assets/OnRemember-me-icon.png";
@@ -11,6 +7,7 @@ import "./Login.css";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
 import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
+import { use } from "react";
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -24,17 +21,34 @@ function Signup() {
 // State to manage password visibility
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  const [rememberMe, setRememberMe] = useState(false);
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const rememberedCredentials = JSON.parse(
+      localStorage.getItem("rememberedCredentials"));
+
+      if(rememberedCredentials) {
+        setFormData((prevData) => ({
+          ...prevData,
+          email: rememberedCredentials.email || "",
+        name: rememberedCredentials.name || "",
+        password: rememberedCredentials.password || ""
+        }));
+
+        setRememberMe(true);
+      }
+  }, []);
+
 
   // Load saved credentials on component mount
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
-      // Only pre-fill the email, don't pre-fill password for security
       setFormData((prevData) => ({
         ...prevData,
-        // email: storedUser.email
       }));
     }
   }, []);
@@ -88,6 +102,11 @@ function Signup() {
     }
   };
 
+  const handleRememberMeToggle = () =>{
+    setRememberMe(!rememberMe);
+
+  };
+
   const handleSignup = () => {
     if (validationForm()) {
       // Check if email already exists
@@ -108,7 +127,7 @@ function Signup() {
       );
       alert("User registered successfully!");
       setIsSignUp(false);
-      navigate("/home");
+      navigate("/");
       // Clear form except email for login
       setFormData(prev => ({
         ...prev,
@@ -141,6 +160,20 @@ function Signup() {
       (formData.email === storedUser.email || formData.name === storedUser.name) &&
       formData.password === storedUser.password
     ) {
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedCredentials", JSON.stringify({
+          email: formData.email,
+          name: formData.name,
+          password: formData.password
+        }));
+      } else {
+
+        localStorage.removeItem("rememberedCredentials");
+
+      }
+
+
       alert("Login successful!");
       // Save login status if needed
       localStorage.setItem("isLoggedIn", "true");
@@ -200,13 +233,13 @@ function Signup() {
                       <input
                         type="text"
                         name="name"
-                        placeholder="Username"
+                        placeholder="username"
                         value={formData.name}
                         required
                         onChange={handleChange}
                         className={getInputClass("name")}/>
                       {errors.name && <p className="signup-error">{errors.name}</p>}
-                      <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
+                      {/* <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/> */}
                 </div>
         
             <h6>Email</h6>
@@ -249,7 +282,7 @@ function Signup() {
 
             </div>
             <button className="submit" type="submit">Sign Up</button>
-            <p className="signInBlack">Already have an account?<Link to="#" onClick={() =>{
+            <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
                setFormData(prev => ({
                 name: "",
@@ -259,7 +292,7 @@ function Signup() {
               }))
               setErrors({})
 
-               }}> Log In</Link></p>
+               }}> Sign in </Link></p>
           </form>
         </div>
 
@@ -313,19 +346,25 @@ function Signup() {
                     <Lock className="lock-icon"  strokeWidth={1} size={"20px"}/>
                     
                     </div>
-                    <img src={OffRememberMeIcon} alt="i" />
-                    <img src={OnRememberMeIcon} alt="" />
                     {errors.password ? (<p className="login-error">{errors.password}</p>) : <p className="login-error"></p>}
                     {errors.login ? (<p className="login-error">{errors.login}</p>) : <p className="login-error"></p>}
 
                     
-
-            </div>
-             
-            
-            <Link to="#" style={{color:"#257A99", fontWeight:"500"}}> Forgot Your Password?</Link>
+                <div className="remember-me-container">
+                     <div className="remember-me">
+                        <div class="toggle-switch">
+                          <input class="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
+                          onChange={handleRememberMeToggle}/>
+                          <label class="toggle-label" for="toggle"></label>
+                        </div>
+                        <p>Remember me</p>
+                     </div>
+                        <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
+                </div> 
+            </div>    
           
             <button type="submit">Sign In</button>
+
           </form>
         </div>
         </div>
