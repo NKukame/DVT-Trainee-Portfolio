@@ -6,7 +6,14 @@
         "github": "https://github.com/pthobei",
         "linkedin": "https://www.linkedin.com/in/paballo-thobei-2b532a27b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         "techStack": ["HTML ", "CSS", "JavaScript", "Java", "C#", "Python"],
-        "image": "./src/assets/Pabi.jpg"
+        "image": "./src/assets/Pabi.jpg",
+        "Chat": "pthobei@jhb.dvt.co.za",
+        "Phone": "+27 67 874 7814",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2004-06-15"
     },
     
     {
@@ -16,7 +23,14 @@
         "github": "https://github.com/PhimiTm",
         "linkedin": "https://www.linkedin.com/in/phemelo-makwatse?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         "techStack": ["CSS", "JavaScript", "Java", "TypeScript", "SQL", "React"],
-        "image": "./src/assets/Phemelo.jpg"
+        "image": "./src/assets/Phemelo.jpg",
+        "Chat": "pmakwatse@jhb.dvt.co.za",
+        "Phone": "+27 83 200 4239",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2002-01-17"
     },
     
     {
@@ -26,7 +40,14 @@
         "github": "https://github.com/GomoAtDVT",
         "linkedin": "https://www.linkedin.com/in/mrgmotlhamme",
         "techStack": ["React",  "Kotlin", "JavaScript",  "SQL",  "Tailwind CSS"],
-        "image": "./src/assets/Gomolemo.jpg"
+        "image": "./src/assets/Gomolemo.jpg",
+        "Chat": "gmotlhamme@jhb.dvt.co.za",
+        "Phone": "+27 79 185 6644",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2001-09-21"
     },
     
     {
@@ -36,7 +57,14 @@
         "github": "https://github.com/Adrian19Jan",
         "linkedin": "https://www.linkedin.com/in/majavuadrian?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         "techStack": ["HTML", "CSS", "JavaScript", "Java", "C++", "Kotlin", "C#"],
-        "image": "./src/assets/Adrian.jpg"
+        "image": "./src/assets/Adrian.jpg",
+        "Chat": "amajavu@jhb.dvt.co.za",
+        "Phone": "+27 68 401 9098",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2000-01-19"
     },
     
     {
@@ -46,7 +74,14 @@
         "github": "https://github.com/NKukame",
         "linkedin": "https://www.linkedin.com/in/njabulo-kukame-05a223227?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         "techStack": ["React","Java", "CSS", "JavaScript",  "PHP", "SQL"],
-        "image": "./src/assets/Njabulo-Kukame-Picture.jpg"
+        "image": "./src/assets/Njabulo-Kukame-Picture.jpg",
+        "Chat": "nkukame@jhb.dvt.co.za",
+        "Phone": "+27 61 543 0266",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2003-02-18"
     },
     
     {
@@ -56,7 +91,14 @@
         "github": "https://github.com/amhlongo-dvt",
         "linkedin": "https://www.linkedin.com/in/andile-mhlongo-a025a5b1/",
         "techStack": ["HTML ", "CSS", "JavaScript", "Java", "C#", "TypeScript"],
-        "image": "./src/assets/Andile.jpg"
+        "image": "./src/assets/Andile.jpg",
+        "Chat": "amhlongo@jhb.dvt.co.za",
+        "Phone": "+27 76 275 2913",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "1996-04-19"
     },
     
     {
@@ -66,7 +108,14 @@
         "github": "https://github.com/Ngobe-Thabane",
         "linkedin": "https://www.linkedin.com/in/thabane-ngobe-thabanengobe?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         "techStack": ["HTML", "CSS", "JavaScript", "Java", "Python", "C"],
-        "image": "./src/assets/Thabane.jpeg"
+        "image": "./src/assets/Thabane.jpeg",
+        "Chat": "tngobe@jhb.dvt.co.za",
+        "Phone": "+27 79 032 4941",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2002-10-06"
     },
     
     {
@@ -76,7 +125,14 @@
         "github": "https://github.com/REMOW-web",
         "linkedin": "https://www.linkedin.com/in/remoneilwe-rammekwa-525571270?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         "techStack": ["HTML", "JavaScript", "Java", "React", "Tailwind CSS"],
-        "image": "./src/assets/Remo.jpg"
+        "image": "./src/assets/Remo.jpg",
+        "Chat": "rrammekwa@jhb.dvt.co.za",
+        "Phone": "+27 84 824 3884",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "2003-03-15"
     },
     
 
@@ -87,7 +143,14 @@
         "github": "Github Username",
         "linkedin": "https://www.linkedin.com/in/dylan-fernandes-615996345/",
         "techStack": ["Figma"],
-        "image": "./src/assets/Dylan.jpg"
+        "image": "./src/assets/Dylan.jpg",
+        "Chat": "dfernades@jhb.dvt.co.za",
+        "Phone": "+27 83 642 1211",
+        "Location": "Johannesburg, South Africa",
+        "Company": "DVT",
+        "Department": "SA-DEVPS-S",
+        "Role": "Full Stack Intern",
+        "Birthday": "1995-09-25"
     }
 
 ]
