@@ -30,50 +30,36 @@ export const SearchContextProvider = ({children}) => {
         let newSelectedFilter;
         let updatedResults = searchResults;
         if(selectedFilter.includes(filter)){
-            // Remove filter
             newSelectedFilter = selectedFilter.filter((item) => item !== filter);
         }else{
-            // Add filter
             newSelectedFilter =  [...selectedFilter, filter];
         }
         setSelectedFilter(newSelectedFilter);
-        
-        console.log(filter, category);
-        console.log(newSelectedFilter);
-        
-
+    
         if(category.includes("Technologies")){
             
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
-                    const lowerSkills = employee.skills.map(x => x.toLowerCase())
-                    console.log(lowerSkills);        
-                    
+                    const lowerSkills = employee.skills.map(x => x.toLowerCase())        
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
 
                 if(employee.technologies){
-                    const lowerSkills = employee.technologies.map(x => x.toLowerCase())
-                    console.log(lowerSkills);        
-                    
+                    const lowerSkills = employee.technologies.map(x => x.toLowerCase())     
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
             });
-            console.log(updatedResults.length);
         }
         if(category.includes("Industries")){
             
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.industries){
-                    const lowerIndustries = employee.industries.map(x => x.toLowerCase())
-                    console.log(filter);      
-                    
+                    const lowerIndustries = employee.industries.map(x => x.toLowerCase())  
                     return newSelectedFilter.some((filter) => lowerIndustries.includes(filter.toLowerCase()));
                 }
             });
-            console.log(updatedResults.length);
         }
 
         
@@ -86,19 +72,26 @@ export const SearchContextProvider = ({children}) => {
                     return newSelectedFilter.some(f => employee.role.toLowerCase() === f);
                 }
             });
-
-
-        }
-
-        if (category === "location") {
-            updatedResults = searchResults.filter((employee) => {
-                if (newSelectedFilter.length === 0) return true;
-                return newSelectedFilter.some(f => employee.location === f);
-            });
         }
 
         if (category === "Experience") {
-            updatedResults = handleChange(filter)
+            const years =  filter.split(" ")[0]
+            const value = years.split("-")
+            console.log(value);
+            
+            updatedResults = searchResults.filter((employee) => {
+                if(newSelectedFilter.length === 0) return true;
+                if(!employee.years_active){
+                    return false
+                } 
+                if(employee.years_active === parseInt(value[0]) || employee.years_active === parseInt(value[1])){
+                    return true
+                }
+                if(employee.years_active > parseInt(value[0]) &&  employee.years_active < parseInt(value[1])){
+                    return true
+                }
+                return false           
+            })
         }
         
         setFilteredResults(updatedResults);
@@ -110,6 +103,7 @@ export const SearchContextProvider = ({children}) => {
         console.log(value);
         
         const filteredResults = searchResults.filter((employee) => {
+            if(newSelectedFilter.length === 0) return true;
             if(!employee.years_active){
                 return false
             }
