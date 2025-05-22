@@ -195,7 +195,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -205,6 +205,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -215,7 +216,7 @@ const config = {
   },
   "inlineSchema": "// Improved schema\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum UserRole {\n  USER\n  ADMIN\n  CLIENT\n}\n\nmodel User {\n  id         String    @id @default(uuid())\n  email      String    @unique\n  password   String\n  name       String\n  role       UserRole  @default(USER)\n  employeeId String?   @unique\n  employee   Employee? @relation(fields: [employeeId], references: [id])\n  createdAt  DateTime  @default(now())\n  updatedAt  DateTime  @updatedAt\n}\n\nmodel Employee {\n  id         String          @id @default(uuid())\n  position   String\n  department String\n  github     String?\n  linkedin   String?\n  phone      String?\n  available  Boolean         @default(true)\n  techStack  String[]\n  company    String\n  birthday   DateTime?\n  photoUrl   String?\n  location   String?\n  user       User?\n  projects   ProjectMember[]\n  createdAt  DateTime        @default(now())\n  updatedAt  DateTime        @updatedAt\n}\n\nmodel Project {\n  id          String          @id @default(uuid())\n  name        String\n  description String\n  techStack   String[]\n  github      String?\n  videoUrl    String?\n  imageUrl    String?\n  members     ProjectMember[]\n  createdAt   DateTime        @default(now())\n  updatedAt   DateTime        @updatedAt\n}\n\nmodel ProjectMember {\n  id         String   @id @default(uuid())\n  projectId  String\n  project    Project  @relation(fields: [projectId], references: [id])\n  employeeId String\n  employee   Employee @relation(fields: [employeeId], references: [id])\n  role       String?\n  joinedAt   DateTime @default(now())\n\n  @@unique([projectId, employeeId])\n}\n",
   "inlineSchemaHash": "e97109fc5eb6ad692baea314d020983425b99281f7ce6e01dacd8695a81a64a3",
-  "copyEngine": false
+  "copyEngine": true
 }
 config.dirname = '/'
 
