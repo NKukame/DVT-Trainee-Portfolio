@@ -15,6 +15,16 @@ function ForgotPassword() {
     special: false
   });
 
+  const checkPasswordCriteria = (password) => {
+    const criteria = {
+      length: password.length === 7,
+      special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    };
+
+    setPasswordCriteria(criteria);
+    return criteria;
+  };
+
   const navigate = useNavigate();
 
   const allowedDomains = ["dvtsoftware.com"];
@@ -42,17 +52,13 @@ function ForgotPassword() {
 
   const validatePassword = () => {
     let newErrors = {};
-    let criteria = { length: false, special: false };
+    let criteria = checkPasswordCriteria (newPassword);
 
     if (!newPassword) {
       newErrors.password = "Password is required";
-    } else {
-      criteria.length = newPassword.length >= 8;
-      criteria.special = /[!@#$%^&*(),.?":{}|<>]/.test(newPassword);
-
-      if (!criteria.length || !criteria.special) {
-        newErrors.password = "Password does not meet requirements";
-      }
+    } else if (!criteria.length || !criteria.special) {
+      newErrors.password = "Password does not meet requirements";
+  
     }
 
     if (!confirmPassword) {
@@ -61,9 +67,33 @@ function ForgotPassword() {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
-    setPasswordCriteria(criteria);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+
+  const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    setNewPassword(password);
+    checkPasswordCriteria(password);
+
+
+    if(error.password) {
+      const criteria = checkPasswordCriteria(password);
+      if(password.length >0 && criteria.length || criteria.special) {
+        setErrors(prev => ({
+          ...prev, password: ""}));
+      }
+    }
+  };
+  const handleConfirmPasswordChange = (e) => {
+    const confirmPwd = e.target.value;
+    setConfirmPassword(confirmPwd);
+
+    if(error.confirmPassword && confirmPwd === newPassword) {
+      setErrors(prev => ({
+        ...prev, confirmPassword: ""}));
+    }
   };
 
   const handleEmailSubmit = (e) => {
@@ -163,7 +193,10 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={(e) => {
+                      validatePassword();
+                      setNewPassword(e.target.value);
+                    }}
                     className={errors.password ? "error-border" : ""}
                   />
                 </div>
@@ -177,7 +210,10 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e) => {
+                      validatePassword();
+                      setConfirmPassword(e.target.value);
+                    }}
                     className={errors.confirmPassword ? "error-border" : ""}
                   />
                 </div>
