@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
 import "./Body.css";
 import profileIcon from "../assets/placeholder.png";
 import projects from "../modal-resources/projects-modal.json";
 import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect, useRef } from "react";
 
 
 function Body() {
@@ -205,27 +204,26 @@ function Body() {
       {isModalOpen && selectedProject && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* <button className="modal-close" onClick={closeModal}>
+            <button className="modal-close" onClick={closeModal}>
               X
-            </button> */}
+            </button>
 
-            <div className="modal-header">
-              <h2>{selectedProject.title}</h2>
-              <div className="modal-owner-container">
-                <img src={selectedProject.ownerimage} alt="" className="modal-owner-img" />
-                <p className="modal-owner">{selectedProject.owner}</p>
-              </div>
-            </div>
+            <h2>{selectedProject.title}</h2>
 
             {selectedProject.video && (
               <video
                 src={selectedProject.video}
                 controls
                 width="100%"
-                style={{ borderRadius: "5px" }}
+                style={{ borderRadius: "15px", marginTop: "1rem" }}
               />
             )}
 
+            <p className="modal-owner">
+              <strong>Owner:</strong> {selectedProject.owner}
+            </p>
+
+            <p className="modal-project-link"><a href={selectedProject.link}>Click Here For The Link</a></p>
 
             <p className="modal-description">
               <strong>Description:</strong> <br />{selectedProject.description}
@@ -237,10 +235,6 @@ function Body() {
                 (<li key={index}><p className='badge-default'>{tech}</p></li>)
               ))}
             </ul>
-
-            <button className="modal-project-link">
-              <a href={selectedProject.link}>Repository</a>
-            </button>
 
 
           </div>
