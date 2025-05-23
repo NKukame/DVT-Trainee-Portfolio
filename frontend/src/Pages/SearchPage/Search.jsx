@@ -1,9 +1,9 @@
-import "./styles.css";
-import SideBar from "./components/SidebarComp/SideBar";
-import Filter from "./components/FilterComp/Filter";
-import SearchResults from "./components/SearchResultsComp/SearchResults";
-import SearchBar from "./components/SearchBarComp/SearchBar";
-import { SearchContextProvider } from "./contexts/SearchContext";
+import "../../styles.css";
+import SideBar from "../../components/SidebarComp/SideBar";
+import Filter from "../../components/FilterComp/Filter";
+import SearchResults from "../../components/SearchResultsComp/SearchResults";
+import SearchBar from "../../components/SearchBarComp/SearchBar";
+import { SearchContextProvider } from "../../contexts/SearchContext";
 function Search() {
   return (
     <div className="app-layout">

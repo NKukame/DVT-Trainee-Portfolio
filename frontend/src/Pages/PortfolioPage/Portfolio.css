@@ -24,7 +24,7 @@
       rgba(249, 250, 251, 0.1) 90%,
       rgba(249, 250, 251, 0.1) 100%
     ), 
-    url("./assets/theone.jpg");
+    url("../../assets/theone.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 75% 10%;
@@ -43,7 +43,7 @@
       rgb(4, 34, 61, 0.1) 90%,     
       rgb(4, 34, 61, 0.1) 100%
     ), 
-    url("./assets/theone.jpg");
+    url("../../assets/theone.jpg");
 }
 
 .theTitle {

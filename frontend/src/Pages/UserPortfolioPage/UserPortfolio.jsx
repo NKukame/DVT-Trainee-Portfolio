@@ -1,9 +1,9 @@
-import './styles.css';
+import '../../styles.css';
 import './UserPortfolio.css';
-import Dashboard from './Dashboard';
-import ProjectCard from './ProjectCard';
-import TestimonialCard from './components/TestimonialCardComp/TestimonialCard';
-import SideBar from './components/SidebarComp/SideBar';
+import Dashboard from '../../Dashboard';
+import ProjectCard from '../../Projects';
+import TestimonialCard from '../../components/TestimonialCardComp/TestimonialCard';
+import SideBar from '../../components/SidebarComp/SideBar';
 
 function UserPortfolio() {
 

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import PaginationControls from '../PaginationControlComp/PaginationControls';
 import ResultsList from '../ResultsListComp/ResultsList';
-import '../../SearchPage.css';
+import '../SearchResultsComp/SearchPage.css';
 
 export default function SearchResults() {
 

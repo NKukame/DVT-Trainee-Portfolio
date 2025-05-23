@@ -1,6 +1,6 @@
-import './styles.css'
-import Body from './components/BodyComp/Body';
-import SideBar from './components/SidebarComp/SideBar';
+import '../../styles.css'
+import Body from '../../components/BodyComp/Body';
+import SideBar from '../../components/SidebarComp/SideBar';
 
 function Home(){
     return(
