@@ -1,8 +1,10 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-const { PrismaClient } = require('./generated/prisma')
+import { PrismaClient } from './generated/prisma/index.js';
+import express from 'express';
+import REST_API from './api.js';
 
+const app = express();
+app.use(REST_API);
+const port = 3000;
 const prisma = new PrismaClient();
 
 app.get('/', async (req, res) => {
