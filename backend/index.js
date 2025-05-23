@@ -1,11 +1,11 @@
-import { PrismaClient } from './generated/prisma/index.js';
-import express from 'express';
-import REST_API from './api.js';
-
+const express = require('express');
 const app = express();
-app.use(REST_API);
 const port = 3000;
+const { PrismaClient } = require('./generated/prisma');
+const REST_API = require('./api.js')
+
 const prisma = new PrismaClient();
+app.use(REST_API);
 
 app.get('/', async (req, res) => {
   await prisma.$connect()

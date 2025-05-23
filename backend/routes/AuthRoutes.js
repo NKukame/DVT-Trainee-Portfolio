@@ -10,16 +10,12 @@
  *  - POST /register        → Handles user registration (currently a placeholder).
  *  - POST /forgot-password → Initiates password reset process (currently unimplemented).
  */
-
-import express from 'express';
-import login from '../controllers/LoginController.js';
-import register from '../controllers/RegisterController.js';
-import forgotPassword from '../controllers/ForgotPasswordController.js';
+const express = require('express');
+const login = require('../controllers/LoginController.js');
+const register = require('../controllers/RegisterController.js');
 
 const authRoute = express.Router();
 
 authRoute.post('/login', login);
-authRoute.post('/register', register );
-authRoute.post('/forgot-password', forgotPassword);
-
-export default authRoute;
+authRoute.post('/register', register);
+module.exports = authRoute;
