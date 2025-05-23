@@ -1,0 +1,54 @@
+[
+    {
+      "name": "Paballo",
+      "description": "She's such a bubbly, kind, and intelligent young lady, always laughing and full of life. I adore everything about her.",
+      "image": "./src/assets/user_placeholder.png"
+    },
+    {
+      "name": "Gomolemo",
+      "description": "A quiet gentleman who doesn't talk much and can come across as shy, but once you get to know him, he's an absolute sweetheart.",
+      "image": "./src/assets/user_placeholder.png"
+    },
+    {
+      "name": "Thabane",
+      "description": "Another quiet soul, but he's slowly opening up and getting comfortable in his surroundings. Very nice guy.",
+      "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Njabulo",
+        "description": "My son, calm and incredibly smart. dresses very wellI wouldn't call him shy he just takes his time to assess his environment before getting comfortable.",
+        "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Phemelo",
+        "description": "Mr charmer himself he's such an amazing soul, smart always smiling, and naturally gets along with everyone.",
+        "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Tshenolo",
+        "description": "She's truly special- a calm and kind soul who doesn't say much but is incredibly smart as well. we share a connection that no one else could ever understand. I love her to bits.",
+        "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Andile",
+        "description": "Very calm and quite but loves to laugh. He doesn't say much, except during our one on one's, where his true gentlemen nature shines through .",
+        "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Adrian",
+        "description": "He may seem shy around people he doesn't know but quickly warms up when he feels welcomed, loving soul as well.",
+        "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Remoneilwe",
+        "description": "A whirlwind of energy. She's always where the action is, I love her crazy, amazing soul to pieces.",
+        "image": "./src/assets/user_placeholder.png"
+    },
+    {
+        "name": "Slindokuhle",
+        "description": "He's like the male version of Remocrazy but so sweet. I admire his hard-working nature and determination to achieve his goals. He's a true family man who deeply loves his daughter.",
+        "image": "./src/assets/user_placeholder.png"
+    }
+
+  ]
+  
