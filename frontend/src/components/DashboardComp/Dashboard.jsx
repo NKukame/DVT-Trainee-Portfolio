@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProfileImage from './assets/icons8-profile-picture-100.png';
-import Calender from './assets/icons8-calendar-100.png';
-import Location from './assets/icons8-location-100.png';
-import Medal from './assets/icons8-medal-100.png';
-import Github from './assets/icons8-github-100.png';
-import LinkedIn from './assets/icons8-linkedin-100.png';
-import Email from './assets/icons8-email-100.png';
+import ProfileImage from '../../assets/icons8-profile-picture-100.png';
+import Calender from '../../assets/icons8-calendar-100.png';
+import Location from '../../assets/icons8-location-100.png';
+import Medal from '../../assets/icons8-medal-100.png';
+import Github from '../../assets/icons8-github-100.png';
+import LinkedIn from '../../assets/icons8-linkedin-100.png';
+import Email from '../../assets/icons8-email-100.png';
 import './Dashboard.css';
 
 function Dashboard() {

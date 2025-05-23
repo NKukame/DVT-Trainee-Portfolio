@@ -1,7 +1,7 @@
 import '../../styles.css';
 import './UserPortfolio.css';
-import Dashboard from '../../Dashboard';
-import ProjectCard from '../../Projects';
+import Dashboard from '../../components/DashboardComp/Dashboard';
+import ProjectCard from '../../components/ProjectsComp/Projects';
 import TestimonialCard from '../../components/TestimonialCardComp/TestimonialCard';
 import SideBar from '../../components/SidebarComp/SideBar';
 
