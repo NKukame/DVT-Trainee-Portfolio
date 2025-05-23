@@ -3,7 +3,7 @@
  *
  * This endpoint will handle user authentication once the logic is implemented.
  * It will validate user credentials (e.g., email and password) sent in the request body,
- * authenticate the user against the database, and return a session token or relevant response.
+ * authenticate the user against the database, and return a JWT token.
  *
  * Note: This is currently a placeholder and does not perform any authentication.
  *
