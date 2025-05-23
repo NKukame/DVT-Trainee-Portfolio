@@ -1,19 +1,19 @@
 import "./Filter.css"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { useState } from "react";
-import { generatePastelColor } from "../lib/color";
+import { generatePastelColor } from "../../lib/color";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { SearchContext, useSearch } from "../contexts/SearchContext";
+import { SearchContext, useSearch } from "../../contexts/SearchContext";
 import { useContext } from "react";
-import {Combobox} from "./Combo";
+import {Combobox} from "../ComboComp/Combo";
 // import { Award, Building, Code, User } from "lucide-react";
-import { Badge } from "./Badge";
+import { Badge } from "../BadgeComp/Badge";
 import { Award01, Building05, Code02, User01 } from "@untitled-ui/icons-react";
-import Badges from "./Badges";
+import Badges from "../BadgeComp/Badges";
 
 
 function Filter(){

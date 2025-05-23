@@ -1,12 +1,10 @@
 import './styles.css'
-import Header from './components/Header';
-import Body from './components/Body';
-import SideBar from './components/SideBar';
+import Body from './components/BodyComp/Body';
+import SideBar from './components/SidebarComp/SideBar';
 
 function Home(){
     return(
         <>
-            {/* <Header/> */}
             <div className="app-layout">
                 
                 <SideBar/>

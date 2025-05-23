@@ -1,4 +1,4 @@
-import  { SelectScrollable } from './Sort';
+import  { SelectScrollable } from '../SortComp/Sort';
 import { Folder, Users01 } from '@untitled-ui/icons-react';
 
 export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {

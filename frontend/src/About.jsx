@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import "./About.css";
-import PeopleList from "./components/PeopleList"; // Import the component
-import Header from "./components/Header";
-import Card from "./components/Card";
+import PeopleList from "./components/PeopleListComp/PeopleList"; // Import the component
 import placeHolder from "./assets/group-picture.jfif";
-import SideBar from "./components/SideBar";
+import SideBar from "./components/SidebarComp/SideBar";
 
 function About() {
   return (

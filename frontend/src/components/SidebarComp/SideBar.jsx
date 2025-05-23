@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./SideBar.css";
-import dvtLogo from "../assets/dvt_logo.jpg";
-import profileIcon from "../assets/placeholder.png";
+import dvtLogo from "../../assets/dvt_logo.jpg";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LoginIcon from "@mui/icons-material/Login";
 import FolderSharedOutlinedIcon from "@mui/icons-material/FolderSharedOutlined";
@@ -10,7 +9,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { useDarkMode } from "./DarkModeProvider";
+import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
 
 function SideBar() {
   // adjust the path

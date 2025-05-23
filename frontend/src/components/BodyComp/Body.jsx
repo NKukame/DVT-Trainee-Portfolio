@@ -1,6 +1,5 @@
 import "./Body.css";
-import profileIcon from "../assets/placeholder.png";
-import projects from "../modal-resources/projects-modal.json";
+import projects from "../../modal-resources/projects-modal.json";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 

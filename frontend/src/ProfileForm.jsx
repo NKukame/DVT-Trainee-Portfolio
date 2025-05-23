@@ -2,7 +2,6 @@ import './ProfileForm.css'
 import React from "react";
 import { useState, useEffect } from 'react';
 import { User, Upload, Mail, Phone, Book, Code, Briefcase, Edit2} from 'lucide-react';
-import Header from './components/Header';
 
 
 const ProfileCreation = () =>
@@ -171,7 +170,7 @@ const ProfileCreation = () =>
         //RETURN ==== PUT THE HTML HERE SO IT RETURNS THE UI
         return(
         <>
-        <Header />
+        
         <div className='profile-container'>
         <div className='profile-header'>
             <h1 className='profile-title'>Profile Creation</h1>

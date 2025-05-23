@@ -1,5 +1,5 @@
-import { UserCard } from "./UserCard";
-import ProjectCard from './ProjectCard';
+import { UserCard } from "../UserCardComp/UserCard";
+import ProjectCard from '../ProjectCardComp/ProjectCard';
 
 export default function ResultsList({ results, isEmployeeSearch }) {
   

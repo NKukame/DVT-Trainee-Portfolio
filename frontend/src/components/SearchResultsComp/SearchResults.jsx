@@ -1,12 +1,11 @@
 
-import SearchNav from "./SearchNav";
-import { useSearch } from "../contexts/SearchContext";
+import SearchNav from "../SearchNavComp/SearchNav";
+import { useSearch } from "../../contexts/SearchContext";
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-import PaginationControls from './PaginationControls';
-import ResultsList from './ResultsList';
-
-import './SearchPage.css';
+import PaginationControls from '../PaginationControlComp/PaginationControls';
+import ResultsList from '../ResultsListComp/ResultsList';
+import '../../SearchPage.css';
 
 export default function SearchResults() {
 

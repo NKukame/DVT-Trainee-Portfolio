@@ -1,6 +1,6 @@
 import {Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import Badges from './Badges';
+import Badges from '../BadgeComp/Badges';
 import { Award02, MarkerPin01 } from "@untitled-ui/icons-react";
 
 export function UserCard({ user,showDetails = true }) {

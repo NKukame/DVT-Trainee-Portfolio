@@ -1,15 +1,13 @@
 import "./styles.css";
 import "./Portfolio.css";
-import Header from "./components/Header";
-import CarouselView from "./components/CarouselView";
 import React, { useState, useEffect, useRef } from "react";
-import GridView from "./components/GridView";
+import GridView from "./components/GridViewComp/GridView";
 import { Link } from "react-router-dom";
 import UserProfile from "./UserPortfolio";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import SideBar from "./components/SideBar";
+import SideBar from "./components/SidebarComp/SideBar";
 import { AArrowDown } from "lucide-react";
 import { AArrowUp } from "lucide-react";
 import { Building01, CalendarCheck01, Laptop01, Mail01, MarkerPin01, MessageChatCircle, Phone, User02, User03, Users03 } from "@untitled-ui/icons-react";

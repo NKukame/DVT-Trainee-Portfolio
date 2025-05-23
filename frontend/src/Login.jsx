@@ -1,15 +1,9 @@
-// import './styles.css';
-// import './Login.css';
-// import Header from './components/Header';
-// import { Link } from 'react-router-dom';
 import dvtLogo from "./assets/DVT_Iogin_logo.png";
 import OffRememberMeIcon from "./assets/OffRemeber-me-icon.png";
 import OnRememberMeIcon from "./assets/OnRemember-me-icon.png";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import Header from "./components/Header";
-import SideBar from "./components/SideBar";
 import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
 
 function Signup() {
@@ -186,7 +180,6 @@ function Signup() {
 
   return (
     <>
-    {/* <Header /> */}
     <div className="LoginApp">
       <div className={`login-container ${isSignUp ? "active" : ""}`}>
         {/* Sign Up Form */}

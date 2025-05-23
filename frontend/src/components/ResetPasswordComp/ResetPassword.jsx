@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import Header from "./components/Header";
 
 function ResetPassword() {
   const [formData, setFormData] = useState({
@@ -118,7 +117,6 @@ function ResetPassword() {
 
   return (
     <>
-      <Header />
       <div className="LoginApp">
         <div className="login-container" style={{ minHeight: "400px" }}>
           <div className="form-container sign-in" style={{ width: "100%", left: "0" }}>

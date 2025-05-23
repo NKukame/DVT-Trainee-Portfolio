@@ -7,10 +7,10 @@ import About from './About.jsx';
 import Login from './Login.jsx'
 import Portfolio from './Portfolio.jsx';
 import UserPortfolio from './UserPortfolio.jsx';
-import SearchBar from './components/SearchBar.jsx';
+import SearchBar from './components/SearchBarComp/SearchBar.jsx';
 import ProfileForm from './ProfileForm.jsx';
 import Search from './Search.jsx';
-import { DarkModeProvider } from './components/DarkModeProvider.jsx';
+import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

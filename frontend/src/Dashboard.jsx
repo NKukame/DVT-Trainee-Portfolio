@@ -7,7 +7,6 @@ import Medal from './assets/icons8-medal-100.png';
 import Github from './assets/icons8-github-100.png';
 import LinkedIn from './assets/icons8-linkedin-100.png';
 import Email from './assets/icons8-email-100.png';
-import Tech from './assets/icons8-computer-100.png';
 import './Dashboard.css';
 
 function Dashboard() {
