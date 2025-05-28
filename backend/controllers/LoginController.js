@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-export function login(req, res){
-  return res.send('login');
-=======
 /**
  * Login route handler.
  *
@@ -65,5 +60,4 @@ export default async function login(req, res) {
     console.error(err);
     res.status(500).json({ error: "Login failed", detail: err.message });
   }
->>>>>>> 951db540789b6492e16e551763347f31637e7f60
 }
