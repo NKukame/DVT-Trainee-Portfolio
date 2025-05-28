@@ -1,12 +1,6 @@
-<<<<<<< HEAD:DVT_Trainee_Portfolio/src/Login.jsx
-import dvtLogo from "./assets/DVT_Iogin_logo.png";
-import OffRememberMeIcon from "./assets/OffRemeber-me-icon.png";
-import OnRememberMeIcon from "./assets/OnRemember-me-icon.png";
-=======
 import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import OffRememberMeIcon from "../../assets/OffRemeber-me-icon.png";
 import OnRememberMeIcon from "../../assets/OnRemember-me-icon.png";
->>>>>>> 86764fc250ad3044b92ab786e4d01c3f70827f8e:frontend/src/Pages/LoginPage/Login.jsx
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
