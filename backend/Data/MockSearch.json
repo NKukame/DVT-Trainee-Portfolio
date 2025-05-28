@@ -1,0 +1,515 @@
+{
+  "employees": [
+    {
+      "employee_id": "001",
+      "name": "Paballo",
+      "username": "paballo",
+      "email": "paballo@example.com",
+      "role": "Developer",
+      "bio": "She's such a bubbly, kind, and intelligent young lady, always laughing and full of life. I adore everything about her.",
+      "location": "Johannesburg, South Africa",
+      "avatar": "./src/assets/Pabi.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "JavaScript",
+        "React",
+        "HTML",
+        "CSS"
+      ],
+      "experience": [
+        {
+          "role": "Frontend Developer",
+          "company": "Tech Startups Inc",
+          "duration": "2020-2021",
+          "responsibilities": [
+            "Developed UI components",
+            "Collaborated with design team"
+          ]
+        }
+      ],
+      "achievements": [
+        "Won Hackathon 2021",
+        "Employee of the Month at Tech Startups Inc"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "002",
+      "name": "Gomolemo",
+      "username": "gomolemo",
+      "email": "gomolemo@example.com",
+      "role": "Developer",
+      "bio": "A quiet gentleman who doesn't talk much and can come across as shy, but once you get to know him, he's an absolute sweetheart.",
+      "location": "Cape Town, South Africa",
+      "avatar": "./src/assets/Gomolemo.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "Python",
+        "Django",
+        "Flask",
+        "SQL"
+      ],
+      "experience": [
+        {
+          "role": "Backend Developer",
+          "company": "Data Solutions",
+          "duration": "2019-2020",
+          "responsibilities": [
+            "Developed REST APIs",
+            "Optimized database queries"
+          ]
+        }
+      ],
+      "achievements": [
+        "Developed an award-winning API",
+        "Recognition for outstanding performance"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "003",
+      "name": "Thabane",
+      "username": "thabane",
+      "email": "thabane@example.com",
+      "role": "Developer",
+      "bio": "Another quiet soul, but he's slowly opening up and getting comfortable in his surroundings. Very nice guy.",
+      "location": "Durban, South Africa",
+      "avatar": "./src/assets/Thabane.jpeg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "C#",
+        ".NET",
+        "SQL Server",
+        "Azure"
+      ],
+      "experience": [
+        {
+          "role": "Software Engineer",
+          "company": "Innovative Solutions",
+          "duration": "2018-2019",
+          "responsibilities": [
+            "Developed enterprise software",
+            "Maintained client applications"
+          ]
+        }
+      ],
+      "achievements": [
+        "Certified Microsoft Professional",
+        "Project of the Year Award"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "004",
+      "name": "Njabulo",
+      "username": "njabulo",
+      "email": "njabulo@example.com",
+      "role": "Developer",
+      "bio": "My son, calm and incredibly smart. Dresses very well. I wouldn't call him shy; he just takes his time to assess his environment before getting comfortable.",
+      "location": "Johannesburg, South Africa",
+      "avatar": "./src/assets/Njabulo-Kukame-Picture.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "Java",
+        "Spring Boot",
+        "Hibernate",
+        "Kotlin"
+      ],
+      "experience": [
+        {
+          "role": "Java Developer",
+          "company": "Enterprise Systems",
+          "duration": "2020-2022",
+          "responsibilities": [
+            "Developed server-side applications",
+            "Optimized code performance"
+          ]
+        }
+      ],
+      "achievements": [
+        "Earned Java Certification",
+        "Innovation Award"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "005",
+      "name": "Phemelo",
+      "username": "phemelo",
+      "email": "phemelo@example.com",
+      "role": "Developer",
+      "bio": "Mr charmer himself—he's such an amazing soul, smart, always smiling, and naturally gets along with everyone.",
+      "location": "Cape Town, South Africa",
+      "avatar": "./src/assets/Phemelo.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "PHP",
+        "Laravel",
+        "MySQL"
+      ],
+      "experience": [
+        {
+          "role": "Full Stack Developer",
+          "company": "Web Innovations",
+          "duration": "2018-2020",
+          "responsibilities": [
+            "Developed web applications",
+            "Collaborated on design implementations"
+          ]
+        }
+      ],
+      "achievements": [
+        "Best Developer Award",
+        "Recognized for creative solutions"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "006",
+      "name": "Tshenolo",
+      "username": "tshenolo",
+      "email": "tshenolo@example.com",
+      "role": "Developer",
+      "bio": "She's truly special—a calm and kind soul who doesn't say much but is incredibly smart as well. We share a connection that no one else could ever understand. I love her to bits.",
+      "location": "Durban, South Africa",
+      "avatar": "./src/assets/user_placeholder.png",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "Ruby",
+        "Rails",
+        "JavaScript"
+      ],
+      "experience": [
+        {
+          "role": "Software Engineer",
+          "company": "Creative Solutions",
+          "duration": "2019-2021",
+          "responsibilities": [
+            "Built scalable web applications",
+            "Integrated third-party services"
+          ]
+        }
+      ],
+      "achievements": [
+        "Outstanding Innovation Award",
+        "Team Excellence Award"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "007",
+      "name": "Andile",
+      "username": "andile",
+      "email": "andile@example.com",
+      "role": "Developer",
+      "bio": "Very calm and quiet but loves to laugh. He doesn't say much except during our one-on-ones, where his true gentleman nature shines through.",
+      "location": "Johannesburg, South Africa",
+      "avatar": "./src/assets/Andile.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "Go",
+        "Docker",
+        "Kubernetes"
+      ],
+      "experience": [
+        {
+          "role": "DevOps Engineer",
+          "company": "CloudTech",
+          "duration": "2017-2019",
+          "responsibilities": [
+            "Managed CI/CD pipelines",
+            "Optimized container deployments"
+          ]
+        }
+      ],
+      "achievements": [
+        "DevOps Star Award",
+        "Process Improvement Recognition"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "008",
+      "name": "Adrian",
+      "username": "adrian",
+      "email": "adrian@example.com",
+      "role": "Developer",
+      "bio": "He may seem shy around people he doesn't know but quickly warms up when he feels welcomed—a loving soul as well.",
+      "location": "Cape Town, South Africa",
+      "avatar": "./src/assets/Adrian.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "Flutter",
+        "Dart",
+        "Firebase"
+      ],
+      "experience": [
+        {
+          "role": "Mobile Developer",
+          "company": "App Creators",
+          "duration": "2020-2021",
+          "responsibilities": [
+            "Developed cross-platform mobile apps",
+            "Refined user interfaces"
+          ]
+        }
+      ],
+      "achievements": [
+        "App Store Feature",
+        "Innovative App Award"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "009",
+      "name": "Remoneilwe",
+      "username": "remoneilwe",
+      "email": "remoneilwe@example.com",
+      "role": "Full Stack Developer",
+      "bio": "A whirlwind of energy—she's always where the action is and her crazy, amazing soul is unforgettable.",
+      "location": "Durban, South Africa",
+      "avatar": "./src/assets/Remo.jpg",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "Java",
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "HTML/CSS"
+      ],
+      "experience": [
+        {
+          "role": "Full Stack Developer",
+          "company": "Innovative Web Solutions",
+          "duration": "2021-2023",
+          "responsibilities": [
+            "Developed end-to-end web applications",
+            "Managed both frontend and backend development"
+          ]
+        }
+      ],
+      "achievements": [
+        "Employee of the Year",
+        "Completed Full Stack Bootcamp",
+        "Launched multiple full stack projects"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    },
+    {
+      "employee_id": "010",
+      "name": "Slindokuhle",
+      "username": "slindokuhle",
+      "email": "slindokuhle@example.com",
+      "role": "Developer",
+      "bio": "He's like the male version of Remocrazy but so sweet—I admire his hard-working nature and determination to achieve his goals. A true family man.",
+      "location": "Johannesburg, South Africa",
+      "avatar": "./src/assets/user_placeholder.png",
+      "social_links": {
+        "github": "",
+        "linkedin": "",
+        "portfolio": "",
+        "blog": ""
+      },
+      "years_active": 1,
+      "skills": [
+        "JavaScript",
+        "Angular",
+        "TypeScript",
+        "HTML/CSS"
+      ],
+      "experience": [
+        {
+          "role": "Frontend Developer",
+          "company": "Creative Web Studio",
+          "duration": "2018-2020",
+          "responsibilities": [
+            "Developed responsive web applications",
+            "Enhanced user experience designs"
+          ]
+        }
+      ],
+      "achievements": [
+        "Employee of the Year",
+        "Innovation in Web Development Award"
+      ],
+      "availability": "Available",
+      "languages_spoken": [
+        "English"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "project_id": "001",
+      "name": "Portfolio Website",
+      "created_on": "2023-08-15",
+      "description": "A personal portfolio website showcasing my work and skills.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React"
+      ],
+      "status": "Completed",
+      "category": "Web Development",
+      "platform": "Web",
+      "app_type": "Single-page Application",
+      "is_cli": false,
+      "employee_id": "001",
+      "screenshot": "/Adriano.jpg"
+    },
+    {
+      "project_id": "002",
+      "name": "E-commerce Platform",
+      "created_on": "2024-01-10",
+      "description": "An online store where users can browse and purchase products.",
+      "technologies": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "React"
+      ],
+      "status": "In Progress",
+      "category": "Web Development",
+      "platform": "Web",
+      "app_type": "Single-page Application",
+      "is_cli": false,
+      "employee_id": "001",
+      "screenshot": "/Adriano.jpg"
+    },
+    {
+      "project_id": "003",
+      "name": "Personal Blog",
+      "created_on": "2023-11-01",
+      "description": "A personal blog to share tech tutorials and articles.",
+      "technologies": [
+        "Vue.js",
+        "Sass",
+        "Node.js"
+      ],
+      "status": "Completed",
+      "category": "Blog",
+      "platform": "Web",
+      "app_type": "Single-page Application",
+      "is_cli": false,
+      "employee_id": "002",
+      "screenshot": "/Adriano.jpg"
+    },
+    {
+      "project_id": "004",
+      "name": "Data Analysis Tool",
+      "created_on": "2024-02-01",
+      "description": "A tool to analyze and visualize large datasets using machine learning.",
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "Pandas"
+      ],
+      "status": "In Progress",
+      "category": "Data Science",
+      "platform": "Desktop",
+      "app_type": "Desktop Application",
+      "is_cli": false,
+      "employee_id": "003",
+      "screenshot": "/Adriano.jpg"
+    },
+    {
+      "project_id": "005",
+      "name": "Task Manager CLI",
+      "created_on": "2024-01-15",
+      "description": "A simple command-line interface to manage tasks and to-dos.",
+      "technologies": [
+        "Python"
+      ],
+      "status": "Completed",
+      "category": "CLI Application",
+      "platform": "Cross-platform",
+      "app_type": "Command-line Interface",
+      "is_cli": true,
+      "employee_id": "003",
+      "screenshot": "/Adriano.jpg"
+    }
+  ]
+}

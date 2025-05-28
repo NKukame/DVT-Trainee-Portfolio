@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const authRoute = require('./routes/AuthRoutes.js')
+const authRoute = require('./routes/TotalRoutes.js')
 
 const REST_API = express.Router();
 REST_API.use(express.json());
