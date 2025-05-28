@@ -21,8 +21,8 @@ function Dashboard() {
                 </div>
 
                 <div className="short-bio">
-                    <h2>Full Name</h2>
-                    <p>Role</p>
+                    <h2>Paballo Thobei</h2>
+                    <p><strong>Fullstack Developer Intern</strong></p>
                     <p>I like banana splits and things.</p>
                 </div>
 
@@ -30,9 +30,9 @@ function Dashboard() {
 
                     <Link to='/ProfileForm'><button className='manage-prfl'>Manage Profile</button></Link>
 
-                    <p><img src={Medal} alt='Role Icon' className="dashboard-icon" />Experience</p>
-                    <p><img src={Calender} alt="Experience Icon" className="dashboard-icon" /> Availability</p>
-                    <p><img src={Location} alt="Location Icon" className="dashboard-icon" /> Location</p>
+                    <p><img src={Medal} alt='Role Icon' className="dashboard-icon" />2.5 years</p>
+                    <p><img src={Calender} alt="Experience Icon" className="dashboard-icon" />Immediately</p>
+                    <p><img src={Location} alt="Location Icon" className="dashboard-icon" />Johannesburg (flexible)</p>
 
 
 
@@ -42,19 +42,29 @@ function Dashboard() {
                     <ul className='proficiency-list'>
                         <li className='tag'>Java</li>
                         <li className='tag'>Python</li>
-                        <li className='tag'>React</li>
-                        <li className='tag'>Node.js</li>
-                        <li className='tag'>Express.js</li>
-                        <li className='tag'>MongoDB</li>
-                        <li className='tag'>SQL</li>
+                        <li className='tag'>C#</li>
+                        <li className='tag'>HTML</li>
+                        <li className='tag'>CSS</li>
+                        {/* <li className='tag'>MongoDB</li> */}
+                        <li className='tag'>SQLite</li>
                     </ul>
                 </div>
 
             </div>
             <footer className='footer'>
-                <img src={Github} alt="GitHub" className="socials" />
-                <img src={LinkedIn} alt="LinkedIn" className="socials" />
-                <img src={Email} alt="Email" className="socials" />
+
+                <Link to='https://github.com/pthobei'>
+                    <img src={Github} alt="GitHub" className="socials" />
+                </Link>
+
+                <Link to="https://www.linkedin.com/in/paballo-thobei-2b532a27b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+                    <img src={LinkedIn} alt="LinkedIn" className="socials" />
+                </Link>
+
+                <Link to="mailto: pthobei@dvtsoftware.com">
+                    <img src={Email} alt="Email" className="socials" />
+                </Link>
+
             </footer>
         </div>
     );

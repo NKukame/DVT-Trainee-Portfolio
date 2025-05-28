@@ -206,16 +206,14 @@ h1 {
     font-size: 12px;
     font-family: 'Hanken Grotesk' sans-serif;
     font-weight: 500;
-    /* margin: 0 20px; */
+    
    
 }
 .sign-up .signInBlack{
-    color: #257A99;
     margin: 10px;
-    font-size: 13px;
-    font-family: 'Hanken Grotesk' sans-serif;
-    font-weight: 500;
+    font-family: 'Hanken Grotesk' sans-serif;  
 }
+
 
 .login-container.active .sign-up {
     transform: translateX(100%);
@@ -319,8 +317,19 @@ h1 {
     margin: 0 10px;
     left: 0%;
     top: 15px;  
+}
 
-
+.mail-icon-signup{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    left: 0%;
+    top: 15px;  
 }
 
 .email-input-container{
@@ -394,26 +403,22 @@ h1 {
 
 
 .login-error {
-    color: rgb(255, 0, 0);
-    font-size: 12px;
-    margin-top: auto;
-    margin-bottom: auto;
-    font-weight: 500;
+    color: #ff0a26;
+  font-size: 12px;
+  margin: 4px 0 0;
+  font-weight: 500;
 }
 
 .signup-error {
-    color: rgb(255, 0, 0);
-    font-size: 12px;
-    margin-top: auto;
-    margin-bottom: auto;
-    font-weight: 500;
+  color: #ff0a26;
+  font-size: 12px;
+  margin:0 0 4px 0 0;
+  font-weight: 500;
   
 }
 
 input.error-border {
     border: 1px solid #ff0a26;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -428,6 +433,9 @@ input.error-border {
     margin: 0 10px;
     text-align: start;
 
+}
+.username-container{
+    width: 100%;
 }
 
 
@@ -447,3 +455,104 @@ input.error-border {
     margin: 15px 0 10px;
     font-family: 'Hanken Grotesk' sans-serif;
 }
+
+
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    /* margin: 10px; */
+  }
+
+  .toggle-switch .toggle-input {
+    display: none;
+  }
+  
+  
+  .toggle-switch .toggle-label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 40px;
+    height: 24px;
+    background-color: #d2d8dc;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  
+  .toggle-switch .toggle-label::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+  }
+  
+  /* Anahtarın etkin hale gelmesindeki stil değişiklikleri */
+  .toggle-switch .toggle-input:checked + .toggle-label {
+    background-color: #0e3874;
+  }
+  
+  .toggle-switch .toggle-input:checked + .toggle-label::before {
+    transform: translateX(16px);
+  }
+  
+  /* Light tema */
+  .toggle-switch.light .toggle-label {
+    background-color: #BEBEBE;
+  }
+  
+  .toggle-switch.light .toggle-input:checked + .toggle-label {
+    background-color: #9B9B9B;
+  }
+  
+  .toggle-switch.light .toggle-input:checked + .toggle-label::before {
+    transform: translateX(6px);
+  }
+  
+  /* Dark tema */
+  .toggle-switch.dark .toggle-label {
+    background-color: #4B4B4B;
+  }
+  
+  .toggle-switch.dark .toggle-input:checked + .toggle-label {
+    background-color: #717171;
+  }
+  
+  .toggle-switch.dark .toggle-input:checked + .toggle-label::before {
+    transform: translateX(16px);
+  }
+  
+
+  .remember-me-container{
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  .remember-me{
+    /* padding: 0 50px; */
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+  }
+
+  .remember-me p{
+    margin-left: 7px;
+    margin-bottom: 6px;
+    color: #404040;
+    font-weight: 500;
+    font-size: 10px;
+    font-family: 'Hanken Grotesk' sans-serif;
+  }
