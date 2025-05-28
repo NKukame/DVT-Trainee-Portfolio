@@ -178,7 +178,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/tman/WorkProjects/DVT-Trainee-Portfolio/backend/generated/prisma",
+      "value": "C:\\Users\\rrammekwa\\downloads\\DVT-Trainee-Portfolio\\backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -187,16 +187,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/tman/WorkProjects/DVT-Trainee-Portfolio/backend/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\rrammekwa\\downloads\\DVT-Trainee-Portfolio\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
