@@ -35,3 +35,4 @@
 - `npx prisma migrate deploy` - Migrate the database schema and apply the migration to the production database.
 - `npx prisma db seed` - Run a seed to populate the development database with data.
 - `npx prisma generate` to generate the Prisma client
+- `npx prisma studio` to see the database interface UI 
