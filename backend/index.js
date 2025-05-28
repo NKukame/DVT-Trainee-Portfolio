@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const { PrismaClient } = require('./generated/prisma')
+const { PrismaClient } = require('./generated/prisma');
+const REST_API = require('./api.js')
 
 const prisma = new PrismaClient();
+app.use(REST_API);
 
 app.get('/', async (req, res) => {
   await prisma.$connect()
