@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-import { PrismaClient } from './generated/prisma/index.js';
+import { PrismaClient } from '@prisma/client';
 import express from 'express';
 import REST_API from './api.js';
-=======
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
-
-const app = express();
-const port = 3000;
->>>>>>> 8314f8ecfcd6d3a307ee1a1a752859abbbe7efaf
 
 const app = express();
 app.use(REST_API);
