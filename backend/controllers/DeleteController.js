@@ -1,9 +1,21 @@
-export function deleteProjectController(req, res){
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+
+export async function deleteProjectController(req, res){
   return res.send("delete project controller")
 }
 
 
-export function deleteProfileController(req, res){
-  return res.send("delete profile controller")
+export async function deleteProfileController(req, res){
+  
+  const { id, email } = req.params;
+  
+  const deletedProfile = await prisma.user.delete({    
+    where: { email: email },
+    select: {email: true}
+})
+
+  return res.send( {message: "deleted", deletedProfile})
 
 }

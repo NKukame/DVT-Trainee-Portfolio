@@ -12,14 +12,14 @@ const totalRoutes = express.Router();
 
 totalRoutes.post('/login', login);
 totalRoutes.post('/register', signup);
-totalRoutes.post('/create-profile', createProfileController);
+totalRoutes.post('/create-profile', createProfileController); //done
 
 totalRoutes.put('/forgot-password', forgotPassword);
 totalRoutes.put('/profile/:name', UpdateProfileController)
 
 
 totalRoutes.delete('/project/:id', deleteProjectController);
-totalRoutes.delete('/profile/:id', deleteProfileController);
+totalRoutes.delete('/profile/:email', deleteProfileController);
 
 
 totalRoutes.get('/project-showcase', HomeProjectController);

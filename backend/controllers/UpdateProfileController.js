@@ -5,14 +5,14 @@ const prisma = new PrismaClient();
 
 export async function UpdateProfileController(req, res){
   const { name } = req.params;
-  const { email, username } = req.body;
-  if(name === "remow@gmail.com" ){
+  const { email, username, newEmail } = req.body;
+  if(name  ){
     // const person = await prisma.user.findUnique({
     //   where: { email },
     // });
    const person = await prisma.user.update({
     where: { email: email },
-    data: { name:username }, // Yes, you should hash this
+    data: { email:newEmail }, // Yes, you should hash this
   });
     res.send(person);
   } else 

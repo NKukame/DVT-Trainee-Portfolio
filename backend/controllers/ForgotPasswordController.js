@@ -1,4 +1,4 @@
 
-export function forgotPassword(req, res){
+export async function forgotPassword(req, res){
   return res.send("forgot password")
 }
