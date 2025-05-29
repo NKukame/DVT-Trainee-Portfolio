@@ -11,10 +11,6 @@ app.use(REST_API);
 app.use(express.json());
 
 
-app
-
-
-
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
