@@ -1,6 +1,4 @@
 
-function forgotPassword(req, res){
+export function forgotPassword(req, res){
   return res.send("forgot password")
 }
-
-module.exports = forgotPassword;

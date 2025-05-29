@@ -1,20 +1,27 @@
-const express = require('express');
+import { PrismaClient } from '@prisma/client';
+import express from 'express';
+import REST_API from './api.js';
+
 const app = express();
+app.use(express.json());
 const port = 3000;
-const { PrismaClient } = require('./generated/prisma');
-const REST_API = require('./api.js');
-const dataSearch = require('./Data/MockSearch.json');
-const dataTeam = require('./Data/team-portfolio.json');
-const dataProject = require('./Data/projects-modal.json');
 const prisma = new PrismaClient();
+
 app.use(REST_API);
 app.use(express.json());
 
 
-app
+// app
 
 
+app.get('/', async (req, res) => {
+  await prisma.$connect();
+  const users = await prisma.user.findMany();
+  res.send(users);
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
+// export default app;

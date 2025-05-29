@@ -1,15 +1,18 @@
 
-const dataTeam = require('../Data/team-portfolio.json');
-const dataProject = require('../Data/projects-modal.json');
+import { PrismaClient } from "@prisma/client";
 
-
-async function HomePortfolioController(req, res){
+const prisma = new PrismaClient()
+export async function HomePortfolioController(req, res){
   
-  res.send(dataTeam);
+  const users = await prisma.user.findMany()
+
+  // const dataTeam = await fetch("/team-portfolio.json");
+  res.send(users);
 }
 
- async function HomeProjectController(req, res){ 
-  return res.send(dataProject);
+export async function HomeProjectController(req, res){ 
+  const employees = await prisma.project.findMany();
+
+  return res.send(employees);
 }
 
-module.exports = {HomePortfolioController, HomeProjectController} 

@@ -30,3 +30,9 @@
 - **Smooth Carousel Navigation** – In Carousel View, users can navigate through profiles using next/previous buttons.
 - **Search Functionality** – Users can search for specific team members using a search input.
 
+### Prisma Commands
+- `npx prisma migrate dev` - Migrate the database schema, generate artifacts (e.g. `prisma/client`), and apply the migration to the development database.
+- `npx prisma migrate deploy` - Migrate the database schema and apply the migration to the production database.
+- `npx prisma db seed` - Run a seed to populate the development database with data.
+- `npx prisma generate` to generate the Prisma client
+- `npx prisma studio` to see the database interface UI 
