@@ -1,0 +1,10 @@
+.profile-creation-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-creation-header{  
+    margin: 10px;    
+}
