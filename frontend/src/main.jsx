@@ -7,8 +7,8 @@ import About from './Pages/AboutPage/About.jsx';
 import Login from './Pages/LoginPage/Login.jsx'
 import Portfolio from './Pages/PortfolioPage/Portfolio.jsx';
 import UserPortfolio from './Pages/UserPortfolioPage/UserPortfolio.jsx';
+import ProfileCreation from './Pages/ProfileCreation/ProfileCreation.jsx';
 import SearchBar from './components/SearchBarComp/SearchBar.jsx';
-import ProfileForm from './Pages/ProfileFormPage/ProfileForm.jsx';
 import Search from './Pages/SearchPage/Search.jsx';
 import ForgotPassword from './components/BadgeComp/ForgotPassword.jsx';
 import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx';
@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/search" element={<Search />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/userportfolio" element={<UserPortfolio />} />
-        <Route path="/profileform" element={<ProfileForm />} />
+        <Route path="/profilecreation" element={<ProfileCreation />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         
       </Routes>
