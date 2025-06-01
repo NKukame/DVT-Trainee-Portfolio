@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/search" element={<Search />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/userportfolio" element={<UserPortfolio />} />
-        <Route path="/profilecreation" element={<ProfileCreation />} />
+        <Route path="/profile-creation" element={<ProfileCreation />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         
       </Routes>

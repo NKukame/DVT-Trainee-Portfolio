@@ -57,3 +57,9 @@
     position: absolute;
     top: 0;
 }
+
+.steps.active .step-text{
+  background-color: rgb(2, 127, 185, 0.2);
+  padding: 7px;
+  border-radius: 10px;
+}
