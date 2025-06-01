@@ -1,6 +1,6 @@
 import "./Stepper.css";
 
-function Stepper({ currentStep = 0, stepData }) {
+function Stepper({ currentStep, stepData }) {
   return (
     <div className="stepper-container">
        {stepData && stepData.map((step, index) => (

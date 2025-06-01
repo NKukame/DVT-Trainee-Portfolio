@@ -4,6 +4,7 @@ import SideBar from "../../components/SidebarComp/SideBar";
 import Stepper from "../../components/ProfileCreationComp/Stepper";
 import { useState } from "react";
 import BasicInfoForm from "../../components/ProfileCreationComp/BasicInfoForm";
+import SkillsForm from "../../components/ProfileCreationComp/SkillsForm";
 import { Save, X } from "lucide-react";
 import { useDarkMode } from "../../components/DarkModeComp/DarkModeProvider";
 
@@ -40,6 +41,30 @@ function ProfileCreation() {
       description: "Please review your profile and submit for approval",
     },
   ]);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const handleNext = () => {
+    if (currentStep < stepData.length - 1) {
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
+
+  const renderStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <BasicInfoForm />;
+      case 1:
+        return <SkillsForm />;
+      default:
+        return <div>No Form Found</div>;
+    }
+  };
 
   return (
     <>
@@ -49,16 +74,16 @@ function ProfileCreation() {
         <div className="app-layout-body">
           <div className="profile-creation-body">
             <div className="profile-creation-header">
-              <Stepper currentStep={0} stepData={stepData} />
+              <Stepper currentStep={currentStep} stepData={stepData} />
             </div>
 
             <div className="profile-creation-content">
               <div className="profile-creation-content-header">
-                <h1>Body</h1>
+                <h1>{stepData[currentStep].title}</h1>
               </div>
 
               <div className="profile-creation-content-forms-container">
-                <BasicInfoForm />
+                {renderStepContent(currentStep)}
               </div>
 
               <div className="profile-creation-content-footer">
@@ -76,12 +101,19 @@ function ProfileCreation() {
                 </div>
 
                 <div className="profile-creation-content-footer-page-numbers">
-                  <p>Page 1 of 7</p>
+                  <p>Page {currentStep + 1} of 7</p>
                 </div>
 
                 <div className="profile-creation-content-footer-left-sided-buttons">
-                  <button>Previous</button>
-                  <button>Next</button>
+                  <button onClick={handlePrevious} disabled={currentStep === 0}>
+                    Previous
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    disabled={currentStep === stepData.length - 1}
+                  >
+                    Next
+                  </button>
                 </div>
               </div>
             </div>
