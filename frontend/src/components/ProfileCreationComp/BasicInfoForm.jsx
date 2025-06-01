@@ -1,7 +1,15 @@
+import React, { useState } from "react";
 import "./Form.css";
 import { Camera } from "lucide-react";
 
 function BasicInfo() {
+  const [profilePic, setProfilePic] = useState(null);
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePic(URL.createObjectURL(file));
+    }
+  };
   return (
     <div className="basic-info-container">
       <form action="" className="basic-info-form">
@@ -9,15 +17,42 @@ function BasicInfo() {
           <div className="left-form-group">
             <div className="form-group">
               <div className="profile-picture-form">
-                <Camera color="#404040" size={35} />
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ marginTop: "2px" }}
-                  id="profilePic"
-                  name="profilePic"
-                />
+                {profilePic ? (
+                  <>
+                    <img
+                      src={profilePic}
+                      alt="Profile Preview"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Camera color="#404040" size={35} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ marginTop: "2px" }}
+                      id="profilePic"
+                      name="profilePic"
+                      onChange={handleProfilePicChange}
+                    />
+                  </>
+                )}
               </div>
+              {profilePic && (
+                <button
+                  className="remove-profile-pic-btn"
+                  type="button"
+                  onClick={() => setProfilePic(null)}
+                >
+                  Remove
+                </button>
+              )}
             </div>
 
             <div className="form-group">
@@ -128,13 +163,14 @@ function BasicInfo() {
         </div>
 
         <div className="footer-form-container">
-            <div className="form-group">
-              <label htmlFor="introduction">
-                Introduction
-              </label>
-              <textarea name="introduction-form" id="introduction-form" placeholder="Enter A Brief Introduction About Yourself"></textarea>
-            </div>
-
+          <div className="form-group">
+            <label htmlFor="introduction">Introduction</label>
+            <textarea
+              name="introduction-form"
+              id="introduction-form"
+              placeholder="Enter A Brief Introduction About Yourself"
+            ></textarea>
+          </div>
         </div>
       </form>
     </div>

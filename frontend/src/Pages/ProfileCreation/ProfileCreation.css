@@ -18,10 +18,11 @@
     margin: auto 0;
     height: fit-content;
     width: 91vw;
-    height: 78vh;
+    height: 100%;
     background-color: var(--white);
     margin-left: 7%;
     border-radius: 15px;
+    margin-bottom: 7px;
 }
 
 .profile-creation-content-header{
