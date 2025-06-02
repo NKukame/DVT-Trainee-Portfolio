@@ -7,6 +7,8 @@ import BasicInfoForm from "../../components/ProfileCreationComp/BasicInfoForm";
 import SkillsForm from "../../components/ProfileCreationComp/SkillsForm";
 import CareerForm from "../../components/ProfileCreationComp/CareerForm";
 import Testimonials from "../../components/ProfileCreationComp/Testimonials";
+import LinksForm from "../../components/ProfileCreationComp/LinksForm";
+import StatusForm from "../../components/ProfileCreationComp/StatusForm";
 import { Save, X } from "lucide-react";
 import { useDarkMode } from "../../components/DarkModeComp/DarkModeProvider";
 
@@ -67,6 +69,10 @@ function ProfileCreation() {
         return <CareerForm />;
       case 3:
         return <Testimonials />;
+      case 4:
+        return <LinksForm />;
+      case 5:
+        return <StatusForm />;
       default:
         return <div>No Form Found</div>;
     }

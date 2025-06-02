@@ -40,7 +40,8 @@
 .skills-form select,
 .chosen-tech-stack label,
 .career-form-container input,
-.testimonials-form input {
+.testimonials-form input,
+.links-form input {
   background-color: var(--white);
   color: #404040;
   padding: 7px;
@@ -54,7 +55,11 @@
 .basic-info-form select:focus,
 .footer-form-container textarea:focus,
 .skills-form input:focus,
-.skills-form select:focus {
+.skills-form select:focus,
+.chosen-tech-stack label:focus,
+.career-form-container input:focus,
+.testimonials-form input:focus,
+.links-form input:focus {
   box-shadow: 0 0 3px rgba(2, 127, 185, 0.5);
   border-color: var(--navy-blue);
   outline: none;
@@ -301,4 +306,13 @@
 
 .testimonial-upload button{
     margin-top: 10px;
+}
+
+/* Links */
+.links-form-group{
+    min-height: 440px;
+}
+
+.links-form-group input{
+    width: 450px;
 }
