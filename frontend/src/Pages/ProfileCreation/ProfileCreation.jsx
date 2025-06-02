@@ -5,6 +5,8 @@ import Stepper from "../../components/ProfileCreationComp/Stepper";
 import { useState } from "react";
 import BasicInfoForm from "../../components/ProfileCreationComp/BasicInfoForm";
 import SkillsForm from "../../components/ProfileCreationComp/SkillsForm";
+import CareerForm from "../../components/ProfileCreationComp/CareerForm";
+import Testimonials from "../../components/ProfileCreationComp/Testimonials";
 import { Save, X } from "lucide-react";
 import { useDarkMode } from "../../components/DarkModeComp/DarkModeProvider";
 
@@ -61,6 +63,10 @@ function ProfileCreation() {
         return <BasicInfoForm />;
       case 1:
         return <SkillsForm />;
+      case 2:
+        return <CareerForm />;
+      case 3:
+        return <Testimonials />;
       default:
         return <div>No Form Found</div>;
     }

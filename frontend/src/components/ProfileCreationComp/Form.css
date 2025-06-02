@@ -38,7 +38,8 @@
 .footer-form-container textarea,
 .skills-form input,
 .skills-form select,
-.chosen-tech-stack label {
+.chosen-tech-stack label,
+.career-form-container input {
   background-color: var(--white);
   color: #404040;
   padding: 7px;
@@ -183,8 +184,12 @@
 }
 
 .chosen-tech-stack label{
-    width: 150px;
+    width: 180px;
     color: var(--navy-blue);
+}
+
+.chosen-tech-stack select{
+    width: 120px;
 }
 
 .badge-active {
@@ -193,7 +198,7 @@
   border-color: #007bff;
 }
 
-.remove-tech-button {
+.remove-tech-button, .remove-entry-button {
   background: none;
   border: none;
   font-size: 25px;
@@ -204,4 +209,53 @@
 
 .remove-tech-button:hover {
   color: #a94442;
+}
+
+/* Career Form */
+
+.career-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.career-form-container .skills-dual-input input{
+    width: 440px;
+}
+
+.career-form-projects{
+    min-height: 330px;
+}
+
+.career-form-projects-entries-container{
+    margin-top: 20px;
+}
+
+.career-projects-upload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    width: 320px;
+    background-color: var(--progress-bar-gray);
+    border-radius: 12px;
+}
+
+.career-projects-upload button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-color: var(--white);
+    color: var(--navy-blue);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.career-projects-upload button:hover {
+    background-color: var(--navy-blue);
+    color: var(--white);
 }
