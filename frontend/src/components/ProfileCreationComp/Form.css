@@ -4,7 +4,11 @@
   margin: 0 auto;
 }
 
-.top-form-container {
+.skills-container{
+    height: 100%;
+}
+
+.top-form-container, .skills-form {
   display: flex;
   gap: 10%;
   margin: 0 auto;
@@ -21,7 +25,7 @@
   margin-top: 9px;
 }
 
-.right-form-group {
+.top-form-container .right-form-group {
   margin-top: 7px;
 }
 
@@ -31,7 +35,10 @@
 
 .basic-info-form input,
 .basic-info-form select,
-.footer-form-container textarea {
+.footer-form-container textarea,
+.skills-form input,
+.skills-form select,
+.chosen-tech-stack label {
   background-color: var(--white);
   color: #404040;
   padding: 7px;
@@ -43,7 +50,9 @@
 
 .basic-info-form input:focus,
 .basic-info-form select:focus,
-.footer-form-container textarea:focus {
+.footer-form-container textarea:focus,
+.skills-form input:focus,
+.skills-form select:focus {
   box-shadow: 0 0 3px rgba(2, 127, 185, 0.5);
   border-color: var(--navy-blue);
   outline: none;
@@ -53,7 +62,7 @@
   width: 120px;
 }
 
-.basic-info-form input {
+.basic-info-form input, .skills-form input {
   width: 600px;
 }
 
@@ -93,4 +102,106 @@
 .footer-form-container textarea {
   width: 110%;
   height: 70px;
+}
+
+/* Skills Form */
+.skills-dual-input {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.skills-dual-input input {
+  width: 300px;
+  padding: 7px;
+  border: 2px solid var(--progress-bar-gray);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.custom-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-dropdown-toggle {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.skills-dropdown {
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+  background: white;
+  width: 100%;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  overflow-x: auto;
+  max-width: fit-content;
+}
+
+.skills-category {
+  margin-bottom: 1rem;
+}
+
+.skills-category-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.skills-labels-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.custom-dropdown-wrapper .badge-default:hover {
+  background-color: var(--navy-blue);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.tech-stack-form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 25px;
+    min-height: 270px;
+}
+
+.chosen-tech-stack {
+  display: flex;
+  gap: 30px;
+}
+
+.chosen-tech-stack label{
+    width: 150px;
+    color: var(--navy-blue);
+}
+
+.badge-active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.remove-tech-button {
+  background: none;
+  border: none;
+  font-size: 25px;
+  color: red;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.remove-tech-button:hover {
+  color: #a94442;
 }
