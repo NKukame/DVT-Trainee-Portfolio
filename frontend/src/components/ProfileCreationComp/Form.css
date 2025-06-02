@@ -39,7 +39,8 @@
 .skills-form input,
 .skills-form select,
 .chosen-tech-stack label,
-.career-form-container input {
+.career-form-container input,
+.testimonials-form input {
   background-color: var(--white);
   color: #404040;
   padding: 7px;
@@ -198,7 +199,7 @@
   border-color: #007bff;
 }
 
-.remove-tech-button, .remove-entry-button {
+.remove-tech-button, .remove-entry-button, .remove-client-button {
   background: none;
   border: none;
   font-size: 25px;
@@ -243,19 +244,61 @@
     border-radius: 12px;
 }
 
-.career-projects-upload button {
+.career-projects-upload button, .testimonial-upload button {
     padding: 10px 20px;
     border-radius: 6px;
     background-color: var(--white);
     color: var(--navy-blue);
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
+    font-size: 16px; 
     transition: background-color 0.3s, color 0.3s;
 }
 
-.career-projects-upload button:hover {
+.career-projects-upload button{
+    margin-top: 20px;
+}
+
+.career-projects-upload button:hover, .testimonial-upload button:hover {
     background-color: var(--navy-blue);
     color: var(--white);
+}
+
+/* Testimonials */
+
+.testimonials-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.testimonials-form input{
+    width: 400px;
+}
+
+.remove-client-button{
+    margin-left: 20px;
+}
+
+.testimonials-form-container{
+    min-height: 350px;
+}
+
+.testimonial-upload-container{
+    margin-top: 20px;
+}
+
+.testimonial-upload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 320px;
+    background-color: var(--progress-bar-gray);
+    border-radius: 12px;
+}
+
+.testimonial-upload button{
+    margin-top: 10px;
 }
