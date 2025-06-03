@@ -43,7 +43,9 @@
 .testimonials-form input,
 .links-form input,
 .status-form-container select,
-.status-form-container input {
+.status-form-container input,
+.career-upload-modal-overlay input,
+.career-upload-modal-overlay textarea {
   background-color: var(--white);
   color: #404040;
   padding: 7px;
@@ -63,7 +65,9 @@
 .testimonials-form input:focus,
 .links-form input:focus,
 .status-form-container select:focus,
-.status-form-container input:focus {
+.status-form-container input:focus,
+.career-upload-modal-overlay input:focus,
+.career-upload-modal-overlay textarea:focus {
   box-shadow: 0 0 3px rgba(2, 127, 185, 0.5);
   border-color: var(--navy-blue);
   outline: none;
@@ -113,10 +117,11 @@
 .footer-form-container textarea {
   width: 110%;
   height: 70px;
+  font-family: inherit;
 }
 
 /* Skills Form */
-.skills-dual-input {
+.skills-dual-input, .career-project-top-section, .career-project-bottom-section, .career-modal-button-section {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -271,6 +276,118 @@
 .career-projects-upload button:hover, .testimonial-upload button:hover {
     background-color: var(--navy-blue);
     color: var(--white);
+}
+
+.career-upload-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.career-upload-modal{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 15px;
+  height: 97%;
+  width: 30vw;
+  border-radius: 10px;
+  border: 2px solid var(--progress-bar-gray);
+  background-color: var(--white);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.career-upload-modal label {
+  color: #404040;
+  font-size: 13px;
+}
+
+.career-upload-modal input {
+  width: 100%;
+  font-size: 16px;
+} 
+
+.career-project-image-upload{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-height: 200px;
+  min-height: 100px;
+  width: 100%;
+  background-color: var(--progress-bar-gray);
+  border-radius: 12px;
+
+}
+
+.career-project-image-upload input {
+  width: 80%;
+  padding: 4px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin: 0;
+}
+
+.career-upload-modal-overlay textarea {
+  width: 410px;
+  height: 80px;
+  border-radius: 6px;
+  border: 2px solid var(--progress-bar-gray);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.career-project-industries .custom-dropdown-wrapper,
+.career-project-industries .custom-dropdown-toggle,
+.career-project-industries .skills-dropdown,
+.career-project-technologies .custom-dropdown-wrapper,
+.career-project-technologies .custom-dropdown-toggle,
+.career-project-technologies .skills-dropdown {
+  width: 100%;
+  min-width: 410px;
+  box-sizing: border-box;
+}
+
+
+.career-modal-button-section button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border: 2px solid var(--gray);
+    color: var(--white);
+    border-radius: 5px;
+    width: 204px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.career-modal-button-section button:hover{
+    background-color: var(--navy-blue);
+    color: var(--white);
+}
+
+.career-modal-close-button{
+  background-color: red;
+}
+
+.career-modal-submit-button{
+  background-color: var(--light-blue);
+}
+
+.career-project-top-section input, .career-project-bottom-section input{
+    width: 100%;
 }
 
 /* Testimonials */
