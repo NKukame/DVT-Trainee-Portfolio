@@ -8,6 +8,11 @@ const port = 3000;
 const prisma = new PrismaClient();
 
 app.use(REST_API);
+app.use(express.json());
+
+
+// app
+
 
 app.get('/', async (req, res) => {
   await prisma.$connect();
@@ -19,4 +24,4 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-export default app;
+// export default app;

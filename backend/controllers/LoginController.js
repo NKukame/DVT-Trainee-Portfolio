@@ -21,8 +21,6 @@ config({ path: "../.env" });
 
 
 const prisma = new PrismaClient();
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
 
 export default async function login(req, res) {
   const { email, password } = req.body;
