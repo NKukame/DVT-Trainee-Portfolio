@@ -429,6 +429,15 @@
     margin-top: 10px;
 }
 
+.testimonial-modal{
+  height: 38%;
+}
+
+.testimonial-modal input{
+  width: 100%;
+}
+
+
 /* Links */
 .links-form-group{
     min-height: 440px;
