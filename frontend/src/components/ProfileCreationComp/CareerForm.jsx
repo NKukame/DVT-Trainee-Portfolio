@@ -62,6 +62,10 @@ function CareerFrom() {
     useState(false);
   const [selectedIndustries, setSelectedIndustries] = useState([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [projectName, setProjectName] = useState("");
+  const [projectImage, setProjectImage] = useState(null);
+  const [editIndex, setEditIndex] = useState(null);
 
   // Function to handle changes in any input field
   const handleChange = (index, event) => {
@@ -108,6 +112,45 @@ function CareerFrom() {
     } else {
       setSelectedTechnologies([...selectedTechnologies, technology]);
     }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProjectImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSaveProject = () => {
+    if (!projectName || !projectImage) return;
+    if (editIndex !== null) {
+      // Edit existing project
+      const updated = [...projects];
+      updated[editIndex] = {
+        ...updated[editIndex],
+        name: projectName,
+        image: projectImage,
+      };
+      setProjects(updated);
+    } else {
+      // Add new project
+      setProjects([
+        ...projects,
+        {
+          name: projectName,
+          image: projectImage,
+          date: new Date().toLocaleDateString(),
+        },
+      ]);
+    }
+    setShowModal(false);
+    setProjectName("");
+    setProjectImage(null);
+    setEditIndex(null);
   };
 
   return (
@@ -165,10 +208,37 @@ function CareerFrom() {
         <div className="career-form-projects">
           <label htmlFor="career-chronology">Projects</label>
 
-          <div className="career-form-projects-entries-container">
-            <div className="career-projects-upload">
-              <Upload size={50} className="career-projects-upload-icon" />
-              <button onClick={() => setShowModal(true)}>Upload Project</button>
+          <div className="career-form-projects-container">
+            <div className="career-form-projects-entries-container">
+              <div className="career-projects-upload">
+                <Upload size={50} className="career-projects-upload-icon" />
+                <button onClick={() => setShowModal(true)}>
+                  Upload Project
+                </button>
+              </div>
+            </div>
+
+            <div className="career-form-projects-entries-container">
+              {projects.map((proj, idx) => (
+                <div
+                  className="career-uploaded-projects"
+                  key={idx}
+                  onClick={() => {
+                    setEditIndex(idx);
+                    setProjectName(proj.name);
+                    setProjectImage(proj.image);
+                    setShowModal(true);
+                  }}
+                >
+                  <div className="career-uploaded-project-thumbnail">
+                    <img src={proj.image} alt={proj.name} />
+                  </div>
+                  <div className="career-uploaded-project-description">
+                    <h3>{proj.name}</h3>
+                    <label>Date Submitted: {proj.date}</label>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -193,6 +263,8 @@ function CareerFrom() {
                   id="project-name"
                   name="project-name"
                   placeholder="Enter project name"
+                  value={projectName}
+                  onChange={(e) => setProjectName(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -215,6 +287,7 @@ function CareerFrom() {
                 id="project-image"
                 name="project-image"
                 accept="image/*"
+                onChange={handleImageChange}
               />
             </div>
 
@@ -367,14 +440,22 @@ function CareerFrom() {
 
             <div className="career-modal-button-section">
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  setShowModal(false);
+                  setEditIndex(null);
+                  setProjectName("");
+                  setProjectImage(null);
+                }}
                 className="career-modal-close-button"
               >
-                <X size={15}/>
+                <X size={15} />
                 Close
               </button>
-              <button className="career-modal-submit-button">
-                <Save size={15}/>
+              <button
+                className="career-modal-submit-button"
+                onClick={handleSaveProject}
+              >
+                <Save size={15} />
                 Save
               </button>
             </div>
