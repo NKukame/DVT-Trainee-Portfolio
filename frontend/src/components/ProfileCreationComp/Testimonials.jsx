@@ -5,6 +5,10 @@ import "./Form.css";
 function Testimonials() {
   const [clientEntries, setClientEntries] = useState([""]);
   const [showModal, setShowModal] = useState(false);
+  const [testimonials, setTestimonials] = useState([]);
+  const [testimonialText, setTestimonialText] = useState("");
+  const [testimonialReference, setTestimonialReference] = useState("");
+  const [testimonialCompany, setTestimonialCompany] = useState("");
 
   // Function to handle changes in any client input field
   const handleChange = (index, event) => {
@@ -40,6 +44,23 @@ function Testimonials() {
     }
   };
 
+  const handleSaveTestimonial = () => {
+    if (!testimonialText.trim()) return; // Optionally require text
+
+    setTestimonials([
+      ...testimonials,
+      {
+        text: testimonialText,
+        reference: testimonialReference,
+        company: testimonialCompany,
+      },
+    ]);
+    setShowModal(false);
+    setTestimonialText("");
+    setTestimonialReference("");
+    setTestimonialCompany("");
+  };
+
   return (
     <div className="testimonials-form">
       <div className="form-group">
@@ -72,14 +93,30 @@ function Testimonials() {
         ))}
       </div>
       <div className="testimonials-form-container">
-        <label htmlFor="clients-label">Testimonials</label>
+        <div className="form-group">
+          <label htmlFor="clients-label">Testimonials</label>
 
-        <div className="testimonial-upload-container">
-          <div className="testimonial-upload">
-            <Upload size={30} className="career-projects-upload-icon" />
-            <button type="button" onClick={() => setShowModal(true)}>
-              Upload Testimonial
-            </button>
+          <div className="testimonial-insertion-container">
+            <div className="testimonial-upload-container">
+              <div className="testimonial-upload">
+                <Upload size={30} className="career-projects-upload-icon" />
+                <button type="button" onClick={() => setShowModal(true)}>
+                  Upload Testimonial
+                </button>
+              </div>
+            </div>
+
+            {testimonials.map((t, idx) => (
+              <div className="testimonial-upload-container" key={idx}>
+                <div className="testimonial-uploaded-input">
+                  <p>"{t.text}"</p>
+                  <div className="testimonial-uploaded-input-author">
+                    <h4>{t.reference}</h4>
+                    <p>{t.company}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -94,36 +131,36 @@ function Testimonials() {
         >
           <div className="career-upload-modal testimonial-modal">
             <div className="form-group">
-              <h3>
-                Testimonial
-              </h3>
+              <h3>Testimonial</h3>
               <textarea
                 id="testimonial-text"
                 name="testimonial-text"
                 placeholder="Enter Testimonial"
+                value={testimonialText}
+                onChange={(e) => setTestimonialText(e.target.value)}
               ></textarea>
             </div>
             <div className="career-project-bottom-section">
               <div className="form-group">
-                <label htmlFor="project-link">
-                  Reference
-                </label>
+                <label htmlFor="project-link">Reference</label>
                 <input
                   type="text"
                   id="testimonial-reference"
                   name="testimonial-reference"
                   placeholder="Insert Reference"
+                  value={testimonialReference}
+                  onChange={(e) => setTestimonialReference(e.target.value)}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="github-link">
-                  Company
-                </label>
+                <label htmlFor="github-link">Company</label>
                 <input
                   type="text"
                   id="testimonial-company"
                   name="testimonial-company"
                   placeholder="Insert Company"
+                  value={testimonialCompany}
+                  onChange={(e) => setTestimonialCompany(e.target.value)}
                 />
               </div>
             </div>
@@ -132,11 +169,14 @@ function Testimonials() {
                 onClick={() => setShowModal(false)}
                 className="career-modal-close-button"
               >
-                <X size={15}/>
+                <X size={15} />
                 Close
               </button>
-              <button className="career-modal-submit-button">
-                <Save size={15}/>
+              <button
+                className="career-modal-submit-button"
+                onClick={handleSaveTestimonial}
+              >
+                <Save size={15} />
                 Save
               </button>
             </div>

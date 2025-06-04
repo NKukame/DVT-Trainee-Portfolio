@@ -267,6 +267,7 @@
     cursor: pointer;
     font-size: 16px; 
     transition: background-color 0.3s, color 0.3s;
+    border: 1px solid var(--navy-blue);
 }
 
 .career-projects-upload button{
@@ -303,6 +304,7 @@
   background-color: var(--white);
   padding: 20px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .career-upload-modal label {
@@ -410,11 +412,19 @@
     min-height: 350px;
 }
 
-.testimonial-upload-container{
-    margin-top: 20px;
+.testimonial-insertion-container{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;         
+  width: 100%;             
+  align-items: flex-start;
 }
 
-.testimonial-upload{
+.testimonial-upload-container{
+    margin-top: 10px;
+}
+
+.testimonial-upload, .testimonial-uploaded-input{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -424,6 +434,36 @@
     background-color: var(--progress-bar-gray);
     border-radius: 12px;
 }
+
+.testimonial-uploaded-input{
+  text-align: center;
+  color: var(--navy-blue);
+  background: linear-gradient(180deg, #F9FAFB 0%, var(--progress-bar-gray) 100%);
+  border: 2px solid var(--progress-bar-gray);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  gap: 10px;
+}
+
+.testimonial-uploaded-input h4{
+  margin: 0;
+  font-size: 16px;
+  color: var(--navy-blue);
+  font-weight: 700;
+}
+
+.testimonial-uploaded-input-author{
+  margin-top: 10px;
+}
+
+.testimonial-uploaded-input .testimonial-uploaded-input-author p{
+  font-weight: 400;
+}
+
+.testimonial-uploaded-input p{
+  font-size: 15px;
+  font-weight: 300;
+}
+
 
 .testimonial-upload button{
     margin-top: 10px;
