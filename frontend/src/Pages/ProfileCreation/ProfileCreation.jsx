@@ -86,7 +86,7 @@ function ProfileCreation() {
         <div className="app-layout-body">
           <div className="profile-creation-body">
             <div className="profile-creation-header">
-              <Stepper currentStep={currentStep} stepData={stepData} />
+              <Stepper currentStep={currentStep} stepData={stepData} setCurrentStep={setCurrentStep} />
             </div>
 
             <div className="profile-creation-content">
