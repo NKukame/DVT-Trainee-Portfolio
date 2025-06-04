@@ -65,6 +65,12 @@ function SkillsForm() {
     "Flexibility",
     "Cultural Awareness",
   ];
+  const [educationEntries, setEducationEntries] = useState([
+    { qualification: "", institution: "" },
+  ]);
+  const [certificationEntries, setCertificationEntries] = useState([
+    { certificate: "", institution: "" },
+  ]);
 
   const handleBadgeClick = (label) => {
     if (selectedTechnologies.includes(label)) {
@@ -92,6 +98,57 @@ function SkillsForm() {
     setSelectedSoftSkills((prev) => prev.filter((s) => s !== skill));
   };
 
+  const handleEducationChange = (index, event) => {
+    const { name, value } = event.target;
+    const updated = [...educationEntries];
+    updated[index][name] = value;
+    setEducationEntries(updated);
+
+    // If last row is filled, add a new empty row
+    if (
+      index === educationEntries.length - 1 &&
+      updated[index].qualification &&
+      updated[index].institution
+    ) {
+      setEducationEntries([...updated, { qualification: "", institution: "" }]);
+    }
+  };
+
+  const handleRemoveEducation = (index) => {
+    if (educationEntries.length === 1) {
+      setEducationEntries([{ qualification: "", institution: "" }]);
+      return;
+    }
+    setEducationEntries(educationEntries.filter((_, i) => i !== index));
+  };
+
+  const handleCertificationChange = (index, event) => {
+    const { name, value } = event.target;
+    const updated = [...certificationEntries];
+    updated[index][name] = value;
+    setCertificationEntries(updated);
+
+    // If last row is filled, add a new empty row
+    if (
+      index === certificationEntries.length - 1 &&
+      updated[index].certificate &&
+      updated[index].institution
+    ) {
+      setCertificationEntries([
+        ...updated,
+        { certificate: "", institution: "" },
+      ]);
+    }
+  };
+
+  const handleRemoveCertification = (index) => {
+    if (certificationEntries.length === 1) {
+      setCertificationEntries([{ certificate: "", institution: "" }]);
+      return;
+    }
+    setCertificationEntries(certificationEntries.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="skills-container">
       <form action="" className="skills-form">
@@ -100,20 +157,37 @@ function SkillsForm() {
             <label htmlFor="skills">
               Education<span className="required-asterisk">*</span>
             </label>
-            <div className="skills-dual-input">
-              <input
-                type="text"
-                id="qualification"
-                name="qualification"
-                placeholder="Enter Your Qualification"
-              />
-              <input
-                type="text"
-                id="institution"
-                name="institution"
-                placeholder="Enter Your Institution"
-              />
-            </div>
+            {educationEntries.map((entry, idx) => (
+              <div className="skills-dual-input" key={idx}>
+                <input
+                  type="text"
+                  id={`qualification-${idx}`}
+                  name="qualification"
+                  placeholder="Enter Your Qualification"
+                  value={entry.qualification}
+                  onChange={(e) => handleEducationChange(idx, e)}
+                />
+                <input
+                  type="text"
+                  id={`institution-${idx}`}
+                  name="institution"
+                  placeholder="Enter Your Institution"
+                  value={entry.institution}
+                  onChange={(e) => handleEducationChange(idx, e)}
+                />
+                {(educationEntries.length > 1 ||
+                  entry.qualification ||
+                  entry.institution) && (
+                  <button
+                    type="button"
+                    className="remove-tech-button"
+                    onClick={() => handleRemoveEducation(idx)}
+                  >
+                    &times;
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
 
           <div className="form-group">
@@ -186,75 +260,94 @@ function SkillsForm() {
         <div className="right-form-group">
           <div className="form-group">
             <label htmlFor="skills">Future Certification</label>
-            <div className="skills-dual-input">
-              <input
-                type="text"
-                id="certificate"
-                name="certificate"
-                placeholder="Enter Your Certificate"
-              />
-              <input
-                type="text"
-                id="certificate-institution"
-                name="certificate-institution"
-                placeholder="Enter Your Institution"
-              />
-            </div>
+            {certificationEntries.map((entry, idx) => (
+              <div className="skills-dual-input" key={idx}>
+                <input
+                  type="text"
+                  id={`certificate-${idx}`}
+                  name="certificate"
+                  placeholder="Enter Your Certificate"
+                  value={entry.certificate}
+                  onChange={(e) => handleCertificationChange(idx, e)}
+                />
+                <input
+                  type="text"
+                  id={`certificate-institution-${idx}`}
+                  name="institution"
+                  placeholder="Enter Your Institution"
+                  value={entry.institution}
+                  onChange={(e) => handleCertificationChange(idx, e)}
+                />
+                {(certificationEntries.length > 1 ||
+                  entry.certificate ||
+                  entry.institution) && (
+                  <button
+                    type="button"
+                    className="remove-tech-button"
+                    onClick={() => handleRemoveCertification(idx)}
+                  >
+                    &times;
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
 
           <div className="form-group">
-             <label htmlFor="soft-skills">Soft Skills</label>
-             
-             <div className="custom-dropdown-wrapper">
-               <div
-                 className="custom-dropdown-toggle"
-                 onClick={() => setShowSoftSkillsDropdown(!showSoftSkillsDropdown)}
-               >
-                 Select Soft Skills
-               </div>
+            <label htmlFor="soft-skills">Soft Skills</label>
 
-               {showSoftSkillsDropdown && (
-                 <div className="skills-dropdown">
-                   <div className="skills-labels-container">
-                     {softSkills.map((skill, index) => {
-                       const isSelected = selectedSoftSkills.includes(skill);
-                       return (
-                         <span
-                           key={index}
-                           className={`badge-default ${
-                             isSelected ? "badge-active" : ""
-                           }`}
-                           onClick={() => handleSoftSkillClick(skill)}
-                         >
-                           {skill}
-                         </span>
-                       );
-                     })}
-                   </div>
-                 </div>
-               )}
-             </div> 
-           </div>
+            <div className="custom-dropdown-wrapper">
+              <div
+                className="custom-dropdown-toggle"
+                onClick={() =>
+                  setShowSoftSkillsDropdown(!showSoftSkillsDropdown)
+                }
+              >
+                Select Soft Skills
+              </div>
+
+              {showSoftSkillsDropdown && (
+                <div className="skills-dropdown">
+                  <div className="skills-labels-container">
+                    {softSkills.map((skill, index) => {
+                      const isSelected = selectedSoftSkills.includes(skill);
+                      return (
+                        <span
+                          key={index}
+                          className={`badge-default ${
+                            isSelected ? "badge-active" : ""
+                          }`}
+                          onClick={() => handleSoftSkillClick(skill)}
+                        >
+                          {skill}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="tech-stack-form-group">
-             <h3>Selected Soft Skills</h3>
-             {selectedSoftSkills.length > 0 && (
-               <> 
-                 {selectedSoftSkills.map((skill, index) => (
-                   <div key={index} className="chosen-tech-stack">
-                     <label>{skill}</label>
-                     <button
-                       type="button"
-                       className="remove-tech-button"
-                       onClick={() => handleRemoveSoftSkill(skill)}
-                     >
-                       &times;
-                     </button>
-                   </div>
-                 ))}
-               </>
-             )}
-           </div>
+            <h3>Selected Soft Skills</h3>
+            {selectedSoftSkills.length > 0 && (
+              <>
+                {selectedSoftSkills.map((skill, index) => (
+                  <div key={index} className="chosen-tech-stack">
+                    <label>{skill}</label>
+                    <button
+                      type="button"
+                      className="remove-tech-button"
+                      onClick={() => handleRemoveSoftSkill(skill)}
+                    >
+                      &times;
+                    </button>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
         </div>
       </form>
     </div>
