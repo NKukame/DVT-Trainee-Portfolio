@@ -58,7 +58,7 @@ function BasicInfo() {
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <select name="titleDropDown" id="">
-                <option value="">Title</option>
+                <option value="" disabled>Title</option>
                 <option value="mr">Mr.</option>
                 <option value="mrs">Mrs.</option>
                 <option value="ms">Ms.</option>
@@ -125,7 +125,7 @@ function BasicInfo() {
                 Experience<span className="required-asterisk">*</span>
               </label>
               <select name="experienceDropDown" id="">
-                <option value="">Years</option>
+                <option value="" disabled>Years</option>
                 <option value="0-1">0-1 Years</option>
                 <option value="1-2">1-2 Years</option>
                 <option value="3-4">3-4 Years</option>
