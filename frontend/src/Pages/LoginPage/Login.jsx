@@ -103,7 +103,7 @@ function Signup() {
 
   };
 
-  const handleSignup = () => {
+  const handleSignup = async() => {
     if (validationForm()) {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.email === formData.email ) {
@@ -111,33 +111,33 @@ function Signup() {
         return;
       }
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        })
-      );
-      alert("User registered successfully!");
-      setIsSignUp(false);
-      navigate("/");
-      // Clear form except email for login
-      setFormData(prev => ({
-        ...prev,
-        password: "",
-        confirmPassword: "",
-      }));
-    }
+      const user = {name: formData.name, email: formData.email, password: formData.password};
+
+      const userRegistered = await fetch('http://localhost:3000/register', {
+        method:'post',
+        headers:{
+          'Content-Type' : 'application/json'
+        },
+        body: user
+      });
+      
+      if(userRegistered.status === 200){
+        alert("User registered successfully!");
+        setIsSignUp(false);
+        navigate("/");
+        setFormData(prev => ({
+          ...prev,
+          password: "",
+          confirmPassword: "",
+        }));
+      }  
+      }
+      else{
+        alert('Registration failed`')
+      }
   };
 
-  const handleLogin = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    
-    if (!storedUser) {
-      setErrors({ login: "No registered user found. Please sign up first." });
-      return;
-    }
+  const handleLogin = async() => {
 
     if (formData.email === "" &&  formData.name === "") {
       setErrors({ email: "Email or Username is required " });
@@ -149,36 +149,22 @@ function Signup() {
       return;
     }
 
-    if (
-      storedUser &&
-      (formData.email === storedUser.email || formData.name === storedUser.name) &&
-      formData.password === storedUser.password
-    ) {
-
-      if (rememberMe) {
-        localStorage.setItem("rememberedCredentials", JSON.stringify({
-          email: formData.email,
-          name: formData.name,
-          password: formData.password
-        }));
-      } else {
-
-        localStorage.removeItem("rememberedCredentials");
-
-      }
-
-
-      alert("Login successful!");
-
-      localStorage.setItem("isLoggedIn", "true");
+    const user = {email: formData.email, password:formData.password};
+    
+    const isLogin = await fetch('http://localhost:3000/login', {
+      method: 'post',
+      headers:{
+        'Content-Type' : 'application/json'
+      },
+      body: user
+    })
+    if(isLogin.status === 200){
+      const {token} = isLogin.body;
+      localStorage.setItem("token", token);
       navigate("/home");
-    } else {
-      if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
-        console.log(formData.email ,storedUser.name)
-        setErrors({ email: "Email or Username not found" });
-      } else {
-        setErrors({ password: "Incorrect password" });
-      }
+    }
+    else {
+      setErrors({ email: "Email or Username Invalid" });
     }
   };
 
