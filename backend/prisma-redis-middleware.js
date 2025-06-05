@@ -1,27 +1,48 @@
-import Prisma from "prisma";
 import { PrismaClient } from "@prisma/client";
 import { createPrismaRedisCache } from "prisma-redis-middleware";
 import Redis from "ioredis";
 
-const redis = new Redis();
+// Create Redis connection
+const redis = new Redis({
+  host: process.env.REDIS_HOST || 'localhost',
+  port: parseInt(process.env.REDIS_PORT || '6379'),
+  retryDelayOnFailover: 100,
+});
 
+redis.on('connect', () => {
+  console.log('✅ Connected to Redis');
+});
+
+redis.on('error', (err) => {
+  console.error('❌ Redis connection error:', err);
+});
+
+// Create Prisma client
 const prisma = new PrismaClient();
 
-export const prismaRedisCache = createPrismaRedisCache({
+// Create Redis cache middleware
+const prismaRedisCache = createPrismaRedisCache({
   redis,
-  // Optional: customize the cache key generation
   keyGenerator: (model, action, args) => {
     return `${model}:${action}:${JSON.stringify(args)}`;
   },
+  cacheTime: {
+    default: 300,    // 5 minutes for most queries
+    Employee: 600,   // 10 minutes for employees (they don't change often)
+    Project: 300,    // 5 minutes for projects
+    User: 180,       // 3 minutes for users
+  },
 });
 
-Prisma.use(prismaRedisCache);
+// Apply Redis caching to Prisma
+prisma.$use(prismaRedisCache());
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  await prisma.$disconnect();
+  redis.disconnect();
+  process.exit(0);
+});
+
+export { redis };
 export default prisma;
-// This code sets up a Prisma client with Redis caching middleware.
-// It uses the `prisma-redis-middleware` package to cache Prisma queries in Redis,
-// which can significantly improve performance for read-heavy applications.
-// The `createPrismaRedisCache` function is used to create the caching middleware,
-// and it is applied to the Prisma client using `Prisma.use()`.
-// The `keyGenerator` function is optional and can be customized to generate cache keys based on the model, action, and arguments.
-// The Redis client is created using `ioredis`, which is a popular Redis client for Node.js.
-// This setup allows for efficient caching of database queries, reducing the load on the database and speeding up response times for frequently accessed data.

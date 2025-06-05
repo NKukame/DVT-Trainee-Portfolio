@@ -7,6 +7,7 @@ import {UpdateProfileController} from '../controllers/UpdateProfileController.js
 import {forgotPassword} from '../controllers/ForgotPasswordController.js';
 import { deleteProjectController, deleteProfileController } from '../controllers/DeleteController.js';
 import signup from '../controllers/SignupController.js';
+import { redis } from '../lib/prisma.js';
 
 
 const totalRoutes = express.Router();
@@ -28,5 +29,33 @@ totalRoutes.get('/team-cards-showcase', HomePortfolioController); // /profiles/:
 
 totalRoutes.get('/profile/:name', SearchEmployeeController);
 totalRoutes.get('/project/:name', SearchProjectController);
+
+
+// Middleware to check Redis cache
+totalRoutes.get('/test-cache', async (req, res) => {
+  try {
+    // Test Redis connection
+    const pongResult = await redis.ping();
+    
+    // Get cache info
+    const cacheKeys = await redis.keys('*');
+    
+    res.json({
+      success: true,
+      redis: {
+        connected: pongResult === 'PONG',
+        totalCacheKeys: cacheKeys.length,
+        cacheKeys: cacheKeys.slice(0, 10) // Show first 10 keys
+      },
+      message: 'Redis is working! Try calling /team-cards-showcase twice to see caching in action.'
+    });
+    
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
 
 export default totalRoutes;

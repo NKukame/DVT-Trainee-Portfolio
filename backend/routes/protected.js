@@ -11,4 +11,5 @@ router.get("/protected", authenticateToken, (req, res) => {
   });
 });
 
+
 export default router;
