@@ -1,17 +1,25 @@
-/**
- * User registration route handler.
- *
- * This endpoint will handle new user registration once the logic is implemented.
- * Expected behavior includes validating input data (e.g., email, password),
- * checking for existing accounts, hashing the password, and saving the new user to the database.
- *
- * Note: This is currently a placeholder and does not register users..
- *
- * @param {import('express').Request} req - Express request object, expected to contain user registration data in the body.
- * @param {import('express').Response} res - Express response object, used to send status and data back to the client.
- * @returns {void} Sends a response indicating the route is active.
- */
+import bcrypt from 'bcryptjs';
+import { PrismaClient } from "@prisma/client";
+import { config } from "dotenv";
+config({ path: "../.env" });
+const prisma = new PrismaClient();
 
-export default function signup(req, res){
-  return res.send('/signup')
+export default async function signup(req, res){
+try{
+  const { name, email, password } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const tempObj = { name, email, password: hashedPassword };
+  const user = await prisma.user.create({
+   data: tempObj,
+ })
+ res.status(201).json(user);
+
+}catch(err){
+  return res.status(400).send({message:"signup failed"})
 }
+// Store the user object in the database
+ // …
+};
+
+
