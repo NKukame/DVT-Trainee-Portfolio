@@ -2,13 +2,21 @@ import { useState } from "react";
 import { Upload, Save, X } from "lucide-react";
 import "./Form.css";
 
-function Testimonials() {
-  const [clientEntries, setClientEntries] = useState([""]);
+function Testimonials({ data, onChange }) {
+  const [clientEntries, setClientEntries] = useState(data?.clients || [""]);
   const [showModal, setShowModal] = useState(false);
-  const [testimonials, setTestimonials] = useState([]);
+  const [testimonials, setTestimonials] = useState(data?.testimonials || []);
   const [testimonialText, setTestimonialText] = useState("");
   const [testimonialReference, setTestimonialReference] = useState("");
   const [testimonialCompany, setTestimonialCompany] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
+
+  const updateParent = (clients, testimonials) => {
+    onChange({
+      clients,
+      testimonials,
+    });
+  };
 
   // Function to handle changes in any client input field
   const handleChange = (index, event) => {
@@ -18,47 +26,64 @@ function Testimonials() {
 
     setClientEntries(updatedEntries);
 
-    if (index === clientEntries.length - 1) {
-      if (value.trim() !== "") {
-        setClientEntries([...updatedEntries, ""]);
-      }
+    if (index === clientEntries.length - 1 && value.trim() !== "") {
+      const extended = [...updatedEntries, ""];
+      setClientEntries(extended);
+      updateParent(extended, testimonials);
+    } else {
+      updateParent(updatedEntries, testimonials);
     }
   };
 
   // Function to handle removing a client entry
   const handleRemoveEntry = (index) => {
-    if (
-      clientEntries.length === 1 &&
-      index === 0 &&
-      clientEntries[0].trim() === ""
-    ) {
-      return;
-    }
-
     const updatedEntries = clientEntries.filter((_, i) => i !== index);
-
-    if (updatedEntries.length === 0) {
-      setClientEntries([""]);
-    } else {
-      setClientEntries(updatedEntries);
-    }
+    const result = updatedEntries.length === 0 ? [""] : updatedEntries;
+    setClientEntries(result);
+    updateParent(result, testimonials);
   };
 
   const handleSaveTestimonial = () => {
-    if (!testimonialText.trim()) return; // Optionally require text
+    if (!testimonialText.trim()) return;
 
-    setTestimonials([
-      ...testimonials,
-      {
-        text: testimonialText,
-        reference: testimonialReference,
-        company: testimonialCompany,
-      },
-    ]);
+    const newTestimonial = {
+      text: testimonialText,
+      reference: testimonialReference,
+      company: testimonialCompany,
+    };
+
+    let updatedTestimonials;
+    if (editIndex !== null) {
+      updatedTestimonials = [...testimonials];
+      updatedTestimonials[editIndex] = newTestimonial;
+    } else {
+      updatedTestimonials = [...testimonials, newTestimonial];
+    }
+
+    setTestimonials(updatedTestimonials);
+    updateParent(clientEntries, updatedTestimonials);
+
+    // Reset modal inputs
     setShowModal(false);
     setTestimonialText("");
     setTestimonialReference("");
     setTestimonialCompany("");
+    setEditIndex(null);
+  };
+
+  const handleDeleteTestimonial = () => {
+    if (editIndex !== null) {
+      const updatedTestimonials = testimonials.filter(
+        (_, i) => i !== editIndex
+      );
+      setTestimonials(updatedTestimonials);
+      updateParent(clientEntries, updatedTestimonials);
+      setShowModal(false);
+      setEditIndex(null);
+      setTestimonialText("");
+      setTestimonialReference("");
+      setTestimonialCompany("");
+    }
   };
 
   return (
@@ -108,7 +133,16 @@ function Testimonials() {
 
             {testimonials.map((t, idx) => (
               <div className="testimonial-upload-container" key={idx}>
-                <div className="testimonial-uploaded-input">
+                <div
+                  className="testimonial-uploaded-input"
+                  onClick={() => {
+                    setEditIndex(idx);
+                    setTestimonialText(t.text);
+                    setTestimonialReference(t.reference);
+                    setTestimonialCompany(t.company);
+                    setShowModal(true);
+                  }}
+                >
                   <p>"{t.text}"</p>
                   <div className="testimonial-uploaded-input-author">
                     <h4>{t.reference}</h4>
@@ -166,12 +200,28 @@ function Testimonials() {
             </div>
             <div className="career-modal-button-section">
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  setShowModal(false);
+                  setEditIndex(null);
+                  setTestimonialText("");
+                  setTestimonialReference("");
+                  setTestimonialCompany("");
+                }}
                 className="career-modal-close-button"
               >
                 <X size={15} />
                 Close
               </button>
+              {/* {editIndex !== null && (
+                <button
+                  className="career-modal-delete-button"
+                  style={{ background: "red", color: "white" }}
+                  onClick={handleDeleteTestimonial}
+                  type="button"
+                >
+                  Delete
+                </button>
+              )} */}
               <button
                 className="career-modal-submit-button"
                 onClick={handleSaveTestimonial}

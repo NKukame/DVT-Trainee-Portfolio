@@ -46,8 +46,19 @@ function ProfileCreation() {
     },
   ]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState({
+    basicInfo: {},
+    skills: {},
+    career: {},
+    testimonials: {},
+    links: {},
+    status: {},
+  });
 
   const handleNext = () => {
+    const stepKeys = ["basicInfo", "skills", "career", "testimonials", "links", "status"];
+    const currentKey = stepKeys[currentStep];
+    console.log(`Current Step (${currentKey}) Data:`, formData[currentKey]);
     if (currentStep < stepData.length - 1) {
       setCurrentStep((prev) => prev + 1);
     }
@@ -62,17 +73,59 @@ function ProfileCreation() {
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return <BasicInfoForm />;
+        return (
+          <BasicInfoForm
+            data={formData.basicInfo}
+            onChange={(newData) =>
+              setFormData((prev) => ({ ...prev, basicInfo: newData }))
+            }
+          />
+        );
       case 1:
-        return <SkillsForm />;
+        return (
+          <SkillsForm
+            data={formData.skills}
+            onChange={(newData) =>
+              setFormData((prev) => ({ ...prev, skills: newData }))
+            }
+          />
+        );
       case 2:
-        return <CareerForm />;
+        return (
+          <CareerForm
+            data={formData.career}
+            onChange={(newData) =>
+              setFormData((prev) => ({ ...prev, career: newData }))
+            }
+          />
+        );
       case 3:
-        return <Testimonials />;
+        return (
+          <Testimonials
+            data={formData.testimonials}
+            onChange={(newData) =>
+              setFormData((prev) => ({ ...prev, testimonials: newData }))
+            }
+          />
+        );
       case 4:
-        return <LinksForm />;
+        return (
+          <LinksForm
+            data={formData.links}
+            onChange={(newData) =>
+              setFormData((prev) => ({ ...prev, links: newData }))
+            }
+          />
+        );
       case 5:
-        return <StatusForm />;
+        return (
+          <StatusForm
+            data={formData.status}
+            onChange={(newData) =>
+              setFormData((prev) => ({ ...prev, status: newData }))
+            }
+          />
+        );
       default:
         return <div>No Form Found</div>;
     }
@@ -86,7 +139,11 @@ function ProfileCreation() {
         <div className="app-layout-body">
           <div className="profile-creation-body">
             <div className="profile-creation-header">
-              <Stepper currentStep={currentStep} stepData={stepData} setCurrentStep={setCurrentStep} />
+              <Stepper
+                currentStep={currentStep}
+                stepData={stepData}
+                setCurrentStep={setCurrentStep}
+              />
             </div>
 
             <div className="profile-creation-content">

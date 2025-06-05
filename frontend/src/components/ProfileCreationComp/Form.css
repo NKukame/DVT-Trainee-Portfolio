@@ -478,6 +478,19 @@
   border: 2px solid var(--progress-bar-gray);
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   gap: 10px;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border 0.3s;
+  cursor: pointer;
+}
+
+.testimonial-uploaded-input:hover {
+  background: var(--navy-blue);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border: 2px solid var(--black);
+}
+
+.testimonial-uploaded-input:hover h4{
+  color: var(--white);
 }
 
 .testimonial-uploaded-input h4{
