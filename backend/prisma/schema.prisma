@@ -21,6 +21,12 @@ enum EmployeeRole {
   SENIOR_DEVELOPER
 }
 
+enum TechCategory {
+  BACKEND
+  FRONTEND
+  DESIGN
+}
+
 
 enum Department {
   ENGINEERING
@@ -128,6 +134,7 @@ model Availability {
 model TechStack {
   id   String @id @default(uuid())
   name String @unique
+  category TechCategory
   employees EmployeeTechStack[]
   projects  ProjectTechStack[]
 }
