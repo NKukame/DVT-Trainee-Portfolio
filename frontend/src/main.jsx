@@ -2,15 +2,16 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './styles.css'
-import Home from './Home.jsx'
-import About from './About.jsx';
-import Login from './Login.jsx'
-import Portfolio from './Portfolio.jsx';
-import UserPortfolio from './UserPortfolio.jsx';
-import SearchBar from './components/SearchBar.jsx';
-import ProfileForm from './ProfileForm.jsx';
-import Search from './Search.jsx';
-import { DarkModeProvider } from './components/DarkModeProvider.jsx';
+import Home from './Pages/HomePage/Home.jsx'
+import About from './Pages/AboutPage/About.jsx';
+import Login from './Pages/LoginPage/Login.jsx'
+import Portfolio from './Pages/PortfolioPage/Portfolio.jsx';
+import UserPortfolio from './Pages/UserPortfolioPage/UserPortfolio.jsx';
+import SearchBar from './components/SearchBarComp/SearchBar.jsx';
+import ProfileForm from './Pages/ProfileFormPage/ProfileForm.jsx';
+import Search from './Pages/SearchPage/Search.jsx';
+import ForgotPassword from './components/BadgeComp/ForgotPassword.jsx';
+import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/userportfolio" element={<UserPortfolio />} />
         <Route path="/profileform" element={<ProfileForm />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         
       </Routes>
     </Router>
