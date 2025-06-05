@@ -10,7 +10,7 @@ import { use } from "react";
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    name:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -30,7 +30,6 @@ function Signup() {
         setFormData((prevData) => ({
           ...prevData,
           email: rememberedCredentials.email || "",
-        name: rememberedCredentials.name || "",
         password: rememberedCredentials.password || ""
         }));
 
@@ -61,7 +60,6 @@ function Signup() {
     let newErrors = {};
 
     if (isSignUp) {
-      if (!formData.name) newErrors.name = "Name is required";
       if (!formData.confirmPassword) {
         newErrors.confirmPassword = "Confirm Password is required";
       } else if (formData.confirmPassword !== formData.password) {
@@ -103,7 +101,7 @@ function Signup() {
 
   };
 
-  const handleSignup = () => {
+  const handleSignup = async() => {
     if (validationForm()) {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.email === formData.email ) {
@@ -111,24 +109,30 @@ function Signup() {
         return;
       }
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        })
-      );
-      alert("User registered successfully!");
-      setIsSignUp(false);
-      navigate("/");
-      // Clear form except email for login
-      setFormData(prev => ({
-        ...prev,
-        password: "",
-        confirmPassword: "",
-      }));
-    }
+      const user = {email: formData.email, password: formData.password};
+
+      const userRegistered = await fetch('http://localhost:3000/register', {
+        method:'post',
+        headers:{
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(user)
+      });
+      console.log(userRegistered)
+      if(userRegistered.status === 201){
+        alert("User registered successfully!");
+        setIsSignUp(false);
+        navigate("/");
+        setFormData(prev => ({
+          ...prev,
+          password: "",
+          confirmPassword: "",
+        }));
+      }  
+      }
+      else{
+        alert('Registration failed`')
+      }
   };
 
   const handleLogin = () => {
@@ -220,18 +224,7 @@ function Signup() {
             <h1>Create Account</h1>
 
             <div className="sign-up-form">
-                 <h6>Name</h6>
-                <div className="username-container">
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="username"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className={getInputClass("name")}/>
-                      {errors.name && <p className="signup-error">{errors.name}</p>}
-                      {/* <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/> */}
-                </div>
+          
         
             <h6>Email</h6>
             <input
