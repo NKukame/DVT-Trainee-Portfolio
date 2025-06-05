@@ -1,6 +1,7 @@
 // Replace your current HomeController.js with this:
+ // This will be your Redis-enabled Prisma client
 
-import prisma from '../lib/prisma.js'; // This will be your Redis-enabled Prisma client
+ import prisma from "../lib/prisma-redis-middleware.js";
 
 export async function HomePortfolioController(req, res) {
     const startTime = Date.now();
@@ -34,7 +35,7 @@ export async function HomePortfolioController(req, res) {
         });
         
     } catch (error) {
-        console.error('Error in HomePortfolioController:', error);
+        console.log('Error in HomePortfolioController:', error);
         res.status(500).json({
             success: false,
             error: 'Failed to fetch users'
@@ -93,7 +94,7 @@ export async function HomeProjectController(req, res) {
 }
 // import { PrismaClient } from "@prisma/client";
 
-// const prisma = new PrismaClient()
+// // const prisma = new PrismaClient()
 // export async function HomePortfolioController(req, res){
   
 //   const users = await prisma.user.findMany()

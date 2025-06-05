@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "../lib/prisma-redis-middleware.js";
  
 export async function SearchEmployeeController(req, res)  {
   const { name } = req.params;

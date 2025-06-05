@@ -1,15 +1,15 @@
 import bcrypt from 'bcryptjs';
-import { PrismaClient } from "@prisma/client";
 import { config } from "dotenv";
 config({ path: "../.env" });
-const prisma = new PrismaClient();
+import prisma from '../lib/prisma-redis-middleware.js';
 
 export default async function signup(req, res){
 try{
-  const { name, email, password } = req.body;
+  console.log("signup controller");
+  const { email, password } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const tempObj = { name, email, password: hashedPassword };
+  const tempObj = { email, password: hashedPassword };
   const user = await prisma.user.create({
    data: tempObj,
  })

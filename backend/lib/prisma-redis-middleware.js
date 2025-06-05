@@ -22,20 +22,32 @@ const prisma = new PrismaClient();
 
 // Create Redis cache middleware
 const prismaRedisCache = createPrismaRedisCache({
-  redis,
-  keyGenerator: (model, action, args) => {
-    return `${model}:${action}:${JSON.stringify(args)}`;
+  cacheTime: 300,
+  redis:{
+    client: redis,
+    invalidation: {
+      referencesTTL: 300, // 5 minutes
+      log: console
+    }
   },
-  cacheTime: {
-    default: 300,    // 5 minutes for most queries
-    Employee: 600,   // 10 minutes for employees (they don't change often)
-    Project: 300,    // 5 minutes for projects
-    User: 180,       // 3 minutes for users
+
+  models: [{model:'User'}, {model:'Project'}, {model:'Employee'}],
+
+  onHit: (key) => {
+    console.log("hit", key);
   },
+
+  onMiss: (key) => {
+    console.log("miss", key);
+  },
+
+  onError: (key) => {
+    console.log("error", key);
+  }
 });
 
 // Apply Redis caching to Prisma
-prisma.$use(prismaRedisCache());
+prisma.$use(prismaRedisCache);
 
 // Graceful shutdown
 process.on('SIGINT', async () => {

@@ -16,11 +16,9 @@ import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-
+import prisma from "../lib/prisma-redis-middleware.js";
 config({ path: "../.env" });
 
-
-const prisma = new PrismaClient();
 
 
 export default async function login(req, res) {
