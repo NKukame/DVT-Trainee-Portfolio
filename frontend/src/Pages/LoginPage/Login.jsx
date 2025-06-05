@@ -10,7 +10,7 @@ import { use } from "react";
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    name:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -30,7 +30,6 @@ function Signup() {
         setFormData((prevData) => ({
           ...prevData,
           email: rememberedCredentials.email || "",
-        name: rememberedCredentials.name || "",
         password: rememberedCredentials.password || ""
         }));
 
@@ -61,7 +60,6 @@ function Signup() {
     let newErrors = {};
 
     if (isSignUp) {
-      if (!formData.name) newErrors.name = "Name is required";
       if (!formData.confirmPassword) {
         newErrors.confirmPassword = "Confirm Password is required";
       } else if (formData.confirmPassword !== formData.password) {
@@ -111,17 +109,17 @@ function Signup() {
         return;
       }
 
-      const user = {name: formData.name, email: formData.email, password: formData.password};
+      const user = {email: formData.email, password: formData.password};
 
       const userRegistered = await fetch('http://localhost:3000/register', {
         method:'post',
         headers:{
           'Content-Type' : 'application/json'
         },
-        body: user
+        body: JSON.stringify(user)
       });
-      
-      if(userRegistered.status === 200){
+      console.log(userRegistered)
+      if(userRegistered.status === 201){
         alert("User registered successfully!");
         setIsSignUp(false);
         navigate("/");
@@ -137,7 +135,13 @@ function Signup() {
       }
   };
 
-  const handleLogin = async() => {
+  const handleLogin = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    
+    if (!storedUser) {
+      setErrors({ login: "No registered user found. Please sign up first." });
+      return;
+    }
 
     if (formData.email === "" &&  formData.name === "") {
       setErrors({ email: "Email or Username is required " });
@@ -149,22 +153,36 @@ function Signup() {
       return;
     }
 
-    const user = {email: formData.email, password:formData.password};
-    
-    const isLogin = await fetch('http://localhost:3000/login', {
-      method: 'post',
-      headers:{
-        'Content-Type' : 'application/json'
-      },
-      body: user
-    })
-    if(isLogin.status === 200){
-      const {token} = isLogin.body;
-      localStorage.setItem("token", token);
+    if (
+      storedUser &&
+      (formData.email === storedUser.email || formData.name === storedUser.name) &&
+      formData.password === storedUser.password
+    ) {
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedCredentials", JSON.stringify({
+          email: formData.email,
+          name: formData.name,
+          password: formData.password
+        }));
+      } else {
+
+        localStorage.removeItem("rememberedCredentials");
+
+      }
+
+
+      alert("Login successful!");
+
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/home");
-    }
-    else {
-      setErrors({ email: "Email or Username Invalid" });
+    } else {
+      if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
+        console.log(formData.email ,storedUser.name)
+        setErrors({ email: "Email or Username not found" });
+      } else {
+        setErrors({ password: "Incorrect password" });
+      }
     }
   };
 
@@ -206,18 +224,7 @@ function Signup() {
             <h1>Create Account</h1>
 
             <div className="sign-up-form">
-                 <h6>Name</h6>
-                <div className="username-container">
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="username"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className={getInputClass("name")}/>
-                      {errors.name && <p className="signup-error">{errors.name}</p>}
-                      {/* <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/> */}
-                </div>
+          
         
             <h6>Email</h6>
             <input
