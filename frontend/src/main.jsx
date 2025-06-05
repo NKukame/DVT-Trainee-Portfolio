@@ -27,7 +27,6 @@ createRoot(document.getElementById('root')).render(
         <Route path="/userportfolio" element={<UserPortfolio />} />
         <Route path="/profileform" element={<ProfileForm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        
       </Routes>
     </Router>
     </DarkModeProvider>

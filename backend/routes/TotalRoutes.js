@@ -8,6 +8,7 @@ import {forgotPassword} from '../controllers/ForgotPasswordController.js';
 import { deleteProjectController, deleteProfileController } from '../controllers/DeleteController.js';
 import signup from '../controllers/SignupController.js';
 
+
 const totalRoutes = express.Router();
 
 totalRoutes.post('/login', login);
