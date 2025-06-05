@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Upload, Save, X } from "lucide-react";
+import { Upload, Save, X, Pencil, Trash2 } from "lucide-react";
 import "./Form.css";
 
 function Testimonials({ data, onChange }) {
@@ -10,10 +10,14 @@ function Testimonials({ data, onChange }) {
   const [testimonialReference, setTestimonialReference] = useState("");
   const [testimonialCompany, setTestimonialCompany] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const updateParent = (clients, testimonials) => {
+    let filteredClients = [...clients];
+    // Remove all empty strings
+    filteredClients = filteredClients.filter((c) => c.trim() !== "");
     onChange({
-      clients,
+      clients: filteredClients,
       testimonials,
     });
   };
@@ -132,7 +136,26 @@ function Testimonials({ data, onChange }) {
             </div>
 
             {testimonials.map((t, idx) => (
-              <div className="testimonial-upload-container" key={idx}>
+              <div
+                className="testimonial-upload-container"
+                key={idx}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                style={{ position: "relative" }}
+              >
+                {hoveredIndex === idx && (
+                  <Pencil
+                    size={20}
+                    style={{
+                      position: "absolute",
+                      top: 10,
+                      right: 10,
+                      color: "white",
+                      boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+                      zIndex: 2,
+                    }}
+                  />
+                )}
                 <div
                   className="testimonial-uploaded-input"
                   onClick={() => {
@@ -160,10 +183,27 @@ function Testimonials({ data, onChange }) {
           onClick={(e) => {
             if (e.target.classList.contains("career-upload-modal-overlay")) {
               setShowModal(false);
+              setEditIndex(null);
+              setTestimonialText("");
+              setTestimonialReference("");
+              setTestimonialCompany("");
             }
           }}
         >
           <div className="career-upload-modal testimonial-modal">
+            <button
+              onClick={() => {
+                setShowModal(false);
+                setEditIndex(null);
+                setTestimonialText("");
+                setTestimonialReference("");
+                setTestimonialCompany("");
+              }}
+              className="modal-x-close"
+              type="button"
+            >
+              <X size={25} />
+            </button>
             <div className="form-group">
               <h3>Testimonial</h3>
               <textarea
@@ -198,30 +238,21 @@ function Testimonials({ data, onChange }) {
                 />
               </div>
             </div>
-            <div className="career-modal-button-section">
-              <button
-                onClick={() => {
-                  setShowModal(false);
-                  setEditIndex(null);
-                  setTestimonialText("");
-                  setTestimonialReference("");
-                  setTestimonialCompany("");
-                }}
-                className="career-modal-close-button"
-              >
-                <X size={15} />
-                Close
-              </button>
-              {/* {editIndex !== null && (
+            <div
+              className={`career-modal-button-section${
+                editIndex === null ? " single" : ""
+              }`}
+            >
+              {editIndex !== null && (
                 <button
-                  className="career-modal-delete-button"
-                  style={{ background: "red", color: "white" }}
+                  className="career-modal-close-button"
                   onClick={handleDeleteTestimonial}
                   type="button"
                 >
+                  <Trash2 size={15} />
                   Delete
                 </button>
-              )} */}
+              )}
               <button
                 className="career-modal-submit-button"
                 onClick={handleSaveTestimonial}

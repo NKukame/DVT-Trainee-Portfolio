@@ -519,10 +519,50 @@
 }
 
 .testimonial-modal{
-  height: 38%;
+  position: relative;
+  height: 40%;
 }
 
 .testimonial-modal input{
+  width: 100%;
+}
+
+.testimonial-modal h3 {
+  margin-top: 5px;
+}
+
+.testimonial-modal textarea{
+  width: 420px;
+}
+
+.modal-x-close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: transparent;
+  border: none;
+  color: #404040;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-modal .career-modal-button-section {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.testimonial-modal .career-modal-button-section button {
+  flex: 1 1 0;
+  width: 100%;
+  min-width: 0;
+}
+
+.testimonial-modal .career-modal-button-section.single button {
+  flex: 1 1 100%;
   width: 100%;
 }
 
