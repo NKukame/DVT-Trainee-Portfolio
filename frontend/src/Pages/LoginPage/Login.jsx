@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
 import { use } from "react";
+import axios from 'axios';
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -135,56 +136,65 @@ function Signup() {
       }
   };
 
-  const handleLogin = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    
-    if (!storedUser) {
-      setErrors({ login: "No registered user found. Please sign up first." });
-      return;
-    }
 
-    if (formData.email === "" &&  formData.name === "") {
-      setErrors({ email: "Email or Username is required " });
-      return;
-    }
 
-    if (formData.password === "") {
-      setErrors({ password: "Password is required" });
-      return;
-    }
+const handleLogin = async () => {
+  if (!formData.email) {
+    setErrors({ email: "Email or Username is required" });
+    return;
+  }
 
-    if (
-      storedUser &&
-      (formData.email === storedUser.email || formData.name === storedUser.name) &&
-      formData.password === storedUser.password
-    ) {
+  if (!formData.password) {
+    setErrors({ password: "Password is required" });
+    return;
+  }
 
-      if (rememberMe) {
-        localStorage.setItem("rememberedCredentials", JSON.stringify({
-          email: formData.email,
-          name: formData.name,
-          password: formData.password
-        }));
-      } else {
-
-        localStorage.removeItem("rememberedCredentials");
-
+  try {
+     await axios.post(
+      'http://localhost:3000/login',
+      {
+        email: formData.email,
+        password: formData.password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
+    );
 
 
-      alert("Login successful!");
+    localStorage.setItem("isLoggedIn", "true");
 
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/home");
+    if (rememberMe) {
+      localStorage.setItem("rememberedCredentials", JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }));
     } else {
-      if ( formData.name.toLocaleLowerCase() !== storedUser.name.toLocaleLowerCase() && formData.email.toLocaleLowerCase() !== storedUser.email.toLocaleLowerCase()) {
-        console.log(formData.email ,storedUser.name)
-        setErrors({ email: "Email or Username not found" });
-      } else {
-        setErrors({ password: "Incorrect password" });
-      }
+      localStorage.removeItem("rememberedCredentials");
     }
-  };
+
+    navigate("/home");
+
+  } catch (error) {
+
+    if (error.response && error.response.data) {
+      const err = error.response.data;
+      if (err.error === "Incorrect email") {
+        setErrors({ email: "Email not found" });
+      } else if (err.error === "Incorrect password") {
+        setErrors({ password: "Incorrect password" });
+      } else {
+        setErrors({ login: err.error || "Login failed" });
+      }
+    } else {
+      console.error("Login error:", error);
+      setErrors({ login: "Something went wrong. Please try again." });
+    }
+  }
+};
+
 
  
   const handleSubmit = (e) => {
@@ -287,14 +297,14 @@ function Signup() {
             <h4>Welcome back! Please enter your DVT credentials.</h4>
 
             <div className="sign-in-h6">
-            <h6 >Email or Username</h6>
+            <h6 >Email </h6>
 
                     <div className="email-input-container">
                         <input
                           type="text"
                           name="name"
-                          placeholder="Enter email or username"
-                          value={formData.email || formData.name}
+                          placeholder="Enter email"
+                          value={formData.email }
                           onChange={handleChange}
                           className={getInputClass("email")+" email-input"}
                     />
