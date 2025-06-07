@@ -6,6 +6,7 @@ function SkillsForm() {
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
   const [showSoftSkillsDropdown, setShowSoftSkillsDropdown] = useState(false);
   const [selectedSoftSkills, setSelectedSoftSkills] = useState([]);
+  const [softSkillRatings, setSoftSkillRatings] = useState({});
   const techStackGroups = {
     Design: [
       "Figma",
@@ -16,6 +17,7 @@ function SkillsForm() {
       "Canva",
       "InVision",
       "CorelDRAW",
+      "GIMP",
     ],
     "Front-end": [
       "HTML",
@@ -27,6 +29,9 @@ function SkillsForm() {
       "Svelte",
       "Bootstrap",
       "Tailwind CSS",
+      "jQuery",
+      "TypeScript",
+      "Next.js",
     ],
     "Back-end": [
       "Node.js",
@@ -39,6 +44,11 @@ function SkillsForm() {
       "Python",
       "Ruby",
       "Go",
+      "ASP.NET",
+      "Spring Boot",
+      "Flask",
+      "GraphQL",
+      "RESTful APIs",
     ],
   };
   const softSkills = [
@@ -92,6 +102,13 @@ function SkillsForm() {
     } else {
       setSelectedSoftSkills([...selectedSoftSkills, skill]);
     }
+  };
+
+  const handleSoftSkillRatingChange = (skill, value) => {
+    setSoftSkillRatings((prev) => ({
+      ...prev,
+      [skill]: value,
+    }));
   };
 
   const handleRemoveSoftSkill = (skill) => {
@@ -238,12 +255,15 @@ function SkillsForm() {
               <div key={index} className="chosen-tech-stack">
                 <label htmlFor={`tech-${index}`}>{tech}</label>
                 <select name={`experience-${tech}`} id={`tech-${index}`}>
-                  <option value="#">Years</option>
-                  <option value="0-1">0-1 Years</option>
-                  <option value="1-2">1-2 Years</option>
-                  <option value="3-4">3-4 Years</option>
-                  <option value="4-5">4-5 Years</option>
+                  <option value="" disabled>Years</option>
+                  <option value="1">1 Year</option>
+                  <option value="2">2 Years</option>
+                  <option value="3">3 Years</option>
+                  <option value="4">4 Years</option>
+                  <option value="5">5 Years</option>
                   <option value="5+">5+ Years</option>
+                  <option value="10+">10+ Years</option>
+                  <option value="15+">15+ Years</option>
                 </select>
                 <button
                   type="button"
@@ -336,6 +356,19 @@ function SkillsForm() {
                 {selectedSoftSkills.map((skill, index) => (
                   <div key={index} className="chosen-tech-stack">
                     <label>{skill}</label>
+                    <select
+                      value={softSkillRatings[skill] || ""}
+                      onChange={(e) =>
+                        handleSoftSkillRatingChange(skill, e.target.value)
+                      }
+                    >
+                      <option value="" disabled>Rating (Out of 5)</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
                     <button
                       type="button"
                       className="remove-tech-button"
