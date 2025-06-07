@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Form.css";
 
-function StatusForm() {
-  const [assigned, setAssigned] = useState("");
-
+function StatusForm({ data, onChange }) {
+  const assigned = data.status || "";
   const isInactive = assigned === "no";
+
+  // Get today's date in yyyy-mm-dd format
+  const today = new Date().toISOString().split("T")[0];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    onChange({
+      ...data,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="status-form-container">
-      <form action="" className="status-form">
+      <form className="status-form">
         <div className="form-group">
-          <label htmlFor="status-label">
+          <label htmlFor="status">
             Are You Currently Assigned To A Client
             <span className="required-asterisk">*</span>
           </label>
@@ -18,8 +28,8 @@ function StatusForm() {
             id="status"
             name="status"
             required
-            value={assigned}
-            onChange={(e) => setAssigned(e.target.value)}
+            value={data.status || ""}
+            onChange={handleChange}
           >
             <option value="" disabled>
               Select Your Status
@@ -30,40 +40,56 @@ function StatusForm() {
         </div>
 
         <div className={`form-group${isInactive ? " inactive" : ""}`}>
-          <label htmlFor="client-label">
+          <label htmlFor="assigned-client">
             Client
             <span className="required-asterisk">*</span>
           </label>
           <input
             type="text"
             id="assigned-client"
-            name="assigned-client"
+            name="assignedClient"
             placeholder="Enter Client Name"
+            value={data.assignedClient || ""}
+            onChange={handleChange}
             required
             disabled={isInactive}
           />
         </div>
 
         <div className={`form-group${isInactive ? " inactive" : ""}`}>
-          <label htmlFor="availability-label">
+          <label htmlFor="assessment-start">
             Assessment Duration
             <span className="required-asterisk">*</span>
           </label>
           <div className="skills-dual-input">
-            <input
-              type="date"
-              id="assessment-start"
-              name="assessment-start"
-              required
-              disabled={isInactive}
-            />
-            <input
-              type="date"
-              id="assessment-end"
-              name="assessment-end"
-              required
-              disabled={isInactive}
-            />
+            <div className="form-group">
+              <label htmlFor="assessment-start">Start Date<span className="required-asterisk">*</span></label>
+              <input
+                type="date"
+                id="assessment-start"
+                name="assessmentStart"
+                value={data.assessmentStart || ""}
+                onChange={handleChange}
+                required
+                disabled={isInactive}
+                max={today}
+                style={{font: "inherit"}}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="assessment-end">End Date<span className="required-asterisk">*</span></label>
+              <input
+                type="date"
+                id="assessment-end"
+                name="assessmentEnd"
+                value={data.assessmentEnd || ""}
+                onChange={handleChange}
+                required
+                disabled={isInactive}
+                min={data.assessmentStart || today}
+                style={{font: "inherit"}}
+              />
+            </div>
           </div>
         </div>
       </form>

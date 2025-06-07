@@ -580,6 +580,7 @@
 
 .status-form-container{
   min-height: 450px;
+  height: 100%;
 }
 
 .status-form-container input{
@@ -593,4 +594,8 @@
 .status-form-container .form-group.inactive {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.status-form .skills-dual-input label{
+  font-size: 13px;
 }
