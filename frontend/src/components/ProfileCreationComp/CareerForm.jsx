@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Upload, Camera, Save, X } from "lucide-react";
 import "./Form.css";
 
-function CareerFrom() {
-  const [careerEntries, setCareerEntries] = useState([
-    { role: "", company: "", duration: "" },
-  ]);
+function CareerFrom({ data, onChange }) {
+  const [careerEntries, setCareerEntries] = useState(
+    data.careerEntries || [{ role: "", company: "", duration: "" }]
+  );
   const [showModal, setShowModal] = useState(false);
   const industriesList = [
     "Finance",
@@ -62,9 +62,15 @@ function CareerFrom() {
     useState(false);
   const [selectedIndustries, setSelectedIndustries] = useState([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(data.projects || []);
   const [projectName, setProjectName] = useState("");
   const [projectImage, setProjectImage] = useState(null);
+  const [projectAuthor, setProjectAuthor] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [projectDuties, setProjectDuties] = useState("");
+  const [projectAchievements, setProjectAchievements] = useState("");
+  const [projectDemoLink, setProjectDemoLink] = useState("");
+  const [projectRepoLink, setProjectRepoLink] = useState("");
   const [editIndex, setEditIndex] = useState(null);
 
   // Function to handle changes in any input field
@@ -74,14 +80,28 @@ function CareerFrom() {
     updatedEntries[index][name] = value;
     setCareerEntries(updatedEntries);
 
-    if (index === careerEntries.length - 1) {
-      const lastEntry = updatedEntries[index];
-      if (lastEntry.role && lastEntry.company && lastEntry.duration) {
-        setCareerEntries([
-          ...updatedEntries,
-          { role: "", company: "", duration: "" },
-        ]);
-      }
+    const filteredEntries = updatedEntries.filter(
+      (entry) =>
+        entry.role.trim() || entry.company.trim() || entry.duration.trim()
+    );
+
+    onChange({
+      ...data,
+      careerEntries: filteredEntries,
+      projects,
+      // ...add other fields if needed
+    });
+
+    if (
+      index === updatedEntries.length - 1 &&
+      updatedEntries[index].role &&
+      updatedEntries[index].company &&
+      updatedEntries[index].duration
+    ) {
+      setCareerEntries([
+        ...updatedEntries,
+        { role: "", company: "", duration: "" },
+      ]);
     }
   };
 
@@ -93,7 +113,17 @@ function CareerFrom() {
     }
 
     const updatedEntries = careerEntries.filter((_, i) => i !== index);
+    const filteredEntries = updatedEntries.filter(
+      (entry) =>
+        entry.role.trim() || entry.company.trim() || entry.duration.trim()
+    );
     setCareerEntries(updatedEntries);
+
+    onChange({
+      ...data,
+      careerEntries: filteredEntries,
+      projects,
+    });
   };
 
   const handleIndustryClick = (industry) => {
@@ -127,29 +157,50 @@ function CareerFrom() {
 
   const handleSaveProject = () => {
     if (!projectName || !projectImage) return;
+    let updatedProjects;
+    const projectData = {
+      name: projectName,
+      author: projectAuthor,
+      image: projectImage,
+      description: projectDescription,
+      duties: projectDuties,
+      achievements: projectAchievements,
+      demoLink: projectDemoLink,
+      repoLink: projectRepoLink,
+      industries: selectedIndustries,
+      technologies: selectedTechnologies,
+      date: new Date().toLocaleDateString(),
+    };
     if (editIndex !== null) {
-      // Edit existing project
-      const updated = [...projects];
-      updated[editIndex] = {
-        ...updated[editIndex],
-        name: projectName,
-        image: projectImage,
+      updatedProjects = [...projects];
+      updatedProjects[editIndex] = {
+        ...updatedProjects[editIndex],
+        ...projectData,
+        date: updatedProjects[editIndex].date || projectData.date,
       };
-      setProjects(updated);
     } else {
-      // Add new project
-      setProjects([
-        ...projects,
-        {
-          name: projectName,
-          image: projectImage,
-          date: new Date().toLocaleDateString(),
-        },
-      ]);
+      updatedProjects = [...projects, projectData];
     }
+    setProjects(updatedProjects);
+
+    // Notify parent of the change
+    onChange({
+      ...data,
+      careerEntries,
+      projects: updatedProjects,
+    });
+
+    // Reset modal fields
     setShowModal(false);
     setProjectName("");
     setProjectImage(null);
+    setProjectDescription("");
+    setProjectDuties("");
+    setProjectAchievements("");
+    setProjectDemoLink("");
+    setProjectRepoLink("");
+    setSelectedIndustries([]);
+    setSelectedTechnologies([]);
     setEditIndex(null);
   };
 
@@ -227,6 +278,14 @@ function CareerFrom() {
                     setEditIndex(idx);
                     setProjectName(proj.name);
                     setProjectImage(proj.image);
+                    setProjectAuthor(proj.author || "");
+                    setProjectDescription(proj.description || "");
+                    setProjectDuties(proj.duties || "");
+                    setProjectAchievements(proj.achievements || "");
+                    setProjectDemoLink(proj.demoLink || "");
+                    setProjectRepoLink(proj.repoLink || "");
+                    setSelectedIndustries(proj.industries || []);
+                    setSelectedTechnologies(proj.technologies || []);
                     setShowModal(true);
                   }}
                 >
@@ -276,6 +335,8 @@ function CareerFrom() {
                   id="author-name"
                   name="author-name"
                   placeholder="Enter Author Name"
+                  value={projectAuthor}
+                  onChange={(e) => setProjectAuthor(e.target.value)}
                 />
               </div>
             </div>
@@ -301,6 +362,8 @@ function CareerFrom() {
                   id="project-description"
                   name="project-description"
                   placeholder="Enter Project Description"
+                  value={projectDescription}
+                  onChange={(e) => setProjectDescription(e.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -396,6 +459,8 @@ function CareerFrom() {
                   id="project-duties"
                   name="project-duties"
                   placeholder="Enter Project Duties"
+                  value={projectDuties}
+                  onChange={(e) => setProjectDuties(e.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -409,6 +474,8 @@ function CareerFrom() {
                   id="project-achievements"
                   name="project-achievements"
                   placeholder="Enter Project Achievements"
+                  value={projectAchievements}
+                  onChange={(e) => setProjectAchievements(e.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -423,6 +490,8 @@ function CareerFrom() {
                   id="demo-link"
                   name="demo-link"
                   placeholder="Insert Link"
+                  value={projectDemoLink}
+                  onChange={(e) => setProjectDemoLink(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -434,6 +503,8 @@ function CareerFrom() {
                   id="repo-link"
                   name="repo-link"
                   placeholder="Insert Link"
+                  value={projectRepoLink}
+                  onChange={(e) => setProjectRepoLink(e.target.value)}
                 />
               </div>
             </div>
