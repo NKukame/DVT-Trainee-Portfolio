@@ -10,10 +10,10 @@ import Testimonials from "../../components/ProfileCreationComp/Testimonials";
 import LinksForm from "../../components/ProfileCreationComp/LinksForm";
 import StatusForm from "../../components/ProfileCreationComp/StatusForm";
 import { Save, X } from "lucide-react";
-import { useDarkMode } from "../../components/DarkModeComp/DarkModeProvider";
+
 
 function ProfileCreation() {
-  const { darkMode, setDarkMode } = useDarkMode();
+  
   const [stepData, setStepData] = useState([
     {
       title: "Basic Information",

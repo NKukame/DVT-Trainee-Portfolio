@@ -1,6 +1,17 @@
 import "./Form.css";
 
-function LinksForm() {
+function LinksForm({ data, onChange }) {
+
+  // This component handles the links form for LinkedIn, GitHub, and Portfolio.
+  // It receives `data` and `onChange` props to manage the state of the form.
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    onChange({
+      ...data,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="links-form">
       <form className="links-form-group">
@@ -12,6 +23,8 @@ function LinksForm() {
             type="url"
             id="linkedin"
             name="linkedin"
+            value={data.linkedin || ""}
+            onChange={handleChange}
             placeholder="Insert Link"
           />
         </div>
@@ -23,6 +36,8 @@ function LinksForm() {
             type="url"
             id="github"
             name="github"
+            value={data.github || ""}
+            onChange={handleChange}
             placeholder="Insert Link"
           />
         </div>
@@ -34,7 +49,8 @@ function LinksForm() {
             type="url"
             id="portfolio"
             name="portfolio"
-            required
+            value={data.portfolio || ""}
+            onChange={handleChange}
             placeholder="Insert Link"
           />
         </div>
