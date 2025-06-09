@@ -1,24 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Form.css";
 import { Camera } from "lucide-react";
 
 function BasicInfo({ data, onChange }) {
-  const [profilePic, setProfilePic] = useState(null);
-  
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  useEffect(() => {
+    if (!data.profilePic) {
+      setPreviewUrl(null);
+      return;
+    }
+    if (typeof data.profilePic === "string") {
+      setPreviewUrl(data.profilePic);
+    } else if (data.profilePic instanceof File) {
+      const url = URL.createObjectURL(data.profilePic);
+      setPreviewUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [data.profilePic]);
+
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setProfilePic(previewUrl);
       onChange({
         ...data,
-        profilePic: file, 
+        profilePic: file,
       });
     }
   };
 
   const handleRemoveProfilePic = () => {
-    setProfilePic(null);
     onChange({
       ...data,
       profilePic: null,
@@ -40,10 +51,10 @@ function BasicInfo({ data, onChange }) {
           <div className="left-form-group">
             <div className="form-group">
               <div className="profile-picture-form">
-                {profilePic ? (
+                {previewUrl ? (
                   <>
                     <img
-                      src={profilePic}
+                      src={previewUrl}
                       alt="Profile Preview"
                       style={{
                         width: "100%",
@@ -67,7 +78,7 @@ function BasicInfo({ data, onChange }) {
                   </>
                 )}
               </div>
-              {profilePic && (
+              {previewUrl && (
                 <button
                   className="remove-profile-pic-btn"
                   type="button"
