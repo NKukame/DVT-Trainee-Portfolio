@@ -2,14 +2,37 @@ import React, { useState } from "react";
 import "./Form.css";
 import { Camera } from "lucide-react";
 
-function BasicInfo() {
+function BasicInfo({ data, onChange }) {
   const [profilePic, setProfilePic] = useState(null);
+  
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfilePic(URL.createObjectURL(file));
+      const previewUrl = URL.createObjectURL(file);
+      setProfilePic(previewUrl);
+      onChange({
+        ...data,
+        profilePic: file, 
+      });
     }
   };
+
+  const handleRemoveProfilePic = () => {
+    setProfilePic(null);
+    onChange({
+      ...data,
+      profilePic: null,
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    onChange({
+      ...data,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="basic-info-container">
       <form action="" className="basic-info-form">
@@ -48,7 +71,7 @@ function BasicInfo() {
                 <button
                   className="remove-profile-pic-btn"
                   type="button"
-                  onClick={() => setProfilePic(null)}
+                  onClick={handleRemoveProfilePic}
                 >
                   Remove
                 </button>
@@ -57,8 +80,15 @@ function BasicInfo() {
 
             <div className="form-group">
               <label htmlFor="title">Title</label>
-              <select name="titleDropDown" id="">
-                <option value="" disabled>Title</option>
+              <select
+                name="title"
+                id="title"
+                onChange={handleChange}
+                value={data.title || ""}
+              >
+                <option value="" disabled>
+                  Title
+                </option>
                 <option value="mr">Mr.</option>
                 <option value="mrs">Mrs.</option>
                 <option value="ms">Ms.</option>
@@ -76,6 +106,8 @@ function BasicInfo() {
                 name="firstName"
                 required
                 placeholder="Name"
+                onChange={handleChange}
+                value={data.firstName || ""}
               />
             </div>
 
@@ -89,6 +121,8 @@ function BasicInfo() {
                 name="lastName"
                 required
                 placeholder="Last Name"
+                onChange={handleChange}
+                value={data.lastName || ""}
               />
             </div>
           </div>
@@ -104,6 +138,8 @@ function BasicInfo() {
                 name="email"
                 required
                 placeholder="OSmith@dvtsoftware.com"
+                onChange={handleChange}
+                value={data.email || ""}
               />
             </div>
 
@@ -117,6 +153,8 @@ function BasicInfo() {
                 name="phone"
                 required
                 placeholder="Phone Number"
+                onChange={handleChange}
+                value={data.phone || ""}
               />
             </div>
 
@@ -124,8 +162,15 @@ function BasicInfo() {
               <label htmlFor="experience">
                 Experience<span className="required-asterisk">*</span>
               </label>
-              <select name="experienceDropDown" id="">
-                <option value="" disabled>Years</option>
+              <select
+                name="experience"
+                id=""
+                onChange={handleChange}
+                value={data.experience || ""}
+              >
+                <option value="" disabled>
+                  Years
+                </option>
                 <option value="0-1">0-1 Years</option>
                 <option value="1-2">1-2 Years</option>
                 <option value="3-4">3-4 Years</option>
@@ -144,6 +189,8 @@ function BasicInfo() {
                 name="role"
                 required
                 placeholder="Role"
+                onChange={handleChange}
+                value={data.role || ""}
               />
             </div>
 
@@ -157,6 +204,8 @@ function BasicInfo() {
                 name="location"
                 required
                 placeholder="Location"
+                onChange={handleChange}
+                value={data.location || ""}
               />
             </div>
           </div>
@@ -166,9 +215,11 @@ function BasicInfo() {
           <div className="form-group">
             <label htmlFor="introduction">Introduction</label>
             <textarea
-              name="introduction-form"
-              id="introduction-form"
+              name="introductionDescription"
+              id="introductionDescription"
               placeholder="Enter A Brief Introduction About Yourself"
+              onChange={handleChange}
+              value={data.introductionDescription || ""}
             ></textarea>
           </div>
         </div>
