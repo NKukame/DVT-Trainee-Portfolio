@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Form.css";
 
-function SkillsForm() {
+function SkillsForm({ data, onChange }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
   const [showSoftSkillsDropdown, setShowSoftSkillsDropdown] = useState(false);
   const [selectedSoftSkills, setSelectedSoftSkills] = useState([]);
   const [softSkillRatings, setSoftSkillRatings] = useState({});
+  const [techExperience, setTechExperience] = useState({});
   const techStackGroups = {
     Design: [
       "Figma",
@@ -82,88 +83,211 @@ function SkillsForm() {
     { certificate: "", institution: "" },
   ]);
 
+  useEffect(() => {
+    setSelectedTechnologies(data.selectedTechnologies || []);
+    setSelectedSoftSkills(data.selectedSoftSkills || []);
+    setSoftSkillRatings(data.softSkillRatings || {});
+    setEducationEntries(
+      data.educationEntries || [{ qualification: "", institution: "" }]
+    );
+    setCertificationEntries(
+      data.certificationEntries || [{ certificate: "", institution: "" }]
+    );
+    setTechExperience(data.techExperience || {});
+  }, [data]);
+
   const handleBadgeClick = (label) => {
+    let updated;
     if (selectedTechnologies.includes(label)) {
-      setSelectedTechnologies(
-        selectedTechnologies.filter((tech) => tech !== label)
-      );
+      updated = selectedTechnologies.filter((tech) => tech !== label);
     } else {
-      setSelectedTechnologies([...selectedTechnologies, label]);
+      updated = [...selectedTechnologies, label];
     }
+    setSelectedTechnologies(updated);
+    onChange({
+      ...data,
+      selectedTechnologies: updated,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
 
   const handleRemoveTech = (tech) => {
-    setSelectedTechnologies((prev) => prev.filter((t) => t !== tech));
+    const updated = selectedTechnologies.filter((t) => t !== tech);
+    setSelectedTechnologies(updated);
+    onChange({
+      ...data,
+      selectedTechnologies: updated,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
 
   const handleSoftSkillClick = (skill) => {
+    let updated;
     if (selectedSoftSkills.includes(skill)) {
-      setSelectedSoftSkills(selectedSoftSkills.filter((s) => s !== skill));
+      updated = selectedSoftSkills.filter((s) => s !== skill);
     } else {
-      setSelectedSoftSkills([...selectedSoftSkills, skill]);
+      updated = [...selectedSoftSkills, skill];
     }
+    setSelectedSoftSkills(updated);
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills: updated,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
 
   const handleSoftSkillRatingChange = (skill, value) => {
-    setSoftSkillRatings((prev) => ({
-      ...prev,
+    const updated = {
+      ...softSkillRatings,
       [skill]: value,
-    }));
+    };
+    setSoftSkillRatings(updated);
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills,
+      softSkillRatings: updated,
+      educationEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
 
   const handleRemoveSoftSkill = (skill) => {
-    setSelectedSoftSkills((prev) => prev.filter((s) => s !== skill));
+    const updated = selectedSoftSkills.filter((s) => s !== skill);
+    setSelectedSoftSkills(updated);
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills: updated,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
+  
 
   const handleEducationChange = (index, event) => {
     const { name, value } = event.target;
     const updated = [...educationEntries];
     updated[index][name] = value;
-    setEducationEntries(updated);
-
+    let newEntries = updated;
     // If last row is filled, add a new empty row
     if (
       index === educationEntries.length - 1 &&
       updated[index].qualification &&
       updated[index].institution
     ) {
-      setEducationEntries([...updated, { qualification: "", institution: "" }]);
+      newEntries = [...updated, { qualification: "", institution: "" }];
+      setEducationEntries(newEntries);
+    } else {
+      setEducationEntries(updated);
     }
+    
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries: newEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
 
   const handleRemoveEducation = (index) => {
+    let newEntries;
     if (educationEntries.length === 1) {
-      setEducationEntries([{ qualification: "", institution: "" }]);
-      return;
+      newEntries = [{ qualification: "", institution: "" }];
+    } else {
+      newEntries = educationEntries.filter((_, i) => i !== index);
     }
-    setEducationEntries(educationEntries.filter((_, i) => i !== index));
+    setEducationEntries(newEntries);
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries: newEntries,
+      certificationEntries,
+      techExperience,
+    });
   };
 
   const handleCertificationChange = (index, event) => {
     const { name, value } = event.target;
     const updated = [...certificationEntries];
     updated[index][name] = value;
-    setCertificationEntries(updated);
-
+    let newEntries = updated;
     // If last row is filled, add a new empty row
     if (
       index === certificationEntries.length - 1 &&
       updated[index].certificate &&
       updated[index].institution
     ) {
-      setCertificationEntries([
-        ...updated,
-        { certificate: "", institution: "" },
-      ]);
+      newEntries = [...updated, { certificate: "", institution: "" }];
+      setCertificationEntries(newEntries);
+    } else {
+      setCertificationEntries(updated);
     }
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries: newEntries,
+      techExperience,
+    });
   };
 
   const handleRemoveCertification = (index) => {
+    let newEntries;
     if (certificationEntries.length === 1) {
-      setCertificationEntries([{ certificate: "", institution: "" }]);
-      return;
+      newEntries = [{ certificate: "", institution: "" }];
+    } else {
+      newEntries = certificationEntries.filter((_, i) => i !== index);
     }
-    setCertificationEntries(certificationEntries.filter((_, i) => i !== index));
+    setCertificationEntries(newEntries);
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries: newEntries,
+      techExperience,
+    });
+  };
+
+  const handleTechExperienceChange = (tech, value) => {
+    const updated = {
+      ...techExperience,
+      [tech]: value,
+    };
+    setTechExperience(updated);
+    onChange({
+      ...data,
+      selectedTechnologies,
+      selectedSoftSkills,
+      softSkillRatings,
+      educationEntries,
+      certificationEntries,
+      techExperience: updated,
+    });
   };
 
   return (
@@ -254,8 +378,17 @@ function SkillsForm() {
             {selectedTechnologies.map((tech, index) => (
               <div key={index} className="chosen-tech-stack">
                 <label htmlFor={`tech-${index}`}>{tech}</label>
-                <select name={`experience-${tech}`} id={`tech-${index}`}>
-                  <option value="" disabled>Years</option>
+                <select
+                  name={`experience-${tech}`}
+                  id={`tech-${index}`}
+                  value={techExperience[tech] || ""}
+                  onChange={(e) =>
+                    handleTechExperienceChange(tech, e.target.value)
+                  }
+                >
+                  <option value="" disabled>
+                    Years
+                  </option>
                   <option value="1">1 Year</option>
                   <option value="2">2 Years</option>
                   <option value="3">3 Years</option>
@@ -362,7 +495,9 @@ function SkillsForm() {
                         handleSoftSkillRatingChange(skill, e.target.value)
                       }
                     >
-                      <option value="" disabled>Rating (Out of 5)</option>
+                      <option value="" disabled>
+                        Rating (Out of 5)
+                      </option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
