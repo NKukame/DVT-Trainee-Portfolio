@@ -9,6 +9,7 @@ import CareerForm from "../../components/ProfileCreationComp/CareerForm";
 import Testimonials from "../../components/ProfileCreationComp/Testimonials";
 import LinksForm from "../../components/ProfileCreationComp/LinksForm";
 import StatusForm from "../../components/ProfileCreationComp/StatusForm";
+import SubmitForm from "../../components/ProfileCreationComp/SubmitForm";
 import { Save, X } from "lucide-react";
 
 
@@ -125,6 +126,11 @@ function ProfileCreation() {
               setFormData((prev) => ({ ...prev, status: newData }))
             }
           />
+        );
+
+      case 6:
+        return (
+          <SubmitForm/>
         );
       default:
         return <div>No Form Found</div>;
