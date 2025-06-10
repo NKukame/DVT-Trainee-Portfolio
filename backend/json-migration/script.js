@@ -1,43 +1,52 @@
 import fs from 'fs';
-import {Prisma, PrismaClient} from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-const jsonData = JSON.parse(fs.readFileSync('team-portfolio.json', 'utf-8'));
+const data = JSON.parse(fs.readFileSync('../Data/team-portfolio.json', 'utf-8'));
 
 
 async function main() {
-    
-    console.log('loading user data...');
-    
-    for (const user of jsonData){
 
-        await prisma.user.create({
-            jsonData: {
-                name: user.name,
-                description: user.description,
-                email: user.email,
-                github: user.github,
-                linkedin: user.linkedin,
-                techStack: user.techStack,
-                image: user.image,
-                chat: user.chat,
-                phone: user.phone,
-                location: user.location,
-                company: user.company,
-                department: user.department,
-                role: user.role,
-                birthday: user.birthday
-            }
-        })
-        .catch((error) => {
+    console.log('loading user data...');
+
+    for (const employee of data) {
+        try {
+            await prisma.employee.create({
+                data: {
+                    title: employee.Role,
+                    name: employee.name,  // Using the full name
+                    surname: employee.name?.split(' ').slice(-1)[0] || "",
+                    bio: employee.description,
+                    birthday: employee.Birthday,
+                    photoUrl: employee.image,
+                    role: "DEVELOPER", // Assuming all roles are developers
+                    department: "ENGINEERING",
+                    company: employee.Company,
+                    location: employee.Location,
+                    email: employee.email,
+                    phone: employee.Phone,
+                    github: employee.github,
+                    linkedIn: employee.linkedin,
+                    birthday: employee.Birthday ? new Date(employee.Birthday) : null,
+                }
+            }); 
+            console.log(`Employee ${employee.name} created successfully.`);
+        } catch(error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                console.error(`Error creating user ${user.name}: ${error.message}`);
+                console.error(`Error creating employee ${employee.name}: ${error.message}`);
             } else {
-                console.error(`Unexpected error creating user ${user.name}:`, error);
+                console.error(`Unexpected error creating employee ${employee.name}:`, error);
             }
-        });
+        }
     }
 }
 
-
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
 
