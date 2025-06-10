@@ -7,6 +7,7 @@ import {UpdateProfileController} from '../controllers/UpdateProfileController.js
 import {forgotPassword} from '../controllers/ForgotPasswordController.js';
 import { deleteProjectController, deleteProfileController } from '../controllers/DeleteController.js';
 import signup from '../controllers/SignupController.js';
+import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const totalRoutes = express.Router();
 
@@ -83,7 +84,7 @@ const totalRoutes = express.Router();
  *                   type: string
  *                   example: Error message from server
  */
-totalRoutes.post('/login', login);
+totalRoutes.post('/login', authenticateToken, login);
 
 /**
  * @swagger
@@ -142,6 +143,7 @@ totalRoutes.post('/login', login);
  *                   example: signup failed
  */
 totalRoutes.post('/register', signup);
+totalRoutes.put('/forgot-password', forgotPassword);
 
 /**
  * @swagger
@@ -185,7 +187,7 @@ totalRoutes.post('/register', signup);
  *                   type: string
  *                   example: profile creation
  */
-totalRoutes.post('/create-profile', createProfileController); //done
+totalRoutes.post('/create-profile', authenticateToken, createProfileController); //done
 
 /**
  * @swagger
@@ -271,9 +273,7 @@ totalRoutes.put('/forgot-password', forgotPassword);
  *               type: string
  *               example: Couldn't Update profile
  */
-totalRoutes.put('/profile/:name', UpdateProfileController)
-
-
+totalRoutes.put('/profile/:name', authenticateToken, UpdateProfileController)
 /**
  * @swagger
  * /project/{id}/{email}:
@@ -307,7 +307,7 @@ totalRoutes.put('/profile/:name', UpdateProfileController)
  *       500:
  *         description: Server error
  */
-totalRoutes.delete('/project/:id', deleteProjectController);
+totalRoutes.delete('/project/:id', authenticateToken, deleteProjectController);
 
 /**
  * @swagger
@@ -351,7 +351,7 @@ totalRoutes.delete('/project/:id', deleteProjectController);
  *       500:
  *         description: Server error
  */
-totalRoutes.delete('/profile/:email', deleteProfileController);
+totalRoutes.delete('/profile/:email', authenticateToken, deleteProfileController);
 
 /**
  * @swagger
@@ -384,7 +384,7 @@ totalRoutes.delete('/profile/:email', deleteProfileController);
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/projects', HomeProjectController);
+totalRoutes.get('/projects', authenticateToken, HomeProjectController);
 
 /**
  * @swagger
@@ -414,7 +414,7 @@ totalRoutes.get('/projects', HomeProjectController);
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
+totalRoutes.get('/profiles', authenticateToken, HomePortfolioController); // /profiles/:id
 
 /**
  * @swagger
@@ -448,7 +448,7 @@ totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/profile/:name', SearchEmployeeController);
+totalRoutes.get('/profile/:name', authenticateToken, SearchEmployeeController);
 
 /**
  * @swagger
@@ -482,6 +482,6 @@ totalRoutes.get('/profile/:name', SearchEmployeeController);
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/project/:name', SearchProjectController);
+totalRoutes.get('/project/:name', authenticateToken, SearchProjectController);
 
 export default totalRoutes;
