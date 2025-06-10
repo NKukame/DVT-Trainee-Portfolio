@@ -619,7 +619,8 @@
   cursor: pointer;
 }
 
-.basic-info-submit-section {
+.basic-info-submit-section, 
+.skills-submit-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -628,13 +629,16 @@
 .submit-form-text-section{
   display: flex;
   flex-direction: row;
-  gap: 500px;
+  align-items: stretch;
 }
 
-.submit-right-form-section, .submit-left-form-section{
+.submit-right-form-section, 
+.submit-left-form-section{
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
   gap: 15px;
+  min-width: 0;
 }
 
 .submit-form-group {
@@ -652,7 +656,7 @@
 }
 
 .form-value {
-  font-size: 17px;
+  font-size: 15px;
   color: #333; 
 }
 
