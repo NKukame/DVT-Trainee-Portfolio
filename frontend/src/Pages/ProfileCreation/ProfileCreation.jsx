@@ -130,7 +130,14 @@ function ProfileCreation() {
 
       case 6:
         return (
-          <SubmitForm/>
+          <SubmitForm
+            basicInfo={formData.basicInfo}
+            skills={formData.skills}
+            career={formData.career}
+            testimonials={formData.testimonials}
+            links={formData.links}
+            status={formData.status}
+          />
         );
       default:
         return <div>No Form Found</div>;

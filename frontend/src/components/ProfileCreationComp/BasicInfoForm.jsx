@@ -100,10 +100,10 @@ function BasicInfo({ data, onChange }) {
                 <option value="" disabled>
                   Title
                 </option>
-                <option value="mr">Mr.</option>
-                <option value="mrs">Mrs.</option>
-                <option value="ms">Ms.</option>
-                <option value="sr">Dr.</option>
+                <option value="Mr">Mr.</option>
+                <option value="Mrs">Mrs.</option>
+                <option value="Ms">Ms.</option>
+                <option value="Dr">Dr.</option>
               </select>
             </div>
 
@@ -182,11 +182,11 @@ function BasicInfo({ data, onChange }) {
                 <option value="" disabled>
                   Years
                 </option>
-                <option value="0-1">0-1 Years</option>
-                <option value="1-2">1-2 Years</option>
-                <option value="3-4">3-4 Years</option>
-                <option value="4-5">4-5 Years</option>
-                <option value="5">5+ Years</option>
+                <option value="0-1 Years">0-1 Years</option>
+                <option value="1-2 Years">1-2 Years</option>
+                <option value="3-4 Years">3-4 Years</option>
+                <option value="4-5 Years">4-5 Years</option>
+                <option value="5+ Years">5+ Years</option>
               </select>
             </div>
 
