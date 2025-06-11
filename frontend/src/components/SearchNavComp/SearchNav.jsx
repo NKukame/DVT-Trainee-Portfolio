@@ -4,7 +4,6 @@ import { Folder, Users01 } from '@untitled-ui/icons-react';
 export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
 
   const handleSearchFilter = () =>{
-    filterResults(results, isPeopleSearch, filter);
     setSearch(!isPeopleSearch);
   }
 
@@ -33,16 +32,4 @@ function TabButton({text, Icon, handleSearchFilter,isPeopleSearch}){
       <Icon/> <span>{text}</span> 
     </button>
   )
-}
-
-function filterResults(results, isProject, filter){
-
-  if(isProject === true){
-    results = results.filter( result =>{return result.project_id !== undefined})
-  }
-  else if(isProject === false){
-    results = results.filter(result => {return result.role !== undefined;})
-  }
-
-  filter(results);
 }
