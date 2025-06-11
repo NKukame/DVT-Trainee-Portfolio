@@ -21,6 +21,7 @@ createRoot(document.getElementById('root')).render(
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route element={<ProtectedRoutes/>}>
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -28,7 +29,6 @@ createRoot(document.getElementById('root')).render(
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/userportfolio" element={<UserPortfolio />} />
           <Route path="/profileform" element={<ProfileForm />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
       </Routes>
     </Router>
