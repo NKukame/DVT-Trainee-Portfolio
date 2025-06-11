@@ -109,31 +109,36 @@ function Signup() {
         setErrors({ email: "This email or username is already registered" });
         return;
       }
-
-      const user = {email: formData.email, password: formData.password};
-
-      const userRegistered = await fetch('http://localhost:3000/register', {
-        method:'post',
-        headers:{
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify(user)
-      });
-      console.log(userRegistered)
-      if(userRegistered.status === 201){
-        alert("User registered successfully!");
-        setIsSignUp(false);
-        navigate("/");
-        setFormData(prev => ({
-          ...prev,
-          password: "",
-          confirmPassword: "",
-        }));
-      }  
+      try{
+        const user = {email: formData.email, password: formData.password};
+  
+        const userRegistered = await axios.post(
+          'http://localhost:3000/register', 
+          {
+            email: formData.email,
+            password: formData.password
+          }, {
+          headers:{
+            "Content-Type" : "application/json"
+          }}
+        );
+  
+        if(userRegistered.status === 201){
+          setIsSignUp(false);
+          setFormData(prev => ({
+            ...prev,
+            password: "",
+            confirmPassword: "",
+          }));
+          navigate("/");
+        }  
+        else{
+          setErrors( {email:'Registration failed'})
+        }
+      }catch(err){
+        setErrors({email: 'Registration failed'});
       }
-      else{
-        alert('Registration failed`')
-      }
+    }
   };
 
 
@@ -150,7 +155,7 @@ const handleLogin = async () => {
   }
 
   try {
-     await axios.post(
+     const token =  await axios.post(
       'http://localhost:3000/login',
       {
         email: formData.email,
@@ -164,7 +169,7 @@ const handleLogin = async () => {
     );
 
 
-    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("token", JSON.stringify(token.data.token));
 
     if (rememberMe) {
       localStorage.setItem("rememberedCredentials", JSON.stringify({
@@ -302,7 +307,7 @@ const handleLogin = async () => {
                     <div className="email-input-container">
                         <input
                           type="text"
-                          name="name"
+                          name="email"
                           placeholder="Enter email"
                           value={formData.email }
                           onChange={handleChange}
