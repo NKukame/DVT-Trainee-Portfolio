@@ -34,8 +34,8 @@ function StatusForm({ data, onChange }) {
             <option value="" disabled>
               Select Your Status
             </option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+            <option value="Available">Yes</option>
+            <option value="Unavailable">No</option>
           </select>
         </div>
 

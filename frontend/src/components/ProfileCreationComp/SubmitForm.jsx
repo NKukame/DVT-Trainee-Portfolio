@@ -166,6 +166,187 @@ function SubmitForm({
       </div>
 
       <div className="submit-form-line"></div>
+
+      <div className="career-submit-section">
+        <div className="submit-form-header">
+          <h3>Career</h3>
+          <SquarePen className="submit-icon" color="#084677" size={17} />
+        </div>
+
+        <div className="submit-form-text-section">
+          <div className="submit-right-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Chronology</label>
+              <div className="form-value">
+                {career?.careerEntries && career.careerEntries.length > 0
+                  ? career.careerEntries
+                      .filter(
+                        (entry) => entry.role || entry.company || entry.duration
+                      )
+                      .map((entry, idx) => (
+                        <div key={idx}>
+                          {entry.role} at {entry.company} ({entry.duration})
+                        </div>
+                      ))
+                  : "-"}
+              </div>
+            </div>
+          </div>
+
+          <div className="submit-left-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Projects</label>
+              <div className="form-value">
+                {career?.projects && career.projects.length > 0
+                  ? career.projects
+                      .filter((proj) => proj.name)
+                      .map((proj, idx) => <div key={idx}>{proj.name}</div>)
+                  : "-"}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="submit-form-line"></div>
+
+      <div className="testimonial-submit-section">
+        <div className="submit-form-header">
+          <h3>Testimonials</h3>
+          <SquarePen className="submit-icon" color="#084677" size={17} />
+        </div>
+
+        <div className="submit-form-text-section">
+          <div className="submit-right-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Clients</label>
+              <div className="form-value">
+                {testimonials?.clients && testimonials.clients.length > 0
+                  ? testimonials.clients.map((client, idx) => (
+                      <div key={idx}>{client}</div>
+                    ))
+                  : "-"}
+              </div>
+            </div>
+          </div>
+
+          <div className="submit-left-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Testimonials</label>
+              <div className="form-value">
+                {testimonials?.testimonials &&
+                testimonials.testimonials.length > 0
+                  ? testimonials.testimonials.map((t, idx) => (
+                      <div key={idx}>
+                        {t.reference} - {t.company}
+                      </div>
+                    ))
+                  : "-"}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="submit-form-line"></div>
+
+      <div className="links-submit-section">
+        <div className="submit-form-header">
+          <h3>Links</h3>
+          <SquarePen className="submit-icon" color="#084677" size={17} />
+        </div>
+
+        <div className="submit-form-text-section">
+          <div className="submit-right-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">GitHub</label>
+              <p className="form-value">{links?.github || "-"}</p>
+            </div>
+
+            <div className="submit-form-group">
+              <label className="form-label">LinkedIn</label>
+              <p className="form-value">{links?.linkedin || "-"}</p>
+            </div>
+          </div>
+
+          <div className="submit-left-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Portfolio</label>
+              <p className="form-value">{links?.portfolio || "-"}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="submit-form-line"></div>
+
+      <div className="status-submit-section">
+        <div className="submit-form-header">
+          <h3>Status</h3>
+          <SquarePen className="submit-icon" color="#084677" size={17} />
+        </div>
+
+        <div className="submit-form-text-section">
+          <div className="submit-right-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Availability</label>
+              <p className="form-value">{status?.status || "-"}</p>
+            </div>
+          </div>
+
+          <div className="submit-left-form-section">
+            <div className="submit-form-group">
+              <label className="form-label">Duration</label>
+              <p className="form-value">
+                {status?.assessmentStart && status?.assessmentEnd
+                  ? `${status.assessmentStart.replace(
+                      /-/g,
+                      "/"
+                    )} - ${status.assessmentEnd.replace(/-/g, "/")}`
+                  : "-"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="submit-form-line"></div>
+
+      <div className="submit-form-footer">
+
+        <div className="submit-form-checkbox">
+          <input
+            type="checkbox"
+            id="confirm-submit"
+            name="confirm-submit"
+            required
+          />
+          <label htmlFor="confirm-submit">
+            I hereby accept the terms & conditions of the DVT Employee Portal
+          </label>
+        </div>
+
+        <div className="submit-form-checkbox">
+          <input
+            type="checkbox"
+            id="confirm-submit"
+            name="confirm-submit"
+            required
+          />
+          <label htmlFor="confirm-submit">
+            I hereby accept the terms & conditions of the DVT Information Sharing Policy
+          </label>
+        </div>
+
+        <div className="submit-form-button-container">
+          <button className="submit-form-button" type="submit">
+            Submit
+          </button>
+        </div>
+
+      </div>
+
+      
     </div>
   );
 }

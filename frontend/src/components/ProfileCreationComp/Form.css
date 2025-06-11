@@ -620,7 +620,11 @@
 }
 
 .basic-info-submit-section, 
-.skills-submit-section {
+.skills-submit-section,
+.career-submit-section,
+.testimonial-submit-section,
+.links-submit-section,
+.status-submit-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -665,4 +669,43 @@
   height: 1px;
   background-color: var(--progress-bar-gray);
   margin: 35px 0;
+}
+
+.submit-form-footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-block: 10px;
+}
+
+.submit-form-checkbox{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.submit-form-checkbox input {
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+  accent-color: var(--navy-blue);
+  border-radius: 10px;
+}
+
+.submit-form-button{
+  padding: 15px 40px;
+  border-radius: 6px;
+  background-color: var(--navy-blue);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 19px; 
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submit-form-button:hover {
+  background-color: var(--light-blue);
 }
