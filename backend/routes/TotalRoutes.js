@@ -84,7 +84,7 @@ const totalRoutes = express.Router();
  *                   type: string
  *                   example: Error message from server
  */
-totalRoutes.post('/login', authenticateToken, login);
+totalRoutes.post('/login',  login);
 
 /**
  * @swagger
@@ -143,7 +143,6 @@ totalRoutes.post('/login', authenticateToken, login);
  *                   example: signup failed
  */
 totalRoutes.post('/register', signup);
-totalRoutes.put('/forgot-password', forgotPassword);
 
 /**
  * @swagger
