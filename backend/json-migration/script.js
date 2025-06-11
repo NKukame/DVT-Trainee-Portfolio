@@ -3,6 +3,7 @@ import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const data = JSON.parse(fs.readFileSync('../Data/team-portfolio.json', 'utf-8'));
+const data1 = JSON.parse(fs.readFileSync('../Data/techStack.json', 'utf-8'));
 
 
 async function main() {
@@ -39,7 +40,11 @@ async function main() {
             }
         }
     }
-}
+
+    
+    
+    }
+
 
 main()
   .catch((e) => {

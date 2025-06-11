@@ -25,6 +25,7 @@ enum TechCategory {
   BACKEND
   FRONTEND
   DESIGN
+  MOBILE
 }
 
 
