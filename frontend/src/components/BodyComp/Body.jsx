@@ -2,6 +2,7 @@ import "./Body.css";
 import projects from "../../modal-resources/projects-modal.json";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
 
 function Body() {
@@ -9,10 +10,12 @@ function Body() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/team-portfolio.json")
-      .then((response) => response.json())
-      .then((data) => setTeam(data))
-      .catch((error) => console.error("Error loading team data:", error));
+    const teamData =async()=> {
+      const teamData =  await axios.get('http://localhost:3000/profiles');
+      console.log(teamData.data)
+      setTeam(teamData.data);
+    }
+    teamData();
   }, []);
 
   const trackRef = useRef(null);
@@ -114,23 +117,23 @@ function Body() {
 
       <div className="home-carousel-wrapper">
         <div className="home-carousel">
-          {team.concat(team).map((person, index) => (
+          {team.map((person, index) => (
             <div key={index} className="home-carousel-item">
               <img
-                src={person.image}
+                src={person.photoUrl}
                 alt={person.name}
                 className="home-carousel-item-img"
               />
               <div className="home-carousel-item-text">
                 <h3>{person.name}</h3>
-                <p>{person.description}</p>
+                <p>{person.bio}</p>
                 <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list-white flex-wrap m-10px">
                   {(Array.isArray(person.techStack)
                     ? person.techStack
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech}</p>
+                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech.techStack.name}</p>
                     </li>
                   ))}
                 </ul>
