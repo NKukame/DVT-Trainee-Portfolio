@@ -12,6 +12,7 @@ import SearchBar from './components/SearchBarComp/SearchBar.jsx';
 import Search from './Pages/SearchPage/Search.jsx';
 import ForgotPassword from './components/BadgeComp/ForgotPassword.jsx';
 import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx';
+import ProtectedRoutes from './components/ProtectedComp/ProtectedRoute.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,14 +21,15 @@ createRoot(document.getElementById('root')).render(
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/userportfolio" element={<UserPortfolio />} />
         <Route path="/profile-creation" element={<ProfileCreation />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        
+        <Route element={<ProtectedRoutes/>}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/userportfolio" element={<UserPortfolio />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Route>
       </Routes>
     </Router>
     </DarkModeProvider>
