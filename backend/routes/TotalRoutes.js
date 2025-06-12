@@ -84,7 +84,7 @@ const totalRoutes = express.Router();
  *                   type: string
  *                   example: Error message from server
  */
-totalRoutes.post('/login', login);
+totalRoutes.post('/login',  login);
 
 /**
  * @swagger
@@ -143,7 +143,6 @@ totalRoutes.post('/login', login);
  *                   example: signup failed
  */
 totalRoutes.post('/register', signup);
-totalRoutes.put('/forgot-password', forgotPassword);
 
 /**
  * @swagger
@@ -414,7 +413,7 @@ totalRoutes.get('/projects', authenticateToken, HomeProjectController);
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/profiles', authenticateToken, HomePortfolioController); // /profiles/:id
+totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
 
 /**
  * @swagger
