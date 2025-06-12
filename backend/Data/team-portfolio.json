@@ -1,5 +1,6 @@
 [
     {
+        "title": "MS",
         "name": "Paballo Thobei",
         "description": "Full Stack Intern",
         "email": "pthobei@dvtsoftware.com",
@@ -13,10 +14,13 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution": "WeThinkCode_",
+        "Qualification": "NQF Level 5 - Systems Development",
         "Birthday": "2004-06-15"
     },
     
     {
+        "title": "MR",
         "name": "Phemelo Makwatse",
         "description": "Full Stack Intern",
         "email": "PMakwatse@dvtsoftware.com",
@@ -34,6 +38,7 @@
     },
     
     {
+        "title": "MR",
         "name": "Gomolemo Motlhamme",
         "description": "Full Stack Intern",
         "email": "GMotlhamme@dvtsoftware.com",
@@ -47,10 +52,13 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution": "IIE Rosebank College",
+        "Qualification": "Diploma in Information Technology for Software Development",
         "Birthday": "2001-09-21"
     },
     
     {
+        "title": "MR",
         "name": "Adrian Majavu",
         "description": "Full Stack Intern",
         "email": "AMajavu@dvtsoftware.com",
@@ -68,6 +76,7 @@
     },
     
     {
+        "title": "MR",
         "name": "Njabulo Kukame",
         "description": "Full Stack Intern",
         "email": "NKukame@dvtsoftware.com",
@@ -85,6 +94,7 @@
     },
     
     {
+        "title": "MR",
         "name": "Andile Mhlongo",
         "description": "Full Stack Intern",
         "email": "AMhlongo@dvtsoftware.com",
@@ -98,10 +108,13 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution": "WeThinkCode_",
+        "Qualification": "NQF Level 5 - Systems Development",
         "Birthday": "1996-04-19"
     },
     
     {
+        "title": "MR",
         "name": "Thabane Ngobe",
         "description": "Full Stack Intern",
         "email": "TNgobe@dvtsoftware.com",
@@ -115,10 +128,13 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution": "WeThinkCode_",
+        "Qualification": "NQF Level 5 - Systems Development",
         "Birthday": "2002-10-06"
     },
     
     {
+        "title": "MS",
         "name": "Remow Rammekwa",
         "description": "Full Stack Intern",
         "email": "RRammekwa@dvtsoftware.com",
@@ -132,11 +148,14 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution": "Vaal University of Technology",
+        "Qualification": "Diploma in Information Technology",
         "Birthday": "2003-03-15"
     },
     
 
     {
+        "title": "MR",
         "name": "Dylan Fernandes",
         "description": "UI/UX Intern",
         "email": "DFernandes@dvtsoftware.com",
@@ -150,6 +169,8 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution": "University of Johannesburg",
+        "Qualification": "MA(Arch) - Architecture",
         "Birthday": "1995-09-25"
     }
 

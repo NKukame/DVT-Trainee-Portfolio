@@ -14,7 +14,7 @@ async function main() {
         try {
             await prisma.employee.create({
                 data: {
-                    title: employee.Role,
+                    title: employee.title,
                     name: employee.name,  // Using the full name
                     surname: employee.name?.split(' ').slice(-1)[0] || "",
                     bio: employee.description,
@@ -22,6 +22,8 @@ async function main() {
                     photoUrl: employee.image,
                     role: "DEVELOPER", // Assuming all roles are developers
                     department: "ENGINEERING",
+                    institution: employee.Institution,
+                    Qualification: employee.Qualification,
                     company: employee.Company,
                     location: employee.Location,
                     email: employee.email,

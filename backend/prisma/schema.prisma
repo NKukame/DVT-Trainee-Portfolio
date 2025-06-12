@@ -37,6 +37,15 @@ enum Department {
   HR
 }
 
+enum UserTitle{
+  MR
+  MRS
+  MS
+  DR
+}
+
+
+
 
 model User {
   id            String    @id @default(uuid())
@@ -51,13 +60,14 @@ model User {
 
 model Employee {
   id           String        @id @default(uuid())
-  title        String
+  title        UserTitle
   name         String
   surname      String
   birthday     DateTime?
   photoUrl     String?
   bio          String
   role         EmployeeRole
+  education    Education?
   department   Department
   company      String
   location     String?
@@ -188,5 +198,15 @@ model ProjectTechStack {
   techStack   TechStack @relation(fields: [techStackId], references: [id])
   
   @@id([projectId, techStackId])
+}
+
+
+model Education {
+
+  id       String           @id @default(uuid())
+  institution     String        
+  qualification String
+  employeeId String    @unique
+  employee   Employee  @relation(fields: [employeeId], references: [id])
 }
 
