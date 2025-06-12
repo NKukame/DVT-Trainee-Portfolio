@@ -24,7 +24,9 @@
 .align-items-center{
   align-items: center;
 }
-
+.align-content-center{
+  align-content: center;
+}
 .justify-items-center{
   justify-items: center;
 }
@@ -69,7 +71,9 @@
 .border-radius-4-px{
   border-radius: 4px;
 }
-
+.rounded{
+  border-radius: 10px;
+}
 .border-radius-10-px{
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -103,6 +107,11 @@
 .link-style{
   text-align: center;
   background-color: #027FB9;
+}
+
+.dark-mode .link-style{
+  background-color: var(--dark-mode-alt-white);
+  color: var(--dark-mode-buttonText);
 }
 
 .flex-1{
@@ -184,7 +193,7 @@
 }
 
 .badge-default {
-  padding: 3px 3px;
+  padding: 1px 10px;
   border-radius: 4.5px;
   border: 1px solid #D0D5DD;
 }
@@ -194,3 +203,112 @@
 }
 
 
+.project-modal-width{
+  width: 400px;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+  color: #072549;
+  line-height: 1.2500em;
+  font-size: 0.875rem;
+}
+
+.project-btn{
+  border: none;
+  padding: 5px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.project-avatar{
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-modal-title{
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.username-capitalize{
+  text-transform: capitalize;
+  color: #084677;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+.w-full{
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-badge-heading{
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+
+.m-top{
+  margin-top: 10px;
+}
+
+.btn-project{
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 1.125em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.repo-btn{
+  border: 1px solid #027FB9;
+  color: #027FB9;
+}
+
+.demo-btn{
+  background-color: #027FB9;
+  color: #FFFFFF;
+}
+
+.dark-mode .repo-btn{
+  color: white;
+  border: 1px solid white;
+}
+.dark-mode .username-capitalize{
+  color: #E5E5E5;
+}
+.dark-mode .demo-btn{
+  background-color: #F4F5F7;
+  color: #052B4C;
+}
+
+.separator{
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background-color: #D4D4D4;
+}
+.separator-padding{
+  padding: 0px 8px;
+}
+
+.close-modal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px 10px;
+  cursor: pointer;
+}

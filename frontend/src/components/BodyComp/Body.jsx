@@ -2,6 +2,7 @@ import "./Body.css";
 import projects from "../../modal-resources/projects-modal.json";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
 
 function Body() {
@@ -9,10 +10,12 @@ function Body() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/team-portfolio.json")
-      .then((response) => response.json())
-      .then((data) => setTeam(data))
-      .catch((error) => console.error("Error loading team data:", error));
+    const teamData =async()=> {
+      const teamData =  await axios.get('http://localhost:3000/profiles');
+      console.log(teamData.data)
+      setTeam(teamData.data);
+    }
+    teamData();
   }, []);
 
   const trackRef = useRef(null);
@@ -114,23 +117,23 @@ function Body() {
 
       <div className="home-carousel-wrapper">
         <div className="home-carousel">
-          {team.concat(team).map((person, index) => (
+          {team.map((person, index) => (
             <div key={index} className="home-carousel-item">
               <img
-                src={person.image}
+                src={person.photoUrl}
                 alt={person.name}
                 className="home-carousel-item-img"
               />
               <div className="home-carousel-item-text">
                 <h3>{person.name}</h3>
-                <p>{person.description}</p>
+                <p>{person.bio}</p>
                 <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list-white flex-wrap m-10px">
                   {(Array.isArray(person.techStack)
                     ? person.techStack
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech}</p>
+                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech.techStack.name}</p>
                     </li>
                   ))}
                 </ul>
@@ -200,29 +203,29 @@ function Body() {
           </button>
         </div>
       </div>
-      {isModalOpen && selectedProject && (
+     {isModalOpen && selectedProject && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
+            {/* <button className="modal-close" onClick={closeModal}>
               X
-            </button>
+            </button> */}
 
-            <h2>{selectedProject.title}</h2>
+            <div className="modal-header">
+              <h2>{selectedProject.title}</h2>              <div className="modal-owner-container">
+                <img src={selectedProject.ownerImage} alt={selectedProject.owner} className="modal-owner-img" />
+                <p className="modal-owner">{selectedProject.owner}</p>
+              </div>
+            </div>
 
             {selectedProject.video && (
               <video
                 src={selectedProject.video}
                 controls
                 width="100%"
-                style={{ borderRadius: "15px", marginTop: "1rem" }}
+                style={{ borderRadius: "5px" }}
               />
             )}
 
-            <p className="modal-owner">
-              <strong>Owner:</strong> {selectedProject.owner}
-            </p>
-
-            <p className="modal-project-link"><a href={selectedProject.link}>Click Here For The Link</a></p>
 
             <p className="modal-description">
               <strong>Description:</strong> <br />{selectedProject.description}
@@ -234,6 +237,10 @@ function Body() {
                 (<li key={index}><p className='badge-default'>{tech}</p></li>)
               ))}
             </ul>
+
+            <button className="modal-project-link">
+              <a href={selectedProject.link}>Repository</a>
+            </button>
 
 
           </div>

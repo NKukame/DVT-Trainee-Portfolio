@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 import REST_API from './api.js';
+import { swaggerUi, specs } from './swagger.js';
 
 const app = express();
 app.use(express.json());
@@ -12,7 +13,7 @@ app.use(express.json());
 
 
 // app
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.get('/', async (req, res) => {
   await prisma.$connect();

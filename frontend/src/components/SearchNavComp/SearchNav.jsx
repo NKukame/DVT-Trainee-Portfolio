@@ -3,7 +3,7 @@ import { Folder, Users01 } from '@untitled-ui/icons-react';
 
 export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
 
-  const handleSearchFilter = () =>{
+   const handleSearchFilter = () =>{
     filterResults(results, isPeopleSearch, filter);
     setSearch(!isPeopleSearch);
   }
@@ -18,7 +18,7 @@ export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
       </div>
 
       <div>
-        <SelectScrollable></SelectScrollable>
+        <SelectScrollable filter={filter} results={results} />
       </div>
 
     </div>

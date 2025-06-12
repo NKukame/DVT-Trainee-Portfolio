@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import "./Badge.css";
 import { X } from "lucide-react";
