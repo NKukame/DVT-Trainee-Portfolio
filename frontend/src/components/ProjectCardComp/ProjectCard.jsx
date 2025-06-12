@@ -19,7 +19,7 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
         <p className="font-size-14-px">{result.description}</p>
       </div>
 
-      {/* {showTech && (<Badges badgeList={result.technologies} />  )} */}
+      {showTech && (<Badges badgeList={result.technologies} />  )}
 
       {showAuthor && <Link className="text-underline-link">@John</Link>}
 

@@ -39,7 +39,7 @@ export default function SearchResults() {
     <article className="flex-col">
       <SearchNav 
         filter={setCopy} 
-        results={filteredResults} 
+        results={resultsCopy} 
         setSearch={setCurrentProject} 
         isPeopleSearch={curentProject} 
       />
