@@ -84,7 +84,7 @@ const totalRoutes = express.Router();
  *                   type: string
  *                   example: Error message from server
  */
-totalRoutes.post('/login', authenticateToken, login);
+totalRoutes.post('/login', login);
 
 /**
  * @swagger
@@ -418,70 +418,213 @@ totalRoutes.get('/profiles', authenticateToken, HomePortfolioController); // /pr
 
 /**
  * @swagger
- * /profile/{name}:
+ * /search/employee:
  *   get:
- *     summary: Get a user profile by name
- *     tags: [Profile]
+ *     summary: Search employees with filters, sorting and pagination
+ *     tags:
+ *       - Profile
+ *
+ *     # ──────────────────────────────
+ *     # Free-text search
+ *     # ──────────────────────────────
  *     parameters:
- *       - in: path
- *         name: name
- *         required: true
+ *       - in: query
+ *         name: query
+ *         description: >
+ *           Free-text search over name, surname, title, bio, company or
+ *           department.
  *         schema:
  *           type: string
- *         description: Name of the user to search for
+ *
+ *     # ──────────────────────────────
+ *     # Filter parameters (square-bracket notation)
+ *     # ──────────────────────────────
+ *       - in: query
+ *         name: location
+ *         description: Filter by one or more locations
+ *         style: form
+ *         explode: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *       - in: query
+ *         name: role
+ *         description: Filter by one or more roles
+ *         style: form
+ *         explode: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *       - in: query
+ *         name: techStack
+ *         description: Filter by one or more technology names
+ *         style: form
+ *         explode: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *       - in: query
+ *         name: industry
+ *         description: Filter by one or more industries
+ *         style: form
+ *         explode: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *     # ──────────────────────────────
+ *     # Sorting parameters
+ *     # ──────────────────────────────
+ *       - in: query
+ *         name: field
+ *         description: Field to sort by
+ *         schema:
+ *           type: string
+ *
+ *       - in: query
+ *         name: order
+ *         description: Sort direction
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *
+ *     # ──────────────────────────────
+ *     # Pagination
+ *     # ──────────────────────────────
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *
  *     responses:
  *       200:
- *         description: User profile found
+ *         description: Search results
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 email:
- *                   type: string
+ *                 employees:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Employee'
+ *                 total:
+ *                   type: integer
  *       404:
- *         description: Employee not found
+ *         description: Employees not found
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/profile/:name', authenticateToken, SearchEmployeeController);
+totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController);
+
+
 
 /**
  * @swagger
- * /project/{name}:
+ * /search/project:
  *   get:
- *     summary: Get a project by name
- *     tags: [Project]
+ *     summary: Search projects with filters, sorting and pagination
+ *     tags:
+ *       - Project
+ *
+ *     # ──────────────────────────────
+ *     # Free-text search
+ *     # ──────────────────────────────
  *     parameters:
- *       - in: path
- *         name: name
- *         required: true
+ *       - in: query
+ *         name: query
+ *         description: >
+ *           Free-text search over project name or description.
  *         schema:
  *           type: string
- *         description: Name of the project to search for
+ *
+ *     # ──────────────────────────────
+ *     # Filter parameters (square-bracket notation)
+ *     # ──────────────────────────────
+ *       - in: query
+ *         name: industries
+ *         description: Filter by one or more industries
+ *         style: form
+ *         explode: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *       - in: query
+ *         name: techStack
+ *         description: Filter by one or more tech-stack names
+ *         style: form
+ *         explode: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *
+ *     # ──────────────────────────────
+ *     # Sorting parameters
+ *     # ──────────────────────────────
+ *       - in: query
+ *         name: field
+ *         description: Field to sort by (e.g. createdAt)
+ *         schema:
+ *           type: string
+ *
+ *       - in: query
+ *         name: order
+ *         description: Sort direction
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *
+ *     # ──────────────────────────────
+ *     # Pagination
+ *     # ──────────────────────────────
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *
  *     responses:
  *       200:
- *         description: Project found
+ *         description: Search results
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 description:
- *                   type: string
+ *                 projects:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Project'
+ *                 total:
+ *                   type: integer
  *       404:
- *         description: Project not found
+ *         description: Projects not found
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/project/:name', authenticateToken, SearchProjectController);
+totalRoutes.get('/search/project', authenticateToken, SearchProjectController);
+
+
 
 export default totalRoutes;

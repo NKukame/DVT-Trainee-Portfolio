@@ -6,9 +6,22 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'My API',
+      title: 'DVT Trainee Portfolio API',
       version: '1.0.0',
+      description: 'API Documentation for DVT Trainee Portfolio'
     },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    },
+    security: [{
+      BearerAuth: []
+    }]
   },
   apis: ['./routes/*.js'], // Adjust path to your actual route files
 };

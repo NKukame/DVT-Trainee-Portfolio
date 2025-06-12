@@ -2,68 +2,216 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 
+/**
+ * Search for projects with the given query, filters, sort, page, and limit.
+ * 
+ * @param {Object} req - The request object containing parameters.
+ * @param {Object} res - The response object used to send back the result.
+ * 
+ * @property {string} req.params.query - The search query to filter projects by name or description.
+ * @property {Object} req.params.filters - Filters to apply to the search, including industries and tech stack.
+ * @property {Array<string>} [req.params.industries] - Industry filters for the projects.
+ * @property {Array<string>} [req.params.filters.projectTechStack] - Tech stack filters for the projects.
+ * @property {string} req.params.field - The field to sort the results by.
+ * @property {string} req.params.order - The order of sorting, can be 'asc' or 'desc'.
+ * @property {number} req.params.page - The page number of results to return.
+ * @property {number} req.params.limit - The number of results to return per page.
+ * 
+ * @returns {Object} - The search results, including the projects and the total number of results.
+ * 
+ * @throws {404} - If no projects are found.
+ */
+
 export async function SearchProjectController(req, res) {
-  const {query, filters={}, sort, page = 1, limit = 10 } = req.params;
+  const { query,industries, techStack,field, order , page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
 
-  const where = {}
+  try {
+    const where = {}
 
-  if(query) {
-    where.OR = [
-      { name: { contains: query, mode: 'insensitive' } },
-      { description: { contains: query, mode: 'insensitive' } },
-    ]
-  }
-
-  if (filters.industries?.length){
-    where.industry = { 
-      some: {
-        in: filters.industries 
-      }
+    if(query) {
+      where.OR = [
+        { name: { contains: query, mode: 'insensitive' } },
+        { description: { contains: query, mode: 'insensitive' } },
+      ]
     }
-  }
 
-  if (filters.projectTechStack?.length){
-    where.techStack = { 
-      some: {
-        in: filters.projectTechStack 
-      }
-    }
-  }
-
-  const orderBy = {}
-
-  if (sort) {
-    orderBy[sort.field] = sort.order
-  }else {
-    orderBy.createdAt = 'desc'
-  }
-
-  const [projects, total] = await Promise.all([
-    prisma.project.findMany({
-      where,
-      orderBy,
-      skip: (page - 1) * limit,
-      take: limit,
-      include: {
-        industries: true,
-        techStack: true,
-        members: {
-          include: {
-            employee: true
-          }
+    if (industries?.length){
+      where.industry = { 
+        some: {
+          in: industries 
         }
       }
-    }),
-    prisma.project.count({ where })
-  ]);
+    }
 
-  if (!projects) {
-    return res.status(404).send({ message: "Projects not found" });
+    if (techStack.techStack?.length){
+      where.techStack = {
+        some: {
+          techStack: {
+            name: {
+              in: techStack 
+            }
+          }
+        }
+     }
+    }
+
+    const orderBy = {}
+
+    if (sort) {
+      orderBy[field] = order
+    }else {
+      orderBy.createdAt = 'desc'
+    }
+
+    const [projects, total] = await Promise.all([
+      prisma.project.findMany({
+        where,
+        orderBy,
+        skip: (page - 1) * limit,
+        take: Number(limit),
+        include: {
+          industries: true,
+          techStack: true,
+          members: {
+            include: {
+              employee: true
+            }
+          }
+        }
+      }),
+      prisma.project.count({ where })
+    ]);
+
+    if (!projects) {
+      return res.status(404).send({ message: "Projects not found" });
+    }
+
+    return res.send({ projects, total });
+  } catch (error) {
+    console.error('Search projects error:', error);
+    return res.status(500).json({ error: 'Failed to search projects' });
   }
-
-  return res.send({ projects, total });
-
+}
 
 
+/**
+ * Search for employees with the given query, filters, sort, page, and limit.
+ * 
+ * @param {Object} req - The request object containing parameters.
+ * @param {Object} res - The response object used to send back the result.
+ * 
+ * @property {string} req.params.query - The search query to filter employees by name, surname, title, bio, company, or department.
+ * @property {Object} req.params.filters - Filters to apply to the search, including location, role, tech stack, and industry.
+ * @property {Array<string>} [req.params.location] - Location filters for the employees.
+ * @property {Array<string>} [req.params.role] - Role filters for the employees.
+ * @property {Array<string>} [req.params.techStack] - Tech stack filters for the employees.
+ * @property {Array<string>} [req.params.industry] - Industry filters for the employees.
+ * @property {string} req.params.field - The field to sort the results by.
+ * @property {string} req.params.order - The order of sorting, can be 'asc' or 'desc'.
+ * @property {number} req.params.page - The page number of results to return.
+ * @property {number} req.params.limit - The number of results to return per page.
+ * 
+ * @returns {Object} - The search results, including the employees and the total number of results.
+ * 
+ * @throws {404} - If no employees are found.
+ */
+
+export async function SearchEmployeeController(req, res) {
+  let { query,location, role, techStack, industry, field, order, page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
+  console.log(req.query);
+
+  
+  try {
+    const where = {};
+
+    if(query){
+      where.OR = [
+        {name: {contains: query, mode: 'insensitive'}},
+        {surname: {contains: query, mode: 'insensitive'}},
+        {title: {contains: query, mode: 'insensitive'}},
+        {company: {contains: query, mode: 'insensitive'}},
+        { user : { email: {contains: query, mode: 'insensitive'}}},
+      ]
+    }
+
+    if (location?.length) {
+      if(typeof location === 'string') {
+        location = [location]
+      }
+      where.location = { 
+        in: location 
+      }
+    }
+
+    if (role?.length) {
+      if(typeof role === 'string') {
+        role = [role]
+      }
+      where.role = { 
+        in: role 
+      }
+    }
+
+    if (techStack?.length) {
+      if(typeof techStack === 'string') {
+        techStack = [techStack]
+      }
+
+      where.techStack = {
+        some: {
+          techStack: {
+            name: {
+              in: techStack 
+            }
+          }
+        }
+        
+      }
+    }
+
+    if (industry?.length) {
+      if(typeof industry === 'string') {
+        industry = [industry]
+      }
+      where.industry = {
+          some: {
+            in: industry 
+          }
+      }
+    }
+
+    console.log(where);
+    
+    const orderBy = {}
+
+    if (sort) {
+      orderBy[field] = order
+    }else {
+      orderBy.createdAt = 'desc'
+    }
+
+    const [employees, total] = await Promise.all([
+      prisma.employee.findMany({
+        where,
+        orderBy,
+        skip: (page - 1) * limit,
+        take: Number(limit),
+        include: {
+          techStack: true
+        }
+      }),
+      prisma.employee.count({ where })
+    ]);
+    
+
+    if (!employees) {
+      return res.status(404).send({ message: "Employees not found" });
+    } else{
+      const pageCount = Math.ceil(total / limit);
+      return res.send({ employees, total, pageCount });
+    }
+  } catch (error) {
+    console.error('Search employees error:', error);
+    return res.status(500).json({ error: 'Failed to search employees' });
   }
-
+}
