@@ -34,7 +34,6 @@ export async function SearchEmployeeController(req, res)  {
           select: {
            email: true,
             role: true,
-          
            
           }
         }
@@ -72,8 +71,8 @@ export async function SearchEmployeeController(req, res)  {
 }
 
 export async function SearchProjectController(req, res) {
-  const { name } = req.params;
   const startTime = Date.now();
+  const { name } = req.params;
 
   try{
     const cacheKey = `searchProject:${name}`;
@@ -96,12 +95,12 @@ export async function SearchProjectController(req, res) {
     
     console.log('Cache miss for SearchProjectController',name);
     
-    const selectedProject = await prisma.selectedProject.findFirst({
+    const selectedProject = await prisma.project.findFirst({
       where: { name },
       include: {
-        teamMembers: {
-          select: {
-            user: {
+        members: {
+          include: {
+             employee: {
               select: {
                 name: true,
                 email: true
@@ -126,8 +125,8 @@ export async function SearchProjectController(req, res) {
     }
     
     const queryTime = Date.now() - startTime;
-    await setCache(cacheKey, selectedProject, 60 * 60);
-     // Cache for 1 hour
+    await setCache(cacheKey, selectedProject, 0 * 60);
+     
     res.json({
       success: true,
       data: selectedProject,
@@ -137,6 +136,7 @@ export async function SearchProjectController(req, res) {
         searchTerm: name
       }
     });
+
   } catch (error) {
     console.error('Error in SearchProjectController:', error);
     res.status(500).json({
