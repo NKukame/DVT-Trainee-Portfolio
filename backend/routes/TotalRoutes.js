@@ -413,7 +413,7 @@ totalRoutes.get('/projects', authenticateToken, HomeProjectController);
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/profiles', authenticateToken, HomePortfolioController); // /profiles/:id
+totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
 
 /**
  * @swagger

@@ -9,10 +9,10 @@ export const SearchContextProvider = ({children}) => {
     
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
-    const [value, setValue] = useState([0, 10]);
     let [selectedFilter, setSelectedFilter] = useState([]);
     
     const allLanguages = [...new Set(searchResults.map((employee) => employee.skills).flat())].filter(item => item !== undefined);
+    const allIndustries = [...new Set(searchResults.map((employee) => employee.industries).flat())].filter(item => item !== undefined);
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
 
@@ -38,22 +38,40 @@ export const SearchContextProvider = ({children}) => {
         }
         setSelectedFilter(newSelectedFilter);
         
-        if(category.includes("language")){
+        console.log(filter, category);
+        console.log(newSelectedFilter);
+        
+
+        if(category.includes("Technologies")){
+            
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
-    
-                    return newSelectedFilter.every((filter) => employee.skills.includes(filter));
+                    const lowerSkills = employee.skills.map(x => x.toLowerCase())
+                    console.log(lowerSkills);        
+                    
+                    return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
+                }
+
+                if(employee.technologies){
+                    const lowerSkills = employee.technologies.map(x => x.toLowerCase())
+                    console.log(lowerSkills);        
+                    
+                    return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
             });
+            console.log(updatedResults.length);
         }
-        if(category.includes("role")){
+        if(category.includes("Roles")){
             updatedResults = searchResults.filter((employee) => {
-                // If no roles selected, show all results
-                if (newSelectedFilter.length === 0) return true;
-                // Show employee if their role matches any of the selected filters
-                return newSelectedFilter.some(f => employee.role === f);
+                if(newSelectedFilter.length === 0) return true;
+                if(employee.skills){
+                    if (newSelectedFilter.length === 0) return true;
+                    return newSelectedFilter.some(f => employee.role.toLowerCase() === f);
+                }
             });
+
+
         }
 
         if (category === "location") {
@@ -62,36 +80,42 @@ export const SearchContextProvider = ({children}) => {
                 return newSelectedFilter.some(f => employee.location === f);
             });
         }
+
+        if (category === "Experience") {
+            updatedResults = handleChange(filter)
+        }
         
         setFilteredResults(updatedResults);
     }
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-
+    const handleChange = (newValue) => {
+        const years =  newValue.split(" ")[0]
+        const value = years.split("-")
+        console.log(value);
+        
         const filteredResults = searchResults.filter((employee) => {
             if(!employee.years_active){
                 return false
             }
             
-            if(employee.years_active>value[0] &&  employee.years_active<value[1]){
+            if(employee.years_active > parseInt(value[0]) &&  employee.years_active < parseInt(value[1])){
                 return true
             }
             return false           
         })
 
-        setFilteredResults(filteredResults);
+        return filteredResults
     };
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange,value, allLanguages, allLocations, allRoles}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries}}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange,value} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange,value]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange]
 }

@@ -22,13 +22,13 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/profile-creation" element={<ProfileCreation />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route element={<ProtectedRoutes/>}>
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/search" element={<Search />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/userportfolio" element={<UserPortfolio />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
       </Routes>
     </Router>

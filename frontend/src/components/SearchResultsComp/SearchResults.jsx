@@ -1,4 +1,3 @@
-
 import SearchNav from "../SearchNavComp/SearchNav";
 import { useSearch } from "../../contexts/SearchContext";
 import { useEffect, useState } from 'react';
@@ -15,7 +14,6 @@ export default function SearchResults() {
   const isProject = queryParams.get("isProject") === "true";
   const [curentProject, setCurrentProject] = useState(!isProject);
   const [resultsCopy, setCopy] = useState([]);
-  // const [isPeopleSearch, setCurrentSearch] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
@@ -23,12 +21,9 @@ export default function SearchResults() {
     
     const results =  curentProject ? filteredResults.filter((result)=> !result.project_id) 
                     : filteredResults.filter((result)=> result.project_id);
-
     setCopy(results);
     setCurrentPage(1);
-    // setCurrentProject((prev) => prev); // Toggle currentProject based on isProject
-    // setCurrentSearch(!isProject); // Toggle currentSearch based on isProject
-  }, [filteredResults]);
+  }, [curentProject, filteredResults]);
     
 
   const displayedItems = resultsCopy.slice(
@@ -44,13 +39,13 @@ export default function SearchResults() {
     <article className="flex-col">
       <SearchNav 
         filter={setCopy} 
-        results={filteredResults} 
+        results={resultsCopy} 
         setSearch={setCurrentProject} 
         isPeopleSearch={curentProject} 
       />
 
       <section className="flex-1 results-container">
-          <ResultsList results={displayedItems} isEmployeeSearch={curentProject} />
+          <ResultsList results={resultsCopy} isEmployeeSearch={curentProject} />
       </section>
         <PaginationControls
           totalItems={resultsCopy.length} 
