@@ -1,4 +1,3 @@
-
 import SearchNav from "../SearchNavComp/SearchNav";
 import { useSearch } from "../../contexts/SearchContext";
 import { useEffect, useState } from 'react';
@@ -40,7 +39,7 @@ export default function SearchResults() {
     <article className="flex-col">
       <SearchNav 
         filter={setCopy} 
-        results={filteredResults} 
+        results={resultsCopy} 
         setSearch={setCurrentProject} 
         isPeopleSearch={curentProject} 
       />
