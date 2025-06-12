@@ -567,6 +567,54 @@
   width: 100%;
 }
 
+.testimonial-modal-success{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30%;
+  width: 25%;
+}
+
+.testimonial-success-modal-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50%;
+  width: 100%;
+}
+
+.testimonial-success-modal-header h3{
+  font-size: 20px;
+  color: var(--navy-blue);
+}
+
+.testimonial-success-modal-close{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  color: #404040;
+  cursor: pointer;
+  z-index: 10;
+  font-weight: 600;
+}
+
+.testimonial-modal-submit-button{
+  background-color: var(--navy-blue);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 16px;
+}
+
+.testimonial-modal-submit-button:hover{
+  background-color: var(--light-blue);
+}
+
 
 /* Links */
 .links-form-group{

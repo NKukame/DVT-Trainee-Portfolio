@@ -11,6 +11,7 @@ function Testimonials({ data, onChange }) {
   const [testimonialCompany, setTestimonialCompany] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const updateParent = (clients, testimonials) => {
     let filteredClients = [...clients];
@@ -73,6 +74,8 @@ function Testimonials({ data, onChange }) {
     setTestimonialReference("");
     setTestimonialCompany("");
     setEditIndex(null);
+
+    setShowSuccessModal(true);
   };
 
   const handleDeleteTestimonial = () => {
@@ -261,6 +264,31 @@ function Testimonials({ data, onChange }) {
                 Save
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showSuccessModal && (
+        <div
+          className="career-upload-modal-overlay"
+          onClick={() => setShowSuccessModal(false)}
+        >
+          <div
+            className="career-upload-modal testimonial-modal testimonial-modal-success"
+            style={{ textAlign: "center" }}
+          >
+            <div className="testimonial-success-modal-header">
+              <h3>Add Testimonial</h3>
+
+              <div className="testimonial-success-modal-close" onClick={() => setShowSuccessModal(false)}>X</div>
+            </div>            
+            <p>You have successfully added a testimonial to your profile. After an admin has reviewed and approved your submission it will become visible on your profile..</p>
+            <button
+              className="testimonial-modal-submit-button"
+              onClick={() => setShowSuccessModal(false)}
+            >
+              Thank You
+            </button>
           </div>
         </div>
       )}
