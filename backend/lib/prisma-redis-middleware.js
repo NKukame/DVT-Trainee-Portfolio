@@ -20,29 +20,31 @@ redis.on('error', (err) => {
 // Create Prisma client
 const prisma = new PrismaClient();
 
-// Create Redis cache middleware
+// Create Redis cache middleware - CORRECTED STRUCTURE
 const prismaRedisCache = createPrismaRedisCache({
-  cacheTime: 300,
-  redis:{
-    client: redis,
-    invalidation: {
-      referencesTTL: 300, // 5 minutes
+  cacheTime: 300, // Default cache time
+  storage: {  // Use 'storage' instead of 'redis'
+    type: "redis",
+    options: {
+      client: redis,
+      invalidation: {
+        referencesTTL: 300, // 5 minutes
+      },
       log: console
     }
   },
-
-  models: [{model:'User'}, {model:'Project'}, {model:'Employee'}],
-
+  models: [
+    { model: '*', cacheTime: 3000 }, 
+    { model: 'Project', cacheTime: 3000 }
+  ],
   onHit: (key) => {
-    console.log("hit", key);
+    console.log("🎯 CACHE HIT:", key);
   },
-
   onMiss: (key) => {
-    console.log("miss", key);
+    console.log("❌ CACHE MISS:", key);
   },
-
-  onError: (key) => {
-    console.log("error", key);
+  onError: (key, error) => {
+    console.log("💥 CACHE ERROR:", key, error);
   }
 });
 
@@ -55,6 +57,30 @@ process.on('SIGINT', async () => {
   redis.disconnect();
   process.exit(0);
 });
+
+// If you need manual Redis operations, export these methods
+export const redisOperations = {
+  // Manual get/set methods if needed
+  async get(key) {
+    return await redis.get(key);
+  },
+  
+  async set(key, value, ttl = 300) {
+    return await redis.set(key, value, 'EX', ttl);
+  },
+  
+  async del(key) {
+    return await redis.del(key);
+  },
+  
+  async keys(pattern = '*') {
+    return await redis.keys(pattern);
+  },
+  
+  async flushall() {
+    return await redis.flushall();
+  }
+};
 
 export { redis };
 export default prisma;

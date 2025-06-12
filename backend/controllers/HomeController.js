@@ -8,6 +8,7 @@ export async function HomePortfolioController(req, res) {
     
     try {
         const users = await prisma.user.findMany({
+            
             include: {
                 employee: {
                     select: {
@@ -24,7 +25,7 @@ export async function HomePortfolioController(req, res) {
         
         const queryTime = Date.now() - startTime;
         
-        res.json({
+       return res.json({
             success: true,
             data: users,
             performance: {
