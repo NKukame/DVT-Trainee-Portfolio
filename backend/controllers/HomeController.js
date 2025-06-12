@@ -1,12 +1,29 @@
 // Replace your current HomeController.js with this:
  // This will be your Redis-enabled Prisma client
 
- import prisma from "../lib/prisma-redis-middleware.js";
+import prisma, { redis } from "../lib/prisma-redis-middleware.js";
+import { getCache, setCache } from "../lib/prisma-redis-middleware.js";
 
 export async function HomePortfolioController(req, res) {
     const startTime = Date.now();
-    
     try {
+        const cacheKey = 'homePortfolioUsers';
+        const cached = await getCache(cacheKey);
+        if(cached){
+            console.log('Cache hit for HomePortfolioController');
+           
+            const queryTime = Date.now() - startTime;
+            return res.json({
+                success: true,
+                data: cached,
+                performance: {
+                    queryTime: `${queryTime}ms`,
+                    cached: true,
+                    count: cached.length
+                }
+            });
+        }
+        console.log('Cache miss for HomePortfolioController');
         const users = await prisma.user.findMany({
             
             include: {
@@ -23,8 +40,8 @@ export async function HomePortfolioController(req, res) {
             }
         });
         
-        const queryTime = Date.now() - startTime;
-        
+       const queryTime = Date.now() - startTime;
+       setCache(cacheKey, users, 60 * 60); 
        return res.json({
             success: true,
             data: users,
@@ -47,7 +64,25 @@ export async function HomePortfolioController(req, res) {
 export async function HomeProjectController(req, res) {
     const startTime = Date.now();
     
+    
     try {
+         const cacheKey = 'homeProjectController';
+        const cached = await getCache(cacheKey);
+        if(cached){
+            console.log('Cache hit for homeProjectController');
+            const queryTime = Date.now() - startTime;
+           
+            return res.json({
+                success: true,
+                data: cached,
+                performance: {
+                    queryTime: `${queryTime}ms`,
+                    cached: true,
+                    count: cached.length
+                }
+            });
+        }
+        console.log('Cache miss for homeProjectController');
         const projects = await prisma.project.findMany({
             include: {
                 members: {
@@ -74,6 +109,7 @@ export async function HomeProjectController(req, res) {
         });
         
         const queryTime = Date.now() - startTime;
+        setCache(cacheKey, projects, 60 * 60); 
         
         res.json({
             success: true,
@@ -93,20 +129,5 @@ export async function HomeProjectController(req, res) {
         });
     }
 }
-// import { PrismaClient } from "@prisma/client";
 
-// // const prisma = new PrismaClient()
-// export async function HomePortfolioController(req, res){
-  
-//   const users = await prisma.user.findMany()
-
-//   // const dataTeam = await fetch("/team-portfolio.json");
-//   res.send(users);
-// }
-
-// export async function HomeProjectController(req, res){ 
-//   const employees = await prisma.project.findMany();
-
-//   return res.send(employees);
-// }
 
