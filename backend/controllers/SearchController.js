@@ -23,6 +23,7 @@ const prisma = new PrismaClient();
  */
 
 export async function SearchProjectController(req, res) {
+
   const { query,industries, techStack,field, order , page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
 
   try {
@@ -36,6 +37,9 @@ export async function SearchProjectController(req, res) {
     }
 
     if (industries?.length){
+      if(typeof industries === 'string') {
+        industries = [industries]
+      }
       where.industry = { 
         some: {
           in: industries 
@@ -43,7 +47,10 @@ export async function SearchProjectController(req, res) {
       }
     }
 
-    if (techStack.techStack?.length){
+    if (techStack?.length){
+      if(typeof techStack === 'string') {
+        techStack = [techStack]
+      }
       where.techStack = {
         some: {
           techStack: {
@@ -128,7 +135,6 @@ export async function SearchEmployeeController(req, res) {
       where.OR = [
         {name: {contains: query, mode: 'insensitive'}},
         {surname: {contains: query, mode: 'insensitive'}},
-        {title: {contains: query, mode: 'insensitive'}},
         {company: {contains: query, mode: 'insensitive'}},
         { user : { email: {contains: query, mode: 'insensitive'}}},
       ]
@@ -184,7 +190,7 @@ export async function SearchEmployeeController(req, res) {
     
     const orderBy = {}
 
-    if (sort) {
+    if (field && order) {
       orderBy[field] = order
     }else {
       orderBy.createdAt = 'desc'

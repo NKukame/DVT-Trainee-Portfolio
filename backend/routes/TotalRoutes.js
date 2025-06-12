@@ -520,7 +520,7 @@ totalRoutes.get('/profiles', authenticateToken, HomePortfolioController); // /pr
  *                 employees:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Employee'
+ *                     $ref: '#/component/schemas/Employee'
  *                 total:
  *                   type: integer
  *       404:
@@ -615,7 +615,7 @@ totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController)
  *                 projects:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Project'
+ *                     $ref: '#/component/schemas/Project'
  *                 total:
  *                   type: integer
  *       404:
