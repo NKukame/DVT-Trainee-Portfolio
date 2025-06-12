@@ -35,7 +35,7 @@ function UserDetails({ user }) {
         </div>
       </div>
       <div className='skills-list'>
-        <Badges badgeList={user.skills} />
+        {/* <Badges badgeList={user.skills} /> */}
       </div>
     </>
   );
