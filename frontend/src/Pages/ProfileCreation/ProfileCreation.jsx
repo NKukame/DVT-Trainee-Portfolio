@@ -106,7 +106,6 @@ function ProfileCreation() {
     return !data.status;
   };
 
-
   const getIncompleteSteps = () => {
     const incomplete = [];
     if (isBasicInfoIncomplete(formData.basicInfo)) incomplete.push(0);
