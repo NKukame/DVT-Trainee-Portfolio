@@ -56,10 +56,15 @@
     clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
     position: absolute;
     top: 0;
+    transition: background-color 0.3s;
 }
 
 .steps.active .step-text{
   background-color: rgb(2, 127, 185, 0.2);
   padding: 7px;
   border-radius: 10px;
+}
+
+.step-progress.visited {
+    background-color: var(--navy-blue); 
 }

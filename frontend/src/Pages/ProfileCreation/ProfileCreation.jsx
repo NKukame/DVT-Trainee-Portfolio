@@ -47,6 +47,7 @@ function ProfileCreation() {
     },
   ]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [visitedSteps, setVisitedSteps] = useState([0]); 
   const [formData, setFormData] = useState({
     basicInfo: {},
     skills: {},
@@ -55,13 +56,26 @@ function ProfileCreation() {
     links: {},
     status: {},
   });
+  
+  const handleStepChange = (index) => {
+  setCurrentStep(index);
+  setVisitedSteps((visited) =>
+    visited.includes(index) ? visited : [...visited, index]
+  );
+};
 
   const handleNext = () => {
     const stepKeys = ["basicInfo", "skills", "career", "testimonials", "links", "status"];
     const currentKey = stepKeys[currentStep];
     console.log(`Current Step (${currentKey}) Data:`, formData[currentKey]);
     if (currentStep < stepData.length - 1) {
-      setCurrentStep((prev) => prev + 1);
+      setCurrentStep((prev) => {
+        const nextStep = prev + 1;
+        setVisitedSteps((visited) =>
+          visited.includes(nextStep) ? visited : [...visited, nextStep]
+        );
+        return nextStep;
+      });
     }
   };
 
@@ -155,7 +169,8 @@ function ProfileCreation() {
               <Stepper
                 currentStep={currentStep}
                 stepData={stepData}
-                setCurrentStep={setCurrentStep}
+                setCurrentStep={handleStepChange}
+                visitedSteps={visitedSteps}
               />
             </div>
 
