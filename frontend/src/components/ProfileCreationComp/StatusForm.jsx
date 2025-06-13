@@ -3,7 +3,7 @@ import "./Form.css";
 
 function StatusForm({ data, onChange }) {
   const assigned = data.status || "";
-  const isInactive = assigned === "no";
+  const isInactive = assigned === "Unavailable";
 
   // Get today's date in yyyy-mm-dd format
   const today = new Date().toISOString().split("T")[0];

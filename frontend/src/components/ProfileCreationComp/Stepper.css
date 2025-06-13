@@ -66,5 +66,9 @@
 }
 
 .step-progress.visited {
-    background-color: var(--navy-blue); 
+    background-color: var(--dark-cerulean); 
+}
+
+.step-progress.incomplete {
+    background-color: var(--progress-bar-orange);
 }

@@ -8,9 +8,29 @@ function SubmitForm({
   testimonials,
   links,
   status,
+  incompleteSteps = [],
+  stepData = [],
 }) {
+
+  const incompleteSectionTitles = incompleteSteps
+    .filter((idx) => stepData[idx] && stepData[idx].title !== "Submit")
+    .map((idx) => stepData[idx]?.title);
+
   return (
     <div className="submit-form-container">
+      {incompleteSectionTitles.length > 0 && (
+        <div className="submit-warning-box">
+          <strong>
+            Please complete the following sections before submission:
+          </strong>
+          <ul>
+            {incompleteSectionTitles.map((title) => (
+              <li key={title}>{title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="basic-info-submit-section">
         <div className="submit-form-header">
           <h3>Basic Information</h3>
@@ -313,7 +333,6 @@ function SubmitForm({
       <div className="submit-form-line"></div>
 
       <div className="submit-form-footer">
-
         <div className="submit-form-checkbox">
           <input
             type="checkbox"
@@ -334,7 +353,8 @@ function SubmitForm({
             required
           />
           <label htmlFor="confirm-submit">
-            I hereby accept the terms & conditions of the DVT Information Sharing Policy
+            I hereby accept the terms & conditions of the DVT Information
+            Sharing Policy
           </label>
         </div>
 
@@ -343,10 +363,7 @@ function SubmitForm({
             Submit
           </button>
         </div>
-
       </div>
-
-      
     </div>
   );
 }

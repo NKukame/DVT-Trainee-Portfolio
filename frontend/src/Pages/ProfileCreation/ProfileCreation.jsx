@@ -56,13 +56,75 @@ function ProfileCreation() {
     links: {},
     status: {},
   });
+
+  // These functions check if the required fields for each step are filled out
+  const isBasicInfoIncomplete = (data) => {
+    return (
+      !data.firstName ||
+      !data.lastName ||
+      !data.email ||
+      !data.phone ||
+      !data.experience ||
+      !data.role ||
+      !data.location
+    );
+  };
+
+  const isSkillsIncomplete = (data) => {
+    const hasEducation = Array.isArray(data.educationEntries)
+      ? data.educationEntries.some(
+          (entry) => entry.qualification && entry.institution
+        )
+      : false;
+
+    const hasTech = Array.isArray(data.selectedTechnologies)
+      ? data.selectedTechnologies.length > 0
+      : false;
+
+    const allTechHasExperience = hasTech
+      ? data.selectedTechnologies.every(
+          (tech) => data.techExperience && data.techExperience[tech]
+        )
+      : false;
+
+    return !hasEducation || !hasTech;
+  };
+
+  const isCareerIncomplete = (data) => {
+    if (!Array.isArray(data.careerEntries)) return true;
+    return !data.careerEntries.some(
+      (entry) => entry.role && entry.company && entry.duration
+    );
+  };
+
+  const isTestimonialsIncomplete = (data) => {
+    if (!Array.isArray(data.clients)) return true;
+    return !data.clients.some((client) => client && client.trim() !== "");
+  };
+
+  const isStatusIncomplete = (data) => {
+    return !data.status;
+  };
+
+
+  const getIncompleteSteps = () => {
+    const incomplete = [];
+    if (isBasicInfoIncomplete(formData.basicInfo)) incomplete.push(0);
+    if (isSkillsIncomplete(formData.skills)) incomplete.push(1);
+    if (isCareerIncomplete(formData.career)) incomplete.push(2);
+    if (isTestimonialsIncomplete(formData.testimonials)) incomplete.push(3);
+    if (isStatusIncomplete(formData.status)) incomplete.push(5);
+    return incomplete;
+  };
+
+  const incompleteSteps = getIncompleteSteps();
   
   const handleStepChange = (index) => {
-  setCurrentStep(index);
-  setVisitedSteps((visited) =>
-    visited.includes(index) ? visited : [...visited, index]
-  );
-};
+    setCurrentStep(index);
+    setVisitedSteps((visited) =>
+      visited.includes(index) ? visited : [...visited, index]
+    );
+  };
 
   const handleNext = () => {
     const stepKeys = ["basicInfo", "skills", "career", "testimonials", "links", "status"];
@@ -151,6 +213,8 @@ function ProfileCreation() {
             testimonials={formData.testimonials}
             links={formData.links}
             status={formData.status}
+            incompleteSteps={incompleteSteps}
+            stepData={stepData}
           />
         );
       default:
@@ -171,6 +235,7 @@ function ProfileCreation() {
                 stepData={stepData}
                 setCurrentStep={handleStepChange}
                 visitedSteps={visitedSteps}
+                incompleteSteps={incompleteSteps}
               />
             </div>
 
