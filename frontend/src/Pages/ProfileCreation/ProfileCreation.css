@@ -1,0 +1,103 @@
+.profile-creation-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #404040;
+}
+
+.profile-creation-header{  
+    margin: 6px;    
+}
+
+.profile-creation-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto 0;
+    height: fit-content;
+    width: 91vw;
+    height: 100%;
+    background-color: var(--white);
+    margin-left: 7%;
+    border-radius: 15px;
+    margin-bottom: 7px;
+}
+
+.profile-creation-content-header{
+    display: flex;
+    align-items: center;
+    
+    background-color: var(--navy-blue);
+    padding: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.profile-creation-content-header h1{
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.profile-creation-content-forms-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 20px;
+    height: 100%;
+}
+
+
+.profile-creation-content-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+    border-top: 1px solid var(--gray);
+    padding: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.profile-creation-content-footer-left-sided-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-creation-content-footer .profile-creation-cancel-btn{
+    background-color: red;
+    color: var(--white);
+}
+
+.profile-creation-content-footer .profile-creation-save-btn{
+    background-color: var(--light-blue);
+    color: var(--white);
+}
+
+
+.profile-creation-content-footer button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: var(--white);
+    padding: 7px 10px;
+    border: 1px solid var(--gray);
+    color: var(--navy-blue);
+    border-radius: 5px;
+    width: 120px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-inline: 10px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.profile-creation-content-footer button:hover{
+    background-color: var(--navy-blue);
+    color: var(--white);
+}
