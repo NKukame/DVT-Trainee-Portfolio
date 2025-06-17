@@ -28,6 +28,15 @@ enum TechCategory {
   MOBILE
 }
 
+enum SoftSkillsCategory{
+  COMMUNICATION
+  COLLABORATION
+  LEADERSHIP
+  ADAPTABILITY
+  PROBLEM_SOLVING
+  TIME_MANAGEMENT
+}
+
 
 enum Department {
   ENGINEERING
@@ -162,6 +171,7 @@ model EmployeeTechStack {
   employee   Employee  @relation(fields: [employeeId], references: [id])
   techStackId String
   techStack  TechStack @relation(fields: [techStackId], references: [id])
+  years    String?
 
   @@id([employeeId, techStackId])
 }
