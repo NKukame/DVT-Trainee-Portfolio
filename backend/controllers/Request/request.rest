@@ -1,0 +1,12 @@
+
+ GET http://localhost:3000/auth/login Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmVtb3ciLCJpYXQiOjE3NDgzMzU5MjV9.0UnPArwfkTXGoSA3O_IJ3xbQcrzpFgwj3QYUkK9Abps
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username" : "Remow"
+
+}

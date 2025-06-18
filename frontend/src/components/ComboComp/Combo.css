@@ -1,0 +1,144 @@
+.popoverContainer {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 14px;
+    margin-right: 24px;
+  }
+
+  .dark-mode .button {
+    background-color: #04223D;
+    color: white;
+    border: 1px solid #374151;
+  }
+  
+  .popoverContent {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 200px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
+    z-index: 100;
+    padding: 0;
+  }
+
+  .dark-mode .popoverContent {
+    background-color: #052B4C;
+    color: var(--white);
+    border: 1px solid #374151;
+  }
+  
+  .commandContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .commandInput {
+    padding: 8px 12px;
+    border: none;
+    border-bottom: 1px solid #e2e8f0;
+    outline: none;
+    font-size: 14px;
+    height: 36px;
+  }
+  .dark-mode .commandInput::placeholder{
+    color: var(--dark-mode-title-white);
+  }
+
+  .dark-mode .commandInput {
+    background-color: #052B4C;
+    color: white;
+    border-bottom: 1px solid #374151;
+  }
+  
+  .commandList {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .commandEmpty {
+    padding: 10px 12px;
+    color: #224b9d;
+    font-size: 14px;
+  }
+
+  .dark-mode .commandEmpty {
+    color: white;
+  }
+  
+  .commandGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .commandItem {
+    padding: 10px 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    color: black;
+  }
+  
+
+
+  .dark-mode .commandItem {
+    background-color: #052B4C;
+    color: var(--dark-mode-title-white);
+  }
+  
+
+  .selectedTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: calc(100% - 24px);
+  }
+  
+  .tag {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 12px;
+  }
+  
+  .tagRemoveBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+    color: #64748b;
+  }
+  
+  .tagRemoveBtn:hover {
+    color: #ef4444;
+  }
+  
+  .placeholder {
+    color: #94a3b8;
+  }
+  

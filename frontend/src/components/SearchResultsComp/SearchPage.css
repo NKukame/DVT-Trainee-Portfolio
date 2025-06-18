@@ -1,0 +1,314 @@
+/* === Layout Utilities === */
+.grid-3-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 328px);
+  justify-content: center;
+}
+
+.gap-24-px{
+  gap: 24px;
+}
+
+.gap-10-px{
+  gap: 10px;
+}
+
+.gap-4-px{
+  gap: 4px;
+}
+
+.m-10px{
+  margin-bottom: 10px;
+}
+
+.align-items-center{
+  align-items: center;
+}
+.align-content-center{
+  align-content: center;
+}
+.justify-items-center{
+  justify-items: center;
+}
+
+.flex-row{
+  display: flex;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
+.flex-row-between {
+  justify-content: space-between;
+}
+
+/* === Text Utilities === */
+.font-size-20-px{
+  font-size: 20px;
+}
+.font-size-12-px{
+  font-size: 12px;
+}
+
+.font-size-14-px{
+  font-size: 14px;
+}
+
+.font-weight-400{
+  font-weight: 400;
+}
+
+.text-color-white{
+  color: white;
+}
+
+.border-radius-4-px{
+  border-radius: 4px;
+}
+.rounded{
+  border-radius: 10px;
+}
+.border-radius-10-px{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-gray{
+  color: #525252;
+}
+
+.whitespace-nowrap{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-black{
+  font-weight: 500;
+  color: #171717;
+}
+
+.py-4-px{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.link-style{
+  text-align: center;
+  background-color: #027FB9;
+}
+
+.dark-mode .link-style{
+  background-color: var(--dark-mode-alt-white);
+  color: var(--dark-mode-buttonText);
+}
+
+.flex-1{
+  flex: 1;
+}
+
+.badge-list {
+  list-style: none;
+  font-weight: 500;
+  color: #344054;
+}
+
+.dark-mode .badge-list {
+  color: var(--dark-mode-title-white);
+}
+
+.badge-list-white{
+  list-style: none;
+  font-weight: 500;
+  color: var(--white)
+}
+
+.shadow{
+  box-shadow:  0px 0.5px 2.21px #00000005, 0px 1.2px 5.32px #00000007, 
+               0px 2.25px 10.02px #00000009, 0px 4.02px 17.87px #0000000B, 
+               0px 7.52px 33.42px hsla(0, 0%, 0%, 0.051), 0px 18px 80px #00000012;
+}
+
+/* === Component Utilities === */
+.card-user,
+.card-project {
+  color: black;
+  border-radius: 12px;
+  padding: 12px;
+  background: #FFFFFF;
+  min-width: 328px;
+  max-height: 208px;
+}
+
+.dark-mode .card-user,
+.dark-mode .card-project {
+  background: linear-gradient(0deg, #04223D 0%, #02111E 100%);
+  color: white;
+}
+
+.dark-mode .text-black, 
+.dark-mode .text-gray {
+  color: white;
+}
+
+.results-container {
+  background-color: white;
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  padding: 24px;
+  max-width: 1280px;
+}
+
+.dark-mode .results-container {
+  background-color: #052B4C;
+}
+
+/* === Buttons & Badges === */
+.btn-tab {
+  padding: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-tab-active {
+  background: white;
+  border-bottom: none;
+}
+
+.dark-mode .btn-tab-active {
+  background: #052B4C;
+  color: white;
+}
+
+.badge-default {
+  padding: 1px 10px;
+  border-radius: 4.5px;
+  border: 1px solid #D0D5DD;
+}
+
+.m-20-px{
+  margin-block: 40px;
+}
+
+
+.project-modal-width{
+  width: 400px;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+  color: #072549;
+  line-height: 1.2500em;
+  font-size: 0.875rem;
+}
+
+.project-btn{
+  border: none;
+  padding: 5px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.project-avatar{
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-modal-title{
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.username-capitalize{
+  text-transform: capitalize;
+  color: #084677;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+.w-full{
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-badge-heading{
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-bottom: 0.625em;
+}
+
+.m-top{
+  margin-top: 10px;
+}
+
+.btn-project{
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 1.125em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.repo-btn{
+  border: 1px solid #027FB9;
+  color: #027FB9;
+}
+
+.demo-btn{
+  background-color: #027FB9;
+  color: #FFFFFF;
+}
+
+.dark-mode .repo-btn{
+  color: white;
+  border: 1px solid white;
+}
+.dark-mode .username-capitalize{
+  color: #E5E5E5;
+}
+.dark-mode .demo-btn{
+  background-color: #F4F5F7;
+  color: #052B4C;
+}
+
+.separator{
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background-color: #D4D4D4;
+}
+.separator-padding{
+  padding: 0px 8px;
+}
+
+.close-modal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px 10px;
+  cursor: pointer;
+}
