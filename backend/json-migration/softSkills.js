@@ -14,7 +14,6 @@ function getAllSoftSkillsFromJson() {
             if (skill.name) {
                 skills.push({
                     name: skill.name,
-                    // description: skill.description || ""
                 });
             }
         }
@@ -32,7 +31,7 @@ async function ensureSoftSkillsInDb() {
                 update: {},
                 create: {
                     name: skill.name,
-                    // description: skill.description
+                
                 }
             });
         }

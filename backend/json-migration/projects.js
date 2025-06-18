@@ -29,7 +29,7 @@ function getCategoryForTech(name) {
     return 'MOBILE';
   }
 
-  // fallback (optional): default to BACKEND or FRONTEND
+  // If no specific category matches, default to BACKEND
   return 'BACKEND';
 }
 
@@ -63,7 +63,7 @@ async function main() {
       },
       create: {
         name: project.name,
-        employeeId: project.employeeId, // Assuming employeeId is provided in the project data
+        employeeId: project.employeeId,
         description: project.description,
         github: project.github,
         demo: project.demo,
@@ -73,7 +73,7 @@ async function main() {
 
     console.log(`✅ Project: ${createdProject.name}`);
 
-    // --- INDUSTRIES ---
+    //INDUSTRIES 
     for (const industryName of project.industries || []) {
       const industry = await getOrCreateIndustry(industryName);
       await prisma.projectIndustry.upsert({
@@ -91,7 +91,7 @@ async function main() {
       });
     }
 
-    // --- TECH STACK ---
+    // find tech stacks and link them to the project
     for (const techName of project.techStack || []) {
       const tech = await getOrCreateTechStack(techName);
       await prisma.projectTechStack.upsert({
@@ -110,7 +110,7 @@ async function main() {
       });
     }
 
-    // --- MEMBERS ---
+    // find members and link them to the project
     for (const member of project.members || []) {
       const employee = employees.find(e => e.name === member.name);
       if (!employee) {
