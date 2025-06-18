@@ -64,7 +64,7 @@ export async function SearchProjectController(req, res) {
 
     const orderBy = {}
 
-    if (sort) {
+    if (field && order) {
       orderBy[field] = order
     }else {
       orderBy.createdAt = 'desc'
@@ -76,12 +76,36 @@ export async function SearchProjectController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-        include: {
-          industries: true,
-          techStack: true,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          github: true,
+          demo: true,
+          screenshot: true,
+          createdAt: true,
           members: {
-            include: {
-              employee: true
+            select: {
+              employee: {
+                select: {
+                  name: true,
+                  photoUrl: true
+                }
+              }
+            }
+          },
+          industries: {
+            select: {
+              industry: true
+            }
+          },
+          techStack: {
+            select: {
+              techStack: {
+                select: {
+                  name: true
+                }
+              }
             }
           }
         }
@@ -202,9 +226,28 @@ export async function SearchEmployeeController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-        include: {
-          techStack: true
-        }
+       
+        select:{
+          id:true,
+          name:true,
+          surname:true,
+          photoUrl:true,
+          email:true,
+          bio:true,
+          linkedIn:true,
+          github:true,
+          role:true,
+          location:true,
+          techStack:{
+            select:{
+              techStack:{
+                select:{
+                  name:true,
+                }
+              }
+            }
+          }  
+        },
       }),
       prisma.employee.count({ where })
     ]);

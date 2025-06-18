@@ -10,9 +10,6 @@ const __dirname = path.dirname(__filename);
 
 const components = YAML.load(path.join(__dirname, 'components.yaml'));
 
-
-
-
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -38,8 +35,6 @@ const options = {
   },
   apis: ['./routes/*.js'], // Adjust path to your actual route files
 };
-
-console.log(options);
 
 const specs = swaggerJsdoc(options);
 
