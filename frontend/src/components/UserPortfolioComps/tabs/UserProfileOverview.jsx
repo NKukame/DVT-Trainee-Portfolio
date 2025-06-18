@@ -2,6 +2,90 @@ import { useRef, useState, useEffect } from "react";
 import "./userProfileOverview.css";
 
 function UserProfileOverview() {
+  const trackRef = useRef(null);
+    const intervalRef = useRef(null);
+  
+    // Combined function that handles both animation and styling
+    const updateStyles = () => {
+      if (!trackRef.current) return;
+  
+      const items = trackRef.current.querySelectorAll(".video-item");
+  
+      items.forEach((item, index) => {
+        item.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+        item.style.position = "absolute";
+  
+        if (index === 0) {
+          item.style.transform = "translateX(0) scale(1)";
+          item.style.zIndex = 3;
+          item.style.opacity = 1;
+        } else if (index === 1) {
+          item.style.transform = "translateX(330px) scale(0.85)";
+          item.style.zIndex = 2;
+          item.style.opacity = 0.9;
+        } 
+        // else if (index === 2) {
+        //   item.style.transform = "translateX(580px) scale(0.7)";
+        //   item.style.zIndex = 1;
+        //   item.style.opacity = 0.7;
+        // } 
+        else {
+          // Cards beyond 3rd: push them far right and hide
+          item.style.transform = `translateX(900px) scale(0.5)`;
+          item.style.zIndex = 0;
+          item.style.opacity = 0;
+        }
+      });
+    };
+  const startAnimation = () => {
+    // First apply the initial styles
+    updateStyles();
+
+    // Then set up the interval for animation
+    intervalRef.current = setInterval(() => {
+      if (!trackRef.current) return;
+
+      const track = trackRef.current;
+      const items = track.querySelectorAll(".video-item");
+
+      // Add transition class for sliding effect
+      items.forEach((item) => {
+        item.classList.add("slide-left");
+      });
+
+      // After transition completes, move the first item to the end and reset styles
+      setTimeout(() => {
+        const firstItem = items[0];
+        track.appendChild(firstItem);
+        items.forEach((item) => item.classList.remove("slide-left"));
+        updateStyles(); // Re-apply styles after DOM changes
+      }, 500);
+    }, 3000);
+  };const stopAnimation = () => {
+      clearInterval(intervalRef.current);
+    };
+  
+    useEffect(() => {
+      // Initial styles and start animation on mount
+      updateStyles();
+      startAnimation();
+  
+      // Clear interval on unmount
+      return () => stopAnimation();
+    }, []);
+    // Modal Code
+      const [selectedProject, setSelectedProject] = useState(null);
+      const [isModalOpen, setIsModalOpen] = useState(false);
+    
+      const openModal = (project) => {
+        setSelectedProject(project);
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setSelectedProject(null);
+        setIsModalOpen(false);
+      };
   const projects = [
     {
       name: "Zara Hadid",
@@ -34,7 +118,7 @@ function UserProfileOverview() {
         "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
     },
     {
-      name: "Zara Hadid",
+      name: "Gregory House",
       company: "Tech Innovations",
       description:
         "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
@@ -55,7 +139,7 @@ function UserProfileOverview() {
         </p>
         <div className="testimonial-overview-section">
           <div className="testimonial-content">
-            {projects.map((project, index) => (
+            {[...projects, ...projects].map((project, index) => (
               <div className="testimonial-item" key={index}>
                 <p className="testimonial-text">{project.description}</p>
                 <div>
@@ -68,8 +152,34 @@ function UserProfileOverview() {
         </div>
 
         <h2 className="profile-overview-ft-Projects">Featured Projects</h2>
+            <section className="overview-video-header">
+        <div
+        className="overview-video-carousel"
+        onMouseEnter={stopAnimation}
+        onMouseLeave={startAnimation}
+      >
+        <div className="video-track" ref={trackRef}>
+          {projects.map((project, index) => (
+            <div key={index} className="video-item">
+              <img className="video-item-image" src={project.image} alt="Video Thumbnail" />
 
-        
+              <div className="video-item-text">
+                <div className="video-item-text-inner">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                </div>
+                <div
+                  className="video-see-more"
+                  onClick={() => openModal(project)}
+                >
+                  See More
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      </section>
       </section>
     </>
   );
