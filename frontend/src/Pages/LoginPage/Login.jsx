@@ -130,7 +130,7 @@ function Signup() {
             password: "",
             confirmPassword: "",
           }));
-          navigate("/");
+          navigate("/profile-creation");
         }  
         else{
           setErrors( {email:'Registration failed'})

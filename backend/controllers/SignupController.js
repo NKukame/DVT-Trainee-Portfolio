@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 
 export default async function signup(req, res){
 try{
-  const { email, password } = req.body;
+  const {  email, password } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const tempObj = { email, password: hashedPassword };
+  const tempObj = {  email, password: hashedPassword };
   const user = await prisma.user.create({
    data: tempObj,
  })
