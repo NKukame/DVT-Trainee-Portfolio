@@ -28,6 +28,16 @@ enum TechCategory {
   MOBILE
 }
 
+enum SoftSkillsCategory{
+  COMMUNICATION
+  COLLABORATION
+  LEADERSHIP
+  ADAPTABILITY
+  PROBLEM_SOLVING
+  TIME_MANAGEMENT
+  
+}
+
 
 enum Department {
   ENGINEERING
@@ -42,6 +52,15 @@ enum UserTitle{
   MRS
   MS
   DR
+}
+
+enum Industries{
+  RETAIL
+  BANKING
+  INSURANCE
+  EDUCATION
+  MINING
+  MECS
 }
 
 
@@ -93,7 +112,7 @@ model Employee {
 
 model Project {
   id          String        @id @default(uuid())
-  name        String
+  name        String        @unique
   description String
   industries  ProjectIndustry[]
   techStack   ProjectTechStack[]
@@ -162,6 +181,7 @@ model EmployeeTechStack {
   employee   Employee  @relation(fields: [employeeId], references: [id])
   techStackId String
   techStack  TechStack @relation(fields: [techStackId], references: [id])
+  years    String?
 
   @@id([employeeId, techStackId])
 }
