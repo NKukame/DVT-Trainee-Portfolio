@@ -9,6 +9,7 @@ import { deleteProjectController, deleteProfileController } from '../controllers
 import signup from '../controllers/SignupController.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
 
+
 const totalRoutes = express.Router();
 
 
@@ -623,6 +624,8 @@ totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController)
  *         description: Server error
  */
 totalRoutes.get('/search/project', authenticateToken, SearchProjectController);
+
+
 
 
 
