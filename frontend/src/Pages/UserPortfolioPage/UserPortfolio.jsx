@@ -4,9 +4,14 @@ import Dashboard from '../../components/DashboardComp/Dashboard';
 import ProjectCard from '../../components/ProjectsComp/Projects';
 import TestimonialCard from '../../components/TestimonialCardComp/TestimonialCard';
 import SideBar from '../../components/SidebarComp/SideBar';
+import TabHead from '../../components/UserPortfolioComps/tabs/TabHead';
+import { useState } from 'react';
+import UserProfileOverview from '../../components/UserPortfolioComps/tabs/UserProfileOverview';
+import UserProfileProjects from '../../components/UserPortfolioComps/tabs/UserProfileProjects';
+import UserProfileSkillBreakdown from '../../components/UserPortfolioComps/tabs/UserprofileSkillBreakdown';
 
 function UserPortfolio() {
-
+    const [activeTab, setActiveTab] = useState('overview');
     const testimonials = [
         {
             name: "John Doe",
@@ -28,32 +33,7 @@ function UserPortfolio() {
         },
     ];
 
-    const projects = [
-        {
-            name: "Scientific Calculator",
-            techStack: ["HTML", "CSS", "JavaScript"],
-            contributors: ["Bob Johnson", "Alice Smith"],
-            description: "A scientific calculator with advanced features.",
-            liveDemo: "https://example.com/demo",
-            sourceCode: "https://github.com/example/scientific-calculator",
-        },
-        {
-            name: "Portfolio Website",
-            techStack: ["React", "CSS"],
-            contributors: ["John Doe"],
-            description: "A personal portfolio website showcasing projects.",
-            liveDemo: "https://example.com/portfolio",
-            sourceCode: "https://github.com/example/portfolio",
-        },
-        {
-            name: "E-commerce App",
-            techStack: ["Node.js", "Express", "MongoDB"],
-            contributors: ["Jane Doe"],
-            description: "A full-stack e-commerce platform with user authentication.",
-            liveDemo: "https://example.com/ecommerce",
-            sourceCode: "https://github.com/example/ecommerce",
-        },
-    ];
+    
 
 
     return (
@@ -70,16 +50,22 @@ function UserPortfolio() {
                     <div className="portfolio-layout">
                         <Dashboard />
                         <div className="project-container">
-                            <div className="about-section">
+                            <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
+
+                            {activeTab === 'overview' && <UserProfileOverview />}
+                            {activeTab === 'projects' && <UserProfileProjects />}
+                            {activeTab === 'skills' && <UserProfileSkillBreakdown />}
+
+                            {/* <div className="about-section"> */}
                                 {/* <h1 className='about-header'>
                                     Hello World!
                                 </h1> */}
-                                <p>
+                                {/* <p>
                                     As a graduate Software Developer with hands-on experience in Java, Python, C# and SQLite for backend development, and HTML, CSS, JS and React, I am passionate about creating innovative solutions that make a difference. I thrive in collaborative environments and am eager to contribute my skills to impactful projects. My goal is to leverage technology to solve real-world problems and continuously learn and grow in the field of software development.
                                 </p>
-                            </div>
+                            </div> */}
 
-                            <div className="testimonial-section">
+                            {/* <div className="testimonial-section">
                                 {testimonials.map((testimonial, index) => (
                                     <TestimonialCard
                                         key={index}
@@ -89,18 +75,8 @@ function UserPortfolio() {
                                         rating={testimonial.rating}
                                     />
                                 ))}
-                            </div>
-                            <main className="main-content">
-
-                                <h2>Featured Projects</h2>
-                                <section className="grid-content">
-                                    {projects.map((project, index) => (
-                                        <div className="grid-item" key={index}>
-                                            <ProjectCard project={project} />
-                                        </div>
-                                    ))}
-                                </section>
-                            </main>
+                            </div> */}
+                            
                         </div>
                     </div>
 

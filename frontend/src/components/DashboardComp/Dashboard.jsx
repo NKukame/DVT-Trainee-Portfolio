@@ -7,6 +7,7 @@ import Medal from '../../assets/icons8-medal-100.png';
 import Github from '../../assets/icons8-github-100.png';
 import LinkedIn from '../../assets/icons8-linkedin-100.png';
 import Email from '../../assets/icons8-email-100.png';
+import award from '../../assets/Award-01.png';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -16,24 +17,25 @@ function Dashboard() {
             <div className="profile">
 
 
+                <div className="short-bio">
                 <div className='profile-picture'>
                     <img src={ProfileImage} className='profile-img' alt="Profile" />
                 </div>
 
-                <div className="short-bio">
-                    <h2>Paballo Thobei</h2>
-                    <p><strong>Fullstack Developer Intern</strong></p>
-                    <p>I like banana splits and things.</p>
+                    <p className='profile-name'>Paballo Thobei</p>
+                    <p className='profile-role'><strong>Fullstack Developer Intern</strong></p>
+                    <p className='profile-bio'>Short intro of experience and interests like cats hobbies and projects they really like etc...</p>
                 </div>
 
                 <div className="profile-info">
 
-                    <Link to='/ProfileForm'><button className='manage-prfl'>Manage Profile</button></Link>
-
-                    <p><img src={Medal} alt='Role Icon' className="dashboard-icon" />2.5 years</p>
+                    <Link to='/ProfileForm'><button className='manage-prfl'>Edit Profile</button></Link>
+                    <Link to='/ProfileForm'><button className='manage-prfl'>Generate Profile</button></Link>
+<div className='profile-details'>
                     <p><img src={Calender} alt="Experience Icon" className="dashboard-icon" />Immediately</p>
                     <p><img src={Location} alt="Location Icon" className="dashboard-icon" />Johannesburg (flexible)</p>
-
+                    <p><img src={award} alt='Role Icon' className="dashboard-icon" />2.5 years</p>
+</div>
 
 
                 </div>

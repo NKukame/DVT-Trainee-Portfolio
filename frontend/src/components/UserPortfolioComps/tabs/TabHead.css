@@ -1,0 +1,20 @@
+.tab-head-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #00000022;
+}
+
+.tab {
+  all: unset;
+  color: #000000;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.active {
+  color: #ffffff;
+  background-color: #027FB9;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
