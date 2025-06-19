@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
-const prisma = new PrismaClient()
+import prisma from "../lib/prisma-redis-middleware.js";
+
 
 
 export async function HomePortfolioController(req, res){

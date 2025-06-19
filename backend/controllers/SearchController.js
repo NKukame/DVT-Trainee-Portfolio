@@ -1,7 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import prisma, {redis} from "../lib/prisma-redis-middleware.js";
 import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
-const prisma = new PrismaClient();
+
+
+
+
+
 
 
 /**
@@ -150,17 +153,16 @@ export async function SearchEmployeeController(req, res) {
   
   try {
     const where = {};
-    const cacheKey = `searchEmployee:${query}-${location}-${role}-${industry}-${techStack}-${field}-${order}-${page}-${limit}`;
+    const cacheKey = `${query}`;
     const cached = await getCache(cacheKey);
     if (cached) {
       console.log('Cache hit for SearchEmployeeController', query);
-      const queryTime = Date.now() - startTime;
+    
     
       return res.json({
         success: true,
         data: cached,
         performance: {
-          queryTime: `${queryTime}ms`,
           cached: true,
           count: cached.length,
           searchTerm: cacheKey

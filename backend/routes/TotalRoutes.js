@@ -528,7 +528,7 @@ totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController);
+totalRoutes.get('/search/employee', SearchEmployeeController);
 
 
 

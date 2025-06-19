@@ -5,7 +5,7 @@ import { swaggerUi, specs } from './swagger.js';
 const app = express();
 app.use(express.json());
 const port = 3000;
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 app.use(REST_API);
 
 
