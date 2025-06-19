@@ -275,7 +275,7 @@ totalRoutes.put('/forgot-password', forgotPassword);
 totalRoutes.put('/profile/:name', authenticateToken, UpdateProfileController)
 /**
  * @swagger
- * /project/{id}/{email}:
+ * /project/{id}:
  *   delete:
  *     summary: Delete a project by ID and owner email
  *     tags: [Project]
@@ -286,13 +286,6 @@ totalRoutes.put('/profile/:name', authenticateToken, UpdateProfileController)
  *         schema:
  *           type: string
  *         description: The ID of the project to delete
- *       - in: path
- *         name: email
- *         required: true
- *         schema:
- *           type: string
- *           format: email
- *         description: The email of the project owner
  *     responses:
  *       200:
  *         description: Project deleted successfully
@@ -310,17 +303,11 @@ totalRoutes.delete('/project/:id', authenticateToken, deleteProjectController);
 
 /**
  * @swagger
- * /profile/{id}/{email}:
+ * /profile/{email}:
  *   delete:
  *     summary: Delete a user profile using ID and email
  *     tags: [Profile]
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: The user's ID
  *       - in: path
  *         name: email
  *         required: true
