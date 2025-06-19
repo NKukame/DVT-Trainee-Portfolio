@@ -22,6 +22,7 @@ const prisma = new PrismaClient();
  * @throws {404} - If no projects are found.
  */
 
+
 export async function SearchProjectController(req, res) {
 
   const { query,industries, techStack,field, order , page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
