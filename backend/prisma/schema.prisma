@@ -192,6 +192,7 @@ model EmployeeSoftSkill {
   employee   Employee  @relation(fields: [employeeId], references: [id])
   softSkillId String
   softSkill  SoftSkill @relation(fields: [softSkillId], references: [id])
+  skillsRating  String?
   
   @@id([employeeId, softSkillId])
 }

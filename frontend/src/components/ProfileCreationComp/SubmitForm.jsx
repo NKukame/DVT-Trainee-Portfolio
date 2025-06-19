@@ -16,8 +16,34 @@ function SubmitForm({
     .filter((idx) => stepData[idx] && stepData[idx].title !== "Submit")
     .map((idx) => stepData[idx]?.title);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/create-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          basicInfo:basicInfo,
+          skills: skills,
+          career: career,
+          testimonials: testimonials,
+          links: links,
+          status: status,
+        }),
+      });
+      if (response.ok) {
+        alert("Profile submitted successfully!");
+      } else {
+        const data = await response.json();
+        alert("Error: " + (data.error || "Failed to submit profile"));
+      }
+    } catch (error) {
+      alert("Network error: " + error.message);
+    }
+  };
+
   return (
-    <div className="submit-form-container">
+    <form className="submit-form-container" onSubmit={handleSubmit}>
       {incompleteSectionTitles.length > 0 && (
         <div className="submit-warning-box">
           <strong>
@@ -86,6 +112,11 @@ function SubmitForm({
             <div className="submit-form-group">
               <label className="form-label">Location</label>
               <p className="form-value">{basicInfo?.location || "-"}</p>
+            </div>
+
+            <div className="submit-form-group">
+              <label className="form-label">Birthday</label>
+              <p className="form-value">{basicInfo?.birthday || "-"}</p>
             </div>
           </div>
         </div>
@@ -209,6 +240,13 @@ function SubmitForm({
                         </div>
                       ))
                   : "-"}
+              </div>
+            </div>
+
+            <div className="submit-form-group">
+              <label className="form-label">Department</label>
+              <div className="form-value">
+                {career?.department || "-"}
               </div>
             </div>
           </div>
@@ -364,7 +402,7 @@ function SubmitForm({
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

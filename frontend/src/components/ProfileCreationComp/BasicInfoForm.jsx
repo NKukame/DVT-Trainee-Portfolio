@@ -89,23 +89,39 @@ function BasicInfo({ data, onChange }) {
               )}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <select
-                name="title"
-                id="title"
+            <div className="skills-dual-input">
+
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <select
+                  name="title"
+                  id="title"
+                  onChange={handleChange}
+                  value={data.title || ""}
+                >
+                  <option value="" disabled>
+                    Title
+                  </option>
+                  <option value="MR">Mr</option>
+                  <option value="MRS">Mrs</option>
+                  <option value="MS">Ms</option>
+                  <option value="DR">Dr</option>
+                </select>
+              </div>
+              <div className="form-group">
+              <label htmlFor="assessment-end">Birthday<span className="required-asterisk">*</span></label>
+              <input
+                type="date"
+                id="birthday"
+                name="birthday"
+                value={data.birthday || ""}
                 onChange={handleChange}
-                value={data.title || ""}
-              >
-                <option value="" disabled>
-                  Title
-                </option>
-                <option value="Mr">Mr.</option>
-                <option value="Mrs">Mrs.</option>
-                <option value="Ms">Ms.</option>
-                <option value="Dr">Dr.</option>
-              </select>
+                required
+                style={{font: "inherit"}}
+              />
             </div>
+            </div>
+
 
             <div className="form-group">
               <label htmlFor="firstName">

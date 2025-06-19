@@ -72,6 +72,8 @@ function CareerFrom({ data, onChange }) {
   const [projectDemoLink, setProjectDemoLink] = useState("");
   const [projectRepoLink, setProjectRepoLink] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [department, setDepartment] = useState(data.department || "");
+  const departmentList = ["ENGINEERING", "DESIGN", "MARKETING", "SALES", "HR"];
 
   // Function to handle changes in any input field
   const handleChange = (index, event) => {
@@ -89,6 +91,7 @@ function CareerFrom({ data, onChange }) {
       ...data,
       careerEntries: filteredEntries,
       projects,
+      department
       // ...add other fields if needed
     });
 
@@ -123,6 +126,7 @@ function CareerFrom({ data, onChange }) {
       ...data,
       careerEntries: filteredEntries,
       projects,
+      department,
     });
   };
 
@@ -188,6 +192,7 @@ function CareerFrom({ data, onChange }) {
       ...data,
       careerEntries,
       projects: updatedProjects,
+      department,
     });
 
     // Reset modal fields
@@ -256,6 +261,35 @@ function CareerFrom({ data, onChange }) {
             </div>
           ))}
         </div>
+
+        <div className="form-group">
+          <label htmlFor="department">
+            Department<span className="required-asterisk">*</span>
+          </label>
+          <select
+            id="department"
+            name="department"
+            value={department}
+            onChange={(e) => {
+              setDepartment(e.target.value);
+              onChange({
+                ...data,
+                department: e.target.value,
+                careerEntries,
+                projects,
+              });
+            }}
+            required
+          >
+            <option value="">Select Department</option>
+            {departmentList.map((dept) => (
+              <option key={dept} value={dept}>
+                {dept}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="career-form-projects">
           <label htmlFor="career-chronology">Projects</label>
 
