@@ -64,7 +64,7 @@ export async function SearchProjectController(req, res) {
 
     const orderBy = {}
 
-    if (sort) {
+    if (order && field) {
       orderBy[field] = order
     }else {
       orderBy.createdAt = 'desc'

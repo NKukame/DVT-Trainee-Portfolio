@@ -9,7 +9,7 @@ export async function deleteProjectController(req, res){
 
 export async function deleteProfileController(req, res){
   
-  const { id, email } = req.params;
+  const { email } = req.params;
   
   const deletedProfile = await prisma.user.delete({    
     where: { email: email },
