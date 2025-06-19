@@ -20,6 +20,7 @@ const options = {
 
     },
     components: {
+        ...components,
       securitySchemes: {
         BearerAuth: {
           type: 'http',
@@ -28,7 +29,7 @@ const options = {
         }
       }
     },
-    component: components,
+    
     security: [{
       BearerAuth: []
     }]
