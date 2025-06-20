@@ -1,12 +1,14 @@
-import {useState, useContext, createContext, Children} from 'react'
-import {employees, projects} from '../MockSearch.json';
+import {useState, useContext, createContext, Children, useEffect} from 'react'
+import axios from 'axios'
 
 export const SearchContext = createContext()
 
-const data = employees.concat(projects)
 
 export const SearchContextProvider = ({children}) => {
-    
+
+
+    const [data, setdata] = useState([]);
+     
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
     let [selectedFilter, setSelectedFilter] = useState([]);
@@ -15,6 +17,47 @@ export const SearchContextProvider = ({children}) => {
     const allIndustries = [...new Set(searchResults.map((employee) => employee.industries).flat())].filter(item => item !== undefined);
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
+
+    useEffect(() => {
+        const teamData = async () => {
+            const token = localStorage.getItem('token');
+            axios.defaults.headers.common['authorization'] = `Bearer ${JSON.parse(token)}`
+            axios.defaults.headers.post['Content-Type'] = 'application/json';
+            
+            const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
+            const apiDataProject = await axios.get('http://localhost:3000/search/project')
+
+            const employeesWithTechStackNames = apiDataEmployee.data.employees.map(emp => ({
+                employee_id: emp.id,
+                name: emp.name,
+                surname: emp.surname,
+                email: emp.email,
+                role: emp.role,
+                years_active: 1,
+                location: emp.location,
+                avatar: emp.photoUrl,
+                skills: emp.techStack.map(link => link.techStack.name),
+            }));
+
+            const projectsWithTechStackNames = apiDataProject.data.projects.map(project => ({
+                 project_id: project.id,
+                 name: project.name,
+                 description: project.description,
+                 created_on: project.createdAt,
+                 technologies: project.techStack.map(link => link.techStack.name),
+                 industries: project.industries.map(link => link.industry.name),
+                 username: project.members?.map(link => link.employee.name)[0],
+                 avatar: project.members?.map(link => link.employee.photoUrl)[0],
+                 screenshot: project.screenshot
+            }))
+
+            setdata(employeesWithTechStackNames.concat(projectsWithTechStackNames));
+            setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
+            setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
+
+        }
+        teamData();
+     }, []);
 
     const handleInputChange = (query) => {
         const filteredResults = data.filter((result) => {

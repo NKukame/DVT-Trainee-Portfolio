@@ -45,7 +45,7 @@ export default function SearchResults() {
       />
 
       <section className="flex-1 results-container">
-          <ResultsList results={resultsCopy} isEmployeeSearch={curentProject} />
+          <ResultsList results={displayedItems} isEmployeeSearch={curentProject} />
       </section>
         <PaginationControls
           totalItems={resultsCopy.length} 
