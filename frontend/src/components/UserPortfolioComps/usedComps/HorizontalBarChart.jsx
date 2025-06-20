@@ -16,17 +16,18 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const HorizontalBarChart = () => {
   const data = {
-    labels: ['React', 'Vue', 'Angular', 'Svelte', 'Next.js'],
+    labels: ['React', 'Vue', 'Angular', 'Svelte', 'Next.js', 'Node.js'],
     datasets: [
       {
         label: 'Usage (%)',
-        data: [60, 30, 20, 10, 40],
+        data: [60, 30, 20, 10, 40, 50],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
+            'rgba(7, 37, 73, 1)',
+            'rgba(8, 70, 119, 1)',
+            'rgba(17, 97, 158, 1)',
+            'rgba(2, 127, 185, 1)',
+            'rgba(97, 164, 207, 1)',
+            'rgba(0, 32, 56, 1)',
         ],
         borderRadius: 5,
         borderSkipped: false,
@@ -41,10 +42,10 @@ const HorizontalBarChart = () => {
       legend: {
         position: 'top',
       },
-      title: {
-        display: true,
-        text: 'JavaScript Framework Popularity',
-      },
+    //   title: {
+    //     display: true,
+    //     text: 'JavaScript Framework Popularity',
+    //   },
     },
     scales: {
       x: {

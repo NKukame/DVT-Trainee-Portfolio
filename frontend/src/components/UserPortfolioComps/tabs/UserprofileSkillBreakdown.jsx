@@ -47,9 +47,9 @@ function UserProfileSkillBreakdown() {
         <hr />
         <section className="skills-circle-section">
           <h2 className="skills-circle-header">Soft skills</h2>
-          <div className="skills-circle">
+          <p className="skills-circle">
             <PolarChart />
-          </div>
+          </p>
         </section>
         <hr />
         <section className="skills-bar-section">

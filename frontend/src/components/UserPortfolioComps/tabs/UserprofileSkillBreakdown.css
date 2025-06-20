@@ -29,9 +29,14 @@
   font-size: 0.8rem;
   margin-block: 2rem 1rem;
 }
+.skills-circle-section {
+  display: flex;
+  flex-direction: column;
+}
 .skills-circle {
-  width: 400px;
-  height: 400px;
+    margin-block: -50px;
+  width: 500px;
+  height: 500px;
 }
 
 .skills-bar-section {

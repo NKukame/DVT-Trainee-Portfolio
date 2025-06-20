@@ -14,19 +14,21 @@ ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const PolarChart = () => {
   const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+    labels: ['Teamwork', 'Problem Solving', 'Emotional Intelligence', 'Communication', 'Humor', 'Conflict Resolution'],
     datasets: [
       {
         label: 'My Polar Dataset',
-        data: [11, 16, 7, 3, 14],
+        data: [5, 2, 3, 5, 4, 3],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',
-          'rgba(54, 162, 235, 0.5)',
-          'rgba(255, 206, 86, 0.5)',
-          'rgba(75, 192, 192, 0.5)',
-          'rgba(153, 102, 255, 0.5)',
+          'rgba(0, 32, 56, 1)',
+          'rgba(7, 37, 73, 1)',
+          'rgba(8, 70, 119, 1)',
+          'rgba(17, 97, 158, 1)',
+          'rgba(2, 127, 185, 1)',
+          'rgba(97, 164, 207, 1)',
         ],
         borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
       },
     ],
   };
@@ -37,6 +39,7 @@ const PolarChart = () => {
       r: {
         ticks: {
           beginAtZero: true,
+          stepSize: 1,
         },
       },
     },
