@@ -1,0 +1,59 @@
+.skills-breakdown-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 870px;
+  overflow-y: scroll;
+  padding-right: 20px;
+}
+.skills-header {
+  display: flex;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 20px;
+}
+.skills-education-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #000;
+  padding-right: 40px;
+  padding-bottom: 20px;
+  min-height: 10rem;
+}
+.skills-education-item li {
+  list-style: none;
+}
+.skills-education-item-title {
+  font-size: 0.8rem;
+  margin-block: 2rem 1rem;
+}
+.skills-circle {
+  width: 400px;
+  height: 400px;
+}
+
+.skills-bar-section {
+  width: 900px;
+  height: 400px;
+}
+.skills-bar-graph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.skills-education-header {
+  color: #072549;
+  font-size: 2rem;
+}
+.skills-circle-header {
+  margin-top: 20px;
+  color: #072549;
+  font-size: 2rem;
+}
+.skills-bar-header {
+  margin-top: 20px;
+  color: #072549;
+  font-size: 2rem;
+}

@@ -47,7 +47,6 @@ function Dashboard() {
                         <li className='tag'>C#</li>
                         <li className='tag'>HTML</li>
                         <li className='tag'>CSS</li>
-                        {/* <li className='tag'>MongoDB</li> */}
                         <li className='tag'>SQLite</li>
                     </ul>
                 </div>

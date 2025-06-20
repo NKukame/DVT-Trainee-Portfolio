@@ -1,11 +1,13 @@
+import ClientCarousel from "../usedComps/ClientCarousel";
 import "./UserProfileProjects.css";
 function UserProfileProjects() {
   const projects = [
     {
       name: "Scientific Calculator",
       datePublished: "20 Nov 2024",
-      image: "../../assets/Sli.jpg",
+      image: './src/assets/Gomo.jpg',
       techStack: ["HTML", "CSS", "JavaScript"],
+      profilePicture: "./src/assets/Sli.jpg",
       contributors: ["Bob Johnson", "Alice Smith"],
       description: "A scientific calculator with advanced features.",
       liveDemo: "https://example.com/demo",
@@ -14,8 +16,9 @@ function UserProfileProjects() {
     {
       name: "Portfolio Website",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
       techStack: ["React", "CSS"],
+      profilePicture: "./src/assets/Sli.jpg",
       contributors: ["John Doe"],
       description: "A personal portfolio website showcasing projects.",
       liveDemo: "https://example.com/portfolio",
@@ -24,7 +27,8 @@ function UserProfileProjects() {
     {
       name: "E-commerce App",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["Node.js", "Express", "MongoDB"],
       contributors: ["Jane Doe"],
       description: "A full-stack e-commerce platform with user authentication.",
@@ -34,7 +38,8 @@ function UserProfileProjects() {
     {
       name: "Scientific Calculator",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["HTML", "CSS", "JavaScript"],
       contributors: ["Bob Johnson", "Alice Smith"],
       description: "A scientific calculator with advanced features.",
@@ -44,7 +49,8 @@ function UserProfileProjects() {
     {
       name: "Portfolio Website",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["React", "CSS"],
       contributors: ["John Doe"],
       description: "A personal portfolio website showcasing projects.",
@@ -54,7 +60,8 @@ function UserProfileProjects() {
     {
       name: "E-commerce App",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["Node.js", "Express", "MongoDB"],
       contributors: ["Jane Doe"],
       description: "A full-stack e-commerce platform with user authentication.",
@@ -64,7 +71,8 @@ function UserProfileProjects() {
     {
       name: "Scientific Calculator",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["HTML", "CSS", "JavaScript"],
       contributors: ["Bob Johnson", "Alice Smith"],
       description: "A scientific calculator with advanced features.",
@@ -74,7 +82,8 @@ function UserProfileProjects() {
     {
       name: "Portfolio Website",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["React", "CSS"],
       contributors: ["John Doe"],
       description: "A personal portfolio website showcasing projects.",
@@ -84,7 +93,8 @@ function UserProfileProjects() {
     {
       name: "E-commerce App",
       datePublished: "20 Nov 2024",
-      image: "",
+      image: "./src/assets/Gomo.jpg",
+      profilePicture: "./src/assets/Sli.jpg",
       techStack: ["Node.js", "Express", "MongoDB"],
       contributors: ["Jane Doe"],
       description: "A full-stack e-commerce platform with user authentication.",
@@ -94,18 +104,31 @@ function UserProfileProjects() {
   ];
   return (
     <>
+    <section className="client-section">
+    <ClientCarousel />
+    </section>
       <h1 className="profile-projects-title">Projects</h1>
 
       <main className="project-content">
         <section className="project-grid-content">
           {projects.map((project, index) => (
             <div className="project-grid-item" key={index}>
-              <p>{project.name }</p>
+              <p className="profile-project-name">{project.name }</p>
               <p>{project.datePublished }</p>
-              <img src={project.image } alt="" />
+              <img className="profile-project-image" src={project.image} alt={project.name} />
+                    <ul className='proficiency-list'>
+                        <li className='tag'>Java</li>
+                        <li className='tag'>Python</li>
+                        <li className='tag'>C#</li>
+                        <li className='tag'>HTML</li>
+                        <li className='tag'>CSS</li>
+                        <li className='tag'>SQLite</li>
+                    </ul>
+              <div className="profile-account">
+                <img className="profile-account-image" src={project.profilePicture} alt="" />      
               <p>{project.name }</p>
-              <p>{project.name }</p>
-              <p>{project.name }</p>
+              </div>
+              <button className='manage-prfl'>View Project</button>
             </div>
           ))}
         </section>
