@@ -5,11 +5,25 @@ function UserProfileSkillBreakdown() {
   const education = [
     {
       id: 1,
-      degree: ["Bachelor of Science in Computer Science - University of California, Berkeley", "Minor in Mathematics - University of California, Berkeley "],
+      degree: [
+        "Bachelor of Science in Computer Science - University of California, Berkeley",
+        "Minor in Mathematics - University of California, Berkeley ",
+      ],
       field: "Computer Science",
       startDate: "2014",
       endDate: "2018",
-      certification: ["Certified JavaScript Developer - Udemy", "Certified React Developer - Coursera", "Certified HTML Developer - Udemy", "Certified CSS Developer - Coursera", "Certified Python Developer - Udemy", "Certified Node.js Developer - Coursera", "Certified Express.js Developer - Udemy", "Certified MongoDB Developer - Coursera", "Certified SQL Developer - Udemy", "Certified Git and GitHub Developer - Coursera"],
+      certification: [
+        "Certified JavaScript Developer - Udemy",
+        "Certified React Developer - Coursera",
+        "Certified HTML Developer - Udemy",
+        "Certified CSS Developer - Coursera",
+        "Certified Python Developer - Udemy",
+        "Certified Node.js Developer - Coursera",
+        "Certified Express.js Developer - Udemy",
+        "Certified MongoDB Developer - Coursera",
+        "Certified SQL Developer - Udemy",
+        "Certified Git and GitHub Developer - Coursera",
+      ],
     },
   ];
   return (
@@ -23,20 +37,25 @@ function UserProfileSkillBreakdown() {
               return (
                 <div key={edu.id} className="skills-education-item">
                   <div>
-                    <p className="skills-education-item-title" >Formal Education</p>
+                    <p className="skills-education-item-title">
+                      Formal Education
+                    </p>
                     <ul>
-                        {edu.degree.map((degree) => <li>{degree}</li>)}
+                      {edu.degree.map((degree) => (
+                        <li>{degree}</li>
+                      ))}
                     </ul>
-                    
                   </div>
                   <div>
-                    <p className="skills-education-item-title">Certifications</p>
+                    <p className="skills-education-item-title">
+                      Certifications
+                    </p>
                     <ul>
-                        {edu.certification.map((cert) => <li>{cert}</li>)}
+                      {edu.certification.map((cert) => (
+                        <li>{cert}</li>
+                      ))}
                     </ul>
-                    
                   </div>
-                  
                 </div>
               );
             })

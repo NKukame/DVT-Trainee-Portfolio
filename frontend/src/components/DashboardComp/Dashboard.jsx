@@ -10,7 +10,7 @@ import Email from '../../assets/icons8-email-100.png';
 import award from '../../assets/Award-01.png';
 import './Dashboard.css';
 
-function Dashboard() {
+function Dashboard(props) {
     return (
         <div className="dashboard">
 

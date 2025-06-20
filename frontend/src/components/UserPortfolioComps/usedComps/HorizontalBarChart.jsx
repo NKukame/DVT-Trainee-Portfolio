@@ -15,6 +15,7 @@ import { Bar } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const HorizontalBarChart = () => {
+    const [chartData, setChartData] = React.useState(null);
   const data = {
     labels: ['React', 'Vue', 'Angular', 'Svelte', 'Next.js', 'Node.js'],
     datasets: [
@@ -42,10 +43,6 @@ const HorizontalBarChart = () => {
       legend: {
         position: 'top',
       },
-    //   title: {
-    //     display: true,
-    //     text: 'JavaScript Framework Popularity',
-    //   },
     },
     scales: {
       x: {
