@@ -418,6 +418,12 @@ function SkillsForm({ data, onChange }) {
                 Select Soft Skills
               </div>
 
+              {selectedSoftSkills.length >= 6 && (
+                <div className="soft-skill-limit-msg">
+                  You can select up to 6 soft skills only.
+                </div>
+              )}
+
               {showSoftSkillsDropdown && (
                 <div className="skills-dropdown">
                   {Object.entries(softSkillsGroups).map(

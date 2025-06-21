@@ -202,12 +202,12 @@
 }
 
 .chosen-tech-stack label{
-    width: 180px;
+    width: 300px;
     color: var(--navy-blue);
 }
 
 .chosen-tech-stack select{
-    width: 120px;
+    width: 200px;
 }
 
 .badge-active {
