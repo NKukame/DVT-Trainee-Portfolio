@@ -281,7 +281,7 @@ function CareerFrom({ data, onChange }) {
             }}
             required
           >
-            <option value="">Select Department</option>
+            <option value="" disabled>Select Department</option>
             {departmentList.map((dept) => (
               <option key={dept} value={dept}>
                 {dept}
