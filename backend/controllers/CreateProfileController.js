@@ -134,6 +134,109 @@ export async function createProfileController(req, res) {
       }
     }
 
+    // Projects Table
+    if (career.projects && career.projects.length > 0) {
+      for (const proj of career.projects) {
+        let project = await prisma.project.findUnique({
+          where: { name: proj.name },
+        });
+
+        if (!project) {
+          project = await prisma.project.create({
+            data: {
+              name: proj.name,
+              description: proj.description,
+              github: proj.repoLink || null,
+              demo: proj.demoLink || null,
+              screenshot: proj.image || null,
+            },
+          });
+        }
+
+        // Relate the current employee as a member
+        await prisma.projectMember.create({
+          data: {
+            projectId: project.id,
+            employeeId: employee.id,
+            role: employee.role,
+          },
+        });
+
+        // Relate technologies
+        if (proj.technologies && proj.technologies.length > 0) {
+          for (const techName of proj.technologies) {
+            const tech = await prisma.techStack.findUnique({ where: { name: techName } });
+            if (tech) {
+              await prisma.projectTechStack.upsert({
+                where: {
+                  projectId_techStackId: {
+                    projectId: project.id,
+                    techStackId: tech.id,
+                  },
+                },
+                update: {},
+                create: {
+                  projectId: project.id,
+                  techStackId: tech.id,
+                },
+              });
+            }
+          }
+        }
+
+        // Relate industries
+        if (proj.industries && proj.industries.length > 0) {
+          for (const industryName of proj.industries) {
+            let industry = await prisma.industry.findUnique({ where: { name: industryName } });
+            if (!industry) {
+              industry = await prisma.industry.create({ data: { name: industryName } });
+            }
+            await prisma.projectIndustry.upsert({
+              where: {
+                projectId_industryId: {
+                  projectId: project.id,
+                  industryId: industry.id,
+                },
+              },
+              update: {},
+              create: {
+                projectId: project.id,
+                industryId: industry.id,
+              },
+            });
+          }
+        }
+
+        // If author is not the current user, check for other employees and relate them as members
+        if (proj.author && proj.author !== `${employee.name} ${employee.surname}`) {
+
+          const [authorName, authorSurname] = proj.author.split(" ");
+          const otherEmployee = await prisma.employee.findFirst({
+            where: {
+              name: authorName,
+              surname: authorSurname,
+            },
+          });
+          if (otherEmployee) {
+            await prisma.projectMember.upsert({
+              where: {
+                projectId_employeeId: {
+                  projectId: project.id,
+                  employeeId: otherEmployee.id,
+                },
+              },
+              update: {},
+              create: {
+                projectId: project.id,
+                employeeId: otherEmployee.id,
+                role: otherEmployee.role,
+              },
+            });
+          }
+        }
+      }
+    }
+
     return res.status(201).json({ message: "Profile created", employeeId: employee.id });
   } catch (error) {
     console.error(error);
