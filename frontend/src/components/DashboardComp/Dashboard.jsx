@@ -22,19 +22,19 @@ function Dashboard(props) {
                     <img src={ProfileImage} className='profile-img' alt="Profile" />
                 </div>
 
-                    <p className='profile-name'>Paballo Thobei</p>
-                    <p className='profile-role'><strong>Fullstack Developer Intern</strong></p>
-                    <p className='profile-bio'>Short intro of experience and interests like cats hobbies and projects they really like etc...</p>
+                    <p className='profile-name'>{props.testEmployee.name}</p>
+                    <p className='profile-role'><strong>{props.testEmployee.role}</strong></p>
+                    <p className='profile-bio'>{props.testEmployee.bio}</p>
                 </div>
 
                 <div className="profile-info">
 
-                    <Link to='/ProfileForm'><button className='manage-prfl'>Edit Profile</button></Link>
+                    <Link to='/ProfileCreation'><button className='manage-prfl'>Edit Profile</button></Link>
                     <Link to='/ProfileForm'><button className='manage-prfl'>Generate Profile</button></Link>
 <div className='profile-details'>
-                    <p><img src={Calender} alt="Experience Icon" className="dashboard-icon" />Immediately</p>
-                    <p><img src={Location} alt="Location Icon" className="dashboard-icon" />Johannesburg (flexible)</p>
-                    <p><img src={award} alt='Role Icon' className="dashboard-icon" />2.5 years</p>
+                    <p><img src={Calender} alt="Experience Icon" className="dashboard-icon" />{props.testEmployee.availability}</p>
+                    <p><img src={Location} alt="Location Icon" className="dashboard-icon" />{props.testEmployee.location}</p>
+                    <p><img src={award} alt='Role Icon' className="dashboard-icon" />{props.testEmployee.experience}</p>
 </div>
 
 
@@ -42,12 +42,9 @@ function Dashboard(props) {
                 <div className="proficiencies">
                     <h2>Proficiencies</h2>
                     <ul className='proficiency-list'>
-                        <li className='tag'>Java</li>
-                        <li className='tag'>Python</li>
-                        <li className='tag'>C#</li>
-                        <li className='tag'>HTML</li>
-                        <li className='tag'>CSS</li>
-                        <li className='tag'>SQLite</li>
+                        {props.testEmployee.skills.map((skill, index) => (
+                            <li key={index} className='skill-tag'>{skill}</li>
+                        ))}
                     </ul>
                 </div>
 

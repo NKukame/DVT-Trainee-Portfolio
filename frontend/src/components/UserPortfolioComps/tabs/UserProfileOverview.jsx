@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import projects from "../../../modal-resources/projects-modal.json";
 import "./userProfileOverview.css";
 
 function UserProfileOverview() {
@@ -23,12 +24,7 @@ function UserProfileOverview() {
           item.style.transform = "translateX(330px) scale(0.85)";
           item.style.zIndex = 2;
           item.style.opacity = 0.9;
-        } 
-        // else if (index === 2) {
-        //   item.style.transform = "translateX(580px) scale(0.7)";
-        //   item.style.zIndex = 1;
-        //   item.style.opacity = 0.7;
-        // } 
+        }
         else {
           // Cards beyond 3rd: push them far right and hide
           item.style.transform = `translateX(900px) scale(0.5)`;
@@ -86,7 +82,7 @@ function UserProfileOverview() {
         setSelectedProject(null);
         setIsModalOpen(false);
       };
-  const projects = [
+  const people = [
     {
       name: "Zara Hadid",
       company: "Discovery Health",
@@ -139,7 +135,7 @@ function UserProfileOverview() {
         </p>
         <div className="testimonial-overview-section">
           <div className="testimonial-content">
-            {[...projects, ...projects].map((project, index) => (
+            {[...people, ...people].map((project, index) => (
               <div className="testimonial-item" key={index}>
                 <p className="testimonial-text">{project.description}</p>
                 <div>
@@ -179,7 +175,49 @@ function UserProfileOverview() {
           ))}
         </div>
       </div>
-      </section>
+      </section>{isModalOpen && selectedProject && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            {/* <button className="modal-close" onClick={closeModal}>
+              X
+            </button> */}
+
+            <div className="modal-header">
+              <h2>{selectedProject.title}</h2>              <div className="modal-owner-container">
+                <img src={selectedProject.ownerImage} alt={selectedProject.owner} className="modal-owner-img" />
+                <p className="modal-owner">{selectedProject.owner}</p>
+              </div>
+            </div>
+
+            {selectedProject.video && (
+              <video
+                src={selectedProject.video}
+                controls
+                width="100%"
+                style={{ borderRadius: "5px" }}
+              />
+            )}
+
+
+            <p className="modal-description">
+              <strong>Description:</strong> <br />{selectedProject.description}
+            </p>
+
+            <h4 className="modal-technologies">Technologies Used:</h4>
+            <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
+              {selectedProject.technologies.map((tech, index) => (
+                (<li key={index}><p className='badge-default'>{tech}</p></li>)
+              ))}
+            </ul>
+
+            <button className="modal-project-link">
+              <a href={selectedProject.link}>Repository</a>
+            </button>
+
+
+          </div>
+        </div>
+      )}
       </section>
     </>
   );

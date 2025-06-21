@@ -12,7 +12,15 @@ import UserProfileSkillBreakdown from "../../components/UserPortfolioComps/tabs/
 
 function UserPortfolio() {
   const [activeTab, setActiveTab] = useState("overview");
-  
+  const [testEmployee, setTestEmployee] = useState({
+    name: "Paballo Thobei",
+    role: "Fullstack Developer Intern",
+    bio: "Short intro of experience and interests like cats hobbies and projects they really like etc...",
+    location: "Remote /Johannesburg (flexible)",
+    experience: "2.5 years",
+    skills: ["Java", "Python", "C#", "HTML", "CSS", "SQLite", "JavaScript", "React", "Node.js"],
+    availability: "Available",
+  });
   return (
     <>
       <div className="app-layout">
@@ -20,7 +28,7 @@ function UserPortfolio() {
 
         <div className="layout-body">
           <div className="portfolio-layout">
-            <Dashboard />
+            <Dashboard testEmployee={testEmployee}/>
             <div className="project-container">
               <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
