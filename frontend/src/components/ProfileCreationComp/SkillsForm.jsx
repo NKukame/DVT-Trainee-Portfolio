@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Form.css";
+import techStack from "./techstack.json";
+import softSkillsData from "./SoftSkills.json";
 
 function SkillsForm({ data, onChange }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -8,74 +10,8 @@ function SkillsForm({ data, onChange }) {
   const [selectedSoftSkills, setSelectedSoftSkills] = useState([]);
   const [softSkillRatings, setSoftSkillRatings] = useState({});
   const [techExperience, setTechExperience] = useState({});
-  const techStackGroups = {
-    Design: [
-      "Figma",
-      "Sketch",
-      "Photoshop",
-      "Illustrator",
-      "Adobe XD",
-      "Canva",
-      "InVision",
-      "CorelDRAW",
-      "GIMP",
-    ],
-    "Front-end": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Vue",
-      "Angular",
-      "Svelte",
-      "Bootstrap",
-      "Tailwind CSS",
-      "jQuery",
-      "TypeScript",
-      "Next.js",
-    ],
-    "Back-end": [
-      "Node.js",
-      "Express",
-      "Django",
-      "Laravel",
-      "PHP",
-      "Java",
-      "C++",
-      "Python",
-      "Ruby",
-      "Go",
-      "ASP.NET",
-      "Spring Boot",
-      "Flask",
-      "GraphQL",
-      "RESTful APIs",
-    ],
-  };
-  const softSkills = [
-    "Communication",
-    "Teamwork",
-    "Problem-solving",
-    "Adaptability",
-    "Time Management",
-    "Creativity",
-    "Leadership",
-    "Emotional Intelligence",
-    "Critical Thinking",
-    "Conflict Resolution",
-    "Collaboration",
-    "Decision Making",
-    "Interpersonal Skills",
-    "Negotiation",
-    "Active Listening",
-    "Attention to Detail",
-    "Stress Management",
-    "Positive Attitude",
-    "Work Ethic",
-    "Self-Motivation",
-    "Flexibility",
-    "Cultural Awareness",
-  ];
+  const [techStackGroups, setTechStackGroups] = useState({});
+  const [softSkillsGroups, setSoftSkillsGroups] = useState({});
   const [educationEntries, setEducationEntries] = useState([
     { qualification: "", institution: "" },
   ]);
@@ -95,6 +31,28 @@ function SkillsForm({ data, onChange }) {
     );
     setTechExperience(data.techExperience || {});
   }, [data]);
+
+  useEffect(() => {
+    // Group techStack by category
+    const grouped = {};
+    techStack.forEach(item => {
+      if (!grouped[item.category]) grouped[item.category] = [];
+      grouped[item.category].push(item.name);
+    });
+    setTechStackGroups(grouped);
+  }, []);
+
+  useEffect(() => {
+    // Group soft skills by category
+    const grouped = {};
+    softSkillsData.forEach((item) => {
+      if (!grouped[item.category]) grouped[item.category] = [];
+      item.skills.forEach((skill) => {
+        grouped[item.category].push(skill.name);
+      });
+    });
+    setSoftSkillsGroups(grouped);
+  }, []);
 
   const handleBadgeClick = (label) => {
     let updated;
@@ -134,6 +92,7 @@ function SkillsForm({ data, onChange }) {
     if (selectedSoftSkills.includes(skill)) {
       updated = selectedSoftSkills.filter((s) => s !== skill);
     } else {
+      if (selectedSoftSkills.length >= 6) return;
       updated = [...selectedSoftSkills, skill];
     }
     setSelectedSoftSkills(updated);
@@ -461,22 +420,30 @@ function SkillsForm({ data, onChange }) {
 
               {showSoftSkillsDropdown && (
                 <div className="skills-dropdown">
-                  <div className="skills-labels-container">
-                    {softSkills.map((skill, index) => {
-                      const isSelected = selectedSoftSkills.includes(skill);
-                      return (
-                        <span
-                          key={index}
-                          className={`badge-default ${
-                            isSelected ? "badge-active" : ""
-                          }`}
-                          onClick={() => handleSoftSkillClick(skill)}
-                        >
-                          {skill}
-                        </span>
-                      );
-                    })}
-                  </div>
+                  {Object.entries(softSkillsGroups).map(
+                    ([category, skills]) => (
+                      <div key={category} className="skills-category">
+                        <p className="skills-category-title">{category}</p>
+                        <div className="skills-labels-container">
+                          {skills.map((skill, index) => {
+                            const isSelected =
+                              selectedSoftSkills.includes(skill);
+                            return (
+                              <span
+                                key={index}
+                                className={`badge-default ${
+                                  isSelected ? "badge-active" : ""
+                                }`}
+                                onClick={() => handleSoftSkillClick(skill)}
+                              >
+                                {skill}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )
+                  )}
                 </div>
               )}
             </div>
