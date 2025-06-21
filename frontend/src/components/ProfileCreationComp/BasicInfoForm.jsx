@@ -90,7 +90,6 @@ function BasicInfo({ data, onChange }) {
             </div>
 
             <div className="skills-dual-input">
-
               <div className="form-group">
                 <label htmlFor="title">Title</label>
                 <select
@@ -109,19 +108,20 @@ function BasicInfo({ data, onChange }) {
                 </select>
               </div>
               <div className="form-group">
-              <label htmlFor="assessment-end">Birthday<span className="required-asterisk">*</span></label>
-              <input
-                type="date"
-                id="birthday"
-                name="birthday"
-                value={data.birthday || ""}
-                onChange={handleChange}
-                required
-                style={{font: "inherit"}}
-              />
+                <label htmlFor="assessment-end">
+                  Birthday<span className="required-asterisk">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={data.birthday || ""}
+                  onChange={handleChange}
+                  required
+                  style={{ font: "inherit" }}
+                />
+              </div>
             </div>
-            </div>
-
 
             <div className="form-group">
               <label htmlFor="firstName">
@@ -206,19 +206,42 @@ function BasicInfo({ data, onChange }) {
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="role">
-                Role<span className="required-asterisk">*</span>
-              </label>
-              <input
-                type="text"
-                id="role"
-                name="role"
-                required
-                placeholder="Role"
-                onChange={handleChange}
-                value={data.role || ""}
-              />
+            <div className="skills-dual-input">
+              <div className="form-group">
+                <label htmlFor="role">
+                  Company<span className="required-asterisk">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  required
+                  placeholder="Company"
+                  onChange={handleChange}
+                  value={data.company || ""}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="role">
+                  Role<span className="required-asterisk">*</span>
+                </label>
+                <select
+                  name="role"
+                  id="role"
+                  onChange={handleChange}
+                  value={data.role || ""}
+                  className="role-select"
+                >
+                  <option value="" disabled>
+                    Role
+                  </option>
+                  <option value="DEVELOPER">Developer</option>
+                  <option value="DESIGNER">Designer</option>
+                  <option value="PROJECT_MANAGER">Project Manager</option>
+                  <option value="TEAM_LEAD">Team Lead</option>
+                  <option value="SENIOR_DEVELOPER">Senior Developer</option>
+                </select>
+              </div>
             </div>
 
             <div className="form-group">

@@ -105,6 +105,11 @@ function SubmitForm({
             </div>
 
             <div className="submit-form-group">
+              <label className="form-label">Company</label>
+              <p className="form-value">{basicInfo?.company || "-"}</p>
+            </div>
+
+            <div className="submit-form-group">
               <label className="form-label">Experience</label>
               <p className="form-value">{basicInfo?.experience || "-"}</p>
             </div>
@@ -353,6 +358,12 @@ function SubmitForm({
           </div>
 
           <div className="submit-left-form-section">
+            
+            <div className="submit-form-group">
+              <label className="form-label">Client</label>
+              <p className="form-value">{status?.assignedClient || "-"}</p>
+            </div>
+            
             <div className="submit-form-group">
               <label className="form-label">Duration</label>
               <p className="form-value">
