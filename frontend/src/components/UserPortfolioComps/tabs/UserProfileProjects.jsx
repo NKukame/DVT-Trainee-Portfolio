@@ -117,12 +117,10 @@ function UserProfileProjects() {
               <p>{project.datePublished }</p>
               <img className="profile-project-image" src={project.image} alt={project.name} />
                     <ul className='proficiency-list'>
-                        <li className='tag'>Java</li>
-                        <li className='tag'>Python</li>
-                        <li className='tag'>C#</li>
-                        <li className='tag'>HTML</li>
-                        <li className='tag'>CSS</li>
-                        <li className='tag'>SQLite</li>
+                        {project.techStack.map((tech, index) => (
+                            <li key={index} className='tag'>{tech}</li>
+                        ))}
+                        
                     </ul>
               <div className="profile-account">
                 <img className="profile-account-image" src={project.profilePicture} alt="" />      

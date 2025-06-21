@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import projects from "../../../modal-resources/projects-modal.json";
 import "./userProfileOverview.css";
 
-function UserProfileOverview() {
+function UserProfileOverview(props) {
   const trackRef = useRef(null);
     const intervalRef = useRef(null);
   
@@ -82,45 +82,7 @@ function UserProfileOverview() {
         setSelectedProject(null);
         setIsModalOpen(false);
       };
-  const people = [
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Tech Innovations",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Gregory House",
-      company: "Tech Innovations",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    }
-    
-  ];
+  
   return (
     <>
       <section className="profile-overview-container">
@@ -135,12 +97,12 @@ function UserProfileOverview() {
         </p>
         <div className="testimonial-overview-section">
           <div className="testimonial-content">
-            {[...people, ...people].map((project, index) => (
+            {[...props.testEmployee.companyTestimonials,...props.testEmployee.companyTestimonials].map((company, index) => (
               <div className="testimonial-item" key={index}>
-                <p className="testimonial-text">{project.description}</p>
+                <p className="testimonial-text">{company.description}</p>
                 <div>
-                  <p className="testimonial-name">{project.name}</p>
-                  <p className="testimonial-company">{project.company}</p>
+                  <p className="testimonial-name">{company.name}</p>
+                  <p className="testimonial-company">{company.company}</p>
                 </div>
               </div>
             ))}

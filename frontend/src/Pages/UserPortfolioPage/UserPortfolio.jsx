@@ -20,7 +20,86 @@ function UserPortfolio() {
     experience: "2.5 years",
     skills: ["Java", "Python", "C#", "HTML", "CSS", "SQLite", "JavaScript", "React", "Node.js"],
     availability: "Available",
+    companyTestimonials: [
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Tech Innovations",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Gregory House",
+      company: "Tech Innovations",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    }
+    
+  ]
   });
+  
+  //  companyTestimonials = [
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Tech Innovations",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Gregory House",
+  //     company: "Tech Innovations",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   }
+    
+  // ];
   return (
     <>
       <div className="app-layout">
@@ -32,7 +111,7 @@ function UserPortfolio() {
             <div className="project-container">
               <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
-              {activeTab === "overview" && <UserProfileOverview />}
+              {activeTab === "overview" && <UserProfileOverview testEmployee={testEmployee}/>}
               {activeTab === "projects" && <UserProfileProjects />}
               {activeTab === "skills" && <UserProfileSkillBreakdown />}
             </div>
