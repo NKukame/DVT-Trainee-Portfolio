@@ -88,14 +88,9 @@ function UserProfileOverview(props) {
       <section className="profile-overview-container">
         <h1 className="profile-overview-title">Hello World!</h1>
         <p className="profile-overview-text">
-          I am a vibrant dev that likes biscuits and eating tea bags. I am a
-          vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev
-          that likes biscuits and eating tea bags.I am a vibrant dev that likes
-          biscuits and eating tea bags. I am a vibrant dev that likes biscuits
-          and eating tea bags.I am a vibrant dev that likes biscuits and eating
-          tea bags.I am a vibrant dev that likes biscuits and eating tea bags.
+          {props.testEmployee.description}
         </p>
-        <div className="testimonial-overview-section">
+        <section className="testimonial-overview-section">
           <div className="testimonial-content">
             {[...props.testEmployee.companyTestimonials,...props.testEmployee.companyTestimonials].map((company, index) => (
               <div className="testimonial-item" key={index}>
@@ -107,7 +102,7 @@ function UserProfileOverview(props) {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         <h2 className="profile-overview-ft-Projects">Featured Projects</h2>
             <section className="overview-video-header">

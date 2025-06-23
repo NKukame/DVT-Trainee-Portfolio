@@ -17,6 +17,7 @@ function UserPortfolio() {
     role: "Fullstack Developer Intern",
     bio: "Short intro of experience and interests like cats hobbies and projects they really like etc...",
     location: "Remote /Johannesburg (flexible)",
+    description:"I am a vibrant dev that likes biscuits and eating tea bags. I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags. I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.",
     experience: "2.5 years",
     skills: ["Java", "Python", "C#", "HTML", "CSS", "SQLite", "JavaScript", "React", "Node.js"],
     availability: "Available",
