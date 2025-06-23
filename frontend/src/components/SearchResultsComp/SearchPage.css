@@ -312,3 +312,53 @@
   margin: 5px 10px;
   cursor: pointer;
 }
+
+.socials-container{
+  position: relative;
+}
+.socials-section{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  background: #027FB9;
+  border-radius: 8px;
+  padding: 2px 5px;
+  gap: .5em;
+  top: -45px;
+  right: -17px;
+}
+.socials-section::after{
+  content: "";
+  position: absolute;  
+  bottom: -10px;
+  right: 20px;
+
+  width: 0; 
+  height: 0; 
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #027FB9;
+}
+
+.availability{
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.815);
+}
+
+.available{
+  background: #10B981;
+}
+
+.with-client{
+  background: orange;
+}
+
+.no-results{
+  width: 1030px;
+  height: 45vh;
+  padding: 4em;
+  color: rgba(255, 0, 0, 0.493);
+  text-align: center;
+}

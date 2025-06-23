@@ -4,7 +4,9 @@ import ProjectCard from '../ProjectCardComp/ProjectCard';
 export default function ResultsList({ results, isEmployeeSearch }) {
   
   if (results.length === 0) {
-    return <h1 className="font-size-20-px">Results not Found</h1>;
+    return <h1 className="font-size-20-px no-results">
+      No results found. We couldn't find any matching project or person in our database. Please check your spelling or try a different search term.
+    </h1>;
   }
 
   return (
