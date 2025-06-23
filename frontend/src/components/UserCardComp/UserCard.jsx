@@ -25,18 +25,30 @@ export function UserCard({ user,showDetails = true }) {
             {
               open &&
               <div className="socials-section shadow">
-                <Link to={''}>
-                  <img src={github} alt="github" />
-                </Link>
-                <Link to={''}>
-                  <img src={linkedIn} alt="LinkedIn" />
-                </Link>
-                <Link to={''}>
-                  <img src={email} alt="email" />
-                </Link>
-                <Link to={''}>
-                  <img src={slack} alt="slack" />
-                </Link>
+                {
+                  user.github &&
+                  <Link to={user.github}>
+                    <img src={github} alt="github" />
+                  </Link>
+                }
+                {
+                  user.linkedin &&
+                  <Link to={user.linkedin}>
+                    <img src={linkedIn} alt="LinkedIn" />
+                  </Link>
+                }
+                {
+                  user.email &&
+                  <Link to={user.email}>
+                    <img src={email} alt="email" />
+                  </Link>
+                }
+                {
+                  user.slack &&
+                  <Link to={user.social_links.slack}>
+                    <img src={slack} alt="slack" />
+                  </Link>
+                }
               </div>
             }
             <Mail01 onClick={()=> setOpen((isOpen)=> !isOpen)}/>
@@ -62,8 +74,8 @@ function UserDetails({ user }) {
           <p className="text-gray font-size-12-px whitespace-nowrap">{`${user.years_active}+yrs`}</p>
         </div>
         <div className="flex-row align-items-center gap-4-px">
-          <span className="availability available"></span>
-          <p className="font-size-12-px text-gray">Available</p>
+          <span className={`availability ${!user.available ? 'available' : 'with-client'}`}></span>
+          <p className="font-size-12-px text-gray">{!user.available ? 'Available' : 'On Client'}</p>
         </div>
       </div>
       <div className='skills-list'>

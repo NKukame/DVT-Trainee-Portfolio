@@ -56,3 +56,40 @@ export default function SearchResults() {
     </article>
   );
 }
+
+export function UserSkeletonLoader(){
+  const listLoader = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  console.log(listLoader)
+
+  return(
+    <section className="grid-3-cols gap-24-px">
+        {  
+          listLoader.map((items)=>{
+            return (
+              <div class="card-skeleton shadow">
+                <div class="avatar-skeleton shimmer"></div>
+                <div class="info-skeleton">
+                  <div class="line-skeleton short shimmer"></div>
+                  <div class="line-skeleton shorter shimmer"></div>
+      
+                  <div class="row-skeleton">
+                    <div class="icon-line shimmer"></div>
+                    <div class="icon-line shimmer"></div>
+                    <div class="icon-line shimmer"></div>
+                  </div>
+      
+                  <div class="tags-skeleton">
+                    <div class="tag shimmer"></div>
+                    <div class="tag shimmer"></div>
+                    <div class="tag shimmer"></div>
+                  </div>
+      
+                  <div class="button-skeleton shimmer"></div>
+                </div>
+              </div>
+            )
+          })
+        }
+    </section>
+  )
+}
