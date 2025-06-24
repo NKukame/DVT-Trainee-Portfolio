@@ -9,6 +9,7 @@ export const SearchContextProvider = ({children}) => {
 
     const [data, setdata] = useState([]);
     const [isLoading, setIsLoading]  = useState(true);
+    const [total ,setTotalPages] = useState(1);
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
     let [selectedFilter, setSelectedFilter] = useState([]);
@@ -43,10 +44,10 @@ export const SearchContextProvider = ({children}) => {
                 }));
     
                 const projectsWithTechStackNames = apiDataProject.data.projects.map(project => ({
-                     project_id: project.id,
-                     name: project.name,
-                     description: project.description,
-                     created_on: project.createdAt,
+                    project_id: project.id,
+                    name: project.name,
+                    description: project.description,
+                    created_on: project.createdAt,
                      technologies: project.techStack.map(link => link.techStack.name),
                      industries: project.industries.map(link => link.industry.name),
                      username: project.members?.map(link => link.employee.name)[0],
@@ -54,6 +55,7 @@ export const SearchContextProvider = ({children}) => {
                      screenshot: project.screenshot
                 }))
     
+                setTotalPages(apiDataEmployee.data.total)
                 setdata(employeesWithTechStackNames.concat(projectsWithTechStackNames));
                 setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
                 setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
@@ -160,14 +162,13 @@ export const SearchContextProvider = ({children}) => {
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total}}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading} = useContext(SearchContext)
-    console.log(isLoading);
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total]
 }

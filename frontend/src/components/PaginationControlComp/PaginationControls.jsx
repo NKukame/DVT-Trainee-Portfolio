@@ -36,10 +36,13 @@ export default function PaginationControls({ totalPages, apiEndpoint, setResults
 
     return pages;
   }
-  
+
   const paginationItems = getPagination();
 
   return (
+    <>
+    {
+      totalPages > 1 &&
       <div style={{ display: 'flex',gap:'24px', alignItems: 'center', alignSelf:'center' , margin:'20px'}} className='pagination-container'>
         <button
           className='pagination-btn'
@@ -81,5 +84,7 @@ export default function PaginationControls({ totalPages, apiEndpoint, setResults
           <ChevronRight fontSize={'inherit'}/>
         </button>
       </div>
+    }
+    </>
   );
 }

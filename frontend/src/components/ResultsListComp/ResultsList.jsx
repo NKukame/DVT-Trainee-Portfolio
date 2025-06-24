@@ -6,7 +6,7 @@ import { useSearch } from "../../contexts/SearchContext";
 export default function ResultsList({ results, isEmployeeSearch }) {
   
   const [,,,,,, isLoading] = useSearch();
-  console.log(isLoading)
+
   if (results.length === 0 && isLoading === false) {
     return <h1 className="font-size-20-px no-results">
         No results found. We couldn't find any matching project or person in our database. 
