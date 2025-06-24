@@ -48,10 +48,9 @@ export default function SearchResults() {
           <ResultsList results={displayedItems} isEmployeeSearch={curentProject} />
       </section>
         <PaginationControls
-          totalItems={resultsCopy.length} 
-          itemsPerPage={itemsPerPage} 
-          currentPage={currentPage} 
-          onPageChange={handleChangePage} 
+          totalPages={10} 
+          setResults={setCopy}
+          apiEndpoint={curentProject ? 'http://localhost:3000/search/employee' : 'http://localhost:3000/search/project'}
         />
     </article>
   );
@@ -59,7 +58,6 @@ export default function SearchResults() {
 
 export function UserSkeletonLoader(){
   const listLoader = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  console.log(listLoader)
 
   return(
     <section className="grid-3-cols gap-24-px">
