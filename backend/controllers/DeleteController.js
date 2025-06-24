@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-
-
+import prisma from "../lib/prisma-redis-middleware.js";
 export async function deleteProjectController(req, res){
   return res.send("delete project controller")
 }
