@@ -1,114 +1,126 @@
-import '../../styles.css';
-import './UserPortfolio.css';
-import Dashboard from '../../components/DashboardComp/Dashboard';
-import ProjectCard from '../../components/ProjectsComp/Projects';
-import TestimonialCard from '../../components/TestimonialCardComp/TestimonialCard';
-import SideBar from '../../components/SidebarComp/SideBar';
+import "../../styles.css";
+import "./UserPortfolio.css";
+import Dashboard from "../../components/DashboardComp/Dashboard";
+import ProjectCard from "../../components/ProjectsComp/Projects";
+import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard";
+import SideBar from "../../components/SidebarComp/SideBar";
+import TabHead from "../../components/UserPortfolioComps/tabs/TabHead";
+import { useState } from "react";
+import UserProfileOverview from "../../components/UserPortfolioComps/tabs/UserProfileOverview";
+import UserProfileProjects from "../../components/UserPortfolioComps/tabs/UserProfileProjects";
+import UserProfileSkillBreakdown from "../../components/UserPortfolioComps/tabs/UserprofileSkillBreakdown";
 
 function UserPortfolio() {
+  const [activeTab, setActiveTab] = useState("overview");
+  const [testEmployee, setTestEmployee] = useState({
+    name: "Paballo Thobei",
+    role: "Fullstack Developer Intern",
+    bio: "Short intro of experience and interests like cats hobbies and projects they really like etc...",
+    location: "Remote /Johannesburg (flexible)",
+    description:"I am a vibrant dev that likes biscuits and eating tea bags. I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags. I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.",
+    experience: "2.5 years",
+    skills: ["Java", "Python", "C#", "HTML", "CSS", "SQLite", "JavaScript", "React", "Node.js"],
+    availability: "Available",
+    companyTestimonials: [
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Discovery Health",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Zara Hadid",
+      company: "Tech Innovations",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    },
+    {
+      name: "Gregory House",
+      company: "Tech Innovations",
+      description:
+        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+    }
+    
+  ]
+  });
+  
+  //  companyTestimonials = [
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Discovery Health",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Zara Hadid",
+  //     company: "Tech Innovations",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   },
+  //   {
+  //     name: "Gregory House",
+  //     company: "Tech Innovations",
+  //     description:
+  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
+  //   }
+    
+  // ];
+  return (
+    <>
+      <div className="app-layout">
+        <SideBar />
 
-    const testimonials = [
-        {
-            name: "John Doe",
-            title: "Software Engineer",
-            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
-            rating: 4,
-        },
-        {
-            name: "Jane Smith",
-            title: "Project Manager",
-            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
-            rating: 5,
-        },
-        {
-            name: "Bob Johnson",
-            title: "UX Designer",
-            message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt voluptatem alias ut provident sapiente repellendus.",
-            rating: 3,
-        },
-    ];
+        <div className="layout-body">
+          <div className="portfolio-layout">
+            <Dashboard testEmployee={testEmployee}/>
+            <div className="project-container">
+              <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
-    const projects = [
-        {
-            name: "Scientific Calculator",
-            techStack: ["HTML", "CSS", "JavaScript"],
-            contributors: ["Bob Johnson", "Alice Smith"],
-            description: "A scientific calculator with advanced features.",
-            liveDemo: "https://example.com/demo",
-            sourceCode: "https://github.com/example/scientific-calculator",
-        },
-        {
-            name: "Portfolio Website",
-            techStack: ["React", "CSS"],
-            contributors: ["John Doe"],
-            description: "A personal portfolio website showcasing projects.",
-            liveDemo: "https://example.com/portfolio",
-            sourceCode: "https://github.com/example/portfolio",
-        },
-        {
-            name: "E-commerce App",
-            techStack: ["Node.js", "Express", "MongoDB"],
-            contributors: ["Jane Doe"],
-            description: "A full-stack e-commerce platform with user authentication.",
-            liveDemo: "https://example.com/ecommerce",
-            sourceCode: "https://github.com/example/ecommerce",
-        },
-    ];
-
-
-    return (
-        <>
-
-            <div className="app-layout">
-
-                <SideBar />
-
-                <div className='layout-body'>
-
-                    {/* About Section */}
-
-                    <div className="portfolio-layout">
-                        <Dashboard />
-                        <div className="project-container">
-                            <div className="about-section">
-                                {/* <h1 className='about-header'>
-                                    Hello World!
-                                </h1> */}
-                                <p>
-                                    As a graduate Software Developer with hands-on experience in Java, Python, C# and SQLite for backend development, and HTML, CSS, JS and React, I am passionate about creating innovative solutions that make a difference. I thrive in collaborative environments and am eager to contribute my skills to impactful projects. My goal is to leverage technology to solve real-world problems and continuously learn and grow in the field of software development.
-                                </p>
-                            </div>
-
-                            <div className="testimonial-section">
-                                {testimonials.map((testimonial, index) => (
-                                    <TestimonialCard
-                                        key={index}
-                                        name={testimonial.name}
-                                        title={testimonial.title}
-                                        message={testimonial.message}
-                                        rating={testimonial.rating}
-                                    />
-                                ))}
-                            </div>
-                            <main className="main-content">
-
-                                <h2>Featured Projects</h2>
-                                <section className="grid-content">
-                                    {projects.map((project, index) => (
-                                        <div className="grid-item" key={index}>
-                                            <ProjectCard project={project} />
-                                        </div>
-                                    ))}
-                                </section>
-                            </main>
-                        </div>
-                    </div>
-
-                </div>
-
+              {activeTab === "overview" && <UserProfileOverview testEmployee={testEmployee}/>}
+              {activeTab === "projects" && <UserProfileProjects />}
+              {activeTab === "skills" && <UserProfileSkillBreakdown />}
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default UserPortfolio;
