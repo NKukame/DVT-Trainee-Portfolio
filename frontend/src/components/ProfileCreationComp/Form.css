@@ -40,6 +40,7 @@
 .skills-form select,
 .chosen-tech-stack label,
 .career-form-container input,
+.career-form-container select,
 .testimonials-form input,
 .links-form input,
 .status-form-container select,
@@ -62,6 +63,7 @@
 .skills-form select:focus,
 .chosen-tech-stack label:focus,
 .career-form-container input:focus,
+.career-form-container select:focus,
 .testimonials-form input:focus,
 .links-form input:focus,
 .status-form-container select:focus,
@@ -74,7 +76,7 @@
 }
 
 .basic-info-form select {
-  width: 120px;
+  width: 100%;
 }
 
 .basic-info-form input, .skills-form input {
@@ -200,12 +202,12 @@
 }
 
 .chosen-tech-stack label{
-    width: 180px;
+    width: 300px;
     color: var(--navy-blue);
 }
 
 .chosen-tech-stack select{
-    width: 120px;
+    width: 200px;
 }
 
 .badge-active {
@@ -362,10 +364,33 @@
   height: 100%;
   max-height: 200px;
   min-height: 100px;
+  max-width: 420px;
+  margin: 0 auto 16px auto;
   width: 100%;
   background-color: var(--progress-bar-gray);
   border-radius: 12px;
+  padding: 16px 0;
+}
 
+.career-project-image-preview {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin-top: 29px;
+}
+
+
+.career-project-image-upload img {
+  width: 100%;
+  max-width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
 }
 
 .career-project-image-upload input {
@@ -396,6 +421,11 @@
   box-sizing: border-box;
 }
 
+.career-modal-button-section {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
 
 .career-modal-button-section button{
     display: flex;
@@ -406,7 +436,8 @@
     border: 2px solid var(--gray);
     color: var(--white);
     border-radius: 5px;
-    width: 204px;
+    width: 100%;
+    max-width: 100%;
     cursor: pointer;
     font-size: 14px;
     transition: color 0.3s, background-color 0.3s;
@@ -427,6 +458,18 @@
 
 .career-project-top-section input, .career-project-bottom-section input{
     width: 100%;
+}
+
+.career-modal-button-section button {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.career-modal-button-section.single button {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Testimonials */
@@ -772,4 +815,21 @@
 .submit-warning-box ul {
   margin-top: 10px;
   margin-bottom: 0;
+}
+
+.custom-submit-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.custom-submit-modal {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  text-align: center;
 }

@@ -187,7 +187,7 @@ totalRoutes.post('/register', signup);
  *                   type: string
  *                   example: profile creation
  */
-totalRoutes.post('/create-profile', authenticateToken, createProfileController); //done
+totalRoutes.post('/create-profile', createProfileController); //done
 
 /**
  * @swagger

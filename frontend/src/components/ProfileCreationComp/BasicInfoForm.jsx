@@ -12,6 +12,8 @@ function BasicInfo({ data, onChange }) {
     }
     if (typeof data.profilePic === "string") {
       setPreviewUrl(data.profilePic);
+    } else if (data.profilePic.image) {
+      setPreviewUrl(data.profilePic.image);
     } else if (data.profilePic instanceof File) {
       const url = URL.createObjectURL(data.profilePic);
       setPreviewUrl(url);
@@ -22,10 +24,21 @@ function BasicInfo({ data, onChange }) {
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      onChange({
-        ...data,
-        profilePic: file,
-      });
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        // Save both the file name and the base64 image string
+        onChange({
+          ...data,
+          profilePic: {
+            name: file.name,
+            image: event.target?.result,
+          },
+        });
+      };
+      reader.onerror = (err) => {
+        console.error("Error reading file:", err);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -89,22 +102,38 @@ function BasicInfo({ data, onChange }) {
               )}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <select
-                name="title"
-                id="title"
-                onChange={handleChange}
-                value={data.title || ""}
-              >
-                <option value="" disabled>
-                  Title
-                </option>
-                <option value="Mr">Mr.</option>
-                <option value="Mrs">Mrs.</option>
-                <option value="Ms">Ms.</option>
-                <option value="Dr">Dr.</option>
-              </select>
+            <div className="skills-dual-input">
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <select
+                  name="title"
+                  id="title"
+                  onChange={handleChange}
+                  value={data.title || ""}
+                >
+                  <option value="" disabled>
+                    Title
+                  </option>
+                  <option value="MR">Mr</option>
+                  <option value="MRS">Mrs</option>
+                  <option value="MS">Ms</option>
+                  <option value="DR">Dr</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="assessment-end">
+                  Birthday<span className="required-asterisk">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={data.birthday || ""}
+                  onChange={handleChange}
+                  required
+                  style={{ font: "inherit" }}
+                />
+              </div>
             </div>
 
             <div className="form-group">
@@ -190,19 +219,42 @@ function BasicInfo({ data, onChange }) {
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="role">
-                Role<span className="required-asterisk">*</span>
-              </label>
-              <input
-                type="text"
-                id="role"
-                name="role"
-                required
-                placeholder="Role"
-                onChange={handleChange}
-                value={data.role || ""}
-              />
+            <div className="skills-dual-input">
+              <div className="form-group">
+                <label htmlFor="role">
+                  Company<span className="required-asterisk">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  required
+                  placeholder="Company"
+                  onChange={handleChange}
+                  value={data.company || ""}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="role">
+                  Role<span className="required-asterisk">*</span>
+                </label>
+                <select
+                  name="role"
+                  id="role"
+                  onChange={handleChange}
+                  value={data.role || ""}
+                  className="role-select"
+                >
+                  <option value="" disabled>
+                    Role
+                  </option>
+                  <option value="DEVELOPER">Developer</option>
+                  <option value="DESIGNER">Designer</option>
+                  <option value="PROJECT_MANAGER">Project Manager</option>
+                  <option value="TEAM_LEAD">Team Lead</option>
+                  <option value="SENIOR_DEVELOPER">Senior Developer</option>
+                </select>
+              </div>
             </div>
 
             <div className="form-group">
