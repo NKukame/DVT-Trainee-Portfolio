@@ -150,8 +150,7 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
-  console.log(req.query);
+  let { query,location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
 
   
   try {
