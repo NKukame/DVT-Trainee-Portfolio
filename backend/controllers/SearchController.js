@@ -1,5 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma, {redis} from "../lib/prisma-redis-middleware.js";
+import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
+
+
+
+
+
 
 
 /**
@@ -26,9 +31,26 @@ const prisma = new PrismaClient();
 export async function SearchProjectController(req, res) {
 
   const { query,industries, techStack,field, order , page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
-
+  
   try {
     const where = {}
+    const cacheKey = `searchProject:${query}-${industries}-${techStack}-${field}-${order}-${page}-${limit}`;
+    const cached = await getCache(cacheKey);
+    if (cached) {
+      console.log('Cache hit for SearchEmployeeController', query);
+      const queryTime = Date.now() - startTime;
+    
+      return res.json({
+        success: true,
+        data: cached,
+        performance: {
+          queryTime: `${queryTime}ms`,
+          cached: true,
+          count: cached.length,
+          searchTerm: cacheKey
+        }
+      });
+    }
 
     if(query) {
       where.OR = [
@@ -118,6 +140,7 @@ export async function SearchProjectController(req, res) {
     if (!projects) {
       return res.status(404).send({ message: "Projects not found" });
     }
+    await setCache(cacheKey, projects, 30 * 60); 
 
     return res.send({ projects, total });
   } catch (error) {
@@ -156,6 +179,22 @@ export async function SearchEmployeeController(req, res) {
   
   try {
     const where = {};
+    const cacheKey = `${query}`;
+    const cached = await getCache(cacheKey);
+    if (cached) {
+      console.log('Cache hit for SearchEmployeeController', query);
+    
+    
+      return res.json({
+        success: true,
+        data: cached,
+        performance: {
+          cached: true,
+          count: cached.length,
+          searchTerm: cacheKey
+        }
+      });
+    }
 
     if(query){
       where.OR = [
@@ -259,6 +298,7 @@ export async function SearchEmployeeController(req, res) {
       return res.status(404).send({ message: "Employees not found" });
     } else{
       const pageCount = Math.ceil(total / limit);
+      await setCache(cacheKey, employees, 30 * 60); 
       return res.send({ employees, total, pageCount });
     }
   } catch (error) {
@@ -266,3 +306,4 @@ export async function SearchEmployeeController(req, res) {
     return res.status(500).json({ error: 'Failed to search employees' });
   }
 }
+

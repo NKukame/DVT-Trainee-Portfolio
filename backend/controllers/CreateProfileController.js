@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-
+import prisma from "../lib/prisma-redis-middleware.js";
 export async function createProfileController(req, res) {
   console.log("createProfileController called");
 
