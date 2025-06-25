@@ -17,7 +17,7 @@ const dbEmployees = await prisma.employee.findMany();
         }
 
         // Default values if missing
-        const available = employee.available !== undefined ? employee.available : true;
+        const available = employee.available !== undefined ? employee.available : false;
         const client = employee.client || "Unassigned";
 
         try {

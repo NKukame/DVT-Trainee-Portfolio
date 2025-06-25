@@ -9,9 +9,11 @@ import { useState } from "react";
 import UserProfileOverview from "../../components/UserPortfolioComps/tabs/UserProfileOverview";
 import UserProfileProjects from "../../components/UserPortfolioComps/tabs/UserProfileProjects";
 import UserProfileSkillBreakdown from "../../components/UserPortfolioComps/tabs/UserprofileSkillBreakdown";
+import { useLocation } from "react-router-dom";
 
-function UserPortfolio() {
+function UserPortfolio(props) {
   const [activeTab, setActiveTab] = useState("overview");
+  const location = useLocation();
   const [testEmployee, setTestEmployee] = useState({
     name: "Paballo Thobei",
     role: "Fullstack Developer Intern",
@@ -108,7 +110,7 @@ function UserPortfolio() {
 
         <div className="layout-body">
           <div className="portfolio-layout">
-            <Dashboard testEmployee={testEmployee}/>
+            <Dashboard   testEmployee={location.state}/>
             <div className="project-container">
               <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 

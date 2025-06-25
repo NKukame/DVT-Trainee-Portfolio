@@ -16,14 +16,14 @@ function Dashboard(props) {
       <div className="profile">
         <div className="short-bio">
           <div className="profile-picture">
-            <img src={ProfileImage} className="profile-img" alt="Profile" />
+            <img src={props.testEmployee.avatar} className="profile-img" alt="Profile" />
           </div>
 
           <p className="profile-name">{props.testEmployee.name}</p>
           <p className="profile-role">
             <strong>{props.testEmployee.role}</strong>
           </p>
-          <p className="profile-bio">{props.testEmployee.bio}</p>
+        
         </div>
 
         <div className="profile-info">
@@ -52,7 +52,7 @@ function Dashboard(props) {
             </p>
             <p>
               <img src={award} alt="Role Icon" className="dashboard-icon" />
-              {props.testEmployee.experience}
+              {props.testEmployee.years_active === 1 ? props.testEmployee.years_active + " year" : "years"} 
             </p>
           </div>
         </div>
@@ -68,15 +68,15 @@ function Dashboard(props) {
         </div>
       </div>
       <footer className="footer">
-        <Link to="https://github.com/pthobei">
+        <Link to={props.testEmployee.github}>
           <img src={Github} alt="GitHub" className="socials" />
         </Link>
 
-        <Link to="https://www.linkedin.com/in/paballo-thobei-2b532a27b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+        <Link to={props.testEmployee.linkedIn}>
           <img src={LinkedIn} alt="LinkedIn" className="socials" />
         </Link>
 
-        <Link to="mailto: pthobei@dvtsoftware.com">
+        <Link to={`mailto: ${props.testEmployee.email}`}>
           <img src={Email} alt="Email" className="socials" />
         </Link>
       </footer>
