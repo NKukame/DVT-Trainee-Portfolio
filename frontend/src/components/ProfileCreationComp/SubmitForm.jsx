@@ -41,7 +41,7 @@ function SubmitForm({
       setModalOpen(true);
       setTimeout(() => {
         setModalOpen(false);
-        navigate("/"); 
+        navigate("/userportfolio"); 
       }, 2000);
     } else {
       const data = await response.json();
@@ -61,7 +61,7 @@ function SubmitForm({
           <div className="custom-submit-modal">
             <p>{modalMessage}</p>
             {!modalMessage.includes("successfully") && (
-              <button onClick={() => setModalOpen(false)}>Close</button>
+              <button onClick={() => setModalOpen(false)} className="remove-profile-pic-btn">Close</button>
             )}
           </div>
         </div>

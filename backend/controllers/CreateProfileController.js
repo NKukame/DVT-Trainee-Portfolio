@@ -32,6 +32,7 @@ export async function createProfileController(req, res) {
 
     const employee = await prisma.employee.create({
       data: {
+        photoUrl: basicInfo.profilePic?.image || null,
         title: basicInfo.title,
         name: basicInfo.firstName,
         birthday: basicInfo.birthday ? new Date(basicInfo.birthday).toISOString() : null,
@@ -45,6 +46,7 @@ export async function createProfileController(req, res) {
         github: links.github,
         linkedIn: links.linkedin,
         portfolio: links.portfolio,
+        experience: basicInfo.experience,
         department: departmentMap[career.department] || "ENGINEERING",
       },
     });

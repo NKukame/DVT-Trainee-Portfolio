@@ -12,6 +12,8 @@ function BasicInfo({ data, onChange }) {
     }
     if (typeof data.profilePic === "string") {
       setPreviewUrl(data.profilePic);
+    } else if (data.profilePic.image) {
+      setPreviewUrl(data.profilePic.image);
     } else if (data.profilePic instanceof File) {
       const url = URL.createObjectURL(data.profilePic);
       setPreviewUrl(url);
@@ -22,10 +24,21 @@ function BasicInfo({ data, onChange }) {
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      onChange({
-        ...data,
-        profilePic: file,
-      });
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        // Save both the file name and the base64 image string
+        onChange({
+          ...data,
+          profilePic: {
+            name: file.name,
+            image: event.target?.result,
+          },
+        });
+      };
+      reader.onerror = (err) => {
+        console.error("Error reading file:", err);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
