@@ -22,8 +22,8 @@ async function main() {
                     photoUrl: employee.image,
                     role: "DEVELOPER", // Assuming all roles are developers
                     department: "ENGINEERING",
-                    institution: employee.Institution,
-                    Qualification: employee.Qualification,
+                    // institution: employee.Institution,
+                    // Qualification: employee.Qualification,
                     company: employee.Company,
                     location: employee.Location,
                     email: employee.email,

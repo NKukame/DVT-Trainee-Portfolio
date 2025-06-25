@@ -84,6 +84,8 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution":"IIE Rosebank College",
+        "Qualification": "Diploma in Information Technology for Software Development",
         "Birthday": "2000-01-19"
     },
     
@@ -156,7 +158,7 @@
     
     {
         "title": "MS",
-        "name": "Remow Rammekwa",
+        "name": "Remoneilwe Rammekwa",
         "description": "Full Stack Intern",
         "available": false,
         "client": "DVT",
