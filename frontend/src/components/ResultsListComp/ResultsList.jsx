@@ -1,15 +1,25 @@
 import { UserCard } from "../UserCardComp/UserCard";
 import ProjectCard from '../ProjectCardComp/ProjectCard';
+import { UserSkeletonLoader } from "../SearchResultsComp/SearchResults";
+import { useSearch } from "../../contexts/SearchContext";
 
 export default function ResultsList({ results, isEmployeeSearch }) {
   
-  if (results.length === 0) {
-    return <h1 className="font-size-20-px">Results not Found</h1>;
-  }
+  const [,,,,,, isLoading] = useSearch();
 
+  if (results.length === 0 && isLoading === false) {
+    return <h1 className="font-size-20-px no-results">
+        No results found. We couldn't find any matching project or person in our database. 
+      </h1>;
+  }
+  if(isLoading === true){
+    return <UserSkeletonLoader/>
+  }
   return (
     <>
+
       {isEmployeeSearch && (
+        
         <section className="grid-3-cols gap-24-px">
           {results.map((user, i) => {
             const timeStamp = new Date().getTime();
