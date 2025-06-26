@@ -1,47 +1,55 @@
 [{
-    "name": "Paballo Thobei",
+    "name": "Paballo",
+    "surname": "Thobei",
     "institution": "WeThinkCode_",
     "qualification": "NQF Level 5 - Systems Development"
 },
 
 {
-    "name": "Phemelo Makwatse",
+    "name": "Phemelo",
+    "surname": "Makwatse",
     "institution": "WeThinkCode_",
     "qualification": "NQF Level 5 - Systems Development"
 },
 
 {
-    "name": "Gomolemo Motlhamme",
+    "name": "Gomolemo",
+    "surname": "Motlhamme",
     "institution": "IIE Rosebank College",
     "qualification": "Diploma in Information Technology for Software Development"
 },
 
 {
-    "name": "Andile Mhlongo",
+    "name": "Andile",
+    "surname": "Mhlongo",
     "institution": "WeThinkCode_",
     "qualification": "NQF Level 5 - Systems Development"
 },
 
 {
-    "name": "Remoneilwe Rammekwa",
+    "name": "Remoneilwe",
+    "surname": "Rammekwa",
     "institution": "Vaal University of Technology",
     "qualification": "Diploma in Information Technology"
 },
 
 {
-    "name": "Dylan Fernandes",
+    "name": "Dylan",
+    "surname": "Fernandes",
     "institution": "University of Johannesburg",
     "qualification": "MA(Arch) - Architecture"
 },
 
 {
-    "name": "Adrian Majavu",
+    "name": "Adrian",
+    "surname": "Majavu",
     "institution": "IIE Rosebank College",
     "qualification": "Diploma In Information Technology in Software Development"
 },
 
 {
-    "name": "Thabane Ngobe",
+    "name": "Thabane",
+    "surname": "Ngobe",
     "institution": "WeThinkCode_",
     "qualification": "NQF Level 5 - Systems Development"
 }]

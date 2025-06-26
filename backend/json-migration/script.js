@@ -16,7 +16,7 @@ async function main() {
                 data: {
                     title: employee.title,
                     name: employee.name,  // Using the full name
-                    surname: employee.name?.split(' ').slice(-1)[0] || "",
+                    surname: employee.surname,
                     bio: employee.description,
                     birthday: employee.Birthday,
                     photoUrl: employee.image,
