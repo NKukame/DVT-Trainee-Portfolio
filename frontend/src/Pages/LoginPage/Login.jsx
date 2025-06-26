@@ -104,20 +104,12 @@ function Signup() {
 
   const handleSignup = async() => {
     if (validationForm()) {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (storedUser && storedUser.email === formData.email ) {
-        setErrors({ email: "This email or username is already registered" });
-        return;
-      }
+      
       try{
         const user = {email: formData.email, password: formData.password};
   
         const userRegistered = await axios.post(
-          'http://localhost:3000/register', 
-          {
-            email: formData.email,
-            password: formData.password
-          }, {
+          'http://localhost:3000/register', user, {
           headers:{
             "Content-Type" : "application/json"
           }}

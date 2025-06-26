@@ -14,16 +14,24 @@ export default function SearchResults() {
   const isProject = queryParams.get("isProject") === "true";
   const [isEmployeeSearch, setIsEmployeeSearch] = useState(!isProject);
   const [results, setResults] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
   useEffect(() => {   
     
     const resultsFilter =  isEmployeeSearch ? filteredResults.filter((result)=> !result.project_id) 
                     : filteredResults.filter((result)=> result.project_id);
     setResults(resultsFilter);
+    setCurrentPage(1);
   }, [isEmployeeSearch, filteredResults]);
     
+  const displayedItems = results.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-
+  const handleChangePage = (event, newPage) => {
+      setCurrentPage(newPage);
+    };
 
   return (
     <article className="flex-col">
@@ -35,12 +43,13 @@ export default function SearchResults() {
       />
 
       <section className="flex-1 results-container">
-          <ResultsList results={results} isEmployeeSearch={isEmployeeSearch} />
+          <ResultsList results={displayedItems} isEmployeeSearch={isEmployeeSearch} />
       </section>
-        <PaginationControls
-          totalPages={total} 
-          setResults={setResults}
-          apiEndpoint={isEmployeeSearch ? 'http://localhost:3000/search/employee' : 'http://localhost:3000/search/project'}
+        <PaginationControls 
+          totalItems={results.length} 
+          itemsPerPage={itemsPerPage} 
+          currentPage={currentPage} 
+          onPageChange={handleChangePage} 
         />
     </article>
   );

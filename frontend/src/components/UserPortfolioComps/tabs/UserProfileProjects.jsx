@@ -1,5 +1,5 @@
 import ClientCarousel from "../usedComps/ClientCarousel";
-import "./UserProfileProjects.css";
+// import "./UserProfileProjects.css";
 function UserProfileProjects() {
   const projects = [
     {

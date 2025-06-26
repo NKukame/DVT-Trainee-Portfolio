@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import projects from "../../../modal-resources/projects-modal.json";
-import "./userProfileOverview.css";
+// import "./userProfileOverview.css";
 
 function UserProfileOverview(props) {
   const trackRef = useRef(null);

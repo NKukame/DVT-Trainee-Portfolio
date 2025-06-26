@@ -9,9 +9,12 @@ const redis = new Redis({
  
 });
 
+ export const getCacheKey = (query, industries, techStack, field, order,page, role, location) =>
+  ['search', query, industries, techStack, field, order, role, location,page, role].filter(Boolean).join(':');
+
 export async function getCache(key) {
   const cachedData = await redis.get(key);
-  return cachedData ? JSON.parse(cachedData) : null;
+  return cachedData ? JSON.stringify(cachedData) : [];
 }
 
 export async function setCache(key, data, ttl = 3600) {

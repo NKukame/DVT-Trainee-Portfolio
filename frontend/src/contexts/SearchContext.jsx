@@ -9,7 +9,6 @@ export const SearchContextProvider = ({children}) => {
 
     const [data, setdata] = useState([]);
     const [isLoading, setIsLoading]  = useState(true);
-    const [total ,setTotalPages] = useState(1);
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
     let [selectedFilter, setSelectedFilter] = useState([]);
@@ -28,7 +27,6 @@ export const SearchContextProvider = ({children}) => {
                 
                 const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
                 const apiDataProject = await axios.get('http://localhost:3000/search/project')
-                console.log(apiDataEmployee.data);
                 const employeesWithTechStackNames = apiDataEmployee.data.employees.map(emp => ({
                     employee_id: emp.id,
                     name: emp.name,
@@ -55,7 +53,6 @@ export const SearchContextProvider = ({children}) => {
                      screenshot: project.screenshot
                 }))
     
-                setTotalPages(apiDataEmployee.data.total)
                 setdata(employeesWithTechStackNames.concat(projectsWithTechStackNames));
                 setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
                 setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
@@ -162,13 +159,13 @@ export const SearchContextProvider = ({children}) => {
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading }}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading } = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading ]
 }
