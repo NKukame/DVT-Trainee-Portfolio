@@ -13,7 +13,7 @@ export default function ResultsList({ results, isEmployeeSearch }) {
       </h1>;
   }
   if(isLoading === true){
-    return <UserSkeletonLoader/>
+    return <UserSkeletonLoader key={results.employee_id}/>
   }
   return (
     <>
@@ -23,7 +23,7 @@ export default function ResultsList({ results, isEmployeeSearch }) {
         <section className="grid-3-cols gap-24-px">
           {results.map((user, i) => {
             const timeStamp = new Date().getTime();
-            return(<UserCard key={`${Math.random()+timeStamp}-${user.employee_id}`} user={user} />
+            return(<UserCard key={`${user.employee_id}`}  user={user} />
           )})}
         </section>
       )}

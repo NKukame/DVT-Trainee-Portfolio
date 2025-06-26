@@ -9,8 +9,11 @@ import github from '../../assets/Github.png';
 import slack from '../../assets/Slack.png';
 import linkedIn from '../../assets/Linkedin.png';
 import email from '../../assets/email-Icon.png';
-export function UserCard({ user,showDetails = true }) {
+import { useNavigate } from "react-router-dom";
+import UserPortfolio from "../../Pages/UserPortfolioPage/UserPortfolio";
+export function UserCard({  user,showDetails = true }) {
   const [open, setOpen] = useState(false);
+ 
   return (
     <div className="card-user flex-col gap-10-px shadow">
       <div className="flex-row">
@@ -55,7 +58,7 @@ export function UserCard({ user,showDetails = true }) {
           </div>
       </div>
       {showDetails && <UserDetails user={user} />}
-      <Link className="text-color-white font-size-14-px link-style border-radius-4-px py-4-px" to={'/userportfolio'}>View Profile</Link>
+      <Link className="text-color-white font-size-14-px link-style border-radius-4-px py-4-px" to={'/userportfolio'} state={user}>View Profile</Link>
     </div>
   );
 }

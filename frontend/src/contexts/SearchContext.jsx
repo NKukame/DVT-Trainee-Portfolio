@@ -38,6 +38,8 @@ export const SearchContextProvider = ({children}) => {
                     linkedIn: emp.linkedIn,
                     role: emp.role,
                     years_active: 1,
+                    bio: emp.bio,
+                    availability: emp.availability?.available === true ?  "Unavailable" : "Available",
                     location: emp.location,
                     avatar: emp.photoUrl,
                     skills: emp.techStack.map(link => link.techStack.name),
