@@ -8,20 +8,12 @@ export async function HomePortfolioController(req, res){
   
     const cacheKey = 'homePortfolioUsers';
     const cached = await getCache(cacheKey);
-    if(cached){
-        console.log('Cache hit for HomePortfolioController');
+    // console.log('Cache key:', cached);
+    // if(cached){
+    //     console.log('Cache hit for HomePortfolioController');
         
-        const queryTime = Date.now() - startTime;
-        return res.json({
-            success: true,
-            data: cached,
-            performance: {
-                queryTime: `${queryTime}ms`,
-                cached: true,
-                count: cached.length
-            }
-        });
-    }
+    //     return res.send(JSON.parse(cached));
+    // }
   const users = await prisma.employee.findMany({
     select:{
       name:true,

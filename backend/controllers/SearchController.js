@@ -36,21 +36,21 @@ export async function SearchProjectController(req, res) {
     const where = {}
     const cacheKey = `searchProject:${query}-${industries}-${techStack}-${field}-${order}-${page}-${limit}`;
     const cached = await getCache(cacheKey);
-    if (cached) {
-      console.log('Cache hit for SearchEmployeeController', query);
-      const queryTime = Date.now() - startTime;
+    // if (cached) {
+    //   console.log('Cache hit for SearchEmployeeController', query);
+    //   const queryTime = Date.now();
     
-      return res.json({
-        success: true,
-        data: cached,
-        performance: {
-          queryTime: `${queryTime}ms`,
-          cached: true,
-          count: cached.length,
-          searchTerm: cacheKey
-        }
-      });
-    }
+    //   return res.json({
+    //     success: true,
+    //     data: cached,
+    //     performance: {
+    //       queryTime: `${queryTime}ms`,
+    //       cached: true,
+    //       count: cached.length,
+    //       searchTerm: cacheKey
+    //     }
+    //   });
+    // }
 
     if(query) {
       where.OR = [
@@ -173,28 +173,28 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
-  console.log(req.query);
+  let { query,location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
+  // console.log(req.query);
 
   
   try {
     const where = {};
     const cacheKey = `${query}`;
     const cached = await getCache(cacheKey);
-    if (cached) {
-      console.log('Cache hit for SearchEmployeeController', query);
+    // if (cached) {
+    //   console.log('Cache hit for SearchEmployeeController', query);
     
     
-      return res.json({
-        success: true,
-        data: cached,
-        performance: {
-          cached: true,
-          count: cached.length,
-          searchTerm: cacheKey
-        }
-      });
-    }
+    //   return res.json({
+    //     success: true,
+    //     data: cached,
+    //     performance: {
+    //       cached: true,
+    //       count: cached.length,
+    //       searchTerm: cacheKey
+    //     }
+    //   });
+    // }
 
     if(query){
       where.OR = [
@@ -251,7 +251,7 @@ export async function SearchEmployeeController(req, res) {
       }
     }
 
-    console.log(where);
+    // console.log(where);
     
     const orderBy = {}
 
