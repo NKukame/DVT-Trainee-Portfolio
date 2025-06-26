@@ -9,7 +9,8 @@
     "screenshot": "./assets/inventory-screenshot.png",
     "members": [
       {
-        "name": "Paballo Thobei",
+        "name": "Paballo",
+        "surname": "Thobei",
         "role": "DEVELOPER"
       },
       {
@@ -28,11 +29,13 @@
     "screenshot": "./assets/resume-parser-screenshot.png",
     "members": [
       {
-        "name": "Phemelo Makwatse",
+        "name": "Phemelo",
+        "surname": "Makwatse",
         "role": "DEVELOPER"
       },
       {
-        "name": "Njabulo Kukame",
+        "name": "Njabulo",
+        "surname": "Kukame",
         "role": "DEVELOPER"
       }
     ]
@@ -48,15 +51,18 @@
         "screenshot": "./assets/ecommerce-screenshot.png",
         "members": [
           {
-            "name": "Thabane Ngobe",
+            "name": "Thabane",
+            "surname": "Ngobe",
             "role": "DEVELOPER"
           },
           {
-            "name": "Andile Mhlongo",
+            "name": "Andile",
+            "surname": "Mhlongo",
             "role": "DEVELOPER"
           },
           {
-            "name": "Remoneilwe Rammekwa",
+            "name": "Remoneilwe",
+            "surname": "Rammekwa",
             "role": "DEVELOPER"
           }
         ]
@@ -72,11 +78,13 @@
         "screenshot": "./assets/social-media-analytics-screenshot.png",
         "members": [
           {
-            "name": "Adrian Majavu",
+            "name": "Adrian",
+            "surname": "Majavu",
             "role": "DEVELOPER"
           },
           {
-            "name": "Dylan Fernandes",
+            "name": "Dylan",
+            "surname": "Fernandes",
             "role": "DESIGNER"
           }
         ]
