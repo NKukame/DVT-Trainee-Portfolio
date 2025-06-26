@@ -20,7 +20,7 @@ function Stepper({
           return (
             <div
               key={index}
-              className={`steps ${index === currentStep ? "active" : ""}`}
+              className={`steps ${index === currentStep ? "active-step" : ""}`}
               onClick={() => setCurrentStep(index)}
             >
               <div className={`step-progress${progressClass}`}></div>

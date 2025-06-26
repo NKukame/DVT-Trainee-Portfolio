@@ -3,7 +3,7 @@ import "./Form.css";
 
 function StatusForm({ data, onChange }) {
   const assigned = data.status || "";
-  const isInactive = assigned === "Unavailable";
+  const isInactive = assigned === "Available";
 
   // Get today's date in yyyy-mm-dd format
   const today = new Date().toISOString().split("T")[0];
@@ -34,8 +34,8 @@ function StatusForm({ data, onChange }) {
             <option value="" disabled>
               Select Your Status
             </option>
-            <option value="Available">Yes</option>
-            <option value="Unavailable">No</option>
+            <option value="Unavailable">Yes</option>
+            <option value="Available">No</option>
           </select>
         </div>
 

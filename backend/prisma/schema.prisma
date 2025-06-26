@@ -94,6 +94,7 @@ model Employee {
   phone        String?
   github       String?
   linkedIn     String?
+  experience    String?
   portfolio    String?
   availability Availability?    
   techStack    EmployeeTechStack[]
@@ -191,6 +192,7 @@ model EmployeeSoftSkill {
   employeeId String
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   softSkillId String
+  skillsRating  String?
   softSkill  SoftSkill @relation(fields: [softSkillId], references: [id], onDelete: Cascade)
   
   @@id([employeeId, softSkillId])
