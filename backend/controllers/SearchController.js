@@ -173,7 +173,7 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
+  let { query,location, role, techStack, industry, field, order, page = 1, limit = 900 } = req.query; // Changed from req.params to req.query
   // console.log(req.query);
 
   
@@ -262,6 +262,7 @@ export async function SearchEmployeeController(req, res) {
     }
 
     const [employees, total] = await Promise.all([
+      
       prisma.employee.findMany({
         where,
         orderBy,
@@ -275,10 +276,29 @@ export async function SearchEmployeeController(req, res) {
           photoUrl:true,
           email:true,
           bio:true,
+          experience:true,
+          availability:{
+            select:{
+              available:true
+            }
+          },
           linkedIn:true,
           github:true,
           role:true,
+          education: {
+            select: {
+              institution: true,
+              qualification: true,
+            }
+          },
           location:true,
+          softSkills:{
+            select:{
+              skillsRating:true,
+              softSkill:true,
+              softSkillId:true,
+            }
+          },
           techStack:{
             select:{
               techStack:{
@@ -286,6 +306,39 @@ export async function SearchEmployeeController(req, res) {
                   name:true,
                 }
               }
+            }
+          },
+          projects: {
+            select: {
+              project: {
+                select: {
+                  id:true,
+                  name: true,
+                  description: true,
+                  techStack: {
+                    select: {
+                      techStack:{
+                        select: {
+                          name:true,
+                        }
+                      }
+                    }
+                  },
+                  github:true,
+                  demo:true,
+                  screenshot:true,
+                  createdAt:true,
+                  updatedAt:true,
+                }
+              }
+            }
+          },
+          
+          testimonials: {
+            select: {
+              quote: true,
+              company: true,
+              reference: true
             }
           }  
         },

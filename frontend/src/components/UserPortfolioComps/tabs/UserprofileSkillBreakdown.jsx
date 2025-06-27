@@ -1,7 +1,7 @@
 import "./UserProfileSkillBreakdown.css";
 import PolarChart from "../usedComps/PolarChart";
 import HorizontalBarChart from "../usedComps/HorizontalBarChart";
-function UserProfileSkillBreakdown() {
+function UserProfileSkillBreakdown(props) {
   const education = [
     {
       id: 1,
@@ -32,33 +32,32 @@ function UserProfileSkillBreakdown() {
         <h1 className="skills-header">Skills Breakdown </h1>
         <section className="skills-education-section">
           <h2 className="skills-education-header">Education</h2>
-          {education ? (
-            education.map((edu) => {
-              return (
-                <div key={edu.id} className="skills-education-item">
+          {props.testEmployee.emp_education ? (
+               (
+                <div className="skills-education-item">
                   <div>
                     <p className="skills-education-item-title">
                       Formal Education
                     </p>
                     <ul>
-                      {edu.degree.map((degree) => (
-                        <li>{degree}</li>
-                      ))}
+                      {
+                        <li>{props.testEmployee.emp_education.qualification + ' - ' + props.testEmployee.emp_education.institution}</li>
+                      }
                     </ul>
                   </div>
-                  <div>
+                  {/* <div>
                     <p className="skills-education-item-title">
                       Certifications
                     </p>
                     <ul>
-                      {edu.certification.map((cert) => (
-                        <li>{cert}</li>
-                      ))}
+                      TO BE CONTINUED
+                        <li>{}</li>
+                      
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
-              );
-            })
+              )
+            
           ) : (
             <p>No education data available</p>
           )}
@@ -67,14 +66,14 @@ function UserProfileSkillBreakdown() {
         <section className="skills-circle-section">
           <h2 className="skills-circle-header">Soft skills</h2>
           <p className="skills-circle">
-            <PolarChart />
+            <PolarChart user={props.testEmployee}/>
           </p>
         </section>
         <hr />
         <section className="skills-bar-section">
           <h2 className="skills-bar-header">Skills Matrix</h2>
           <div className="skills-bar-graph">
-            <HorizontalBarChart />
+            <HorizontalBarChart user={props.testEmployee}/>
           </div>
         </section>
       </section>

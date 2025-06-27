@@ -9,8 +9,11 @@ import LinkedIn from "../../assets/icons8-linkedin-100.png";
 import Email from "../../assets/icons8-email-100.png";
 import award from "../../assets/Award-01.png";
 import "./Dashboard.css";
+import axios from "axios";
 
 function Dashboard(props) {
+  console.log(props);
+  
   return (
     <div className="dashboard">
       <div className="profile">
@@ -19,7 +22,7 @@ function Dashboard(props) {
             <img src={props.testEmployee.avatar} className="profile-img" alt="Profile" />
           </div>
 
-          <p className="profile-name">{props.testEmployee.name}</p>
+          <p className="profile-name">{props.testEmployee.name }</p>
           <p className="profile-role">
             <strong>{props.testEmployee.role}</strong>
           </p>
@@ -40,7 +43,7 @@ function Dashboard(props) {
                 alt="Experience Icon"
                 className="dashboard-icon"
               />
-              {props.testEmployee.availability}
+              {props.testEmployee.availability ? props.testEmployee.availability : "Not filled / N/A"}
             </p>
             <p>
               <img
@@ -48,11 +51,11 @@ function Dashboard(props) {
                 alt="Location Icon"
                 className="dashboard-icon"
               />
-              {props.testEmployee.location}
+              {props.testEmployee.location ? props.testEmployee.location : "Not filled / N/A"}
             </p>
             <p>
               <img src={award} alt="Role Icon" className="dashboard-icon" />
-              {props.testEmployee.years_active === 1 ? props.testEmployee.years_active + " year" : "years"} 
+              {props.testEmployee.experienced ? props.testEmployee.experienced : "Not filled / N/A "} 
             </p>
           </div>
         </div>

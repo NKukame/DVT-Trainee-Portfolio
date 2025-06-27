@@ -20,7 +20,7 @@ export function UserCard({  user,showDetails = true }) {
         <div className='flex-row align-items-center gap-10-px flex-1'>
           <Avatar alt={user.name} src={user.avatar || ''} sx={{ width: 52, height: 52 }} />
           <div>
-            <p className='font-size-20-px text-black'>{user.name}</p>
+            <p className='font-size-20-px text-black'>{user.name }</p>
             <p className='font-size-12-px font-waight-400'>{user.role}</p>
           </div>
         </div>

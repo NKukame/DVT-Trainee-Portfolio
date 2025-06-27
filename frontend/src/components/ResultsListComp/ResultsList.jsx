@@ -32,7 +32,7 @@ export default function ResultsList({ results, isEmployeeSearch }) {
         <section className="grid-3-cols gap-24-px">
           {results.map((project, i) => {
             const timeStamp = new Date().getTime();
-            return( <ProjectCard key={`${Math.random()+timeStamp}-${project.project_id}`} result={project} />
+            return( <ProjectCard key={`${project.project_id}`} result={project} />
           )})}
         </section>
       )}
