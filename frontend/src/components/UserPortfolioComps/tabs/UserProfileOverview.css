@@ -37,6 +37,15 @@
     margin-bottom: 10px;
     animation: overview-logo-slider 40s linear infinite;
 }
+.static-testimonial-content{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
 .testimonial-content:hover{
     animation-play-state: paused;
 }
@@ -55,6 +64,10 @@
 .testimonial-name{
     margin-top: 5px;
     font-weight: bold;
+    color: #072549;
+}
+.testimonial-company{
+    font-weight: 400;
     color: #072549;
 }
 

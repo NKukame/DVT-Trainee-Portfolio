@@ -53,6 +53,20 @@
     border: 1px solid #000000;
     margin-block: 1rem;
 }
+.project-tag{
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: transparent;
+    border-radius: 0.5em;
+    max-width: fit-content;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid #8383835f;
+    color: #072549;
+}
 
 .profile-account{
     display: flex;

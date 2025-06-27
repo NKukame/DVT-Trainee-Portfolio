@@ -12,13 +12,13 @@ import {
 // Register components you’ll use
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
-const PolarChart = () => {
+const PolarChart = (props) => {
   const data = {
-    labels: ['Teamwork', 'Problem Solving', 'Emotional Intelligence', 'Communication', 'Humor', 'Conflict Resolution'],
+    labels: props.user.softSkilled.map(skill => `${skill.softSkill.name}`) ,
     datasets: [
       {
         label: 'My Polar Dataset',
-        data: [5, 2, 3, 5, 4, 3],
+        data: props.user.softSkilled.map(rate => `${rate.skillsRating}`) ,
         backgroundColor: [
           'rgba(0, 32, 56, 1)',
           'rgba(7, 37, 73, 1)',

@@ -6,7 +6,7 @@ export const SearchContext = createContext()
 
 export const SearchContextProvider = ({children}) => {
 
-
+    const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState([]);
     const [data, setdata] = useState([]);
     const [isLoading, setIsLoading]  = useState(true);
     const [total ,setTotalPages] = useState(1);
@@ -29,21 +29,52 @@ export const SearchContextProvider = ({children}) => {
                 const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
                 const apiDataProject = await axios.get('http://localhost:3000/search/project')
                 console.log(apiDataEmployee.data);
-                const employeesWithTechStackNames = apiDataEmployee.data.employees.map(emp => ({
+                const employeesWithTechStackNames =
+                  apiDataEmployee.data.employees.map((emp) => ({
                     employee_id: emp.id,
-                    name: emp.name,
+                    name: emp.name + " " + emp.surname,
                     surname: emp.surname,
                     email: emp.email,
                     github: emp.github,
                     linkedIn: emp.linkedIn,
+                    testimonials:
+                      emp.testimonials?.map((test) => ({
+                        quote: test.quote,
+                        company: test.company,
+                        reference: test.reference,
+                      })) || [],
                     role: emp.role,
+                    softSkilled: emp.softSkills.map((skill) => ({
+                      skillsRating: skill.skillsRating,
+                      softSkill: skill.softSkill,
+                      softSkillId: skill.softSkillId,
+                    })),
                     years_active: 1,
+                    experienced: emp.experience,
+                    bio: emp.bio,
+                    availability: emp.availability
+                      ? "Available"
+                      : "Not Available",
                     location: emp.location,
-                    avatar: emp.photoUrl,
-                    skills: emp.techStack.map(link => link.techStack.name),
-                }));
+                    emp_education: emp.education,
+
+                    project: emp.projects.map((project) => ({
+                        
+                      project_id: project.id,
+                      name: project.name,
+                      description: project.description,
+                      created_on: project.createdAt,
+                      technologies: project.techStack,
+                      screenshot: project.screenshot,
+                    })),
+
+                    avatar:
+                      emp.photoUrl ||
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                    skills: emp.techStack.map((link) => link.techStack.name),
+                  }));
     
-                const projectsWithTechStackNames = apiDataProject.data.projects.map(project => ({
+                const projectsWithTechStack = apiDataProject.data.projects.map(project => ({
                     project_id: project.id,
                     name: project.name,
                     description: project.description,
@@ -52,13 +83,14 @@ export const SearchContextProvider = ({children}) => {
                      industries: project.industries.map(link => link.industry.name),
                      username: project.members?.map(link => link.employee.name)[0],
                      avatar: project.members?.map(link => link.employee.photoUrl)[0],
-                     screenshot: project.screenshot
+                     screenshot: project.screenshot,
                 }))
-    
+                
+                setProjectsWithTechStackNames(projectsWithTechStack)
                 setTotalPages(apiDataEmployee.data.total)
-                setdata(employeesWithTechStackNames.concat(projectsWithTechStackNames));
-                setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
-                setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStackNames));
+                setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
+                setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStack));
+                setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStack));
             } catch (err){
                 console.log(err)
             }finally{
@@ -162,13 +194,13 @@ export const SearchContextProvider = ({children}) => {
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames}}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames]
 }

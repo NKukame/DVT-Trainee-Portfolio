@@ -10,13 +10,12 @@ function Search() {
         <SideBar />
 
           <div className="app-layout-body">
-            <SearchContextProvider>
+          
               <section className="flex-col align-items-center justify-items-center gap-24-px m-20-px">
                 <SearchBar />
                 <Filter/>
                 <SearchResults />
               </section>
-            </SearchContextProvider>
           </div>
     </div>
   );
