@@ -14,55 +14,7 @@ import { useLocation } from "react-router-dom";
 function UserPortfolio(props) {
   const [activeTab, setActiveTab] = useState("overview");
   const location = useLocation();
-  const [testEmployee, setTestEmployee] = useState({
-    name: "Paballo Thobei",
-    role: "Fullstack Developer Intern",
-    bio: "Short intro of experience and interests like cats hobbies and projects they really like etc...",
-    location: "Remote /Johannesburg (flexible)",
-    description:"I am a vibrant dev that likes biscuits and eating tea bags. I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags. I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.I am a vibrant dev that likes biscuits and eating tea bags.",
-    experience: "2.5 years",
-    skills: ["Java", "Python", "C#", "HTML", "CSS", "SQLite", "JavaScript", "React", "Node.js"],
-    availability: "Available",
-    companyTestimonials: [
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Discovery Health",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Zara Hadid",
-      company: "Tech Innovations",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    },
-    {
-      name: "Gregory House",
-      company: "Tech Innovations",
-      description:
-        "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-    }
-    
-  ]
-  });
+  
   
   //  companyTestimonials = [
   //   {
@@ -114,9 +66,9 @@ function UserPortfolio(props) {
             <div className="project-container">
               <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
-              {activeTab === "overview" && <UserProfileOverview testEmployee={testEmployee}/>}
-              {activeTab === "projects" && <UserProfileProjects />}
-              {activeTab === "skills" && <UserProfileSkillBreakdown />}
+              {activeTab === "overview" && <UserProfileOverview testEmployee={location.state}/>}
+              {activeTab === "projects" && <UserProfileProjects testEmployee={location.state}/>}
+              {activeTab === "skills" && <UserProfileSkillBreakdown testEmployee={location.state}/>}
             </div>
           </div>
         </div>

@@ -87,12 +87,10 @@ function UserProfileOverview(props) {
     <>
       <section className="profile-overview-container">
         <h1 className="profile-overview-title">Hello World!</h1>
-        <p className="profile-overview-text">
-          {props.testEmployee.description}
-        </p>
+        <p className="profile-overview-text">{props.testEmployee.bio}</p>
         <section className="testimonial-overview-section">
-          <div className="testimonial-content">
-            {[...props.testEmployee.companyTestimonials,...props.testEmployee.companyTestimonials].map((company, index) => (
+          
+            {/* {props.testEmployee.testimonials.length === 3 ?[...props.testEmployee.testimonial,...props.testEmployee.testimonial].map((company, index) => (
               <div className="testimonial-item" key={index}>
                 <p className="testimonial-text">{company.description}</p>
                 <div>
@@ -100,81 +98,125 @@ function UserProfileOverview(props) {
                   <p className="testimonial-company">{company.company}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            )): props.testEmployee.testimonials.map((company, index) => (
+              <div className="testimonial-item" key={index}>
+                <p className="testimonial-text">{company.description}</p>
+                <div>
+                  <p className="testimonial-name">{company.name}</p>
+                  <p className="testimonial-company">{company.company}</p>
+                </div>
+              </div>
+            ))} */}
+            {/* <div className="testimonial-item" key={props.testEmployee.id}>
+                <p className="testimonial-text">{props.testEmployee.bio}</p>
+                <div>
+                  <p className="testimonial-name">{props.testEmployee.name}</p>
+                  
+                </div>
+          </div> */}
+            {Array.isArray(props.testEmployee.testimonials).length === 3 ?
+            <div className="testimonial-content">
+              {props.testEmployee.testimonials.map((t, i) => (
+                <div key={i} className="testimonial-item">
+                  <p className="testimonial-text">{t.quote}</p>
+                  <p className="testimonial-name">{t.reference}</p>
+                  <p className="testimonial-company">{t.company}</p>
+                </div>
+              ))}</div>
+            :
+            <div className="static-testimonial-content">
+              {props.testEmployee.testimonials.map((t, i) => (
+                <div key={i} className="testimonial-item">
+                  <p className="testimonial-text">{t.quote}</p>
+                  <p className="testimonial-name">{t.reference}</p>
+                  <p className="testimonial-company">{t.company}</p>
+                </div>
+                ))
+              }</div>}
+          {/* </div> */}
         </section>
 
         <h2 className="profile-overview-ft-Projects">Featured Projects</h2>
-            <section className="overview-video-header">
-        <div
-        className="overview-video-carousel"
-        onMouseEnter={stopAnimation}
-        onMouseLeave={startAnimation}
-      >
-        <div className="video-track" ref={trackRef}>
-          {projects.map((project, index) => (
-            <div key={index} className="video-item">
-              <img className="video-item-image" src={project.image} alt="Video Thumbnail" />
+        <section className="overview-video-header">
+          <div
+            className="overview-video-carousel"
+            onMouseEnter={stopAnimation}
+            onMouseLeave={startAnimation}
+          >
+            <div className="video-track" ref={trackRef}>
+              {projects.map((project, index) => (
+                <div key={index} className="video-item">
+                  <img
+                    className="video-item-image"
+                    src={project.image}
+                    alt="Video Thumbnail"
+                  />
 
-              <div className="video-item-text">
-                <div className="video-item-text-inner">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
+                  <div className="video-item-text">
+                    <div className="video-item-text-inner">
+                      <h3>{project.title}</h3>
+                      <p>{project.description}</p>
+                    </div>
+                    <div
+                      className="video-see-more"
+                      onClick={() => openModal(project)}
+                    >
+                      See More
+                    </div>
+                  </div>
                 </div>
-                <div
-                  className="video-see-more"
-                  onClick={() => openModal(project)}
-                >
-                  See More
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      </section>{isModalOpen && selectedProject && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* <button className="modal-close" onClick={closeModal}>
+          </div>
+        </section>
+        {isModalOpen && selectedProject && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              {/* <button className="modal-close" onClick={closeModal}>
               X
             </button> */}
 
-            <div className="modal-header">
-              <h2>{selectedProject.title}</h2>              <div className="modal-owner-container">
-                <img src={selectedProject.ownerImage} alt={selectedProject.owner} className="modal-owner-img" />
-                <p className="modal-owner">{selectedProject.owner}</p>
+              <div className="modal-header">
+                <h2>{selectedProject.title}</h2>{" "}
+                <div className="modal-owner-container">
+                  <img
+                    src={selectedProject.ownerImage}
+                    alt={selectedProject.owner}
+                    className="modal-owner-img"
+                  />
+                  <p className="modal-owner">{selectedProject.owner}</p>
+                </div>
               </div>
+
+              {selectedProject.video && (
+                <video
+                  src={selectedProject.video}
+                  controls
+                  width="100%"
+                  style={{ borderRadius: "5px" }}
+                />
+              )}
+
+              <p className="modal-description">
+                <strong>Description:</strong> <br />
+                {selectedProject.description}
+              </p>
+
+              <h4 className="modal-technologies">Technologies Used:</h4>
+              <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
+                {selectedProject.technologies.map((tech, index) => (
+                  <li key={index}>
+                    <p className="badge-default">{tech}</p>
+                  </li>
+                ))}
+              </ul>
+
+              <button className="modal-project-link">
+                <a href={selectedProject.link}>Repository</a>
+              </button>
             </div>
-
-            {selectedProject.video && (
-              <video
-                src={selectedProject.video}
-                controls
-                width="100%"
-                style={{ borderRadius: "5px" }}
-              />
-            )}
-
-
-            <p className="modal-description">
-              <strong>Description:</strong> <br />{selectedProject.description}
-            </p>
-
-            <h4 className="modal-technologies">Technologies Used:</h4>
-            <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
-              {selectedProject.technologies.map((tech, index) => (
-                (<li key={index}><p className='badge-default'>{tech}</p></li>)
-              ))}
-            </ul>
-
-            <button className="modal-project-link">
-              <a href={selectedProject.link}>Repository</a>
-            </button>
-
-
           </div>
-        </div>
-      )}
+        )}
       </section>
     </>
   );

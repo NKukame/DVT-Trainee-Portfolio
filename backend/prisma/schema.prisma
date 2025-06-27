@@ -194,7 +194,6 @@ model EmployeeSoftSkill {
   softSkillId String
   skillsRating  String?
   softSkill  SoftSkill @relation(fields: [softSkillId], references: [id], onDelete: Cascade)
-  skillsRating  String?
   
   @@id([employeeId, softSkillId])
 }

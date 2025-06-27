@@ -41,7 +41,7 @@ function SubmitForm({
       setModalOpen(true);
       setTimeout(() => {
         setModalOpen(false);
-        navigate("/userportfolio"); 
+        navigate("/home"); 
       }, 2000);
     } else {
       const data = await response.json();

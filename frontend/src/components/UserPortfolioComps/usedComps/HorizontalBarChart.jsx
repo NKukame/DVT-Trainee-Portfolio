@@ -14,10 +14,9 @@ import { Bar } from 'react-chartjs-2';
 // Register the necessary components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const HorizontalBarChart = () => {
-    const [chartData, setChartData] = React.useState(null);
+const HorizontalBarChart = (props) => {
   const data = {
-    labels: ['React', 'Vue', 'Angular', 'Svelte', 'Next.js', 'Node.js'],
+    labels: props.user.skills.slice(0, 6).map(skill => `${skill}`),
     datasets: [
       {
         label: 'Usage (%)',
