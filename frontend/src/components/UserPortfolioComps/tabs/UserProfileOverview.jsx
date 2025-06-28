@@ -90,30 +90,7 @@ function UserProfileOverview(props) {
         <p className="profile-overview-text">{props.testEmployee.bio}</p>
         <section className="testimonial-overview-section">
           
-            {/* {props.testEmployee.testimonials.length === 3 ?[...props.testEmployee.testimonial,...props.testEmployee.testimonial].map((company, index) => (
-              <div className="testimonial-item" key={index}>
-                <p className="testimonial-text">{company.description}</p>
-                <div>
-                  <p className="testimonial-name">{company.name}</p>
-                  <p className="testimonial-company">{company.company}</p>
-                </div>
-              </div>
-            )): props.testEmployee.testimonials.map((company, index) => (
-              <div className="testimonial-item" key={index}>
-                <p className="testimonial-text">{company.description}</p>
-                <div>
-                  <p className="testimonial-name">{company.name}</p>
-                  <p className="testimonial-company">{company.company}</p>
-                </div>
-              </div>
-            ))} */}
-            {/* <div className="testimonial-item" key={props.testEmployee.id}>
-                <p className="testimonial-text">{props.testEmployee.bio}</p>
-                <div>
-                  <p className="testimonial-name">{props.testEmployee.name}</p>
-                  
-                </div>
-          </div> */}
+            
             {Array.isArray(props.testEmployee.testimonials).length === 3 ?
             <div className="testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
@@ -133,7 +110,6 @@ function UserProfileOverview(props) {
                 </div>
                 ))
               }</div>}
-          {/* </div> */}
         </section>
 
         <h2 className="profile-overview-ft-Projects">Featured Projects</h2>
