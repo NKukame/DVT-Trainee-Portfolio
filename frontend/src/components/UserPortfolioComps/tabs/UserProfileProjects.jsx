@@ -48,15 +48,23 @@ const [empProject, setEmpProject] = useState([]);
                   ))}
               </ul>
               <div className="profile-account">
-                {Array.isArray(proj.project.members) &&
-                  proj.project.members.length > 0 && (
+                { proj.project.members.length > 1 ?   (
                     <>
                       <img
                         className="profile-account-image"
                         src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members[0].employee.photoUrl}
                         alt={proj.project.members[0].employee.name}
                       />
-                      <p>{proj.project.members[0].employee.name}</p>
+                      <p>{proj.project.members.length} More Collaborators</p>
+                    </>
+                  ): (
+                    <>
+                      <img
+                        className="profile-account-image"
+                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members[0].employee.photoUrl}
+                        alt={proj.project.members[0].employee.name}
+                      />
+                      <p>{props.testEmployee.name} </p>
                     </>
                   )}
               </div>

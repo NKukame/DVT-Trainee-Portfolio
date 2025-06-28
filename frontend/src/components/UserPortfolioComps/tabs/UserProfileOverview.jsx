@@ -89,9 +89,7 @@ function UserProfileOverview(props) {
         <h1 className="profile-overview-title">Hello World!</h1>
         <p className="profile-overview-text">{props.testEmployee.bio}</p>
         <section className="testimonial-overview-section">
-          
-            
-            {Array.isArray(props.testEmployee.testimonials).length === 3 ?
+          {Array.isArray(props.testEmployee.testimonials).length === 3 ? (
             <div className="testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
                 <div key={i} className="testimonial-item">
@@ -99,8 +97,9 @@ function UserProfileOverview(props) {
                   <p className="testimonial-name">{t.reference}</p>
                   <p className="testimonial-company">{t.company}</p>
                 </div>
-              ))}</div>
-            :
+              ))}
+            </div>
+          ) : (
             <div className="static-testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
                 <div key={i} className="testimonial-item">
@@ -108,8 +107,9 @@ function UserProfileOverview(props) {
                   <p className="testimonial-name">{t.reference}</p>
                   <p className="testimonial-company">{t.company}</p>
                 </div>
-                ))
-              }</div>}
+              ))}
+            </div>
+          )}
         </section>
 
         <h2 className="profile-overview-ft-Projects">Featured Projects</h2>
@@ -120,22 +120,25 @@ function UserProfileOverview(props) {
             onMouseLeave={startAnimation}
           >
             <div className="video-track" ref={trackRef}>
-              {projects.map((project, index) => (
+              {props.testEmployee.projects.map((project, index) => (
                 <div key={index} className="video-item">
                   <img
-                    className="video-item-image"
-                    src={project.image}
+                    className="overview-video-item-image"
+                    src={
+                      project.project.screenshot ||
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    }
                     alt="Video Thumbnail"
                   />
 
                   <div className="video-item-text">
                     <div className="video-item-text-inner">
-                      <h3>{project.title}</h3>
-                      <p>{project.description}</p>
+                      <h3>{project.project.name}</h3>
+                      <p>{project.project.description}</p>
                     </div>
                     <div
                       className="video-see-more"
-                      onClick={() => openModal(project)}
+                      onClick={() => openModal(project.project)}
                     >
                       See More
                     </div>
@@ -153,11 +156,13 @@ function UserProfileOverview(props) {
             </button> */}
 
               <div className="modal-header">
-                <h2>{selectedProject.title}</h2>{" "}
+                <h2>{selectedProject.name}</h2>{" "}
                 <div className="modal-owner-container">
                   <img
-                    src={selectedProject.ownerImage}
-                    alt={selectedProject.owner}
+                    src={
+                      selectedProject.avatar
+                    }
+                    alt={selectedProject.name}
                     className="modal-owner-img"
                   />
                   <p className="modal-owner">{selectedProject.owner}</p>
@@ -180,11 +185,17 @@ function UserProfileOverview(props) {
 
               <h4 className="modal-technologies">Technologies Used:</h4>
               <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
-                {selectedProject.technologies.map((tech, index) => (
+                {/* {selectedProject.technologies.map((tech, index) => (
                   <li key={index}>
                     <p className="badge-default">{tech}</p>
                   </li>
-                ))}
+                ))} */}
+                {Array.isArray(selectedProject.techStack) &&
+                  selectedProject.techStack.map((tech, idx) => (
+                    <li key={idx} className="project-tag">
+                      {tech.techStack?.name}
+                    </li>
+                  ))}
               </ul>
 
               <button className="modal-project-link">
