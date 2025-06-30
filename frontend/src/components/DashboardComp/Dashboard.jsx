@@ -34,7 +34,7 @@ function Dashboard(props) {
             <button className="manage-prfl">Edit Profile</button>
           </Link>
           <Link to="/ProfileForm">
-            <button className="manage-prfl">Generate Profile</button>
+            <button className="manage-prfl">Generate Resume</button>
           </Link>
           <div className="profile-details">
             <p>

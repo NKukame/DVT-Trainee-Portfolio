@@ -52,22 +52,10 @@ export const SearchContextProvider = ({children}) => {
                     years_active: 1,
                     experienced: emp.experience,
                     bio: emp.bio,
-                    availability: emp.availability
-                      ? "Available"
-                      : "Not Available",
+                    availability: emp.availability ? "Available" : "Not Available",
                     location: emp.location,
                     emp_education: emp.education,
-
-                    project: emp.projects.map((project) => ({
-                        
-                      project_id: project.id,
-                      name: project.name,
-                      description: project.description,
-                      created_on: project.createdAt,
-                      technologies: project.techStack,
-                      screenshot: project.screenshot,
-                    })),
-
+                    projects: emp.projects,
                     avatar:
                       emp.photoUrl ||
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
