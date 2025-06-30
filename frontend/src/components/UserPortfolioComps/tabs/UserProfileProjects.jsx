@@ -29,7 +29,7 @@ const [empProject, setEmpProject] = useState([]);
           {props.testEmployee.projects.map((proj, index) => (
             <div className="project-grid-item" key={index}>
               <p className="profile-project-name">{proj.project.name}</p>
-              <p>{proj.project.createdAt}</p>
+              <p>{proj.project.createdAt.slice(0, 10)}</p>
               <img
                 className="profile-project-image"
                 src={
