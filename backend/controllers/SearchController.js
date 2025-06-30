@@ -262,88 +262,114 @@ export async function SearchEmployeeController(req, res) {
     }
 
     const [employees, total] = await Promise.all([
-      
       prisma.employee.findMany({
         where,
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-       
-        select:{
-          id:true,
-          name:true,
-          surname:true,
-          photoUrl:true,
-          email:true,
-          bio:true,
-          experience:true,
-          availability:{
-            select:{
-              available:true
-            }
+
+        select: {
+          id: true,
+          name: true,
+          surname: true,
+          photoUrl: true,
+          email: true,
+          bio: true,
+          experience: true,
+          availability: {
+            select: {
+              available: true,
+            },
           },
-          linkedIn:true,
-          github:true,
-          role:true,
+          linkedIn: true,
+          github: true,
+          role: true,
           education: {
             select: {
               institution: true,
               qualification: true,
-            }
+            },
           },
-          location:true,
-          softSkills:{
-            select:{
-              skillsRating:true,
-              softSkill:true,
-              softSkillId:true,
-            }
+          location: true,
+          softSkills: {
+            select: {
+              skillsRating: true,
+              softSkill: true,
+              softSkillId: true,
+            },
           },
-          techStack:{
-            select:{
-              techStack:{
-                select:{
-                  name:true,
-                }
-              }
-            }
+          techStack: {
+            select: {
+              techStack: {
+                select: {
+                  name: true,
+                },
+              },
+            },
           },
+          // projects: {
+          //   select: {
+          //     project: {
+          //       select: {
+          //         id:true,
+          //         name: true,
+          //         description: true,
+          //         github:true,
+          //         demo:true,
+          //         screenshot:true,
+          //         createdAt:true,
+          //         updatedAt:true,
+          //       }
+          //     }
+          //   }
+          // },
+
           projects: {
             select: {
               project: {
                 select: {
-                  id:true,
+                  id: true,
                   name: true,
                   description: true,
+                  members: {
+                    select: {
+                      employee: {
+                        select: {
+                          name: true,
+                          photoUrl: true,
+                        },
+                      },
+                    },
+                  },
                   techStack: {
                     select: {
-                      techStack:{
+                      techStack: {
                         select: {
-                          name:true,
-                        }
-                      }
-                    }
+                          name: true,
+                        },
+                      },
+                    },
                   },
-                  github:true,
-                  demo:true,
-                  screenshot:true,
-                  createdAt:true,
-                  updatedAt:true,
-                }
-              }
-            }
+                  github: true,
+                  demo: true,
+                  screenshot: true,
+                  createdAt: true,
+                  updatedAt: true,
+                },
+              },
+            },
           },
-          
+
           testimonials: {
             select: {
               quote: true,
               company: true,
-              reference: true
-            }
-          }  
+              reference: true,
+            },
+          },
         },
       }),
-      prisma.employee.count({ where })
+      prisma.employee.count({ where }),
     ]);
     
 

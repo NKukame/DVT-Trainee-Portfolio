@@ -17,132 +17,58 @@ const [empProject, setEmpProject] = useState([]);
 
 
 
-  const projects = [
-    {
-      name: "Scientific Calculator",
-      datePublished: "20 Nov 2024",
-      image: './src/assets/Gomo.jpg',
-      techStack: ["HTML", "CSS", "JavaScript"],
-      profilePicture: "./src/assets/Sli.jpg",
-      contributors: ["Bob Johnson", "Alice Smith"],
-      description: "A scientific calculator with advanced features.",
-      liveDemo: "https://example.com/demo",
-      sourceCode: "https://github.com/example/scientific-calculator",
-    },
-    {
-      name: "Portfolio Website",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      techStack: ["React", "CSS"],
-      profilePicture: "./src/assets/Sli.jpg",
-      contributors: ["John Doe"],
-      description: "A personal portfolio website showcasing projects.",
-      liveDemo: "https://example.com/portfolio",
-      sourceCode: "https://github.com/example/portfolio",
-    },
-    {
-      name: "E-commerce App",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["Node.js", "Express", "MongoDB"],
-      contributors: ["Jane Doe"],
-      description: "A full-stack e-commerce platform with user authentication.",
-      liveDemo: "https://example.com/ecommerce",
-      sourceCode: "https://github.com/example/ecommerce",
-    },
-    {
-      name: "Scientific Calculator",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["HTML", "CSS", "JavaScript"],
-      contributors: ["Bob Johnson", "Alice Smith"],
-      description: "A scientific calculator with advanced features.",
-      liveDemo: "https://example.com/demo",
-      sourceCode: "https://github.com/example/scientific-calculator",
-    },
-    {
-      name: "Portfolio Website",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["React", "CSS"],
-      contributors: ["John Doe"],
-      description: "A personal portfolio website showcasing projects.",
-      liveDemo: "https://example.com/portfolio",
-      sourceCode: "https://github.com/example/portfolio",
-    },
-    {
-      name: "E-commerce App",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["Node.js", "Express", "MongoDB"],
-      contributors: ["Jane Doe"],
-      description: "A full-stack e-commerce platform with user authentication.",
-      liveDemo: "https://example.com/ecommerce",
-      sourceCode: "https://github.com/example/ecommerce",
-    },
-    {
-      name: "Scientific Calculator",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["HTML", "CSS", "JavaScript"],
-      contributors: ["Bob Johnson", "Alice Smith"],
-      description: "A scientific calculator with advanced features.",
-      liveDemo: "https://example.com/demo",
-      sourceCode: "https://github.com/example/scientific-calculator",
-    },
-    {
-      name: "Portfolio Website",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["React", "CSS"],
-      contributors: ["John Doe"],
-      description: "A personal portfolio website showcasing projects.",
-      liveDemo: "https://example.com/portfolio",
-      sourceCode: "https://github.com/example/portfolio",
-    },
-    {
-      name: "E-commerce App",
-      datePublished: "20 Nov 2024",
-      image: "./src/assets/Gomo.jpg",
-      profilePicture: "./src/assets/Sli.jpg",
-      techStack: ["Node.js", "Express", "MongoDB"],
-      contributors: ["Jane Doe"],
-      description: "A full-stack e-commerce platform with user authentication.",
-      liveDemo: "https://example.com/ecommerce",
-      sourceCode: "https://github.com/example/ecommerce",
-    },
-  ];
   return (
     <>
-    <section className="client-section">
-    <ClientCarousel />
-    </section>
+      <section className="client-section">
+        <ClientCarousel />
+      </section>
       <h1 className="profile-projects-title">Projects</h1>
 
       <main className="project-content">
         <section className="project-grid-content">
-          {empProject.map((project, index) => (
+          {props.testEmployee.projects.map((proj, index) => (
             <div className="project-grid-item" key={index}>
-              <p className="profile-project-name">{project.name }</p>
-              <p>{project.created_on }</p>
-              <img className="profile-project-image" src={project.screenshot } alt={project.name} />
-                    <ul className='proficiency-list'>
-                        {project.techStack.map((tech, index) => (
-                            <li key={index} className='project-tag'>{tech}</li>
-                        ))}
-                        
-                    </ul>
+              <p className="profile-project-name">{proj.project.name}</p>
+              <p>{proj.project.createdAt.slice(0, 10)}</p>
+              <img
+                className="profile-project-image"
+                src={
+                  proj.project.screenshot === null
+                    ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    : proj.project.screenshot
+                }
+                alt={proj.project.name}
+              />
+              <ul className="proficiency-list">
+                {Array.isArray(proj.project.techStack) &&
+                  proj.project.techStack.slice(0, 4).map((tech, idx) => (
+                    <li key={idx} className="project-tag">
+                      {tech.techStack?.name}
+                    </li>
+                  ))}
+              </ul>
               <div className="profile-account">
-                {/* <img className="profile-account-image" src={project.avatar} alt="" />      
-              <p>{project.username }</p> */}
+                { proj.project.members.length > 1 ?   (
+                    <>
+                      <img
+                        className="profile-account-image"
+                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members[0].employee.photoUrl}
+                        alt={proj.project.members[0].employee.name}
+                      />
+                      <p>{proj.project.members.length} More Collaborators</p>
+                    </>
+                  ): (
+                    <>
+                      <img
+                        className="profile-account-image"
+                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members[0].employee.photoUrl}
+                        alt={proj.project.members[0].employee.name}
+                      />
+                      <p>{props.testEmployee.name} </p>
+                    </>
+                  )}
               </div>
-              <button className='manage-prfl'>View Project</button>
+              <button className="manage-prfl">View Project</button>
             </div>
           ))}
         </section>
