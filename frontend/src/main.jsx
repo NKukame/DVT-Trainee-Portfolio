@@ -13,26 +13,31 @@ import Search from './Pages/SearchPage/Search.jsx';
 import ForgotPassword from './components/BadgeComp/ForgotPassword.jsx';
 import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx';
 import ProtectedRoutes from './components/ProtectedComp/ProtectedRoute.jsx';
+import { SearchContextProvider } from './contexts/SearchContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <DarkModeProvider>
-      
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/profile-creation" element={<ProfileCreation />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route element={<ProtectedRoutes/>}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/userportfolio" element={<UserPortfolio />} />
-        </Route>
-      </Routes>
-    </Router>
-    </DarkModeProvider>
+                
+    <SearchContextProvider>
+      <DarkModeProvider>
+        
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/profile-creation" element={<ProfileCreation />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route element={<ProtectedRoutes/>}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/userportfolio" element={<UserPortfolio />} />
+          </Route>
+        </Routes>
+      </Router>
+      </DarkModeProvider>
+    </SearchContextProvider>
+    
   </StrictMode>
 )
  

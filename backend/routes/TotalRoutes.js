@@ -9,6 +9,7 @@ import { deleteProjectController, deleteProfileController } from '../controllers
 import signup from '../controllers/SignupController.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
 
+
 const totalRoutes = express.Router();
 
 
@@ -186,7 +187,7 @@ totalRoutes.post('/register', signup);
  *                   type: string
  *                   example: profile creation
  */
-totalRoutes.post('/create-profile', authenticateToken, createProfileController); //done
+totalRoutes.post('/create-profile', createProfileController); //done
 
 /**
  * @swagger
@@ -275,7 +276,7 @@ totalRoutes.put('/forgot-password', forgotPassword);
 totalRoutes.put('/profile/:name', authenticateToken, UpdateProfileController)
 /**
  * @swagger
- * /project/{id}/{email}:
+ * /project/{id}:
  *   delete:
  *     summary: Delete a project by ID and owner email
  *     tags: [Project]
@@ -286,13 +287,6 @@ totalRoutes.put('/profile/:name', authenticateToken, UpdateProfileController)
  *         schema:
  *           type: string
  *         description: The ID of the project to delete
- *       - in: path
- *         name: email
- *         required: true
- *         schema:
- *           type: string
- *           format: email
- *         description: The email of the project owner
  *     responses:
  *       200:
  *         description: Project deleted successfully
@@ -310,17 +304,11 @@ totalRoutes.delete('/project/:id', authenticateToken, deleteProjectController);
 
 /**
  * @swagger
- * /profile/{id}/{email}:
+ * /profile/{email}:
  *   delete:
  *     summary: Delete a user profile using ID and email
  *     tags: [Profile]
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: The user's ID
  *       - in: path
  *         name: email
  *         required: true
@@ -519,7 +507,7 @@ totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
  *                 employees:
  *                   type: array
  *                   items:
- *                     $ref: '#/component/schemas/Employee'
+ *                     $ref: '#/components/schemas/Employee'
  *                 total:
  *                   type: integer
  *       404:
@@ -527,7 +515,7 @@ totalRoutes.get('/profiles', HomePortfolioController); // /profiles/:id
  *       500:
  *         description: Server error
  */
-totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController);
+totalRoutes.get('/search/employee', SearchEmployeeController);
 
 
 
@@ -614,7 +602,7 @@ totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController)
  *                 projects:
  *                   type: array
  *                   items:
- *                     $ref: '#/component/schemas/Project'
+ *                     $ref: '#/components/schemas/Project'
  *                 total:
  *                   type: integer
  *       404:
@@ -623,6 +611,8 @@ totalRoutes.get('/search/employee', authenticateToken, SearchEmployeeController)
  *         description: Server error
  */
 totalRoutes.get('/search/project', authenticateToken, SearchProjectController);
+
+
 
 
 

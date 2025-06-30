@@ -1,5 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma, {redis} from "../lib/prisma-redis-middleware.js";
+import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
+
+
+
+
+
 
 
 /**
@@ -22,12 +27,30 @@ const prisma = new PrismaClient();
  * @throws {404} - If no projects are found.
  */
 
+
 export async function SearchProjectController(req, res) {
 
   const { query,industries, techStack,field, order , page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
-
+  
   try {
     const where = {}
+    const cacheKey = `searchProject:${query}-${industries}-${techStack}-${field}-${order}-${page}-${limit}`;
+    const cached = await getCache(cacheKey);
+    // if (cached) {
+    //   console.log('Cache hit for SearchEmployeeController', query);
+    //   const queryTime = Date.now();
+    
+    //   return res.json({
+    //     success: true,
+    //     data: cached,
+    //     performance: {
+    //       queryTime: `${queryTime}ms`,
+    //       cached: true,
+    //       count: cached.length,
+    //       searchTerm: cacheKey
+    //     }
+    //   });
+    // }
 
     if(query) {
       where.OR = [
@@ -64,7 +87,8 @@ export async function SearchProjectController(req, res) {
 
     const orderBy = {}
 
-    if (sort) {
+
+    if (order && field) {
       orderBy[field] = order
     }else {
       orderBy.createdAt = 'desc'
@@ -76,12 +100,36 @@ export async function SearchProjectController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-        include: {
-          industries: true,
-          techStack: true,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          github: true,
+          demo: true,
+          screenshot: true,
+          createdAt: true,
           members: {
-            include: {
-              employee: true
+            select: {
+              employee: {
+                select: {
+                  name: true,
+                  photoUrl: true
+                }
+              }
+            }
+          },
+          industries: {
+            select: {
+              industry: true
+            }
+          },
+          techStack: {
+            select: {
+              techStack: {
+                select: {
+                  name: true
+                }
+              }
             }
           }
         }
@@ -92,6 +140,7 @@ export async function SearchProjectController(req, res) {
     if (!projects) {
       return res.status(404).send({ message: "Projects not found" });
     }
+    await setCache(cacheKey, projects, 30 * 60); 
 
     return res.send({ projects, total });
   } catch (error) {
@@ -124,12 +173,28 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
-  console.log(req.query);
+  let { query,location, role, techStack, industry, field, order, page = 1, limit = 900 } = req.query; // Changed from req.params to req.query
+  // console.log(req.query);
 
   
   try {
     const where = {};
+    const cacheKey = `${query}`;
+    const cached = await getCache(cacheKey);
+    // if (cached) {
+    //   console.log('Cache hit for SearchEmployeeController', query);
+    
+    
+    //   return res.json({
+    //     success: true,
+    //     data: cached,
+    //     performance: {
+    //       cached: true,
+    //       count: cached.length,
+    //       searchTerm: cacheKey
+    //     }
+    //   });
+    // }
 
     if(query){
       where.OR = [
@@ -186,7 +251,7 @@ export async function SearchEmployeeController(req, res) {
       }
     }
 
-    console.log(where);
+    // console.log(where);
     
     const orderBy = {}
 
@@ -202,11 +267,109 @@ export async function SearchEmployeeController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-        include: {
-          techStack: true
-        }
+
+        select: {
+          id: true,
+          name: true,
+          surname: true,
+          photoUrl: true,
+          email: true,
+          bio: true,
+          experience: true,
+          availability: {
+            select: {
+              available: true,
+            },
+          },
+          linkedIn: true,
+          github: true,
+          role: true,
+          education: {
+            select: {
+              institution: true,
+              qualification: true,
+            },
+          },
+          location: true,
+          softSkills: {
+            select: {
+              skillsRating: true,
+              softSkill: true,
+              softSkillId: true,
+            },
+          },
+          techStack: {
+            select: {
+              techStack: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          // projects: {
+          //   select: {
+          //     project: {
+          //       select: {
+          //         id:true,
+          //         name: true,
+          //         description: true,
+          //         github:true,
+          //         demo:true,
+          //         screenshot:true,
+          //         createdAt:true,
+          //         updatedAt:true,
+          //       }
+          //     }
+          //   }
+          // },
+
+          projects: {
+            select: {
+              project: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                  members: {
+                    select: {
+                      employee: {
+                        select: {
+                          name: true,
+                          photoUrl: true,
+                        },
+                      },
+                    },
+                  },
+                  techStack: {
+                    select: {
+                      techStack: {
+                        select: {
+                          name: true,
+                        },
+                      },
+                    },
+                  },
+                  github: true,
+                  demo: true,
+                  screenshot: true,
+                  createdAt: true,
+                  updatedAt: true,
+                },
+              },
+            },
+          },
+
+          testimonials: {
+            select: {
+              quote: true,
+              company: true,
+              reference: true,
+            },
+          },
+        },
       }),
-      prisma.employee.count({ where })
+      prisma.employee.count({ where }),
     ]);
     
 
@@ -214,6 +377,7 @@ export async function SearchEmployeeController(req, res) {
       return res.status(404).send({ message: "Employees not found" });
     } else{
       const pageCount = Math.ceil(total / limit);
+      await setCache(cacheKey, employees, 30 * 60); 
       return res.send({ employees, total, pageCount });
     }
   } catch (error) {
@@ -221,3 +385,4 @@ export async function SearchEmployeeController(req, res) {
     return res.status(500).json({ error: 'Failed to search employees' });
   }
 }
+

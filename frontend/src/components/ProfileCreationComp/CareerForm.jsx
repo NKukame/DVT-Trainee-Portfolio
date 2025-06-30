@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Upload, Camera, Save, X } from "lucide-react";
 import "./Form.css";
+import techStack from "./techstack.json";
 
 function CareerFrom({ data, onChange }) {
   const [careerEntries, setCareerEntries] = useState(
@@ -72,6 +73,18 @@ function CareerFrom({ data, onChange }) {
   const [projectDemoLink, setProjectDemoLink] = useState("");
   const [projectRepoLink, setProjectRepoLink] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [department, setDepartment] = useState(data.department || "");
+  const departmentList = ["ENGINEERING", "DESIGN", "MARKETING", "SALES", "HR"];
+  const [techStackGroups, setTechStackGroups] = useState({});
+
+  useEffect(() => {
+    const grouped = {};
+    techStack.forEach((item) => {
+      if (!grouped[item.category]) grouped[item.category] = [];
+      grouped[item.category].push(item.name);
+    });
+    setTechStackGroups(grouped);
+  }, []);
 
   // Function to handle changes in any input field
   const handleChange = (index, event) => {
@@ -89,6 +102,7 @@ function CareerFrom({ data, onChange }) {
       ...data,
       careerEntries: filteredEntries,
       projects,
+      department
       // ...add other fields if needed
     });
 
@@ -123,6 +137,7 @@ function CareerFrom({ data, onChange }) {
       ...data,
       careerEntries: filteredEntries,
       projects,
+      department,
     });
   };
 
@@ -188,6 +203,7 @@ function CareerFrom({ data, onChange }) {
       ...data,
       careerEntries,
       projects: updatedProjects,
+      department,
     });
 
     // Reset modal fields
@@ -202,6 +218,31 @@ function CareerFrom({ data, onChange }) {
     setSelectedIndustries([]);
     setSelectedTechnologies([]);
     setEditIndex(null);
+  };
+
+  const handleDeleteProject = () => {
+    if (editIndex !== null) {
+      const updatedProjects = projects.filter((_, i) => i !== editIndex);
+      setProjects(updatedProjects);
+      onChange({
+        ...data,
+        careerEntries,
+        projects: updatedProjects,
+        department,
+      });
+      setShowModal(false);
+      setEditIndex(null);
+      setProjectName("");
+      setProjectImage(null);
+      setProjectAuthor("");
+      setProjectDescription("");
+      setProjectDuties("");
+      setProjectAchievements("");
+      setProjectDemoLink("");
+      setProjectRepoLink("");
+      setSelectedIndustries([]);
+      setSelectedTechnologies([]);
+    }
   };
 
   return (
@@ -256,6 +297,37 @@ function CareerFrom({ data, onChange }) {
             </div>
           ))}
         </div>
+
+        <div className="form-group">
+          <label htmlFor="department">
+            Department<span className="required-asterisk">*</span>
+          </label>
+          <select
+            id="department"
+            name="department"
+            value={department}
+            onChange={(e) => {
+              setDepartment(e.target.value);
+              onChange({
+                ...data,
+                department: e.target.value,
+                careerEntries,
+                projects,
+              });
+            }}
+            required
+          >
+            <option value="" disabled>
+              Select Department
+            </option>
+            {departmentList.map((dept) => (
+              <option key={dept} value={dept}>
+                {dept}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="career-form-projects">
           <label htmlFor="career-chronology">Projects</label>
 
@@ -342,14 +414,33 @@ function CareerFrom({ data, onChange }) {
             </div>
 
             <div className="career-project-image-upload">
-              <Camera size={30} className="career-projects-upload-icon" />
-              <input
-                type="file"
-                id="project-image"
-                name="project-image"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
+              {projectImage ? (
+                <>
+                  <img
+                    src={projectImage}
+                    alt="Project Preview"
+                    className="career-project-image-preview"
+                  />
+                  <button
+                    className="remove-profile-pic-btn"
+                    type="button"
+                    onClick={() => setProjectImage(null)}
+                  >
+                    Remove
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Camera size={30} className="career-projects-upload-icon" />
+                  <input
+                    type="file"
+                    id="project-image"
+                    name="project-image"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </>
+              )}
             </div>
 
             <div className="career-project-description">
@@ -427,23 +518,32 @@ function CareerFrom({ data, onChange }) {
                   </div>
                   {showTechnologiesDropdown && (
                     <div className="skills-dropdown">
-                      <div className="skills-labels-container">
-                        {technologiesList.map((technology, idx) => {
-                          const isSelected =
-                            selectedTechnologies.includes(technology);
-                          return (
-                            <span
-                              key={idx}
-                              className={`badge-default ${
-                                isSelected ? "badge-active" : ""
-                              }`}
-                              onClick={() => handleTechnologyClick(technology)}
-                            >
-                              {technology}
-                            </span>
-                          );
-                        })}
-                      </div>
+                      {Object.entries(techStackGroups).map(
+                        ([category, techs]) => (
+                          <div key={category} className="skills-category">
+                            <p className="skills-category-title">{category}</p>
+                            <div className="skills-labels-container">
+                              {techs.map((technology, idx) => {
+                                const isSelected =
+                                  selectedTechnologies.includes(technology);
+                                return (
+                                  <span
+                                    key={idx}
+                                    className={`badge-default ${
+                                      isSelected ? "badge-active" : ""
+                                    }`}
+                                    onClick={() =>
+                                      handleTechnologyClick(technology)
+                                    }
+                                  >
+                                    {technology}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )
+                      )}
                     </div>
                   )}
                 </div>
@@ -509,22 +609,26 @@ function CareerFrom({ data, onChange }) {
               </div>
             </div>
 
-            <div className="career-modal-button-section">
-              <button
-                onClick={() => {
-                  setShowModal(false);
-                  setEditIndex(null);
-                  setProjectName("");
-                  setProjectImage(null);
-                }}
-                className="career-modal-close-button"
-              >
-                <X size={15} />
-                Close
-              </button>
+            <div
+              className={`career-modal-button-section${
+                editIndex === null ? " single" : ""
+              }`}
+            >
+              {editIndex !== null && (
+                <button
+                  className="career-modal-close-button"
+                  onClick={handleDeleteProject}
+                  type="button"
+                >
+                  <X size={15} />
+                  Delete
+                </button>
+              )}
               <button
                 className="career-modal-submit-button"
                 onClick={handleSaveProject}
+                style={editIndex === null ? { flex: 1 } : {}}
+                type="button"
               >
                 <Save size={15} />
                 Save

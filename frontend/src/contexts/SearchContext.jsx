@@ -1,12 +1,15 @@
-import {useState, useContext, createContext, Children} from 'react'
-import {employees, projects} from '../MockSearch.json';
+import {useState, useContext, createContext, Children, useEffect} from 'react'
+import axios from 'axios'
 
 export const SearchContext = createContext()
 
-const data = employees.concat(projects)
 
 export const SearchContextProvider = ({children}) => {
-    
+
+    const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState([]);
+    const [data, setdata] = useState([]);
+    const [isLoading, setIsLoading]  = useState(true);
+    const [total ,setTotalPages] = useState(1);
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
     let [selectedFilter, setSelectedFilter] = useState([]);
@@ -15,6 +18,76 @@ export const SearchContextProvider = ({children}) => {
     const allIndustries = [...new Set(searchResults.map((employee) => employee.industries).flat())].filter(item => item !== undefined);
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
+
+    useEffect(() => {
+        const teamData = async () => {
+            try{
+                const token = localStorage.getItem('token');
+                axios.defaults.headers.common['authorization'] = `Bearer ${JSON.parse(token)}`
+                axios.defaults.headers.post['Content-Type'] = 'application/json';
+                
+                const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
+                const apiDataProject = await axios.get('http://localhost:3000/search/project')
+                console.log(apiDataEmployee.data);
+                const employeesWithTechStackNames =
+                  apiDataEmployee.data.employees.map((emp) => ({
+                    employee_id: emp.id,
+                    name: emp.name + " " + emp.surname,
+                    surname: emp.surname,
+                    email: emp.email,
+                    github: emp.github,
+                    linkedIn: emp.linkedIn,
+                    testimonials:
+                      emp.testimonials?.map((test) => ({
+                        quote: test.quote,
+                        company: test.company,
+                        reference: test.reference,
+                      })) || [],
+                    role: emp.role,
+                    softSkilled: emp.softSkills.map((skill) => ({
+                      skillsRating: skill.skillsRating,
+                      softSkill: skill.softSkill,
+                      softSkillId: skill.softSkillId,
+                    })),
+                    years_active: 1,
+                    experienced: emp.experience,
+                    bio: emp.bio,
+                    availability: emp.availability ? "Available" : "Not Available",
+                    location: emp.location,
+                    emp_education: emp.education,
+                    projects: emp.projects,
+                    avatar:
+                      emp.photoUrl ||
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                    skills: emp.techStack.map((link) => link.techStack.name),
+                  }));
+    
+                const projectsWithTechStack = apiDataProject.data.projects.map(project => ({
+                    project_id: project.id,
+                    name: project.name,
+                    description: project.description,
+                    created_on: project.createdAt,
+                     technologies: project.techStack.map(link => link.techStack.name),
+                     industries: project.industries.map(link => link.industry.name),
+                     username: project.members?.map(link => link.employee.name)[0],
+                     avatar: project.members?.map(link => link.employee.photoUrl)[0],
+                     screenshot: project.screenshot,
+                }))
+                
+                setProjectsWithTechStackNames(projectsWithTechStack)
+                setTotalPages(apiDataEmployee.data.total)
+                setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
+                setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStack));
+                setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStack));
+            } catch (err){
+                console.log(err)
+            }finally{
+                setIsLoading(false)
+            }
+
+        }
+        teamData();
+     }, []);
 
     const handleInputChange = (query) => {
         const filteredResults = data.filter((result) => {
@@ -109,13 +182,13 @@ export const SearchContextProvider = ({children}) => {
 
 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames}}>
             {children}
         </SearchContext.Provider>
     )
 }
 
 export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange]
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames]
 }

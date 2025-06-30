@@ -12,27 +12,51 @@ async function main() {
 
     for (const employee of data) {
         try {
-            await prisma.employee.create({
-                data: {
-                    title: employee.title,
-                    name: employee.name,  // Using the full name
-                    surname: employee.name?.split(' ').slice(-1)[0] || "",
-                    bio: employee.description,
-                    birthday: employee.Birthday,
-                    photoUrl: employee.image,
-                    role: "DEVELOPER", // Assuming all roles are developers
-                    department: "ENGINEERING",
-                    institution: employee.Institution,
-                    Qualification: employee.Qualification,
-                    company: employee.Company,
-                    location: employee.Location,
-                    email: employee.email,
-                    phone: employee.Phone,
-                    github: employee.github,
-                    linkedIn: employee.linkedin,
-                    birthday: employee.Birthday ? new Date(employee.Birthday) : null,
-                }
-            }); 
+
+              // Get today's date at midnight
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+
+              // Get tomorrow's date at midnight
+              const tomorrow = new Date(today);
+              tomorrow.setDate(today.getDate() + 1);
+
+              // Delete related ProjectMember records first
+              await prisma.projectMember.deleteMany({
+                where: {
+                  project: {
+                    createdAt: {
+                      gte: today,
+                      lt: tomorrow,
+                    },
+                  },
+                },
+              });
+
+              // Delete related ProjectTechStack records next
+              await prisma.projectTechStack.deleteMany({
+                where: {
+                  project: {
+                    createdAt: {
+                      gte: today,
+                      lt: tomorrow,
+                    },
+                  },
+                },
+              });
+
+              // Now delete the projects
+              const deleted = await prisma.project.deleteMany({
+                where: {
+                  createdAt: {
+                    gte: today,
+                    lt: tomorrow,
+                  },
+                },
+              });
+
+              console.log(`Deleted ${deleted.count} projects created today.`);
+
             console.log(`Employee ${employee.name} created successfully.`);
         } catch(error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
