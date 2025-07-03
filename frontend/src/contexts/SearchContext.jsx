@@ -59,7 +59,7 @@ export const SearchContextProvider = ({children}) => {
                     avatar:
                       emp.photoUrl ||
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                    skills: emp.techStack.map((link) => link.techStack.name),
+                    techStack: emp.techStack,
                   }));
     
                 const projectsWithTechStack = apiDataProject.data.projects.map(project => ({

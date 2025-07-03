@@ -12,7 +12,7 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
     <div className="card-project shadow flex-col gap-10-px">
       <div>
         <p className="font-size-20-px">{result.name}</p>
-        <p className="font-size-12-px text-gray">{result.created_on}</p>
+        <p className="font-size-12-px text-gray">{result.created_on.slice(0, 10)}</p>
       </div>
 
       <div>

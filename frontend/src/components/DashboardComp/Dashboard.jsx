@@ -62,9 +62,9 @@ function Dashboard(props) {
         <div className="proficiencies">
           <h2>Proficiencies</h2>
           <ul className="proficiency-list">
-            {props.testEmployee.skills.map((skill, index) => (
+            {props.testEmployee.techStack.map((skill, index) => (
               <li key={index} className="skill-tag">
-                {skill}
+                {skill.techStack.name}
               </li>
             ))}
           </ul>

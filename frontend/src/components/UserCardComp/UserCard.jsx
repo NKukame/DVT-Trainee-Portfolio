@@ -82,7 +82,7 @@ function UserDetails({ user }) {
         </div>
       </div>
       <div className='skills-list'>
-        <Badges badgeList={user.skills} />
+        <Badges badgeList={user.techStack.map(tech => tech.techStack.name)} />
       </div>
     </>
   );
