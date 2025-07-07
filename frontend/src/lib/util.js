@@ -7,5 +7,6 @@ export function toDropdownOptions(list) {
   }
 
 export function capitalizeFirstLetter(str) {
-    return str[0].toUpperCase() + str.slice(1);
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
+

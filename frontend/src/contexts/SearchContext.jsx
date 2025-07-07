@@ -1,5 +1,6 @@
 import {useState, useContext, createContext, Children, useEffect} from 'react'
 import axios from 'axios'
+import { capitalizeFirstLetter } from '../lib/util';
 
 export const SearchContext = createContext()
 
@@ -37,22 +38,13 @@ export const SearchContextProvider = ({children}) => {
                     email: emp.email,
                     github: emp.github,
                     linkedIn: emp.linkedIn,
-                    testimonials:
-                      emp.testimonials?.map((test) => ({
-                        quote: test.quote,
-                        company: test.company,
-                        reference: test.reference,
-                      })) || [],
-                    role: emp.role,
-                    softSkilled: emp.softSkills.map((skill) => ({
-                      skillsRating: skill.skillsRating,
-                      softSkill: skill.softSkill,
-                      softSkillId: skill.softSkillId,
-                    })),
+                    testimonials: emp.testimonials|| [],
+                    role: capitalizeFirstLetter(emp.role),
+                    softSkilled: emp.softSkills,
                     years_active: 1,
                     experienced: emp.experience,
                     bio: emp.bio,
-                    availability: emp.availability ? "Available" : "Not Available",
+                    availability: emp.availability.available,
                     location: emp.location,
                     emp_education: emp.education,
                     projects: emp.projects,

@@ -30,7 +30,7 @@ import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
 
 export async function SearchProjectController(req, res) {
 
-  const { query,industries, techStack,field, order , page = 1, limit = 10 } = req.query; // Changed from req.params to req.query
+  const { query,industries, techStack,field, order , page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
   
   try {
     const where = {}
@@ -173,7 +173,7 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 900 } = req.query; // Changed from req.params to req.query
+  let { query,location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
   // console.log(req.query);
 
   
@@ -308,23 +308,6 @@ export async function SearchEmployeeController(req, res) {
               },
             },
           },
-          // projects: {
-          //   select: {
-          //     project: {
-          //       select: {
-          //         id:true,
-          //         name: true,
-          //         description: true,
-          //         github:true,
-          //         demo:true,
-          //         screenshot:true,
-          //         createdAt:true,
-          //         updatedAt:true,
-          //       }
-          //     }
-          //   }
-          // },
-
           projects: {
             select: {
               project: {

@@ -14,7 +14,7 @@ export default function Badges({ badgeList, sliceList=true }) {
 
       {itemsLeft > 0 && (
         <li>
-          <p className="text-md-muted more-skills">{itemsLeft} more...</p>
+          <p className="text-md-muted more-skills">+ {itemsLeft}</p>
         </li>
       )}
     </ul>
@@ -23,5 +23,5 @@ export default function Badges({ badgeList, sliceList=true }) {
 
 
 function Badge({badge}){
-  return (<p className="badge-default">{badge}</p>)
+  return (<p className="badge-default line-clamp-1">{badge}</p>)
 }

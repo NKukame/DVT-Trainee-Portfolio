@@ -16,7 +16,7 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
       </div>
 
       <div>
-        <p className="font-size-14-px">{result.description}</p>
+        <p className="font-size-14-px line-clamp-3">{result.description}</p>
       </div>
 
       {showTech && (<Badges badgeList={result.technologies} />  )}

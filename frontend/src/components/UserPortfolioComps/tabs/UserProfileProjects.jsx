@@ -37,8 +37,10 @@ const [empProject, setEmpProject] = useState([]);
                     ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     : proj.project.screenshot
                 }
-                alt={proj.project.name}
+                alt="Project image"
               />
+
+
               <ul className="proficiency-list">
                 {Array.isArray(proj.project.techStack) &&
                   proj.project.techStack.slice(0, 4).map((tech, idx) => (
@@ -47,12 +49,14 @@ const [empProject, setEmpProject] = useState([]);
                     </li>
                   ))}
               </ul>
+
+
               <div className="profile-account">
                 { proj.project.members.length > 1 ?   (
                     <>
                       <img
                         className="profile-account-image"
-                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members[0].employee.photoUrl}
+                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : props.testEmployee.avatar}
                         alt={proj.project.members[0].employee.name}
                       />
                       <p>{proj.project.members.length} More Collaborators</p>

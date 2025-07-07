@@ -34,7 +34,7 @@ export default function SearchResults() {
         isPeopleSearch={isEmployeeSearch} 
       />
 
-      <section className="flex-1 results-container">
+      <section className={`flex-1 results-container ${!isEmployeeSearch ? 'roundleftSide':""}` }>
           <ResultsList results={results} isEmployeeSearch={isEmployeeSearch} />
       </section>
         <PaginationControls
