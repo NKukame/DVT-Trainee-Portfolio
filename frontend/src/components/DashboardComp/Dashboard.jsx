@@ -34,7 +34,7 @@ function Dashboard(props) {
             <button className="manage-prfl">Edit Profile</button>
           </Link>
           <Link to="/ProfileForm">
-            <button className="manage-prfl">Generate Resume</button>
+            <button disabled className="manage-prfl disabled" >Generate Resume</button>
           </Link>
           <div className="profile-details">
             <p>
@@ -43,7 +43,8 @@ function Dashboard(props) {
                 alt="Experience Icon"
                 className="dashboard-icon"
               />
-              {props.testEmployee.availability ? props.testEmployee.availability : "Not filled / N/A"}
+              {(props.testEmployee.availability === null) ?   "Not filled / N/A" : 
+              (props.testEmployee.availability ?   "Available" : "Not Available")}
             </p>
             <p>
               <img
@@ -62,9 +63,9 @@ function Dashboard(props) {
         <div className="proficiencies">
           <h2>Proficiencies</h2>
           <ul className="proficiency-list">
-            {props.testEmployee.skills.map((skill, index) => (
+            {props.testEmployee.techStack.map((skill, index) => (
               <li key={index} className="skill-tag">
-                {skill}
+                {skill.techStack.name}
               </li>
             ))}
           </ul>

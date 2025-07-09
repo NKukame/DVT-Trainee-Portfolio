@@ -128,7 +128,7 @@ function UserProfileOverview(props) {
                       project.project.screenshot ||
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     }
-                    alt="Video Thumbnail"
+                    alt=" Project Screenshot"
                   />
 
                   <div className="video-item-text">

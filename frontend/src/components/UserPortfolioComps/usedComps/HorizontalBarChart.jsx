@@ -16,11 +16,11 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const HorizontalBarChart = (props) => {
   const data = {
-    labels: props.user.skills.slice(0, 6).map(skill => `${skill}`),
+    labels: props.user.techStack.slice(0, 6).map(skill => `${skill.techStack.name}`),
     datasets: [
       {
-        label: 'Usage (%)',
-        data: [60, 30, 20, 10, 40, 50],
+        label: 'years of experience',
+        data: props.user.techStack.map(rate => `${rate.years}`),
         backgroundColor: [
             'rgba(7, 37, 73, 1)',
             'rgba(8, 70, 119, 1)',

@@ -47,6 +47,16 @@
 .flex-row-between {
   justify-content: space-between;
 }
+.width{
+  width: max-content;
+}
+
+.add-skills-button{
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  color: #344054;
+}
 
 /* === Text Utilities === */
 .font-size-20-px{
@@ -494,4 +504,22 @@
 .pagination-container{
 
   border-radius: 10px;
+}
+
+.line-clamp-1{
+  overflow: hidden; 
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-3{
+  overflow: hidden; 
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  -webkit-line-clamp: 2;
+}
+
+.roundleftSide{
+  border-top-left-radius: 12px;
 }

@@ -3,19 +3,14 @@ import projects from "../../modal-resources/projects-modal.json";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-
+import teamPortfolio from '../../../public/team-portfolio.json';
 
 function Body() {
   const [team, setTeam] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const teamData =async()=> {
-      const teamData =  await axios.get('http://localhost:3000/profiles');
-      console.log(teamData.data)
-      setTeam(teamData.data);
-    }
-    teamData();
+    setTeam(teamPortfolio);
   }, []);
 
   const trackRef = useRef(null);
@@ -120,7 +115,7 @@ function Body() {
           {team.map((person, index) => (
             <div key={index} className="home-carousel-item">
               <img
-                src={person.photoUrl}
+                src={person.image}
                 alt={person.name}
                 className="home-carousel-item-img"
               />
@@ -133,7 +128,7 @@ function Body() {
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech.techStack.name}</p>
+                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech}</p>
                     </li>
                   ))}
                 </ul>
