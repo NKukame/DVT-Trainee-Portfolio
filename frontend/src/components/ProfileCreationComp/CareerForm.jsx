@@ -305,6 +305,7 @@ function CareerFrom({ data, onChange }) {
           <select
             id="department"
             name="department"
+            className=" the-department"
             value={department}
             onChange={(e) => {
               setDepartment(e.target.value);

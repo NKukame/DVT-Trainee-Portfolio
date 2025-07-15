@@ -71,7 +71,7 @@ function UserProfileSkillBreakdown(props) {
         </section>
         <hr />
         <section className="skills-bar-section">
-          <h2 className="skills-bar-header">Skills Matrix</h2>
+          <h2 className="skills-bar-header">Skills Metrics</h2>
           <div className="skills-bar-graph">
             <HorizontalBarChart user={props.testEmployee}/>
           </div>
