@@ -1,14 +1,14 @@
 /* Container for the user profile information */
 .layout-body{
-  /* margin: 30px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 1000px;
-  margin-top: 20px;
+  height: 100%;
+  max-height: 1000px;
+  width: 100%;
+  margin-block: 2rem;
   border-radius: 1.5rem;
-  /* background: linear-gradient(120deg, #f3f4f6, #e5e7eb); */
   margin-left: 10%;
 }
 
@@ -24,9 +24,6 @@
 .portfolio-layout{
     display: flex;
     flex-direction: row; 
-    /* align-items: flex-start; */
-    /* gap: 5px;  */
-    /* margin: 30px;  */
 }
   
   
@@ -49,7 +46,6 @@
   
   .main-content {
     width: 50%;
-    /* height: 50%; */
     margin-left: 30%;
     margin-top: 10px;
     padding: 20px;
@@ -77,8 +73,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 20px; */
-    /* margin-bottom: 20px; */
   }
   .about-header h2{
     color:#027FB9;
@@ -90,7 +84,6 @@
     color: var(--dark-mode-paragragh-white);
 }
   .about-section{
-    /* min-height: 110px; */
     word-spacing: 1px;
     line-height: 1.5;
     width: 80%;
