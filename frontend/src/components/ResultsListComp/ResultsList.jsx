@@ -7,14 +7,23 @@ export default function ResultsList({ results, isEmployeeSearch }) {
   
   const [,,,,,, isLoading] = useSearch();
 
-  if (results.length === 0 && isLoading === false) {
+  if (results.length === 0 && !isLoading) {
     return <h1 className="font-size-20-px no-results">
         No results found. We couldn't find any matching project or person in our database. 
       </h1>;
   }
-  if(isLoading === true){
+  if(isLoading){
     return <UserSkeletonLoader key={results.employee_id}/>
   }
+
+
+  //  {results.length === 0 && (
+  //    <><h1 className="font-size-20-px no-results">
+  //       No results found. We couldn't find any matching project or person in our database. 
+  //     </h1>;</>
+  //   )}
+   
+  
   return (
     <>
 
@@ -36,6 +45,8 @@ export default function ResultsList({ results, isEmployeeSearch }) {
           )})}
         </section>
       )}
+
+      
     </>
   );
 }
