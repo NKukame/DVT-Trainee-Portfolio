@@ -228,6 +228,7 @@ model Education {
   id       String           @id @default(uuid())
   institution     String        
   qualification String
+  certificates  String?
   employeeId String    @unique
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
