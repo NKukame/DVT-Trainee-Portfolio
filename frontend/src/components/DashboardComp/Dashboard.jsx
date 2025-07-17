@@ -33,8 +33,8 @@ function Dashboard(props) {
           <Link to="/profile-creation">
             <button className="manage-prfl">Edit Profile</button>
           </Link>
-          <Link to="/ProfileForm">
-            <button disabled className="manage-prfl disabled" >Generate Resume</button>
+          <Link to="/generate-cv" state={props.testEmployee}>
+            <button className="manage-prfl" >Generate Resume</button>
           </Link>
           <div className="profile-details">
             <p>
