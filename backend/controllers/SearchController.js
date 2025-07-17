@@ -273,6 +273,7 @@ export async function SearchEmployeeController(req, res) {
           name: true,
           surname: true,
           photoUrl: true,
+          department: true,
           email: true,
           bio: true,
           experience: true,
@@ -327,7 +328,6 @@ export async function SearchEmployeeController(req, res) {
                   },
                   techStack: {
                     select: {
-          
                       techStack: {
                         select: {
                           name: true,
@@ -340,6 +340,23 @@ export async function SearchEmployeeController(req, res) {
                   screenshot: true,
                   createdAt: true,
                   updatedAt: true,
+                  industries: {
+                    select: {
+                      project: {
+                        select: {
+                          industries: {
+                            select: {
+                              industry: {
+                                select: {
+                                  name: true,
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },
