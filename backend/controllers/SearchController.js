@@ -1,5 +1,7 @@
 import prisma, {redis} from "../lib/prisma-redis-middleware.js";
 import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
+import { setKeyValue } from '../lib/prisma-redis-middleware.js';
+
 
 
 
@@ -34,23 +36,33 @@ export async function SearchProjectController(req, res) {
   
   try {
     const where = {}
-    const cacheKey = `searchProject:${query}-${industries}-${techStack}-${field}-${order}-${page}-${limit}`;
+    const cacheKey = setKeyValue(
+  'searchProject',
+  query,
+      Array.isArray(industries) ? industries.join(',') : industries,
+      Array.isArray(techStack) ? techStack.join(',') : techStack,
+  field,
+  order,
+  page,
+  limit
+);
+
     const cached = await getCache(cacheKey);
-    // if (cached) {
-    //   console.log('Cache hit for SearchEmployeeController', query);
-    //   const queryTime = Date.now();
+    if (cached) {
+      console.log('Cache hit for SearchProjectController', query);
+      const queryTime = Date.now() - startTime;
     
-    //   return res.json({
-    //     success: true,
-    //     data: cached,
-    //     performance: {
-    //       queryTime: `${queryTime}ms`,
-    //       cached: true,
-    //       count: cached.length,
-    //       searchTerm: cacheKey
-    //     }
-    //   });
-    // }
+      return res.json({
+        success: true,
+        data: cached,
+        performance: {
+          // queryTime: `${queryTime}ms`,
+          cached: true,
+          count: cached.length,
+          searchTerm: cacheKey
+        }
+      });
+    }
 
     if(query) {
       where.OR = [
@@ -87,8 +99,7 @@ export async function SearchProjectController(req, res) {
 
     const orderBy = {}
 
-
-    if (order && field) {
+    if (field && order) {
       orderBy[field] = order
     }else {
       orderBy.createdAt = 'desc'
@@ -179,7 +190,18 @@ export async function SearchEmployeeController(req, res) {
   
   try {
     const where = {};
-    const cacheKey = `${query}`;
+     const cacheKey = setKeyValue(
+      'searchEmployee',
+      query,
+      Array.isArray(location) ? location.join(',') : location,
+      Array.isArray(role) ? role.join(',') : role,
+      Array.isArray(techStack) ? techStack.join(',') : techStack,
+      Array.isArray(industry) ? industry.join(',') : industry,
+      field,
+      order,
+      page,
+      limit
+    );
     const cached = await getCache(cacheKey);
     // if (cached) {
     //   console.log('Cache hit for SearchEmployeeController', query);
@@ -357,7 +379,7 @@ export async function SearchEmployeeController(req, res) {
       prisma.employee.count({ where }),
     ]);
     
-
+    
     if (!employees) {
       return res.status(404).send({ message: "Employees not found" });
     } else{

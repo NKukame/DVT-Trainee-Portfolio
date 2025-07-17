@@ -17,7 +17,7 @@ function ForgotPassword() {
 
   const checkPasswordCriteria = (password) => {
     const criteria = {
-      length: password.length === 7,
+      length: password.length >= 8, // Fixed: should be >= 8, not === 7
       special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
     };
 
@@ -52,47 +52,63 @@ function ForgotPassword() {
 
   const validatePassword = () => {
     let newErrors = {};
-    let criteria = checkPasswordCriteria (newPassword);
+    let criteria = checkPasswordCriteria(newPassword);
 
     if (!newPassword) {
       newErrors.password = "Password is required";
-    } else if (!criteria.length || !criteria.special) {
-      newErrors.password = "Password does not meet requirements";
-  
+    } else {
+      if (!criteria.length || !criteria.special) {
+        newErrors.password = "Password does not meet requirements";
+      }
     }
 
     if (!confirmPassword) {
       newErrors.confirmPassword = "Confirm Password is required";
-    } else if (confirmPassword !== newPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
+    } else {
+      if (confirmPassword !== newPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handlePasswordChange = (e) => {
     const password = e.target.value;
     setNewPassword(password);
     checkPasswordCriteria(password);
 
-
-    if(error.password) {
+    // Clear password error if requirements are now met
+    if (errors.password) {
       const criteria = checkPasswordCriteria(password);
-      if(password.length >0 && criteria.length || criteria.special) {
+      if (password.length > 0 && criteria.length && criteria.special) {
         setErrors(prev => ({
-          ...prev, password: ""}));
+          ...prev, 
+          password: ""
+        }));
       }
     }
+
+    // Clear confirm password error if passwords now match
+    if (errors.confirmPassword && confirmPassword && password === confirmPassword) {
+      setErrors(prev => ({
+        ...prev, 
+        confirmPassword: ""
+      }));
+    }
   };
+
   const handleConfirmPasswordChange = (e) => {
     const confirmPwd = e.target.value;
     setConfirmPassword(confirmPwd);
 
-    if(error.confirmPassword && confirmPwd === newPassword) {
+    // Clear confirm password error if passwords now match
+    if (errors.confirmPassword && confirmPwd === newPassword) {
       setErrors(prev => ({
-        ...prev, confirmPassword: ""}));
+        ...prev, 
+        confirmPassword: ""
+      }));
     }
   };
 
@@ -193,10 +209,7 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={newPassword}
-                    onChange={(e) => {
-                      validatePassword();
-                      setNewPassword(e.target.value);
-                    }}
+                    onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
                 </div>
@@ -210,10 +223,7 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={confirmPassword}
-                    onChange={(e) => {
-                      validatePassword();
-                      setConfirmPassword(e.target.value);
-                    }}
+                    onChange={handleConfirmPasswordChange}
                     className={errors.confirmPassword ? "error-border" : ""}
                   />
                 </div>
