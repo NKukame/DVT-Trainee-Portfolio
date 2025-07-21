@@ -13,6 +13,12 @@
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
+.dark-mode .stepper-container{
+    background-color: var(--dark-blue);
+    color: var(--white);
+    border: 2px solid var(--dark-blue);
+}
+
 .steps{
     display: flex;
     flex-direction: column;

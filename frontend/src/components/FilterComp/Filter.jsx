@@ -104,7 +104,7 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
-          <Building05 color="var(--filter-section-icon-colour)"/>
+          <Building05 color="var(--filter-section-icon-colour)" />
           <Combobox
             placeholder="Industries"
             options={industryOptions}

@@ -10,7 +10,7 @@
     gap: 0;
     /* width: fit-content; */
     justify-content: space-evenly;
-    background-color: var(--dark-mode-title);
+    background-color: var(--dark-mode-title-white);
     padding-block: 1rem;
     border-radius: 0.875rem;
     padding-inline: 24px;
