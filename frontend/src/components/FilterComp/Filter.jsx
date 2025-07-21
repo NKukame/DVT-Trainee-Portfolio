@@ -104,7 +104,7 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
-          <Building05 />
+          <Building05 color="var(--filter-section-icon-colour)"/>
           <Combobox
             placeholder="Industries"
             options={industryOptions}
@@ -115,7 +115,7 @@ function Filter() {
           />
         </div>
         <div className="filter-dropdown">
-          <User01 />
+          <User01 color="var(--filter-section-icon-colour)"/>
           <Combobox
             placeholder="Roles"
             options={roleOptions}
@@ -126,7 +126,7 @@ function Filter() {
           />
         </div>
         <div className="filter-dropdown">
-          <Code02 />
+          <Code02 color="var(--filter-section-icon-colour)"/>
           <Combobox
             placeholder="Technologies"
             className=""
@@ -138,7 +138,7 @@ function Filter() {
             />
         </div>
         <div className="filter-dropdown">
-          <Award01 />
+          <Award01 color="var(--filter-section-icon-colour)"/>
           <Combobox
             placeholder="Experience"
             options={expOptions}
