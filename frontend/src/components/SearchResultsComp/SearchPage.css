@@ -475,36 +475,7 @@
   }
 }
 
-.pagination-btn{
-  background: transparent;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  font-size: 1.2rem;
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;     /* Keep it a perfect square */
-  min-width: 1.5em;          /* Prevent it from becoming too small */
-  padding: 0.5em;          /* Add spacing */
-  white-space: nowrap;  
-  border: none;
-}
-.dark-mode .pagination-btn{
-  color: white;
-}
-.active{
-  color: white;
-  background: #027FB9;
-}
-.pagination-btn:hover{
-  background: #027fb981;
-}
 
-.pagination-container{
-
-  border-radius: 10px;
-}
 
 .line-clamp-1{
   overflow: hidden; 
@@ -522,4 +493,77 @@
 
 .roundleftSide{
   border-top-left-radius: 12px;
+}
+
+.pagination{
+  width: 1030px;
+  height: 66px;
+  background: transparent;
+  border-radius: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1em 2em;
+}
+
+
+.pagination-list .active{
+  background-image: -webkit-gradient(linear, left top, right top, from(#0895FF),to(#37D5FF));
+  background-image: -o-linear-gradient(left, #0895FF,#37D5FF);
+  background-image: linear-gradient(90deg, #0895FF,#37D5FF);
+  background-repeat: no-repeat;
+  color: #fff;
+  background-position: 0 0;
+  font-weight: 600;
+}
+
+.pagination-item{
+  cursor: pointer;
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 5px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  line-height: 35px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-weight: 400;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-position: 0 -35px;
+  -webkit-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+
+}
+.pagination-list{
+  margin: 0 auto;
+  text-align: center;
+  
+}
+
+.pagination button.active{
+  background-color: rgba(0, 0, 0, 0.07);
+
+}
+
+.pagination button{
+  line-height: 35px;
+  width: 75px;
+  border: 0;
+  background-color: hsla(220, 15%, 58%, .1);
+  background-image: hsla(220, 15%, 58%, .1);
+  border-radius: 50px;
+  font-weight: 600;
+  background-position: 0 -45px;
+  -webkit-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }
