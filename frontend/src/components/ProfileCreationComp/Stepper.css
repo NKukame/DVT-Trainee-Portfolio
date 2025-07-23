@@ -9,7 +9,7 @@
     margin-left: 3.5%;
     border: 2px solid var(--gray);
     border-radius: 12px;
-    color: #404040;
+    color: var(--profile-creation-stepper-gray);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -37,6 +37,10 @@
     padding: 5px;
 }
 
+.dark-mode .steps:hover .step-text{
+    border: 1px solid var(--dark-mode-paragragh-white);
+}
+
 .step-text{
     display: flex;
     flex-direction: column;
@@ -49,6 +53,10 @@
 .steps h3{
     color: var(--navy-blue);
     font-size: 16px;
+}
+
+.dark-mode .steps h3{
+    color: var(--dark-mode-alt-white);
 }
 
 .steps p{
@@ -71,10 +79,20 @@
   border-radius: 10px;
 }
 
+.dark-mode .steps.active-step .step-text{
+    background-color: var(--light-blue);
+}
+
 .step-progress.visited {
     background-color: var(--dark-cerulean); 
+}
+
+.dark-mode .step-progress.visited {
+    background-color: #00CED1;  /* Bright cyan/teal color for better contrast */
 }
 
 .step-progress.incomplete {
     background-color: var(--progress-bar-orange);
 }
+
+
