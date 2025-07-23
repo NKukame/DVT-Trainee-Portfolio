@@ -39,12 +39,14 @@
     background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+    
 }
 
 .dark-mode .project-grid-item{
     background: linear-gradient(180deg, #04223D 0%, #02111E 100%);
     color: var(--dark-mode-alt-white);
+    border: solid 1px var(--progress-bar-gray);
 }
 
 .profile-project-name{

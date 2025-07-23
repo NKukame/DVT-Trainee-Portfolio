@@ -8,11 +8,13 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { colors } from '@mui/material';
 
 // Register components you’ll use
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const PolarChart = (props) => {
+  const darkMode = localStorage.getItem('darkMode') === 'enabled';
   const data = {
     labels: props.user.softSkilled.map(skill => `${skill.softSkill.name}`) ,
     datasets: [
@@ -37,15 +39,29 @@ const PolarChart = (props) => {
     responsive: true,
     scales: {
       r: {
+        grid:{
+          color: 'rgba(152, 152, 152, 0.7)',
+          lineWidth: 0.8,
+          
+        },
         ticks: {
           beginAtZero: true,
           stepSize: 1,
+          // color: "var(--dark-mode-alt-white)",
         },
       },
     },
     plugins: {
       legend: {
         position: 'right',
+        labels: {
+          color: 'rgba(102, 102, 102, 1)',
+          font: {
+            size: 14,
+            weight: 'bold',
+          },
+          
+        },
       },
     },
   };

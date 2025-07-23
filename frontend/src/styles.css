@@ -18,10 +18,10 @@
     --button-blue: #027FB9;
     --button-blue-hover: #006492;
     --navy-blue: #072549;
-    --userText-grayText: #525252;
+    --userText-grayText: rgb(82, 82, 82);
     --addSkills-buttonText: #344054;
     --filter-section-icon-colour: #084677;
-    --profile-creation-stepper-gray: #404040;
+    --profile-creation-stepper-gray: rgb(64, 64, 64);
     --required-asterisk: #ff0000;
     /* Dark Mode Colors */
     --dark-yellow: #E2BF00;

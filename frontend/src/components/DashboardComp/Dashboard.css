@@ -45,6 +45,10 @@
   vertical-align: middle;
 }
 
+.dark-mode .dashboard-icon {
+  color: var(--dark-mode-alt-white);
+}
+
 /* .short-bio {
   color: #262626;
   font-weight: 400;
