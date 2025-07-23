@@ -301,7 +301,7 @@ export async function SearchEmployeeController(req, res) {
           },
           techStack: {
             select: {
-              years: true,
+              Techrating: true,
               techStack: {
                 select: {
                   name: true,
