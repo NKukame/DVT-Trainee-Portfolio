@@ -38,7 +38,7 @@ export async function createProfileController(req, res) {
         birthday: basicInfo.birthday ? new Date(basicInfo.birthday).toISOString() : null,
         surname: basicInfo.lastName,
         bio: basicInfo.introductionDescription,
-        role: roleMap[basicInfo.role] || "DEVELOPER",
+        role: basicInfo.role,
         location: basicInfo.location,
         email: basicInfo.email,
         phone: basicInfo.phone,
