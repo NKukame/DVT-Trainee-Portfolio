@@ -2,60 +2,69 @@
     "company": "Tech Innovators Inc.",
     "quote": "Paballo's expertise in data science has transformed our approach to analytics. Her ability to derive actionable insights from complex datasets is unparalleled.",
     "reference": "Sarah Johnson",
-    "name" : "Paballo Thobei"
+    "name" : "Paballo",
+    "surname": "Thobei"
 },
 
 {
     "company": "Green Solutions Ltd.",
     "quote": "Andile's innovative solutions have significantly improved our operational efficiency. His work in machine learning has set new standards in our industry.",
     "reference": "Michael Smith",
-    "name": "Andile Mhlongo"
+    "name": "Andile",
+    "surname": "Mhlongo"
 },
 {
     "company": "Future Tech Co.",
     "quote": "Working with Njabulo has been a game-changer for us. Her deep understanding of AI and data engineering has propelled our projects to new heights.",
     "reference": "Emily Davis",
-    "name": "Njabulo Kukame"
+    "name": "Njabulo",
+    "surname": "Kukame"
 },
 
 {
     "company": "Digital Dynamics",
     "quote": "Remoneilwe's contributions to our software development team have been invaluable. Her coding skills and problem-solving abilities are top-notch.",
     "reference": "John Doe",
-    "name": "Remow Rammekwa"
+    "name": "Remoneilwe",
+    "surname": "Rammekwa"
 },
 
 {
     "company": "Innovative Solutions",
     "quote": "Phemelo's work in data analytics has provided us with insights that have driven our business decisions. His analytical skills are exceptional.",
     "reference": "Jane Smith",
-    "name": "Phemelo Makwatse"
+    "name": "Phemelo",
+    "surname": "Makwatse"
 },
 
 {
     "company": "Tech Visionaries",
     "quote": "Gomolemo's expertise in software development has been a tremendous asset to our team. Her ability to deliver high-quality code under tight deadlines is impressive.",
     "reference": "Alice Johnson",
-    "name": "Gomolemo Motlhamme"
+    "name": "Gomolemo",
+    "surname": "Motlhamme"
 },
 
 {
     "company": "NextGen Technologies",
     "quote": "Dylan's innovative approach to software engineering has revolutionized our product development process. His technical skills are outstanding.",
     "reference": "Robert Brown",
-    "name": "Dylan Fernandes"
+    "name": "Dylan",
+    "surname": "Fernandes"
 },
 
 {
     "company": "Smart Solutions",
     "quote": "Adrian's contributions to our data science projects have been invaluable. His ability to extract meaningful insights from data is exceptional.",
     "reference": "Lisa White",
-    "name": "Adrian Majavu"
+    "name": "Adrian",
+    "surname": "Majavu"
 },
 
 {
     "company": "Tech Pioneers",
     "quote": "Thabang's expertise in software development has been a game-changer for our projects. His coding skills and attention to detail are remarkable.",
     "reference": "David Green",
-    "name": "Thabane Ngobe"
+    "name": "Thabane",
+    "surname": "Ngobe"
 }]
