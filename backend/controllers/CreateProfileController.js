@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import prisma from "../lib/prisma-redis-middleware.js";
+import uploadImage from "../upload.js";
 export async function createProfileController(req, res) {
-  console.log("createProfileController called");
 
   const titleMap = {
     "Mr": "MR",
@@ -27,12 +27,10 @@ export async function createProfileController(req, res) {
   try {
     const { basicInfo, skills, career, testimonials, links, status } = req.body;
 
-    console.log(req.body);
-
 
     const employee = await prisma.employee.create({
       data: {
-        photoUrl: basicInfo.profilePic?.image || null,
+        photoUrl: await uploadImage(basicInfo.profilePic?.image) || null,
         title: basicInfo.title,
         name: basicInfo.firstName,
         birthday: basicInfo.birthday ? new Date(basicInfo.birthday).toISOString() : null,
@@ -149,7 +147,7 @@ export async function createProfileController(req, res) {
               description: proj.description,
               github: proj.repoLink || null,
               demo: proj.demoLink || null,
-              screenshot: proj.image || null,
+              screenshot: await uploadImage(proj.image) || null,
             },
           });
         }
