@@ -56,11 +56,12 @@ export async function SearchProjectController(req, res) {
     
       return res.json({
         success: true,
-        data: cached,
+        projects: cached,
+        total: cached.total,
         performance: {
           queryTime: `${queryTime}ms`,
           cached: true,
-          count: cached.length,
+          count: cached.projects,
           searchTerm: cacheKey
         }
       });
@@ -204,7 +205,7 @@ export async function SearchEmployeeController(req, res) {
       limit
     );
 
-    // Check cache first (this was commented out)
+ 
     const cached = await getCache(cacheKey);
     
     if (cached) {
@@ -213,11 +214,13 @@ export async function SearchEmployeeController(req, res) {
       
       return res.json({
         success: true,
-        data: cached,
+        employees: cached,
+        total: cached.total,
+        pageCount: cached.pageCount,
         performance: {
           queryTime: `${queryTime}ms`,
           cached: true,
-          count: cached.length,
+          count: cached,
           searchTerm: cacheKey
         }
       });
@@ -371,11 +374,17 @@ export async function SearchEmployeeController(req, res) {
     }
 
     const pageCount = Math.ceil(total / limit);
+
+    const responseData ={
+      employees,
+      total,
+      pageCount
+    };
     
     // Cache the results (this was missing proper implementation)
-    await setCache(cacheKey, employees, 30 * 60);
-    
-    return res.send({ employees, total, pageCount });
+    await setCache(cacheKey, responseData, 30 * 60);
+
+    return res.send(responseData);
     
   } catch (error) {
     console.error('Search employees error:', error);

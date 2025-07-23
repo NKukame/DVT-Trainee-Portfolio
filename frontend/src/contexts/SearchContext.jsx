@@ -64,8 +64,8 @@ export const SearchContextProvider = ({children}) => {
                      username: project.members?.map(link => link.employee.name)[0],
                      avatar: project.members?.map(link => link.employee.photoUrl)[0],
                      screenshot: project.screenshot,
-                }))
-                
+                }));
+
                 setProjectsWithTechStackNames(projectsWithTechStack)
                 setTotalPages(apiDataEmployee.data.total)
                 setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
