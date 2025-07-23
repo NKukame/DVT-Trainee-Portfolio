@@ -225,7 +225,7 @@ function SubmitForm({
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
-                            {entry.certificate} - {entry.institution}
+                            {entry.certificate} - {entry.certificatesInstitution}
                           </div>
                         ))
                     : "-"}

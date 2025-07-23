@@ -19,8 +19,8 @@ const HorizontalBarChart = (props) => {
     labels: props.user.techStack.slice(0, 6).map(skill => `${skill.techStack.name}`),
     datasets: [
       {
-        label: 'years of experience',
-        data: props.user.techStack.map(rate => `${rate.years}`),
+        label: 'Rating',
+        data: props.user.techStack.map(rate => `${rate.Techrating}`),
         backgroundColor: [
             'rgba(7, 37, 73, 1)',
             'rgba(8, 70, 119, 1)',
