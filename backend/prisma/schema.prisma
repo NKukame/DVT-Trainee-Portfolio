@@ -142,7 +142,8 @@ model ProjectMember {
 
 model Testimonial {
   id         String   @id @default(uuid())
-  company       String
+  clients    String?
+  company    String
   quote      String
   reference  String
   employeeId String
