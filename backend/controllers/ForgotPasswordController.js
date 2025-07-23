@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 function sendResetEmail(to, token) {
   const resetLink = `http://localhost:5173/forgot-password?token=${token}`;
   return transporter.sendMail({
-    from: "majavvuadrian@gmail.com",
+    from: "majavuadrian@gmail.com",
     to,
     subject: 'Password Reset',
     html: `<p>Click <a href="${resetLink}">here</a> to reset your password. This link expires in 15 minutes.</p>`,
