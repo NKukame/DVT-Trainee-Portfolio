@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const Pagination = () => {
-  const totalItems = 200;
+  const totalItems = 2
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePrevious = () => {

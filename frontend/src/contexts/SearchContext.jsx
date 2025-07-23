@@ -30,8 +30,6 @@ export const SearchContextProvider = ({children}) => {
                 
                 const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
                 const apiDataProject = await axios.get('http://localhost:3000/search/project')
-                
-                console.log(apiDataEmployee.data);
                 const employeesWithTechStackNames =
                   apiDataEmployee.data.employees.map((emp) => ({
                     employee_id: emp.id,
@@ -106,11 +104,7 @@ export const SearchContextProvider = ({children}) => {
             newSelectedFilter =  [...selectedFilter, filter];
         }
         setSelectedFilter(newSelectedFilter);
-        
-        console.log(filter, category);
-        console.log(newSelectedFilter);
-        
-
+    
         if(category.includes("Technologies")){
             
             updatedResults = searchResults.filter((employee) => {
@@ -129,7 +123,6 @@ export const SearchContextProvider = ({children}) => {
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
             });
-            console.log(updatedResults.length);
         }
         if(category.includes("Roles")){
             updatedResults = searchResults.filter((employee) => {
@@ -159,21 +152,19 @@ export const SearchContextProvider = ({children}) => {
 
     const handleChange = (newValue) => {
         const years =  newValue.split(" ")[0]
-        const value = years.split("-")
-        console.log(value);
         
         const filteredResults = searchResults.filter((employee) => {
             if(!employee.years_active){
                 return false
             }
             
-            if(employee.years_active > parseInt(value[0]) &&  employee.years_active < parseInt(value[1])){
+            if(years === employee.years_active.split(' ')[0]){
                 return true
             }
             return false           
         })
 
-        return filteredResults
+        return filteredResults;
     };
 
 
@@ -182,9 +173,4 @@ export const SearchContextProvider = ({children}) => {
             {children}
         </SearchContext.Provider>
     )
-}
-
-export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames]
 }

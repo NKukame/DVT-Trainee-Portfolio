@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js && npx prisma db push",
+    "start": "npx prisma db push && nodemon index.js",
     "test": "echo \"Error: no test specified\" && nodemon index.js"
   },
   "keywords": [],
