@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,  useState } from 'react';
+import { SearchContext } from '../../contexts/SearchContext';
+import { ChevronLeft, ChevronRight } from '@untitled-ui/icons-react';
 
-const Pagination = () => {
-  const totalItems = 2
+export default function Pagination(){
+  const {total, searchData} = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
-
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
+      searchData(currentPage);
     }
   };
 
   const handleNext = () => {
-    if (currentPage < totalItems) {
+    if (currentPage < total) {
       setCurrentPage((prev) => prev + 1);
+      searchData(currentPage);
     }
   };
 
   const handleClick = (value) => {
     setCurrentPage(value);
+    searchData(value);
   };
 
   const getLeftPages = () => {
@@ -29,10 +33,10 @@ const Pagination = () => {
   };
 
   const getRightPages = () => {
-    if (currentPage >= totalItems - 4) {
-      return Array.from({ length: totalItems - currentPage }, (_, i) => currentPage + 1 + i);
+    if (currentPage >= total - 4) {
+      return Array.from({ length: total - currentPage }, (_, i) => currentPage + 1 + i);
     } else {
-      return [currentPage + 1, currentPage + 2, totalItems - 1, totalItems];
+      return [currentPage + 1, currentPage + 2, total - 1, totalItems];
     }
   };
 
@@ -50,7 +54,7 @@ const Pagination = () => {
   return (
     <div className="pagination">
       <button onClick={handlePrevious} disabled={currentPage === 1} className="prevBtn">
-        Prev.
+        <ChevronLeft />
       </button>
       <ul className="pagination-list">
         <div className="leftContainer">
@@ -61,15 +65,14 @@ const Pagination = () => {
         <li className="pagination-item active">{currentPage}</li>
         <div className="rightContainer">
           {getRightPages().map((page, i) =>
-            renderButton(page, [1].includes(i) && currentPage < totalItems - 4)
+            renderButton(page, [1].includes(i) && currentPage < total - 4)
           )}
         </div>
       </ul>
-      <button onClick={handleNext} disabled={currentPage === totalItems} className="nextBtn">
-        Next
+      <button onClick={handleNext} disabled={currentPage === total} className="nextBtn">
+        <ChevronRight />
       </button>
     </div>
   );
 };
 
-export default Pagination;
