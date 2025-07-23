@@ -239,6 +239,7 @@ model Career{
   id       String           @id @default(uuid())
   role     String
   company  String
+  duration String?
   employeeId String    @unique
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
