@@ -9,7 +9,7 @@ export const SearchContextProvider = ({children}) => {
 
     const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState([]);
     const [data, setdata] = useState([]);
-    const [isLoading, setIsLoading]  = useState(true);
+    const [isLoading, setIsLoading]  = useState(false);
     const [total ,setTotalPages] = useState(1);
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
@@ -22,6 +22,7 @@ export const SearchContextProvider = ({children}) => {
 
     useEffect(() => {
         const teamData = async () => {
+            setIsLoading(true);
             try{
                 const token = localStorage.getItem('token');
                 axios.defaults.headers.common['authorization'] = `Bearer ${JSON.parse(token)}`
@@ -29,6 +30,7 @@ export const SearchContextProvider = ({children}) => {
                 
                 const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
                 const apiDataProject = await axios.get('http://localhost:3000/search/project')
+                
                 console.log(apiDataEmployee.data);
                 const employeesWithTechStackNames =
                   apiDataEmployee.data.employees.map((emp) => ({
@@ -41,17 +43,18 @@ export const SearchContextProvider = ({children}) => {
                     testimonials: emp.testimonials|| [],
                     role: capitalizeFirstLetter(emp.role),
                     softSkilled: emp.softSkills,
-                    years_active: 1,
+                    years_active: emp.experience ? emp.experience : '0-1 Years',
                     experienced: emp.experience,
                     bio: emp.bio,
                     availability: emp.availability.available,
-                    location: emp.location,
+                    location: emp.location.split(',')[0],
                     emp_education: emp.education,
                     projects: emp.projects,
                     avatar:
                       emp.photoUrl ||
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                     techStack: emp.techStack,
+                    skills: emp.techStack.map((link) => link.techStack.name),
                   }));
     
                 const projectsWithTechStack = apiDataProject.data.projects.map(project => ({
@@ -71,6 +74,7 @@ export const SearchContextProvider = ({children}) => {
                 setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
                 setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStack));
                 setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStack));
+                
             } catch (err){
                 console.log(err)
             }finally{

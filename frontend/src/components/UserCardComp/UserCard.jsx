@@ -76,7 +76,7 @@ function UserDetails({ user }) {
         </div>
         <div className="flex-row align-items-center gap-4-px">
           <Award02 strokeWidth={"90px"} width={13} height={17} />
-          <p className="text-gray font-size-12-px whitespace-nowrap">{`${user.years_active}+yrs`}</p>
+          <p className="text-gray font-size-12-px whitespace-nowrap">{`${user.years_active}`}</p>
         </div>
         <div className="flex-row align-items-center gap-4-px">
           <span
