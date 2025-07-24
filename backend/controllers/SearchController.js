@@ -49,7 +49,7 @@ export async function SearchProjectController(req, res) {
     
       return res.json({
         // success: true,
-        projects: cached.projects,
+        projects: cached,
         total: cached.total,
         performance: {
           queryTime: `${queryTime}ms`,

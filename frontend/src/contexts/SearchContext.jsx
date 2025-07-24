@@ -57,8 +57,11 @@ export const SearchContextProvider = ({children}) => {
                     techStack: emp.techStack,
                     skills: emp.techStack.map((link) => link.techStack.name),
                   }));
-    
+
+    console.log(apiDataProject.data);
+
                 const projectsWithTechStack = apiDataProject.data.projects.map(project => ({
+
                     project_id: project.id,
                     name: project.name,
                     description: project.description,
