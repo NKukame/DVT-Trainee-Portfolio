@@ -158,7 +158,7 @@ export const SearchContextProvider = ({children}) => {
 
         if (category === "Experience") {
 
-            updatedResults = handleChange(filter, newSelectedFilter)
+            updatedResults = handleChange(newSelectedFilter)
         }
         
         setFilteredResults(updatedResults);
@@ -168,10 +168,13 @@ export const SearchContextProvider = ({children}) => {
         
         const filteredResults = searchResults.filter((employee) => {
             if(newSelectedFilter.length === 0) return true
-            return newSelectedFilter.some(f => employee.years_active === f);      
+            if(newSelectedFilter.includes(employee.years_active.split(' ')[0])){
+                return true
+            }
+            return false;
         })
 
-        return filteredResults;
+        return [...filteredResults];
     };
 
 
