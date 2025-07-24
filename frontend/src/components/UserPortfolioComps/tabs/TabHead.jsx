@@ -1,4 +1,4 @@
-import "./TabHead.css";
+// import "./TabHead.css";
 
 function TabHead({activeTab, setActiveTab }) {
   return (

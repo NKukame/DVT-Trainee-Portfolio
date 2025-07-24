@@ -1,6 +1,6 @@
 import SearchNav from "../SearchNavComp/SearchNav";
-import { useSearch } from "../../contexts/SearchContext";
-import { useEffect, useState } from 'react';
+import {  SearchContext}  from "../../contexts/SearchContext";
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import PaginationControls from '../PaginationControlComp/PaginationControls';
 import ResultsList from '../ResultsListComp/ResultsList';
@@ -9,7 +9,7 @@ import '../SearchResultsComp/SearchPage.css';
 export default function SearchResults() {
 
   const location = useLocation();
-  const [,,, filteredResults,,,,total] = useSearch();
+  const {filteredResults,total} = useContext(SearchContext);
   const queryParams = new URLSearchParams(location.search);
   const isProject = queryParams.get("isProject") === "true";
   const [isEmployeeSearch, setIsEmployeeSearch] = useState(!isProject);

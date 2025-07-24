@@ -15,23 +15,17 @@ function Filter() {
   const [isExiting, setIsExiting] = useState(false);
 
   const {allLanguages, allRoles, handleFilterClick, allIndustries} = useContext(SearchContext)
-
-
-  
-
-
   // Options for each dropdown
-  const industryOptions = toDropdownOptions(allIndustries)
-  
-
-  
+  const industryOptions = toDropdownOptions(allIndustries)  
   const techOptions = toDropdownOptions(allLanguages);
   const roleOptions = toDropdownOptions(allRoles);
   
   const expOptions = [
-    { value: "0-2", label: "0-2 Years" },
-    { value: "2-5", label: "2-5 Years" },
-    { value: "6-10", label: "6-10 Years" }
+    { value: "0-1", label: "0-1 Years" },
+    { value: "1-2", label: "1-2 Years" },
+    { value: "3-4", label: "3-4 Years" },
+    { value: "4-5", label: "4-5 Years" },
+    { value: "5+", label: "5+ Years" }
   ];
   
 

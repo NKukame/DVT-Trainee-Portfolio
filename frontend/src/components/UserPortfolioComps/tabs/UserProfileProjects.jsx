@@ -1,11 +1,11 @@
 import ClientCarousel from "../usedComps/ClientCarousel";
-import { useState, useEffect } from "react";
-import "./UserProfileProjects.css";
+import { useState, useEffect, useContext } from "react";
+// import "./UserProfileProjects.css";
 import { use } from "react";
-import { useSearch } from "../../../contexts/SearchContext";
+import { SearchContext } from "../../../contexts/SearchContext";
 function UserProfileProjects(props) {
 
- const [,,,,,,,, projectsWithTechStackNames] = useSearch(); 
+ const {projectsWithTechStackNames} = useContext(SearchContext); 
 const [empProject, setEmpProject] = useState([]);
 
  useEffect(() => {
