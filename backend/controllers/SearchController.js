@@ -2,13 +2,6 @@ import prisma, {redis} from "../lib/prisma-redis-middleware.js";
 import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
 import { setKeyValue } from '../lib/prisma-redis-middleware.js';
 
-
-
-
-
-
-
-
 /**
  * Search for projects with the given query, filters, sort, page, and limit.
  * 
@@ -55,8 +48,8 @@ export async function SearchProjectController(req, res) {
       const queryTime = Date.now() - startTime;
     
       return res.json({
-        success: true,
-        projects: cached,
+        // success: true,
+        projects: cached.projects,
         total: cached.total,
         performance: {
           queryTime: `${queryTime}ms`,
@@ -213,8 +206,8 @@ export async function SearchEmployeeController(req, res) {
       const queryTime = Date.now() - startTime;
       
       return res.json({
-        success: true,
-        employees: cached,
+        // success: true,
+        employees: cached.employees,
         total: cached.total,
         pageCount: cached.pageCount,
         performance: {
