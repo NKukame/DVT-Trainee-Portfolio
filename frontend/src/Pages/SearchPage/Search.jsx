@@ -11,7 +11,7 @@ function Search() {
 
           <div className="app-layout-body">
           
-              <section className="flex-col align-items-center justify-items-center gap-24-px m-20-px">
+              <section className="flex-col align-items-center justify-items-center gap-24-px m-20-px" style={{ height: "100vh" }}>
                 <SearchBar />
                 <Filter/>
                 <SearchResults />

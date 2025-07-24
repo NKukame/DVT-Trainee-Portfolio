@@ -1,6 +1,6 @@
 import "./Filter.css"
 import React, { useEffect, useState, useContext } from "react";
-import { Building05, User01, Code02, Award01 } from "@untitled-ui/icons-react";
+import { Building05, User01, Code02, Award01, CheckSquareBroken } from "@untitled-ui/icons-react";
 import { Combobox } from "../ComboComp/Combo";
 import { Badge } from "../BadgeComp/Badge";
 import { SearchContext } from "../../contexts/SearchContext";
@@ -135,6 +135,18 @@ function Filter() {
           <Award01 className="filter-section-icon" />
           <Combobox
             placeholder="Experience"
+            options={expOptions}
+            value={experienceSelected}
+            onChange={setExperienceSelected}
+            multiple={true}
+            handleFilterClick={handleFilterClick}
+            
+          />
+        </div>
+        <div className="filter-dropdown">
+          <CheckSquareBroken className="filter-section-icon" />
+          <Combobox
+            placeholder="Availability"
             options={expOptions}
             value={experienceSelected}
             onChange={setExperienceSelected}
