@@ -75,7 +75,7 @@ export const SearchContextProvider = ({children}) => {
             }))
             
             setProjectsWithTechStackNames(projectsWithTechStack);
-            setTotalPages(apiDataEmployee.data.total);
+            setTotalPages(apiDataEmployee.data.pageCount);
             setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
             setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStack));
             setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStack));

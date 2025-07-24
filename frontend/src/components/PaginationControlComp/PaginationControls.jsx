@@ -36,7 +36,7 @@ export default function Pagination(){
     if (currentPage >= total - 4) {
       return Array.from({ length: total - currentPage }, (_, i) => currentPage + 1 + i);
     } else {
-      return [currentPage + 1, currentPage + 2, total - 1, totalItems];
+      return [currentPage + 1, currentPage + 2, total - 1, total];
     }
   };
 
