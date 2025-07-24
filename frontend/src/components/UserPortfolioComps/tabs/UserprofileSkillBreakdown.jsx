@@ -45,16 +45,15 @@ function UserProfileSkillBreakdown(props) {
                       }
                     </ul>
                   </div>
-                  {/* <div>
+                  {props.testEmployee.emp_education.certificates && <div>
                     <p className="skills-education-item-title">
                       Certifications
                     </p>
                     <ul>
-                      TO BE CONTINUED
-                        <li>{}</li>
+                        <li>{props.testEmployee.emp_education.certificates + ' - ' + props.testEmployee.emp_education.certificatesInstitution}</li>
                       
                     </ul>
-                  </div> */}
+                  </div>}
                 </div>
               )
             

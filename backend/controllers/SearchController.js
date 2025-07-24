@@ -289,6 +289,8 @@ export async function SearchEmployeeController(req, res) {
             select: {
               institution: true,
               qualification: true,
+              certificates: true,
+              certificatesInstitution: true,
             },
           },
           location: true,
