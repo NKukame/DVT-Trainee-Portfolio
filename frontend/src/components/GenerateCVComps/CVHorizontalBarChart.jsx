@@ -14,13 +14,13 @@ import { Bar } from 'react-chartjs-2';
 // Register the necessary components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const HorizontalBarChart = (props) => {
+const CVHorizontalBarChart = (props) => {
   const data = {
-    labels: props.user.techStack.slice(0, 6).map(skill => `${skill.techStack.name}`),
+    labels: props.user.techStack.map(skill => `${skill.techStack.name}`),
     datasets: [
       {
-        label: 'Rating',
-        data: props.user.techStack.map(rate => `${rate.Techrating}`),
+        label: 'years of experience',
+        data: props.user.techStack.map(rate => `${rate.years}`),
         backgroundColor: [
             'rgba(7, 37, 73, 1)',
             'rgba(8, 70, 119, 1)',
@@ -53,4 +53,4 @@ const HorizontalBarChart = (props) => {
   return <Bar data={data} options={options} />;
 };
 
-export default HorizontalBarChart;
+export default CVHorizontalBarChart;
