@@ -65,16 +65,16 @@
 
 .generate-cv-content-logo img{
     position: absolute;
-    right: 430px;
+    right: 380px;
     margin-top: 10px;
-    object-fit: cover;
+    object-fit: fit;
     height: 60px;
     width: auto;
 }
 
 .generate-cv-content-avatar img{
     position: absolute;
-    left: 360px;
+    left: 410px;
     top: 15px;
     /* margin-top: 15px; */
     height: 165px;
@@ -271,4 +271,22 @@
 
 }
 
+.generate-cv-education-items-soft-skills{
+    position: absolute;
+    z-index: 5;
+    left: -20px;
+    width: 280px;
+    height: fit-content;
+}
 
+.download-pdf{
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    border: 2px solid var(--white);
+    border-radius: 1rem;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--white);
+    cursor: pointer;
+}

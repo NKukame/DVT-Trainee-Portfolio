@@ -4,6 +4,7 @@ import { usePDF } from 'react-to-pdf';
 import { Star, Calendar1, MapPin, Award } from 'lucide-react';
 import './GenerateCV.css'
 import CVHorizontalBarChart from '../../components/GenerateCVComps/CVHorizontalBarChart';
+import CVPolarChart from '../../components/GenerateCVComps/CVPolarChart';
 
 function GenerateCV(){
     const location = useLocation();
@@ -181,11 +182,15 @@ function GenerateCV(){
                 </div>
                 <div className="generate-cv-education-items">
                   <h2>Soft Skills</h2>
+                  <div className='generate-cv-education-items-soft-skills'>
+
+                    <CVPolarChart user={location.state} />
+                  </div>
                 </div>
               </div>
             </aside>
           </div>
-          <button onClick={() => toPDF()}>Download PDF</button>
+          <button className='download-pdf' onClick={() => toPDF()}>Download PDF</button>
         </section>
       </>
     );
