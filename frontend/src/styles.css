@@ -35,6 +35,10 @@
     --dark-mode-buttonText: #052B4C;
 }
 
+.dark {
+  --filter-section-icon-colour: #F4F5F7; 
+}
+
 /* Don't Change anything here */
 body{
     background: linear-gradient(180deg, #E5E5E5 10%, #F9FAFB 100%);

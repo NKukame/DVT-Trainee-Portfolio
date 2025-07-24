@@ -125,14 +125,15 @@
 
 .disabled{
   background-color: #b7b7b7;
-  color: #6b7280;
+  color: var(--black);
   cursor: not-allowed;
 }
 
 .dark-mode .disabled {
-  background-color: var(--dark-mode-alt-white);
-  color: var(--dark-mode-buttonText);
+  background-color: var(--profile-creation-stepper-gray);
+  color: var(--progress-bar-gray);
   cursor: not-allowed;
+  font: bold;
 }
 
 .profile-details{
