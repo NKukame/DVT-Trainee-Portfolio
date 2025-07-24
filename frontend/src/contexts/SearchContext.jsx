@@ -20,7 +20,7 @@ export const SearchContextProvider = ({children}) => {
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
 
-    const searchData = async(page=1) =>{
+    const searchData = async(page=1, query) =>{
         console.log(page)
         setIsLoading(true);
 
@@ -30,11 +30,17 @@ export const SearchContextProvider = ({children}) => {
             axios.defaults.headers.post['Content-Type'] = 'application/json';
             
             const apiDataEmployee = await axios.get(`http://localhost:3000/search/employee`, {
-                params:{page:page}}
+                params:{
+                    page:page,
+                    query:query
+                }}
             );
 
             const apiDataProject = await axios.get(`http://localhost:3000/search/project`, {
-                params:{page:page}}
+                params:{
+                    page:page,
+                    query:query
+                }}
             );
 
             const employeesWithTechStackNames =
@@ -92,6 +98,7 @@ export const SearchContextProvider = ({children}) => {
      }, []);
 
     const handleInputChange = (query) => {
+        // searchData(1, query);
         const filteredResults = data.filter((result) => {
             return result.name.toLowerCase().includes(query.toLowerCase())
         });
@@ -150,24 +157,18 @@ export const SearchContextProvider = ({children}) => {
         }
 
         if (category === "Experience") {
-            updatedResults = handleChange(filter)
+
+            updatedResults = handleChange(filter, newSelectedFilter)
         }
         
         setFilteredResults(updatedResults);
     }
 
-    const handleChange = (newValue) => {
-        const years =  newValue.split(" ")[0]
+    const handleChange = (newSelectedFilter) => {
         
         const filteredResults = searchResults.filter((employee) => {
-            if(!employee.years_active){
-                return false
-            }
-            
-            if(years === employee.years_active.split(' ')[0]){
-                return true
-            }
-            return false           
+            if(newSelectedFilter.length === 0) return true
+            return newSelectedFilter.some(f => employee.years_active === f);      
         })
 
         return filteredResults;

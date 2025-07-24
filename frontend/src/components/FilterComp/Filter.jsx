@@ -68,8 +68,8 @@ function Filter() {
         setTechnologiesSelected(prev => prev.filter(v => v !== value));
         break;
         case "experience":
-        handleFilterClick(value, "Experience")
         setExperienceSelected(prev => prev.filter(v => v !== value));
+        handleFilterClick(value, "Experience")
         break;
       default:
         break;
