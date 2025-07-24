@@ -16,7 +16,7 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
       </div>
 
       <div>
-        <p className="font-size-14-px line-clamp-3">{result.description}</p>
+        <p className="font-size-14-px line-clamp-3 h-20">{result.description}</p>
       </div>
 
       {showTech && (<Badges badgeList={result.technologies} />  )}
@@ -49,7 +49,7 @@ function ProjectModal({setOpen, project}){
         </div>
 
         <div>
-          <img src={`./${project.screenshot}` } className='w-full'
+          <img src={`${project.screenshot}` } className='w-full'
           alt="" />
         </div>
         <div>

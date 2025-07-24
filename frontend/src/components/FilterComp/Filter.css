@@ -10,7 +10,7 @@
     gap: 0;
     /* width: fit-content; */
     justify-content: space-evenly;
-    background-color: var(--navy-blue);
+    background-color: var(--dark-mode-title-white);
     padding-block: 1rem;
     border-radius: 0.875rem;
     padding-inline: 24px;
@@ -80,13 +80,20 @@
     color: var(--white);
 }
 .empty-tags-message{
-    color: black;
+    color: var(--black);
 }
 
 .filter-tag-container-exit {
     animation: slideUp 0.4s ease forwards;
   }
-  
+
+  .filter-section-icon{
+    color: var(--filter-section-icon-colour);
+  }
+
+  .dark-mode .filter-section-icon{
+    color: var(--dark-mode-alt-white);
+  }
   @keyframes slideUp {
     from {
       opacity: 1;
