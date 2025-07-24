@@ -410,7 +410,7 @@
 }
 
 .dark-mode .modal-content{
-  background: linear-gradient(0deg, var(--dark-mode-buttonText) 0%, var(--dark-blue) 100%) ;
+  background: linear-gradient(180deg, #04223D 0%, #02111E 100%);
   color: var(--dark-mode-title-white);
 }
 
@@ -427,13 +427,11 @@
 }
 
 .dark-mode .modal-project-link{
-  background-color: var(--dark-blue);
+  background-color: var(--dark-mode-alt-white);
+  color: var(--dark-mode-alt-white);
   border: 1px solid var(--white);
 }
 
-.dark-mode .modal-project-link a{
-  color: var(--white);
-}
 
 .dark-mode .modal-project-link:hover{
   background-color: var(--white);

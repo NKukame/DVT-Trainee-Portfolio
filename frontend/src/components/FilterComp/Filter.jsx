@@ -98,7 +98,7 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
-          <Building05 />
+          <Building05  className="filter-section-icon" />
           <Combobox
             placeholder="Industries"
             options={industryOptions}
@@ -109,7 +109,7 @@ function Filter() {
           />
         </div>
         <div className="filter-dropdown">
-          <User01 />
+          <User01 className="filter-section-icon" />
           <Combobox
             placeholder="Roles"
             options={roleOptions}
@@ -120,7 +120,7 @@ function Filter() {
           />
         </div>
         <div className="filter-dropdown">
-          <Code02 />
+          <Code02 className="filter-section-icon" />
           <Combobox
             placeholder="Technologies"
             className=""
@@ -132,7 +132,7 @@ function Filter() {
             />
         </div>
         <div className="filter-dropdown">
-          <Award01 />
+          <Award01 className="filter-section-icon" />
           <Combobox
             placeholder="Experience"
             options={expOptions}
