@@ -572,7 +572,8 @@
 }
 
 .dark-mode .active{
-  background-image: linear-gradient(90deg, var( --dark-cerulean), var( --dark-cerulean));
+  background-image: linear-gradient(90deg, #0895FF, #37D5FF);
+  color: var(--dark-mode-alt-white);
 }
 
 .pagination-item{

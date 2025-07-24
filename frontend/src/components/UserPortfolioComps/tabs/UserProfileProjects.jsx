@@ -1,6 +1,6 @@
 import ClientCarousel from "../usedComps/ClientCarousel";
 import { useState, useEffect, useContext } from "react";
-// import "./UserProfileProjects.css";
+import "./UserProfileProjects.css";
 import { use } from "react";
 import { SearchContext } from "../../../contexts/SearchContext";
 function UserProfileProjects(props) {
