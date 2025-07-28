@@ -1,11 +1,12 @@
 import { UserCard } from "../UserCardComp/UserCard";
 import ProjectCard from '../ProjectCardComp/ProjectCard';
 import { UserSkeletonLoader } from "../SearchResultsComp/SearchResults";
-import { useSearch } from "../../contexts/SearchContext";
+import { SearchContext } from "../../contexts/SearchContext";
+import { useContext } from "react";
 
 export default function ResultsList({ results, isEmployeeSearch }) {
   
-  const [,,,,,, isLoading] = useSearch();
+  const {isLoading} = useContext(SearchContext);
 
   if (results.length === 0 && !isLoading) {
     return <h1 className="font-size-20-px no-results">

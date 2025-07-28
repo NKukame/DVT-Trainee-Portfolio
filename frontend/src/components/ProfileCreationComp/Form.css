@@ -15,7 +15,23 @@
 }
 
 .basic-info-form label {
-  color: #404040;
+  color: var(--profile-creation-stepper-gray);
+}
+
+.dark-mode .basic-info-form label {
+  color: var(--dark-mode-alt-white);
+}
+
+label, h3{
+  color: var(--navy-blue);
+}
+
+.dark-mode label, .dark-mode h3 {
+  color: var(--dark-mode-alt-white);
+}
+
+.dark-mode label {
+  color: var(--dark-mode-alt-white);
 }
 
 .form-group {
@@ -30,7 +46,7 @@
 }
 
 .required-asterisk {
-  color: red;
+  color: var(--required-asterisk);
 }
 
 .basic-info-form input,
@@ -48,7 +64,7 @@
 .career-upload-modal-overlay input,
 .career-upload-modal-overlay textarea {
   background-color: var(--white);
-  color: #404040;
+  color: var(--profile-creation-stepper-gray);
   padding: 7px;
   border: 2px solid var(--progress-bar-gray);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -56,23 +72,22 @@
   font-size: 16px;
 }
 
-.basic-info-form input:focus,
-.basic-info-form select:focus,
-.footer-form-container textarea:focus,
-.skills-form input:focus,
-.skills-form select:focus,
-.chosen-tech-stack label:focus,
-.career-form-container input:focus,
-.career-form-container select:focus,
-.testimonials-form input:focus,
-.links-form input:focus,
-.status-form-container select:focus,
-.status-form-container input:focus,
-.career-upload-modal-overlay input:focus,
-.career-upload-modal-overlay textarea:focus {
+.dark-mode .basic-info-form input,
+.dark-mode .basic-info-form select,
+.dark-mode .footer-form-container textarea,
+.dark-mode .skills-form input,
+.dark-mode .skills-form select:focus,
+.dark-mode .chosen-tech-stack label:focus,
+.dark-mode .career-form-container input:focus,
+.dark-mode .career-form-container select:focus,
+.dark-mode .testimonials-form input:focus,
+.dark-mode .links-form input:focus,
+.dark-mode .status-form-container select:focus,
+.dark-mode .status-form-container input:focus,
+.dark-mode .career-upload-modal-overlay input:focus,
+.dark-mode .career-upload-modal-overlay textarea:focus {
   box-shadow: 0 0 3px rgba(2, 127, 185, 0.5);
-  border-color: var(--navy-blue);
-  outline: none;
+  border-color: var(--dark-mode-alt-white);
 }
 
 .basic-info-form select {
@@ -89,11 +104,16 @@
   justify-content: center;
   align-items: center;
   height: 140px;
-  background-color: #e5e5e5;
+  background-color: var(--dark-mode-title-white);
   width: 140px;
   border-radius: 50%;
   border: 2px solid var(--progress-bar-gray);
   margin: 0 auto;
+}
+
+.dark-mode .profile-picture-form {
+  background-color: var(--progress-bar-gray);
+  border: 2px solid var(--dark-mode-alt-white);
 }
 
 .profile-picture-form input {
@@ -110,7 +130,7 @@
   margin-top: 4px;
   padding: 4px 10px;
   border-radius: 5px;
-  background-color: red;
+  background-color: var(--required-asterisk);
   color: var(--white);
   border: none;
   cursor: pointer;
@@ -145,26 +165,43 @@
 
 .custom-dropdown-toggle {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--progress-bar-gray);
   border-radius: 6px;
-  background-color: white;
+  background-color: var(--white);
   cursor: pointer;
   font-size: 0.95rem;
+}
+
+.dark-mode .custom-dropdown-toggle {
+  background-color: var(--dark-mode-title-white);
+  border: 1px solid var(--dark-mode-alt-white);
+  color: var(--profile-creation-stepper-gray);
+}
+
+.custom-dropdown-toggle:hover {
+  background-color: var(--light-blue);
+  color: var(--white);
 }
 
 .skills-dropdown {
   width: 100%;
   position: absolute;
   z-index: 10;
-  background: white;
+  background: var(--white);
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--progress-bar-gray);
   margin-top: 6px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 12px;
   overflow-x: auto;
   max-width: fit-content;
+}
+
+.dark-mode .skills-dropdown {
+  background: var(--dark-mode-title-white);
+  border: 1px solid var(--dark-mode-alt-white);
+  color: var(--dark-mode-buttonText);
 }
 
 .skills-category {
@@ -212,7 +249,7 @@
 
 .badge-active {
   background-color: #007bff;
-  color: white;
+  color: var(--white);
   border-color: #007bff;
 }
 
@@ -220,13 +257,21 @@
   background: none;
   border: none;
   font-size: 25px;
-  color: red;
+  color: var(--required-asterisk);
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .remove-tech-button:hover {
   color: #a94442;
+}
+
+.soft-skill-limit-msg{
+  color: var(--profile-creation-stepper-gray);
+}
+
+.dark-mode .soft-skill-limit-msg {
+  color: var(--progress-bar-gray);
 }
 
 /* Career Form */
@@ -269,7 +314,7 @@
   align-items: flex-start;
   text-align: center;
   color: var(--navy-blue);
-  background: linear-gradient(180deg, #F9FAFB 0%, var(--progress-bar-gray) 100%);
+  background: linear-gradient(180deg, #F9FAFB 0%, var(--profile-creation-stepper-gray) 100%);
   border: 2px solid var(--progress-bar-gray);
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   gap: 10px;
@@ -346,9 +391,17 @@
   overflow-x: hidden;
 }
 
+.dark-mode .career-upload-modal {
+  background-color: var(--dark-cerulean);
+}
+
 .career-upload-modal label {
   color: #404040;
   font-size: 13px;
+}
+
+.dark-mode .career-upload-modal label {
+  color: var(--dark-mode-alt-white);
 }
 
 .career-upload-modal input {
@@ -565,6 +618,22 @@
 .testimonial-modal{
   position: relative;
   height: 40%;
+  overflow-y: hidden;
+  color: var(--navy-blue);
+}  
+
+.testimonial-modal label{
+  color: var(--navy-blue);
+
+}
+
+.dark-mode .testimonial-modal label {
+  color: var(--dark-mode-alt-white);
+}
+
+.dark-mode .testimonial-modal {
+  background-color: var(--dark-cerulean);
+  color: var(--dark-mode-alt-white);
 }
 
 .testimonial-modal input{
@@ -574,6 +643,8 @@
 .testimonial-modal h3 {
   margin-top: 5px;
 }
+
+
 
 .testimonial-modal textarea{
   width: 420px;
@@ -629,6 +700,10 @@
 .testimonial-success-modal-header h3{
   font-size: 20px;
   color: var(--navy-blue);
+}
+
+.dark-mode .testimonial-success-modal-header h3 {
+  color: var(--dark-mode-alt-white);
 }
 
 .testimonial-success-modal-close{
@@ -750,10 +825,18 @@
   margin-top: 3px;
 }
 
+.dark-mode .form-label {
+  color: var(--dark-mode-alt-white);
+}
+
 .form-value {
   font-size: 15px;
   color: #333; 
 }
+
+.dark-mode .form-value {
+  color: var(--dark-mode-alt-white);
+} 
 
 .submit-form-line {
   width: 100%;

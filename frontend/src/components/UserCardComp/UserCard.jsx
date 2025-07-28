@@ -15,7 +15,7 @@ export function UserCard({  user,showDetails = true }) {
   const [open, setOpen] = useState(false);
  
   return (
-    <div className="card-user flex-col gap-10-px shadow flex-row-between">
+    <div className="card-user flex-col gap-16-px shadow flex-row-between">
       <div className="flex-row">
         <div className='flex-row align-items-center gap-10-px flex-1'>
           <Avatar alt={user.name} src={user.avatar || ''} sx={{ width: 52, height: 52 }} />
@@ -67,7 +67,7 @@ export function UserCard({  user,showDetails = true }) {
 function UserDetails({ user }) {
   return (
     <>
-      <div className="flex-row align-items-center gap-10-px ">
+      <div className="flex-row align-items-center gap-24-px ">
         <div className="flex-row align-items-center gap-4-px">
           <MarkerPin01 width={13} height={17} />
           <p className="text-gray font-size-12-px whitespace-nowrap">
@@ -78,7 +78,7 @@ function UserDetails({ user }) {
           <Award02 strokeWidth={"90px"} width={13} height={17} />
           <p className="text-gray font-size-12-px whitespace-nowrap">{`${user.years_active}`}</p>
         </div>
-        <div className="flex-row align-items-center gap-4-px">
+        <div className="flex-row align-items-center gap-10-px">
           <span
             className={`availability ${
               user.availability === true ? "available" : "with-client"
