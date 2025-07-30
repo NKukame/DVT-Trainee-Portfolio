@@ -46,8 +46,6 @@ const CVPolarChart = (props) => {
 
           beginAtZero: true,
           stepSize: 1,
-          color: 'red',
-          
         },
       },
     },

@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    height: 100%;
+    height: max-content;
     background-color: var(--black);
 }
 
@@ -15,6 +15,10 @@
     width: 100%;
     height: 100%;
 }
+.first-page, .second-page{
+    max-width: 793px;
+    min-height: 1121px;
+}
 
 .generate-cv-content-container-header{
     display: flex;
@@ -23,7 +27,6 @@
     gap: 9%;
     z-index: 1;
     height: 145px;
-    /* padding-left: 20px; */
 }
 
 .generate-cv-header-background{
@@ -90,7 +93,7 @@
     position: absolute;
     top: 0;
     margin-left: 15px;
-    min-height: 144vh;
+    min-height: 2242px;
     height: 100%;
     width: 240px;
     background: linear-gradient(180deg, var(--dark-blue) 0%, var(--navy-blue) 100%);

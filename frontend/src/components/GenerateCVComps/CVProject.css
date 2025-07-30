@@ -1,0 +1,36 @@
+
+.generate-cv-project-background{
+    z-index: 2;
+    position: relative;
+    width: 762px;
+    height: 120px;
+    margin-top: 1rem;
+    margin-left: 2em;
+}
+
+.generate-cv-project-info{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    gap: 1rem;
+    top: -115px;
+    left: 80px;
+    z-index: 9;
+}
+
+.generate-cv-header-avatar{
+    height: 100px;
+    width: 165px;
+    border-radius: 3rem;
+    border: 6px solid var(--dark-gray);
+    object-fit: cover;
+    box-shadow: 1px 1px 7px 2px rgba(0, 0, 0, 0.3);
+    z-index: 9;
+}
+
+.generate-cv-project-intro h1{
+    color: var(--white);
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+}

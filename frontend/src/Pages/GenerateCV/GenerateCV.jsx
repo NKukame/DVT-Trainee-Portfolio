@@ -5,6 +5,7 @@ import { Star, Calendar1, MapPin, Award } from 'lucide-react';
 import './GenerateCV.css'
 import CVHorizontalBarChart from '../../components/GenerateCVComps/CVHorizontalBarChart';
 import CVPolarChart from '../../components/GenerateCVComps/CVPolarChart';
+import CVProject from '../../components/GenerateCVComps/CVProject';
 
 function GenerateCV(){
     const location = useLocation();
@@ -13,7 +14,8 @@ function GenerateCV(){
       <>
         <section className="generate-cv-container">
           <div className="generate-cv-content-container" ref={targetRef}>
-            <header className="generate-cv-content-container-header">
+            <section className='first-page'>
+              <header className="generate-cv-content-container-header">
               <img
                 className="generate-cv-header-background"
                 src="/Cv_header.png"
@@ -102,6 +104,11 @@ function GenerateCV(){
                 </div>
               </div>
             </article>
+            </section>
+           {location.state.projects.map(proj => proj.project.name) && <section className='second-page'>
+
+              <CVProject user={location.state}/>
+            </section>}
 
             <aside className="generate-cv-sidebar">
               <div className="generate-cv-sidebar-item">
