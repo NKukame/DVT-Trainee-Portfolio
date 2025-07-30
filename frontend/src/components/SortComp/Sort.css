@@ -1,20 +1,20 @@
-.sort-container{
+/* .sort-container{
   display: flex;
   color: #000000;
   align-items: center;
   gap: 12px;
 }
+ */
 
 
-
-.select-wrapper {
+/* .select-wrapper {
   position: relative;
-}
+} */
 
 .select-control {
   appearance: none;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: var(--white);
+  border: 1px solid var(--dark-cerulean);
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 14px;
@@ -23,14 +23,14 @@
 }
 
 .dark-mode .select-control {
-  background-color: #052B4C;
-  color: #fff;
-  border: 1px solid #4b5563;
+  background-color: var(--dark-mode-blue);
+  color: var(--dark-mode-alt-white);
+  border: 1px solid var(--dark-cerulean);
 }
 
 .select-control:focus {
   outline: none;
-  border-color: #4f46e5;
+  border-color: var(--dark-cerulean);
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 

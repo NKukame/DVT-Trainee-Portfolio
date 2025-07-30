@@ -131,7 +131,7 @@ function Testimonials({ data, onChange }) {
           <div className="testimonial-insertion-container">
             <div className="testimonial-upload-container">
               <div className="testimonial-upload">
-                <Upload size={30} className="career-projects-upload-icon" />
+                <Upload size={30} className="career-projects-upload-icon" color="var(--navy-blue)" />
                 <button type="button" onClick={() => setShowModal(true)}>
                   Upload Testimonial
                 </button>
@@ -205,7 +205,7 @@ function Testimonials({ data, onChange }) {
               className="modal-x-close"
               type="button"
             >
-              <X size={25} />
+              <X size={25} color="var(--black)" />
             </button>
             <div className="form-group">
               <h3>Testimonial</h3>

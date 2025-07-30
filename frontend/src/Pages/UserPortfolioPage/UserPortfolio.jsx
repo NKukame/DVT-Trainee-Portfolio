@@ -16,45 +16,7 @@ function UserPortfolio(props) {
   const location = useLocation();
   
   
-  //  companyTestimonials = [
-  //   {
-  //     name: "Zara Hadid",
-  //     company: "Discovery Health",
-  //     description:
-  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-  //   },
-  //   {
-  //     name: "Zara Hadid",
-  //     company: "Discovery Health",
-  //     description:
-  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-  //   },
-  //   {
-  //     name: "Zara Hadid",
-  //     company: "Discovery Health",
-  //     description:
-  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-  //   },
-  //   {
-  //     name: "Zara Hadid",
-  //     company: "Discovery Health",
-  //     description:
-  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-  //   },
-  //   {
-  //     name: "Zara Hadid",
-  //     company: "Tech Innovations",
-  //     description:
-  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-  //   },
-  //   {
-  //     name: "Gregory House",
-  //     company: "Tech Innovations",
-  //     description:
-  //       "“What a wonderful fantastic energy Paballo always brought to the team, its such a shame what happened to her.”",
-  //   }
-    
-  // ];
+
   return (
     <>
       <div className="app-layout">
