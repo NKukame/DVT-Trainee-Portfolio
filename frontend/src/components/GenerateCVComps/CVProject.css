@@ -1,4 +1,11 @@
-
+.generate-cv-projects{
+   position: relative;
+   z-index: 9;
+   color: var(--white);
+}
+.generate-cv-projects-header{
+    height: 150px;
+}
 .generate-cv-project-background{
     z-index: 2;
     position: relative;
@@ -12,13 +19,15 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    gap: 1rem;
+    gap: 3rem;
     top: -115px;
-    left: 80px;
+    left: 50px;
     z-index: 9;
+    color: var(--white);
 }
 
-.generate-cv-header-avatar{
+
+.generate-cv-header-project-screenshot{
     height: 100px;
     width: 165px;
     border-radius: 3rem;
@@ -27,10 +36,79 @@
     box-shadow: 1px 1px 7px 2px rgba(0, 0, 0, 0.3);
     z-index: 9;
 }
+.generate-cv-project-intro{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
 .generate-cv-project-intro h1{
     color: var(--white);
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 300;
     margin-bottom: 0.5rem;
+}
+
+.generate-cv-project-tech-stack{
+    display: flex;
+    gap: 10px;
+}
+
+.generate-cv-project-tech-stack aside{
+   width: 230px;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.generate-cv-project-tech-stack ul{
+    padding: 5px;
+    margin-left: 20px;
+}
+
+.generate-cv-project-tech-stack h2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    margin-bottom: 5px;
+    position: relative;
+    background: transparent;
+    z-index: 1;
+}
+
+.generate-cv-project-tech-stack h2::before,
+.generate-cv-project-tech-stack h2::after {
+    content: "";
+    flex: 1;
+    border-bottom: 2px solid var(--progress-bar-orange);
+    margin: 0 11px;
+    height: 1px;
+}
+
+.generate-cv-project-description{
+    margin-top: 12px;
+    color: var(--black);
+}
+
+.generate-cv-project-description h2{
+    font-size: 23px;
+    margin-bottom: 5px;
+    z-index: 1;
+    color: var(--cv-line-blue);
+    text-transform: uppercase;
+    margin-left: 20px;
+}
+
+.generate-cv-project-description h2::after{
+    content: "";
+    border-bottom: 1.8px solid var(--cv-line-blue);
+    width: 320px;
+}
+
+.generate-cv-project-description h2::before{
+    display: none;
+}
+
+.generate-cv-project-description p{
+    padding: 20px;
 }

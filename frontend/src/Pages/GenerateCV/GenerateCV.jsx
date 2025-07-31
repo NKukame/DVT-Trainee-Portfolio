@@ -105,12 +105,14 @@ function GenerateCV(){
               </div>
             </article>
             </section>
-           {location.state.projects.map(proj => proj.project.name) && <section className='second-page'>
+           {location.state.projects && location.state.projects.length > 0 && (
+              <section className='second-page'>
+                <CVProject user={location.state}/>
+                
+              </section>
+            )}
 
-              <CVProject user={location.state}/>
-            </section>}
-
-            <aside className="generate-cv-sidebar">
+            <aside className={location.state.projects && location.state.projects.length > 0 ? "generate-cv-sidebar" : "generate-cv-sidebar-first-page"}>
               <div className="generate-cv-sidebar-item">
                 <div className="generate-cv-sidebar-item-pairing">
                   <Star className="generate-cv-sidebar-item-icon" size={15} />

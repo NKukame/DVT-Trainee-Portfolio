@@ -59,21 +59,20 @@ export async function createProfileController(req, res) {
     });
 
     // Education Table
-    if (
-      skills.educationEntries &&
-      skills.educationEntries.length > 0 &&
-      (skills.educationEntries[0].qualification || skills.educationEntries[0].institution)
-    ) { 
-      const edu = skills.educationEntries[0];
-      await prisma.education.create({
-        data: {
-          institution: edu.institution,
-          qualification: edu.qualification,
-          employeeId: employee.id,
-          certificates: edu.certificate,
-          certificatesInstitution: edu.certificatesInstitution
-        },
-      });
+    if (skills.educationEntries && skills.educationEntries.length > 0) {
+      for (const edu of skills.educationEntries) {
+        if (edu.qualification || edu.institution) {
+          await prisma.education.create({
+            data: {
+              institution: edu.institution,
+              qualification: edu.qualification,
+              employeeId: employee.id,
+              certificates: edu.certificate,
+              certificatesInstitution: edu.certificatesInstitution,
+            },
+          });
+        }
+      }
     }
 
     // Tech Stack Table
@@ -134,6 +133,22 @@ export async function createProfileController(req, res) {
             reference: t.reference || "",
           },
         });
+      }
+    }
+
+    // Career Chronology
+    if (skills.careerEntries && skills.careerEntries.length > 0) {
+      for (const entry of skills.careerEntries) {
+        if (entry.role || entry.company || entry.duration) {
+          await prisma.career.create({
+            data: {
+              employeeId: employee.id,
+              role: entry.role,
+              company: entry.company,
+              duration: entry.duration,
+            },
+          });
+        }
       }
     }
 

@@ -98,6 +98,16 @@
     width: 240px;
     background: linear-gradient(180deg, var(--dark-blue) 0%, var(--navy-blue) 100%);
     color: var(--white);
+} 
+.generate-cv-sidebar-first-page{
+    position: absolute;
+    top: 0;
+    margin-left: 15px;
+    min-height: 1120px;
+    height: 100%;
+    width: 240px;
+    background: linear-gradient(180deg, var(--dark-blue) 0%, var(--navy-blue) 100%);
+    color: var(--white);
 }
 
 .generate-cv-sidebar-item{
