@@ -85,7 +85,7 @@ function UserDetails({ user }) {
             }`}
           ></span>
           <p className="font-size-12-px text-gray">
-            {user.availability === 'Available' ? "Available" : "On Client"}
+            {user.availability === 'true' ? "Available" : "On Client"}
           </p>
         </div>
       </div>

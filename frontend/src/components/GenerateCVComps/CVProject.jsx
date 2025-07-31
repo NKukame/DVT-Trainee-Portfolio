@@ -43,7 +43,7 @@ export default function CVProject(props) {
           </section>
           <section className="generate-cv-project-tech-stack">
 
-            <aside>
+            <aside className="generate-cv-project-aside-list">
               <h2>Tech Stack</h2>
               <ul>
                 {

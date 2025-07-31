@@ -108,7 +108,13 @@ function GenerateCV(){
            {location.state.projects && location.state.projects.length > 0 && (
               <section className='second-page'>
                 <CVProject user={location.state}/>
-                
+                {location.state.projects && location.state.projects.length > 2 && (
+                  <section>
+
+                  </section>
+                )
+
+                }
               </section>
             )}
 
@@ -161,8 +167,11 @@ function GenerateCV(){
                 <div className="generate-cv-education-items">
                   <h2>Certificates</h2>
                   <ul>
-                    <li>N/A</li>
-                  </ul>
+                  {location.state.certificates.map((cert, idx) => (
+                        <li key={idx}>
+                          {cert.name} - {cert.institution}
+                        </li>
+                      ))}</ul>
                 </div>
                 <div className="generate-cv-education-items">
                   <h2>Industry</h2>

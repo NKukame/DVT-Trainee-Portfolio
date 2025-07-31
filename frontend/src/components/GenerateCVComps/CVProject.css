@@ -55,7 +55,8 @@
 }
 
 .generate-cv-project-tech-stack aside{
-   width: 230px;
+    background-color: purple;
+   min-width: 230px;
     padding: 10px;
     margin-left: 20px;
 }
@@ -86,6 +87,7 @@
 }
 
 .generate-cv-project-description{
+    background-color: red;
     margin-top: 12px;
     color: var(--black);
 }

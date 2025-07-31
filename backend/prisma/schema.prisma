@@ -87,6 +87,7 @@ model Employee {
   bio          String
   role         EmployeeRole
   education    Education[]
+  certificates Certificate[]
   career       Career[]
   department   Department
   company      String
@@ -230,10 +231,16 @@ model Education {
   id       String           @id @default(uuid())
   institution     String        
   qualification String
-  certificates  String?
-  certificatesInstitution  String?
   employeeId String    
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id       String           @id @default(uuid())
+  name          String
+  institution   String
+  employeeId    String
+  employee      Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
 model Career{
