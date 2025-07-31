@@ -120,6 +120,8 @@ model Project {
   techStack   ProjectTechStack[]
   github      String?
   demo        String?
+  achievements  String?
+  duties      String?
   screenshot  String?
   members     ProjectMember[]
   createdAt   DateTime     @default(now())
