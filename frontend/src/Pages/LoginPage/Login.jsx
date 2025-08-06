@@ -17,7 +17,6 @@ function Signup() {
     confirmPassword: "",
   });
 
-// State to manage password visibility
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
