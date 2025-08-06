@@ -8,7 +8,6 @@ function getRandomPastDate() {
   const randomDate = new Date(randomTime);
   // Format as "DD MMMM YYYY"
   return randomDate.toLocaleDateString("en-GB", {
-    day: "2-digit",
     month: "long",
     year: "numeric",
   });

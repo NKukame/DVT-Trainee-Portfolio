@@ -10,7 +10,7 @@
     z-index: 2;
     position: relative;
     width: 762px;
-    height: 120px;
+    height: 140px;
     margin-top: 1rem;
     margin-left: 2em;
 }
@@ -20,7 +20,7 @@
     flex-direction: row;
     position: relative;
     gap: 3rem;
-    top: -115px;
+    top: -130px;
     left: 50px;
     z-index: 9;
     color: var(--white);
@@ -28,9 +28,9 @@
 
 
 .generate-cv-header-project-screenshot{
-    height: 100px;
+    height: 110px;
     width: 165px;
-    border-radius: 3rem;
+    border-radius: 3.5rem;
     border: 6px solid var(--dark-gray);
     object-fit: cover;
     box-shadow: 1px 1px 7px 2px rgba(0, 0, 0, 0.3);
@@ -55,7 +55,6 @@
 }
 
 .generate-cv-project-tech-stack aside{
-    background-color: purple;
    min-width: 230px;
     padding: 10px;
     margin-left: 20px;
@@ -87,7 +86,6 @@
 }
 
 .generate-cv-project-description{
-    background-color: red;
     margin-top: 12px;
     color: var(--black);
 }
