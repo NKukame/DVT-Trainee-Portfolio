@@ -142,8 +142,8 @@ export async function createProfileController(req, res) {
     }
 
     // Career Chronology
-    if (skills.careerEntries && skills.careerEntries.length > 0) {
-      for (const entry of skills.careerEntries) {
+    if (career.careerEntries && career.careerEntries.length > 0) {
+      for (const entry of career.careerEntries) {
         if (entry.role || entry.company || entry.duration) {
           await prisma.career.create({
             data: {

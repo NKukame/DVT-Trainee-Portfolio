@@ -197,6 +197,7 @@
     align-items: flex-start;
     justify-content: center;
     margin-top: 20px;
+    padding-bottom: 20px;
 }
 
 .generate-cv-content-career-chronology h2, .generate-cv-content-skills-matrix h2{
@@ -247,9 +248,9 @@
   z-index: 1;
 }
 
-.generate-cv-stepper-step:last-child .generate-cv-stepper-line {
+/* .generate-cv-stepper-step:last-child .generate-cv-stepper-line {
   display: none;
-}
+} */
 
 .generate-cv-stepper-circle {
   width: 40px;

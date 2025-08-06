@@ -21,8 +21,11 @@ export default function SearchResults() {
                     : filteredResults.filter((result)=> result.project_id);
     setResults(resultsFilter);
   }, [isEmployeeSearch, filteredResults]);
-    
 
+
+  // useEffect(() => {
+  //    window.location.reload();
+  // }, [])
 
 
   return (

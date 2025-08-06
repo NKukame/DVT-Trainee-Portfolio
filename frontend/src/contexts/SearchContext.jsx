@@ -51,6 +51,7 @@ export const SearchContextProvider = ({children}) => {
                     location: emp.location.split(',')[0],
                     emp_education: emp.education,
                     certificates: emp.certificates,
+                    career: emp.career,
                     projects: emp.projects,
                     avatar:
                       emp.photoUrl ||

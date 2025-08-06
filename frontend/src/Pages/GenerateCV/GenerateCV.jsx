@@ -49,53 +49,34 @@ function GenerateCV(){
                 </ul>
               </div>
 
-              <div className="generate-cv-content-career-chronology">
-                <h2>Career</h2>
-                <div className="generate-cv-stepper-box">
-                  <div className="generate-cv-stepper-step">
-                    <div className="generate-cv-stepper-circle">2018</div>
-                    <div className="generate-cv-stepper-line" />
-                    <div className="generate-cv-stepper-content">
-                      <div className="generate-cv-stepper-title">
-                        Senior UX Designer
+
+              {location.state.career.length > 0 && 
+                (
+                  <div className="generate-cv-content-career-chronology">
+                    <h2>Career</h2>
+                    { location.state.career.length > 0 ? location.state.career.map((e, i)=>
+                    <div key={i} className="generate-cv-stepper-box">
+                      <div className="generate-cv-stepper-step">
+                        <div className="generate-cv-stepper-circle">{e.duration.split('-')[1]}</div>
+                        <div className="generate-cv-stepper-line" />
+                        <div className="generate-cv-stepper-content">
+                          <div className="generate-cv-stepper-title">
+                          {e.role}
+                          </div>
+                          <div className="generate-cv-stepper-status">
+                            {e.company}
+                          </div>
+                          <div className="generate-cv-stepper-time">
+                            {e.duration}
+                          </div>
+                        </div>
                       </div>
-                      <div className="generate-cv-stepper-status">
-                        Standard Bank
-                      </div>
-                      <div className="generate-cv-stepper-time">
-                        2016 - 2018
-                      </div>
-                    </div>
+                      
+                      
+                    </div>) : (<div className='generate-cv-stepper-title'>No Career</div>) }
                   </div>
-                  <div className="generate-cv-stepper-step">
-                    <div className="generate-cv-stepper-circle">2016</div>
-                    <div className="generate-cv-stepper-line" />
-                    <div className="generate-cv-stepper-content">
-                      <div className="generate-cv-stepper-title">
-                        Intermediate UX Researcher
-                      </div>
-                      <div className="generate-cv-stepper-status">
-                        Standard Bank
-                      </div>
-                      <div className="generate-cv-stepper-time">
-                        2014 - 2016
-                      </div>
-                    </div>
-                  </div>
-                  <div className="generate-cv-stepper-step">
-                    <div className="generate-cv-stepper-circle">2014</div>
-                    <div className="generate-cv-stepper-content">
-                      <div className="generate-cv-stepper-title">UX Writer</div>
-                      <div className="generate-cv-stepper-status">
-                        Discovery
-                      </div>
-                      <div className="generate-cv-stepper-time">
-                        2012 - 2014
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                )
+              }
 
               <div className="generate-cv-content-skills-matrix">
                 <h2>Skills Matrix</h2>
@@ -108,13 +89,7 @@ function GenerateCV(){
            {location.state.projects && location.state.projects.length > 0 && (
               <section className='second-page'>
                 <CVProject user={location.state}/>
-                {location.state.projects && location.state.projects.length > 2 && (
-                  <section>
-
-                  </section>
-                )
-
-                }
+                
               </section>
             )}
 
