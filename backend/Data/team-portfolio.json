@@ -1,7 +1,8 @@
 [
     {
         "title": "MS",
-        "name": "Paballo Thobei",
+        "name": "Paballo",
+        "surname": "Thobei",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -24,7 +25,8 @@
     
     {
         "title": "MR",
-        "name": "Phemelo Makwatse",
+        "name": "Phemelo",
+        "surname": "Makwatse",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -45,7 +47,8 @@
     
     {
         "title": "MR",
-        "name": "Gomolemo Motlhamme",
+        "name": "Gomolemo",
+        "surname": "Motlhamme",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -68,7 +71,8 @@
     
     {
         "title": "MR",
-        "name": "Adrian Majavu",
+        "name": "Adrian",
+        "surname": "Majavu",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -84,12 +88,15 @@
         "Company": "DVT",
         "Department": "SA-DEVPS-S",
         "Role": "Full Stack Intern",
+        "Institution":"IIE Rosebank College",
+        "Qualification": "Diploma in Information Technology for Software Development",
         "Birthday": "2000-01-19"
     },
     
     {
         "title": "MR",
-        "name": "Njabulo Kukame",
+        "name": "Njabulo",
+        "surname": "Kukame",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -110,7 +117,8 @@
     
     {
         "title": "MR",
-        "name": "Andile Mhlongo",
+        "name": "Andile",
+        "surname": "Mhlongo",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -133,7 +141,8 @@
     
     {
         "title": "MR",
-        "name": "Thabane Ngobe",
+        "name": "Thabane",
+        "surname": "Ngobe",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -156,7 +165,8 @@
     
     {
         "title": "MS",
-        "name": "Remow Rammekwa",
+        "name": "Remoneilwe",
+        "surname": "Rammekwa",
         "description": "Full Stack Intern",
         "available": true,
         "client": "DVT",
@@ -180,7 +190,8 @@
 
     {
         "title": "MR",
-        "name": "Dylan Fernandes",
+        "name": "Dylan",
+        "surname": "Fernandes",
         "description": "UI/UX Intern",
         "available": true,
         "client": "DVT",

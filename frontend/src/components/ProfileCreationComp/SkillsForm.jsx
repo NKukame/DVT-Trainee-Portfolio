@@ -16,7 +16,7 @@ function SkillsForm({ data, onChange }) {
     { qualification: "", institution: "" },
   ]);
   const [certificationEntries, setCertificationEntries] = useState([
-    { certificate: "", institution: "" },
+    { certificate: "", certificatesInstitution: "" },
   ]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function SkillsForm({ data, onChange }) {
       data.educationEntries || [{ qualification: "", institution: "" }]
     );
     setCertificationEntries(
-      data.certificationEntries || [{ certificate: "", institution: "" }]
+      data.certificationEntries || [{ certificate: "", certificatesInstitution: "" }]
     );
     setTechExperience(data.techExperience || {});
   }, [data]);
@@ -195,9 +195,9 @@ function SkillsForm({ data, onChange }) {
     if (
       index === certificationEntries.length - 1 &&
       updated[index].certificate &&
-      updated[index].institution
+      updated[index].certificatesInstitution
     ) {
-      newEntries = [...updated, { certificate: "", institution: "" }];
+      newEntries = [...updated, { certificate: "", certificatesInstitution: "" }];
       setCertificationEntries(newEntries);
     } else {
       setCertificationEntries(updated);
@@ -216,7 +216,7 @@ function SkillsForm({ data, onChange }) {
   const handleRemoveCertification = (index) => {
     let newEntries;
     if (certificationEntries.length === 1) {
-      newEntries = [{ certificate: "", institution: "" }];
+      newEntries = [{ certificate: "", certificatesInstitution: "" }];
     } else {
       newEntries = certificationEntries.filter((_, i) => i !== index);
     }
@@ -346,16 +346,13 @@ function SkillsForm({ data, onChange }) {
                   }
                 >
                   <option value="" disabled>
-                    Years
+                    Rating
                   </option>
-                  <option value="1">1 Year</option>
-                  <option value="2">2 Years</option>
-                  <option value="3">3 Years</option>
-                  <option value="4">4 Years</option>
-                  <option value="5">5 Years</option>
-                  <option value="5+">5+ Years</option>
-                  <option value="10+">10+ Years</option>
-                  <option value="15+">15+ Years</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
                 <button
                   type="button"
@@ -385,14 +382,14 @@ function SkillsForm({ data, onChange }) {
                 <input
                   type="text"
                   id={`certificate-institution-${idx}`}
-                  name="institution"
+                  name="certificatesInstitution"
                   placeholder="Enter Your Institution"
-                  value={entry.institution}
+                  value={entry.certificatesInstitution}
                   onChange={(e) => handleCertificationChange(idx, e)}
                 />
                 {(certificationEntries.length > 1 ||
                   entry.certificate ||
-                  entry.institution) && (
+                  entry.certificatesInstitution) && (
                   <button
                     type="button"
                     className="remove-tech-button"
