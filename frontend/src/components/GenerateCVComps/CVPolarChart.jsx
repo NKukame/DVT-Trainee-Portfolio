@@ -1,6 +1,6 @@
 // PolarChart.jsx
 import React from 'react';
-import { PolarArea } from 'react-chartjs-2';
+import { Line, PolarArea } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -8,23 +8,21 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { colors } from '@mui/material';
 
 // Register components you’ll use
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
-const PolarChart = (props) => {
-  const darkMode = localStorage.getItem('darkMode') === 'enabled';
+const CVPolarChart = (props) => {
   const data = {
     labels: props.user.softSkilled.map(skill => `${skill.softSkill.name}`) ,
     datasets: [
       {
         label: 'My Polar Dataset',
-        data: props.user.softSkilled.map(rate => `${rate.skillsRating}`) ,
+        data: props.user.softSkilled.slice(0,4).map(rate => `${rate.skillsRating}`) ,
         backgroundColor: [
-          'rgba(0, 122, 255, 1)',    // Bright Blue (good in both modes)
+          'rgb(245, 245, 220)',    // Bright Blue (good in both modes)
           'rgba(255, 99, 132, 1)',   // Soft Red for contrast
-          'rgba(147, 178, 199, 1)',   // Light Sky Blue
+          'rgb(218, 145, 0)',   // Light Sky Blue
           'rgba(75, 192, 192, 1)',   // Teal / Aqua
           'rgba(255, 205, 86, 1)',   // Yellow for brightness in dark mode
           'rgba(153, 102, 255, 1)',  // Purple (adds variation but still soft)
@@ -40,27 +38,32 @@ const PolarChart = (props) => {
     scales: {
       r: {
         grid:{
-          color: 'rgba(152, 152, 152, 0.7)',
-          lineWidth: 0.8,
-          
+          color: 'rgba(255, 255, 255)',
+          lineWidth: 1,
+          borderDash: [5, 5]
         },
         ticks: {
+
           beginAtZero: true,
           stepSize: 1,
-          // color: "var(--dark-mode-alt-white)",
         },
       },
     },
     plugins: {
       legend: {
-        position: 'right',
+        position: 'top',
+        align: "start",
         labels: {
-          color: 'rgba(102, 102, 102, 1)',
+          color: 'rgba(255, 255, 255)',
+          align: 'start',
+          padding: 20,
+          boxWidth: 38,          
+          position: 'left',
+          
           font: {
-            size: 14,
+            size: 12,
             weight: 'bold',
           },
-          
         },
       },
     },
@@ -69,4 +72,4 @@ const PolarChart = (props) => {
   return <PolarArea data={data} options={options} />;
 };
 
-export default PolarChart;
+export default CVPolarChart;

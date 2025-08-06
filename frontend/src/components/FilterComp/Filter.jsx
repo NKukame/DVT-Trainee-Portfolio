@@ -15,23 +15,17 @@ function Filter() {
   const [isExiting, setIsExiting] = useState(false);
 
   const {allLanguages, allRoles, handleFilterClick, allIndustries} = useContext(SearchContext)
-
-
-  
-
-
   // Options for each dropdown
-  const industryOptions = toDropdownOptions(allIndustries)
-  
-
-  
+  const industryOptions = toDropdownOptions(allIndustries)  
   const techOptions = toDropdownOptions(allLanguages);
   const roleOptions = toDropdownOptions(allRoles);
   
   const expOptions = [
-    { value: "0-2", label: "0-2 Years" },
-    { value: "2-5", label: "2-5 Years" },
-    { value: "6-10", label: "6-10 Years" }
+    { value: "0-1", label: "0-1 Years" },
+    { value: "1-2", label: "1-2 Years" },
+    { value: "3-4", label: "3-4 Years" },
+    { value: "4-5", label: "4-5 Years" },
+    { value: "5+", label: "5+ Years" }
   ];
   
 
@@ -104,7 +98,7 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
-          <Building05 />
+          <Building05  className="filter-section-icon" />
           <Combobox
             placeholder="Industries"
             options={industryOptions}
@@ -115,7 +109,7 @@ function Filter() {
           />
         </div>
         <div className="filter-dropdown">
-          <User01 />
+          <User01 className="filter-section-icon" />
           <Combobox
             placeholder="Roles"
             options={roleOptions}
@@ -126,7 +120,7 @@ function Filter() {
           />
         </div>
         <div className="filter-dropdown">
-          <Code02 />
+          <Code02 className="filter-section-icon" />
           <Combobox
             placeholder="Technologies"
             className=""
@@ -138,7 +132,7 @@ function Filter() {
             />
         </div>
         <div className="filter-dropdown">
-          <Award01 />
+          <Award01 className="filter-section-icon" />
           <Combobox
             placeholder="Experience"
             options={expOptions}

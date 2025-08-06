@@ -10,6 +10,7 @@ import Email from "../../assets/icons8-email-100.png";
 import award from "../../assets/Award-01.png";
 import "./Dashboard.css";
 import axios from "axios";
+import { Activity, Award, Calendar, CalendarCheck, MapPin, Pin, PinIcon } from "lucide-react";
 
 function Dashboard(props) {
   console.log(props);
@@ -33,29 +34,22 @@ function Dashboard(props) {
           <Link to="/profile-creation">
             <button className="manage-prfl">Edit Profile</button>
           </Link>
-          <Link to="/ProfileForm">
-            <button disabled className="manage-prfl disabled" >Generate Resume</button>
+          <Link to="/generate-cv" state={props.testEmployee}>
+            <button className="manage-prfl" >Generate Resume</button>
           </Link>
           <div className="profile-details">
             <p>
-              <img
-                src={Calender}
-                alt="Experience Icon"
-                className="dashboard-icon"
-              />
+              {/* <Activity size={15} className="dashboard-icon" /> */}
+              <CalendarCheck size={15} className="dashboard-icon" />
               {(props.testEmployee.availability === null) ?   "Not filled / N/A" : 
               (props.testEmployee.availability ?   "Available" : "Not Available")}
             </p>
             <p>
-              <img
-                src={Location}
-                alt="Location Icon"
-                className="dashboard-icon"
-              />
+              <MapPin size={15} className="dashboard-icon" />
               {props.testEmployee.location ? props.testEmployee.location : "Not filled / N/A"}
             </p>
             <p>
-              <img src={award} alt="Role Icon" className="dashboard-icon" />
+              <Award size={15} className="dashboard-icon" />
               {props.testEmployee.experienced ? props.testEmployee.experienced : "Not filled / N/A "} 
             </p>
           </div>

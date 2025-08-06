@@ -9,18 +9,23 @@
 .profile-overview-title{
     font-size: 2.7rem;
     font-weight: bold;
-    color: #072549;
+    color: var(--navy-blue);
     margin-block: 10px 20px;
+}
+
+.dark-mode .profile-overview-title{
+    color: var(--dark-mode-paragragh-white);
 }
 
 .profile-overview-text {
     font-size: 1.1rem;
-    color: #333;
+    color: var(--userText-grayText);
     margin-bottom: 20px;
 }
 
-
-
+.dark-mode .profile-overview-text {
+    color: var(--dark-mode-paragragh-white);
+}
 
 .testimonial-overview-section{
     width: 100%;
@@ -33,7 +38,7 @@
     justify-content: center;
     gap: 10px;
     font-size: 1.2rem;
-    color: #333;
+    color: var(--userText-grayText);
     margin-bottom: 10px;
     animation: overview-logo-slider 40s linear infinite;
 }
@@ -43,7 +48,7 @@
     width: 100%;
     gap: 10px;
     font-size: 1.2rem;
-    color: #333;
+    color: var(--userText-grayText);
     margin-bottom: 10px;
 }
 .testimonial-content:hover{
@@ -61,14 +66,28 @@
     padding: 1em;
 }
 
+.dark-mode .testimonial-item{
+    background: linear-gradient(180deg, #04223D 0%, #02111E 100%);
+    color: var(--dark-mode-paragragh-white);
+}
+
 .testimonial-name{
     margin-top: 5px;
     font-weight: bold;
-    color: #072549;
+    color: var(--navy-blue);
 }
+
+.dark-mode .testimonial-name{
+    color: var(--dark-mode-alt-white);
+}
+
 .testimonial-company{
     font-weight: 400;
-    color: #072549;
+    color: var(--navy-blue);
+}
+
+.dark-mode .testimonial-company{
+    color: var(--dark-mode-alt-white);
 }
 
 .profile-overview-ft-Projects{
@@ -78,10 +97,15 @@
     font-size: 2rem;
     padding-top: 0.5em;
     font-weight: bold;
-    border-top: #000 solid 1px;
+    border-top: var(--black) solid 1px;
     width: 90%;
-    color: #072549;
+    color: var(--navy-blue);
     margin-block: 10px;
+}
+
+.dark-mode .profile-overview-ft-Projects{
+    color: var(--dark-mode-alt-white);
+    border-top: var(--dark-mode-alt-white) solid 1px;
 }
 
 .overview-video-header{

@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: #404040;
+    color: var(--progress-bar-gray);
 }
 
 .profile-creation-header{  
@@ -25,15 +25,20 @@
     margin-bottom: 7px;
 }
 
+.dark-mode .profile-creation-content{
+    background-color: var(--dark-cerulean);
+}
+
 .profile-creation-content-header{
     display: flex;
     align-items: center;
     
-    background-color: var(--navy-blue);
+    background-color: var(--dark-mode-blue);
     padding: 10px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
+
 
 .profile-creation-content-header h1{
     color: var(--white);
