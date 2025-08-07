@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && nodemon index.js"
+    "test": "echo \"Error: no test specified\" && nodemon index.js",
+    "backup": "node ./backups/backup.js",
+    "restore": "node ./backups/restoreBackup.js"
   },
   "keywords": [],
   "author": "",
