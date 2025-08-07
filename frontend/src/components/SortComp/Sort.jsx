@@ -30,10 +30,18 @@ export function SelectScrollable({ filter, results }) {
     );
     break;
     case "availability_asc":
-    results = [...results].sort((a, b) => new Date(a.availability_date) - new Date(b.availability_date));
+    results = [...results].sort((a, b) => {
+      const x = a.availability;
+      const y = b.availability;
+      return (x === y) ? 0 : (x ? -1 : 1);
+    });
     break;
   case "availability_desc":
-    results = [...results].sort((a, b) => new Date(b.availability_date) - new Date(a.availability_date));
+    results = [...results].sort((a, b) => {
+      const x = a.availability;
+      const y = b.availability;
+      return (x === y) ? 0 : (y ? -1 : 1);
+    });
 
     break;
     default:
@@ -56,14 +64,14 @@ export function SelectScrollable({ filter, results }) {
             Sort by
           </option>
 
-          <optgroup label="Alphabetical">
+          {/* <optgroup label="Alphabetical">
             <option value="Asc">Ascending</option>
             <option value="Desc">Descending</option>
-          </optgroup>
+          </optgroup> */}
          
           <optgroup label="Availability">
-            <option value="availability_asc">Earliest</option>
-            <option value="availability_desc">Latest</option>
+            <option value="availability_asc">Available</option>
+            <option value="availability_desc">On Client</option>
           </optgroup>
 
           {/* <optgroup label="Date">

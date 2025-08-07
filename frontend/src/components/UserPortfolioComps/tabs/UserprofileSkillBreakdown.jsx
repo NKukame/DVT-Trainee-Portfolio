@@ -2,61 +2,42 @@ import "./UserProfileSkillBreakdown.css";
 import PolarChart from "../usedComps/PolarChart";
 import HorizontalBarChart from "../usedComps/HorizontalBarChart";
 function UserProfileSkillBreakdown(props) {
-  const education = [
-    {
-      id: 1,
-      degree: [
-        "Bachelor of Science in Computer Science - University of California, Berkeley",
-        "Minor in Mathematics - University of California, Berkeley ",
-      ],
-      field: "Computer Science",
-      startDate: "2014",
-      endDate: "2018",
-      certification: [
-        "Certified JavaScript Developer - Udemy",
-        "Certified React Developer - Coursera",
-        "Certified HTML Developer - Udemy",
-        "Certified CSS Developer - Coursera",
-        "Certified Python Developer - Udemy",
-        "Certified Node.js Developer - Coursera",
-        "Certified Express.js Developer - Udemy",
-        "Certified MongoDB Developer - Coursera",
-        "Certified SQL Developer - Udemy",
-        "Certified Git and GitHub Developer - Coursera",
-      ],
-    },
-  ];
+ 
   return (
     <>
       <section className="skills-breakdown-section">
         <h1 className="skills-header">Skills Breakdown </h1>
         <section className="skills-education-section">
           <h2 className="skills-education-header">Education</h2>
-          {props.testEmployee.emp_education ? (
-               (
-                <div className="skills-education-item">
+          {Array.isArray(props.testEmployee.emp_education) &&
+          props.testEmployee.emp_education.length > 0 ? (
+            <div className="skills-education-item">
+              <div>
+                <p className="skills-education-item-title">Formal Education</p>
+                <ul>
+                  {props.testEmployee.emp_education.map((edu, idx) => (
+                    <li key={idx}>
+                      {edu.qualification} - {edu.institution}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {Array.isArray(props.testEmployee.certificates) &&
+                props.testEmployee.certificates.length > 0 && (
                   <div>
-                    <p className="skills-education-item-title">
-                      Formal Education
-                    </p>
-                    <ul>
-                      {
-                        <li>{props.testEmployee.emp_education.qualification + ' - ' + props.testEmployee.emp_education.institution}</li>
-                      }
-                    </ul>
-                  </div>
-                  {props.testEmployee.emp_education.certificates && <div>
                     <p className="skills-education-item-title">
                       Certifications
                     </p>
                     <ul>
-                        <li>{props.testEmployee.emp_education.certificates + ' - ' + props.testEmployee.emp_education.certificatesInstitution}</li>
-                      
+                      {props.testEmployee.certificates.map((cert, idx) => (
+                        <li key={idx}>
+                          {cert.name} - {cert.institution}
+                        </li>
+                      ))}
                     </ul>
-                  </div>}
-                </div>
-              )
-            
+                  </div>
+                )}
+            </div>
           ) : (
             <p>No education data available</p>
           )}
@@ -65,14 +46,14 @@ function UserProfileSkillBreakdown(props) {
         <section className="skills-circle-section">
           <h2 className="skills-circle-header">Soft skills</h2>
           <p className="skills-circle">
-            <PolarChart user={props.testEmployee}/>
+            <PolarChart user={props.testEmployee} />
           </p>
         </section>
         <hr />
         <section className="skills-bar-section">
           <h2 className="skills-bar-header">Skills Metrics</h2>
           <div className="skills-bar-graph">
-            <HorizontalBarChart user={props.testEmployee}/>
+            <HorizontalBarChart user={props.testEmployee} />
           </div>
         </section>
       </section>
