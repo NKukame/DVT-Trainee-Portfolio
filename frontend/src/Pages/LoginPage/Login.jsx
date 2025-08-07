@@ -283,7 +283,7 @@ const handleLogin = async () => {
 
             </div>
             {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sing Up</button>}
+            <button type="submit">Sign Up</button>}
 
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
@@ -363,7 +363,7 @@ const handleLogin = async () => {
                 </div> 
             </div>    
             {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sing In</button>}
+            <button type="submit">Sign In</button>}
 
           </form>
         </div>
