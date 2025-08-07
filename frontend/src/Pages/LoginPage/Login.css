@@ -215,7 +215,7 @@ h1 {
 }
 
 
-.login-container.active .sign-up {
+.login-container.login-active .sign-up {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
@@ -244,7 +244,7 @@ h1 {
     z-index: 1000;
 }
 
-.login-container.active .toggle-login-container{
+.login-container.login-active .toggle-login-container{
     transform: translateX(-100%);
 
 }
@@ -555,3 +555,20 @@ input.error-border {
     font-size: 10px;
     font-family: 'Hanken Grotesk' sans-serif;
   }
+
+
+  /* HTML: <div class="loader"></div> */
+.form-loader {
+  width: 50px;
+  height: fit-content;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: 
+    radial-gradient(farthest-side, #02111E 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #04223D);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 5px),#000 0);
+  animation: l13 1s infinite linear;
+}
+@keyframes l13{ 
+  100%{transform: rotate(1turn)}
+}
