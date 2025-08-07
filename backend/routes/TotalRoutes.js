@@ -217,7 +217,7 @@ totalRoutes.post('/create-profile', createProfileController); //done
  *               type: string
  *               example: forgot password
  */
-totalRoutes.put('/forgot-password', forgotPassword);
+totalRoutes.post('/forgot-password', forgotPassword);
 
 /**
  * @swagger

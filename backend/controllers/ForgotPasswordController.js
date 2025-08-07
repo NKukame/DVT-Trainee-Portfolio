@@ -20,10 +20,9 @@ function sendResetEmail(to, token) {
     from: "majavuadrian@gmail.com",
     to,
     subject: 'Password Reset',
-    html: <p>Click <a href="${resetLink}">here</a> to reset your password. This link expires in 15 minutes.</p>,
+    html: `<p>Click <a href=${resetLink}>here</a> to reset your password. This link expires in 15 minutes.'</p>`
   });
 }
-
 function createResetToken(userId) {
   return jwt.sign({ userId, purpose: 'reset' }, process.env.JWT_SECRET, {
     expiresIn: '15m',

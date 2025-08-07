@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import { Mail, ArrowLeft } from "lucide-react";
 import "./ForgotPassword.css";
+import axios from "axios";
+import { useEffect } from "react";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const location = useLocation();
+  console.log(location);
+  const queryParams = new URLSearchParams(location.search);
   const [step, setStep] = useState(1); 
   const [errors, setErrors] = useState({});
   const [newPassword, setNewPassword] = useState("");
@@ -14,6 +19,14 @@ function ForgotPassword() {
     length: false,
     special: false
   });
+  
+  useEffect(() => {
+    
+    console.log(queryParams.get("token"));
+    if (queryParams.get("token")) {
+      setStep(3); // If token is present, skip to password reset step
+    }
+  }, [queryParams]);
 
   const checkPasswordCriteria = (password) => {
     const criteria = {
@@ -27,7 +40,7 @@ function ForgotPassword() {
 
   const navigate = useNavigate();
 
-  const allowedDomains = ["dvtsoftware.com"];
+  const allowedDomains = ["dvtsoftware.com", "gmail.com"];
 
   // Email domain validation
   const validateEmailDomain = (email) => {
@@ -96,11 +109,18 @@ function ForgotPassword() {
     }
   };
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async(e) => {
     e.preventDefault();
     if (validateEmail()) {
-      // In a real app, this would send a reset link to the email
+      const logPassword = await axios.post("http://localhost:3000/forgot-password", { email:email }, {
+        headers: {
+          "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          "Content-Type": "application/json"
+        }
+      });
+      console.log(logPassword.data);
       setStep(2);
+      
     }
   };
 
@@ -164,7 +184,7 @@ function ForgotPassword() {
             <h1>Check your email</h1>
             <h4>We sent a password reset link to<br />{email}</h4>
             
-            <button className="open-email-btn" onClick={() => setStep(3)}>
+            <button className="open-email-btn" onClick={() => window.open(`mailto:${email}`)}>
               Open email app
             </button>
             
