@@ -180,28 +180,24 @@ export const SearchContextProvider = ({children}) => {
     const handleChange = (filter,newSelectedFilter) => {
         // console.log
         const filteredResults = searchResults.filter((employee) => {
-            console.log(newSelectedFilter)
+            console.log(employee)
             if(newSelectedFilter.length === 0) return true
-            if(employee.years_active.split(' ')[0]){
-                return true
+            if(employee.years_active){
+                return employee.years_active.split(' ')[0] === filter
             }
             return false;
         })
-
+        console.log('done execwdfdflkgjfk')
         return [...filteredResults];
     };
  
  
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames, searchData}}>
             {children}
         </SearchContext.Provider>
     )
 }
  
-export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames]
-}
  
  
