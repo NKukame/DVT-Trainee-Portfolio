@@ -81,11 +81,11 @@ function UserDetails({ user }) {
         <div className="flex-row align-items-center gap-10-px">
           <span
             className={`availability ${
-              user.availability === true ? "available" : "with-client"
+              user.availability  ? "available" : "with-client"
             }`}
           ></span>
           <p className="font-size-12-px text-gray">
-            {user.availability === true ? "Available" : "On Client"}
+            {user.availability  ? "Available" : "On Client"}
           </p>
         </div>
       </div>

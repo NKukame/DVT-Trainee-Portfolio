@@ -1,12 +1,12 @@
 import {useState, useContext, createContext, Children, useEffect} from 'react'
 import axios from 'axios'
 import { capitalizeFirstLetter } from '../lib/util';
-
+ 
 export const SearchContext = createContext()
-
-
+ 
+ 
 export const SearchContextProvider = ({children}) => {
-
+ 
     const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState([]);
     const [data, setdata] = useState([]);
     const [isLoading, setIsLoading]  = useState(false);
@@ -14,7 +14,7 @@ export const SearchContextProvider = ({children}) => {
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
     let [selectedFilter, setSelectedFilter] = useState([]);
-    
+   
     const allLanguages = [...new Set(searchResults.map((employee) => employee.skills).flat())].filter(item => item !== undefined);
     const allIndustries = [...new Set(searchResults.map((employee) => employee.industries).flat())].filter(item => item !== undefined);
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
@@ -98,18 +98,18 @@ export const SearchContextProvider = ({children}) => {
     useEffect(() => {
         searchData();
      }, []);
-
+ 
     const handleInputChange = (query) => {
         // searchData(1, query);
         const filteredResults = data.filter((result) => {
             return result.name.toLowerCase().includes(query.toLowerCase())
         });
-        
+       
         const results= filteredResults
         setSearchResults(results)
         setFilteredResults(results)
     }
-
+ 
     const handleFilterClick = (filter, category) => {
         let newSelectedFilter;
         let updatedResults = searchResults;
@@ -121,23 +121,30 @@ export const SearchContextProvider = ({children}) => {
             newSelectedFilter =  [...selectedFilter, filter];
         }
         setSelectedFilter(newSelectedFilter);
-    
+       
+        console.log(filter, category);
+        console.log(newSelectedFilter);
+       
+ 
         if(category.includes("Technologies")){
-            
+           
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
                     const lowerSkills = employee.skills.map(x => x.toLowerCase())
-                    
+                    console.log(lowerSkills);        
+                   
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
-
+ 
                 if(employee.technologies){
                     const lowerSkills = employee.technologies.map(x => x.toLowerCase())
-                    
+                    console.log(lowerSkills);        
+                   
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
             });
+            console.log(updatedResults.length);
         }
         if(category.includes("Roles")){
             updatedResults = searchResults.filter((employee) => {
@@ -147,22 +154,22 @@ export const SearchContextProvider = ({children}) => {
                     return newSelectedFilter.some(f => employee.role.toLowerCase() === f);
                 }
             });
-
-
+ 
+ 
         }
-
+ 
         if (category === "location") {
             updatedResults = searchResults.filter((employee) => {
                 if (newSelectedFilter.length === 0) return true;
                 return newSelectedFilter.some(f => employee.location === f);
             });
         }
-
+ 
         if (category === "Experience") {
 
             updatedResults = handleChange(newSelectedFilter)
         }
-        
+       
         setFilteredResults(updatedResults);
     }
 
@@ -178,11 +185,18 @@ export const SearchContextProvider = ({children}) => {
 
         return [...filteredResults];
     };
-
-
+ 
+ 
     return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames, searchData}}>
+        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames}}>
             {children}
         </SearchContext.Provider>
     )
 }
+ 
+export function useSearch(){
+    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames} = useContext(SearchContext)
+    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames]
+}
+ 
+ 
