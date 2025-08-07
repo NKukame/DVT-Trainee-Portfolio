@@ -47,10 +47,6 @@ async function resetPassword(req, res) {
     return res.status(400).json({ error: 'Invalid or expired token' });
   }
 
-  // await prisma.user.update({
-  //   where: { id: payload.userId },
-  //   data: { password: newPassword }, you should hash this
-  // });
 
   res.status(200).json({ message: 'Password reset successfully' });
 }
