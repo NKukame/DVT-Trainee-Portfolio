@@ -8,6 +8,7 @@ import {forgotPassword} from '../controllers/ForgotPasswordController.js';
 import { deleteProjectController, deleteProfileController } from '../controllers/DeleteController.js';
 import signup from '../controllers/SignupController.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
+import EditUserController from '../controllers/EditUserController.js';
 
 
 const totalRoutes = express.Router();
@@ -188,6 +189,8 @@ totalRoutes.post('/register', signup);
  *                   example: profile creation
  */
 totalRoutes.post('/create-profile', createProfileController); //done
+
+totalRoutes.patch('/profile', authenticateToken, EditUserController); //done
 
 /**
  * @swagger
