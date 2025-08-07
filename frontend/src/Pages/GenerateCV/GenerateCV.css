@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    height: 100%;
+    height: max-content;
     background-color: var(--black);
 }
 
@@ -15,6 +15,10 @@
     width: 100%;
     height: 100%;
 }
+.first-page, .second-page{
+    max-width: 793px;
+    min-height: 1121px;
+}
 
 .generate-cv-content-container-header{
     display: flex;
@@ -23,7 +27,6 @@
     gap: 9%;
     z-index: 1;
     height: 145px;
-    /* padding-left: 20px; */
 }
 
 .generate-cv-header-background{
@@ -90,7 +93,17 @@
     position: absolute;
     top: 0;
     margin-left: 15px;
-    min-height: 144vh;
+    min-height: 2242px;
+    height: 100%;
+    width: 240px;
+    background: linear-gradient(180deg, var(--dark-blue) 0%, var(--navy-blue) 100%);
+    color: var(--white);
+} 
+.generate-cv-sidebar-first-page{
+    position: absolute;
+    top: 0;
+    margin-left: 15px;
+    min-height: 1120px;
     height: 100%;
     width: 240px;
     background: linear-gradient(180deg, var(--dark-blue) 0%, var(--navy-blue) 100%);
@@ -162,7 +175,7 @@
 .generate-cv-education-items li{
     /* list-style-type: circle; */
     margin-bottom: 10px;
-    font-size: 12px;
+    font-size: 13.5px;
     font-weight: 300;
     margin-left: 20px;
 }
@@ -184,6 +197,7 @@
     align-items: flex-start;
     justify-content: center;
     margin-top: 20px;
+    padding-bottom: 20px;
 }
 
 .generate-cv-content-career-chronology h2, .generate-cv-content-skills-matrix h2{
@@ -234,9 +248,9 @@
   z-index: 1;
 }
 
-.generate-cv-stepper-step:last-child .generate-cv-stepper-line {
+/* .generate-cv-stepper-step:last-child .generate-cv-stepper-line {
   display: none;
-}
+} */
 
 .generate-cv-stepper-circle {
   width: 40px;

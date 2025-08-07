@@ -18,14 +18,14 @@ const CVPolarChart = (props) => {
     datasets: [
       {
         label: 'My Polar Dataset',
-        data: props.user.softSkilled.map(rate => `${rate.skillsRating}`) ,
+        data: props.user.softSkilled.slice(0,4).map(rate => `${rate.skillsRating}`) ,
         backgroundColor: [
-          'rgba(0, 32, 56, 1)',
-          'rgba(7, 37, 73, 1)',
-          'rgba(8, 70, 119, 1)',
-          'rgba(17, 97, 158, 1)',
-          'rgba(2, 127, 185, 1)',
-          'rgba(97, 164, 207, 1)',
+          'rgb(245, 245, 220)',    // Bright Blue (good in both modes)
+          'rgba(255, 99, 132, 1)',   // Soft Red for contrast
+          'rgb(218, 145, 0)',   // Light Sky Blue
+          'rgba(75, 192, 192, 1)',   // Teal / Aqua
+          'rgba(255, 205, 86, 1)',   // Yellow for brightness in dark mode
+          'rgba(153, 102, 255, 1)',  // Purple (adds variation but still soft)
         ],
         borderWidth: 1,
         borderColor: 'rgba(0, 0, 0, 0.1)',
@@ -46,8 +46,6 @@ const CVPolarChart = (props) => {
 
           beginAtZero: true,
           stepSize: 1,
-          color: 'red',
-          
         },
       },
     },

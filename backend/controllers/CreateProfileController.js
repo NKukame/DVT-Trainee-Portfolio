@@ -27,13 +27,14 @@ export async function createProfileController(req, res) {
   try {
     const { basicInfo, skills, career, testimonials, links, status } = req.body;
 
-
     const employee = await prisma.employee.create({
       data: {
-        photoUrl: await uploadImage(basicInfo.profilePic?.image) || null,
+        photoUrl: (await uploadImage(basicInfo.profilePic?.image)) || null,
         title: basicInfo.title,
         name: basicInfo.firstName,
-        birthday: basicInfo.birthday ? new Date(basicInfo.birthday).toISOString() : null,
+        birthday: basicInfo.birthday
+          ? new Date(basicInfo.birthday).toISOString()
+          : null,
         surname: basicInfo.lastName,
         bio: basicInfo.introductionDescription,
         role: basicInfo.role,
@@ -59,28 +60,37 @@ export async function createProfileController(req, res) {
     });
 
     // Education Table
-    if (
-      skills.educationEntries &&
-      skills.educationEntries.length > 0 &&
-      (skills.educationEntries[0].qualification || skills.educationEntries[0].institution)
-    ) {
-      const edu = skills.educationEntries[0];
-      await prisma.education.create({
-        data: {
-          institution: edu.institution,
-          qualification: edu.qualification,
-          employeeId: employee.id,
-          certificates: edu.certificate,
-          certificatesInstitution: edu.certificatesInstitution
-        },
-      });
+    if (skills.educationEntries && skills.educationEntries.length > 0) {
+      for (const edu of skills.educationEntries) {
+        if (edu.qualification || edu.institution) {
+          await prisma.education.create({
+            data: {
+              institution: edu.institution,
+              qualification: edu.qualification,
+              employeeId: employee.id,
+            },
+          });
+        }
+      }
+    }
+
+    // Save certificates as their own entries
+    if (skills.certificationEntries && skills.certificationEntries.length > 0) {
+      for (const cert of skills.certificationEntries) {
+        if (cert.certificate || cert.certificatesInstitution) {
+          await prisma.certificate.create({
+            data: {
+              name: cert.certificate,
+              institution: cert.certificatesInstitution,
+              employeeId: employee.id,
+            },
+          });
+        }
+      }
     }
 
     // Tech Stack Table
-    if (
-      skills.selectedTechnologies &&
-      skills.selectedTechnologies.length > 0
-    ) {
+    if (skills.selectedTechnologies && skills.selectedTechnologies.length > 0) {
       for (const techName of skills.selectedTechnologies) {
         const techStackRecord = await prisma.techStack.findUnique({
           where: { name: techName },
@@ -90,7 +100,9 @@ export async function createProfileController(req, res) {
             data: {
               employeeId: employee.id,
               techStackId: techStackRecord.id,
-              Techrating: skills.techExperience?.[techName] || null,
+              Techrating: skills.techExperience?.[techName]
+                ? String(skills.techExperience[techName])
+                : null,
             },
           });
         }
@@ -98,10 +110,7 @@ export async function createProfileController(req, res) {
     }
 
     // Soft Skills Table
-    if (
-      skills.selectedSoftSkills &&
-      skills.selectedSoftSkills.length > 0
-    ) {
+    if (skills.selectedSoftSkills && skills.selectedSoftSkills.length > 0) {
       for (const skillName of skills.selectedSoftSkills) {
         const softSkillRecord = await prisma.softSkill.findUnique({
           where: { name: skillName },
@@ -119,10 +128,7 @@ export async function createProfileController(req, res) {
     }
 
     // Testimonials Table
-    if (
-      testimonials.testimonials &&
-      testimonials.testimonials.length > 0
-    ) {
+    if (testimonials.testimonials && testimonials.testimonials.length > 0) {
       for (const t of testimonials.testimonials) {
         await prisma.testimonial.create({
           data: {
@@ -132,6 +138,22 @@ export async function createProfileController(req, res) {
             reference: t.reference || "",
           },
         });
+      }
+    }
+
+    // Career Chronology
+    if (career.careerEntries && career.careerEntries.length > 0) {
+      for (const entry of career.careerEntries) {
+        if (entry.role || entry.company || entry.duration) {
+          await prisma.career.create({
+            data: {
+              employeeId: employee.id,
+              role: entry.role,
+              company: entry.company,
+              duration: entry.duration,
+            },
+          });
+        }
       }
     }
 
@@ -149,7 +171,7 @@ export async function createProfileController(req, res) {
               description: proj.description,
               github: proj.repoLink || null,
               demo: proj.demoLink || null,
-              screenshot: await uploadImage(proj.image) || null,
+              screenshot: (await uploadImage(proj.image)) || null,
             },
           });
         }
@@ -166,7 +188,9 @@ export async function createProfileController(req, res) {
         // Relate technologies
         if (proj.technologies && proj.technologies.length > 0) {
           for (const techName of proj.technologies) {
-            const tech = await prisma.techStack.findUnique({ where: { name: techName } });
+            const tech = await prisma.techStack.findUnique({
+              where: { name: techName },
+            });
             if (tech) {
               await prisma.projectTechStack.upsert({
                 where: {
@@ -188,9 +212,13 @@ export async function createProfileController(req, res) {
         // Relate industries
         if (proj.industries && proj.industries.length > 0) {
           for (const industryName of proj.industries) {
-            let industry = await prisma.industry.findUnique({ where: { name: industryName } });
+            let industry = await prisma.industry.findUnique({
+              where: { name: industryName },
+            });
             if (!industry) {
-              industry = await prisma.industry.create({ data: { name: industryName } });
+              industry = await prisma.industry.create({
+                data: { name: industryName },
+              });
             }
             await prisma.projectIndustry.upsert({
               where: {
@@ -209,8 +237,10 @@ export async function createProfileController(req, res) {
         }
 
         // If author is not the current user, check for other employees and relate them as members
-        if (proj.author && proj.author !== `${employee.name} ${employee.surname}`) {
-
+        if (
+          proj.author &&
+          proj.author !== `${employee.name} ${employee.surname}`
+        ) {
           const [authorName, authorSurname] = proj.author.split(" ");
           const otherEmployee = await prisma.employee.findFirst({
             where: {
@@ -238,7 +268,9 @@ export async function createProfileController(req, res) {
       }
     }
 
-    return res.status(201).json({ message: "Profile created", employeeId: employee.id });
+    return res
+      .status(201)
+      .json({ message: "Profile created", employeeId: employee.id });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Failed to create profile" });

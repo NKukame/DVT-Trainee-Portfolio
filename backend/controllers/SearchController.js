@@ -293,10 +293,24 @@ export async function SearchEmployeeController(req, res) {
           linkedIn: true,
           github: true,
           role: true,
+          career: {
+              select:{
+                  role: true,
+                  company: true,
+                  duration: true,
+                  
+              },
+          },
           education: {
             select: {
               institution: true,
               qualification: true,
+            },
+          },
+          certificates: {
+            select: {
+              name: true,
+              institution: true,
             },
           },
           location: true,

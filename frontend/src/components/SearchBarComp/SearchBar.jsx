@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import "./SearchBar.css";
 import SearchIcon from '@mui/icons-material/Search';
-import { SearchContext, useSearch } from "../../contexts/SearchContext.jsx";
+import { SearchContext} from "../../contexts/SearchContext.jsx";
 
 function SearchBar(){
   const {handleInputChange} = useContext(SearchContext);

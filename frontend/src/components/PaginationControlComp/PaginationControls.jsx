@@ -1,90 +1,78 @@
-
+import React, { useContext,  useState } from 'react';
+import { SearchContext } from '../../contexts/SearchContext';
 import { ChevronLeft, ChevronRight } from '@untitled-ui/icons-react';
-import  {useState} from 'react';
 
-export default function PaginationControls({ totalPages, apiEndpoint, setResults}) {
+export default function Pagination(){
+  const {total, searchData} = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const pages = [];
-
-  const handlePageClick = (page) => {
-    if (page !== currentPage) {
-      setCurrentPage(page);
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+      searchData(currentPage);
     }
   };
 
-  const getPagination = () => {
-
-    if (totalPages <= 7) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } 
-    else {
-      pages.push(1);
-
-      const start = Math.max(2, currentPage - 1);
-      const end = Math.min(totalPages - 1, currentPage + 1);
-
-      if (start > 2) pages.push('...');
-      for (let i = start; i <= end; i++) {
-        pages.push(i);
-      }
-      if (end < totalPages - 2) pages.push('...');
-      
-      pages.push(totalPages);
+  const handleNext = () => {
+    if (currentPage < total) {
+      setCurrentPage((prev) => prev + 1);
+      searchData(currentPage);
     }
+  };
 
-    return pages;
-  }
+  const handleClick = (value) => {
+    setCurrentPage(value);
+    searchData(value);
+  };
 
-  const paginationItems = getPagination();
+  const getLeftPages = () => {
+    if (currentPage <= 5) {
+      return Array.from({ length: currentPage - 1 }, (_, i) => i + 1);
+    } else {
+      return [1, 2, currentPage - 2, currentPage - 1];
+    }
+  };
+
+  const getRightPages = () => {
+    if (currentPage >= total - 4) {
+      return Array.from({ length: total - currentPage }, (_, i) => currentPage + 1 + i);
+    } else {
+      return [currentPage + 1, currentPage + 2, total - 1, total];
+    }
+  };
+
+  const renderButton = (page, disabled = false) => (
+    <li
+      key={page}
+      className={`pagination-item ${page === currentPage ? 'active' : ''}`}
+      onClick={() => !disabled && handleClick(page)}
+      style={{ pointerEvents: disabled ? 'none' : 'auto', opacity: disabled ? 0.5 : 1 }}
+    >
+      {disabled ? '...' : page}
+    </li>
+  );
 
   return (
-    <>
-    {
-      totalPages > 1 &&
-      <div style={{ display: 'flex',gap:'24px', alignItems: 'center', alignSelf:'center' , margin:'20px'}} className='pagination-container'>
-        <button
-          className='pagination-btn'
-          onClick={() => currentPage > 1 && handlePageClick(currentPage - 1)}
-          disabled={currentPage === 1}
-          style={{
-            border: 'none',
-            cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <ChevronLeft/>
-        </button>
-
-        {paginationItems.map((item, index) => (
-          <button
-            className={`pagination-btn ${item === currentPage ? 'active' : 'not-active'}`}
-            key={index}
-            onClick={() => typeof item === 'number' && handlePageClick(item)}
-            disabled={item === '...'}
-            style={{
-              cursor: item === '...' ? 'default' : 'pointer',
-            }}
-          >
-            {item}
-          </button>
-        ))}
-
-        <button
-          className='pagination-btn'
-          onClick={() =>
-            currentPage < totalPages && handlePageClick(currentPage + 1)
-          }
-          disabled={currentPage === totalPages}
-          style={{
-            border: 'none',
-            cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <ChevronRight fontSize={'inherit'}/>
-        </button>
-      </div>
-    }
-    </>
+    <div className="pagination">
+      <button onClick={handlePrevious} disabled={currentPage === 1} className="prevBtn">
+        <ChevronLeft />
+      </button>
+      <ul className="pagination-list">
+        <div className="leftContainer">
+          {getLeftPages().map((page, i) =>
+            renderButton(page, [1].includes(i) && currentPage > 5)
+          )}
+        </div>
+        <li className="pagination-item active">{currentPage}</li>
+        <div className="rightContainer">
+          {getRightPages().map((page, i) =>
+            renderButton(page, [1].includes(i) && currentPage < total - 4)
+          )}
+        </div>
+      </ul>
+      <button onClick={handleNext} disabled={currentPage === total} className="nextBtn">
+        <ChevronRight />
+      </button>
+    </div>
   );
-}
+};
+

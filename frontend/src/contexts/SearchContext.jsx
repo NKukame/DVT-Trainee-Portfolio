@@ -1,12 +1,12 @@
 import {useState, useContext, createContext, Children, useEffect} from 'react'
 import axios from 'axios'
 import { capitalizeFirstLetter } from '../lib/util';
-
+ 
 export const SearchContext = createContext()
-
-
+ 
+ 
 export const SearchContextProvider = ({children}) => {
-
+ 
     const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState([]);
     const [data, setdata] = useState([]);
     const [isLoading, setIsLoading]  = useState(false);
@@ -14,12 +14,12 @@ export const SearchContextProvider = ({children}) => {
     let [searchResults, setSearchResults] = useState(data)
     let [filteredResults, setFilteredResults] = useState(data)
     let [selectedFilter, setSelectedFilter] = useState([]);
-    
+   
     const allLanguages = [...new Set(searchResults.map((employee) => employee.skills).flat())].filter(item => item !== undefined);
     const allIndustries = [...new Set(searchResults.map((employee) => employee.industries).flat())].filter(item => item !== undefined);
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
-
+ 
     useEffect(() => {
         const teamData = async () => {
             setIsLoading(true);
@@ -27,10 +27,10 @@ export const SearchContextProvider = ({children}) => {
                 const token = localStorage.getItem('token');
                 axios.defaults.headers.common['authorization'] = `Bearer ${JSON.parse(token)}`
                 axios.defaults.headers.post['Content-Type'] = 'application/json';
-                
+               
                 const apiDataEmployee = await axios.get('http://localhost:3000/search/employee')
                 const apiDataProject = await axios.get('http://localhost:3000/search/project')
-                
+               
                 console.log(apiDataEmployee.data);
                 const employeesWithTechStackNames =
                   apiDataEmployee.data.employees.map((emp) => ({
@@ -50,6 +50,8 @@ export const SearchContextProvider = ({children}) => {
                     availability: emp.availability.available,
                     location: emp.location.split(',')[0],
                     emp_education: emp.education,
+                    certificates: emp.certificates,
+                    career: emp.career,
                     projects: emp.projects,
                     avatar:
                       emp.photoUrl ||
@@ -57,9 +59,7 @@ export const SearchContextProvider = ({children}) => {
                     techStack: emp.techStack,
                     skills: emp.techStack.map((link) => link.techStack.name),
                   }));
-
-    console.log(apiDataProject.data);
-
+   
                 const projectsWithTechStack = apiDataProject.data.projects.map(project => ({
 
                     project_id: project.id,
@@ -78,27 +78,27 @@ export const SearchContextProvider = ({children}) => {
                 setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
                 setSearchResults(employeesWithTechStackNames.concat(projectsWithTechStack));
                 setFilteredResults(employeesWithTechStackNames.concat(projectsWithTechStack));
-                
+               
             } catch (err){
                 console.log(err)
             }finally{
                 setIsLoading(false)
             }
-
+ 
         }
         teamData();
      }, []);
-
+ 
     const handleInputChange = (query) => {
         const filteredResults = data.filter((result) => {
             return result.name.toLowerCase().includes(query.toLowerCase())
         });
-        
+       
         const results= filteredResults
         setSearchResults(results)
         setFilteredResults(results)
     }
-
+ 
     const handleFilterClick = (filter, category) => {
         let newSelectedFilter;
         let updatedResults = searchResults;
@@ -110,26 +110,26 @@ export const SearchContextProvider = ({children}) => {
             newSelectedFilter =  [...selectedFilter, filter];
         }
         setSelectedFilter(newSelectedFilter);
-        
+       
         console.log(filter, category);
         console.log(newSelectedFilter);
-        
-
+       
+ 
         if(category.includes("Technologies")){
-            
+           
             updatedResults = searchResults.filter((employee) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
                     const lowerSkills = employee.skills.map(x => x.toLowerCase())
                     console.log(lowerSkills);        
-                    
+                   
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
-
+ 
                 if(employee.technologies){
                     const lowerSkills = employee.technologies.map(x => x.toLowerCase())
                     console.log(lowerSkills);        
-                    
+                   
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
             });
@@ -143,52 +143,54 @@ export const SearchContextProvider = ({children}) => {
                     return newSelectedFilter.some(f => employee.role.toLowerCase() === f);
                 }
             });
-
-
+ 
+ 
         }
-
+ 
         if (category === "location") {
             updatedResults = searchResults.filter((employee) => {
                 if (newSelectedFilter.length === 0) return true;
                 return newSelectedFilter.some(f => employee.location === f);
             });
         }
-
+ 
         if (category === "Experience") {
             updatedResults = handleChange(filter)
         }
-        
+       
         setFilteredResults(updatedResults);
     }
-
+ 
     const handleChange = (newValue) => {
         const years =  newValue.split(" ")[0]
         const value = years.split("-")
         console.log(value);
-        
+       
         const filteredResults = searchResults.filter((employee) => {
             if(!employee.years_active){
                 return false
             }
-            
+           
             if(employee.years_active > parseInt(value[0]) &&  employee.years_active < parseInt(value[1])){
                 return true
             }
-            return false           
+            return false          
         })
-
+ 
         return filteredResults
     };
-
-
+ 
+ 
     return (
         <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange, allLanguages, allLocations, allRoles, allIndustries, isLoading, total , projectsWithTechStackNames}}>
             {children}
         </SearchContext.Provider>
     )
 }
-
+ 
 export function useSearch(){
     const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames} = useContext(SearchContext)
     return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange, isLoading, total, projectsWithTechStackNames]
 }
+ 
+ 
