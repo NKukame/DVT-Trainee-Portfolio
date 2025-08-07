@@ -56,7 +56,7 @@ function Signup() {
     }
   }, []);
 
-  const allowedDomains = ["dvtsoftware.com"];
+  const allowedDomains = ["dvtsoftware.com", "gmail.com"];
 
   
   const validateEmailDomain = (email) => {
