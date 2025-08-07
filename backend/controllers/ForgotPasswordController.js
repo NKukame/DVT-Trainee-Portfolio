@@ -7,20 +7,20 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: 'gmail', 
   auth: {
-    user: process.env.EMAIL_USER, // Your Gmail address
-    pass: process.env.EMAIL_PASS, // Your Google App Password
+     user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
 function sendResetEmail(to, token) {
   const resetLink = `http://localhost:5173/forgot-password?token=${token}`;
   return transporter.sendMail({
-    from: process.env.EMAIL_USER, // Use the authenticated email as sender
+    from: "majavuadrian@gmail.com",
     to,
     subject: 'Password Reset',
-    html: `<p>Click <a href="${resetLink}">here</a> to reset your password. This link expires in 15 minutes.</p>`,
+    html: <p>Click <a href="${resetLink}">here</a> to reset your password. This link expires in 15 minutes.</p>,
   });
 }
 
@@ -50,7 +50,7 @@ async function resetPassword(req, res) {
 
   // await prisma.user.update({
   //   where: { id: payload.userId },
-  //   data: { password: newPassword }, // you should hash this
+  //   data: { password: newPassword }, you should hash this
   // });
 
   res.status(200).json({ message: 'Password reset successfully' });
@@ -59,44 +59,21 @@ async function resetPassword(req, res) {
 async function forgotPassword(req, res) {
   const { email } = req.body;
   // const user = await prisma.user.findUnique({ where: { email } });
-  const user = { id: 2, email: 'user@dvtsoftware.co' }; // Updated example email
+  const user = { id: 2, email: 'majavuadrian@gmail.com' };
 
   if (user) {
-    try {
-      const token = createResetToken(user.id);
-      await sendResetEmail(email, token);
-      res.status(200).json({ message: 'If that email exists, a reset link was sent.' });
-    } catch (error) {
-      console.error('Error sending reset email:', error);
-      res.status(500).json({ error: 'Failed to send reset email' });
-    }
-  } else {
+    try{
+    const token = createResetToken(user.id);
+    await sendResetEmail(email, token);
     res.status(200).json({ message: 'If that email exists, a reset link was sent.' });
-  }
-}
-
-// Test function to verify email configuration
-async function testEmailConnection() {
-  try {
-    await transporter.verify();
-    console.log('✅ Email server connection verified');
-    
-    // Send a test email
-    const testEmail = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Send to yourself for testing
-      subject: 'Test Email Configuration',
-      html: '<p>Email configuration is working correctly!</p>'
-    });
-    
-    console.log('✅ Test email sent successfully:', testEmail.messageId);
   } catch (error) {
-    console.error('❌ Email configuration error:', error);
+    console.error('Error sending reset email:', error);
+    res.status(500).json({ error: 'Failed to send reset email' });
   }
+}else{
+  res.status(200).json({ message: 'If that email exists, a reset link was sent.' });
 }
 
-// Uncomment to test email configuration after setting up OAuth2
-// testEmailConnection();
-
+}
 export default forgotPassword;
-export { resetPassword, sendResetEmail, createResetToken, verifyResetToken, testEmailConnection };
+export { resetPassword, sendResetEmail, createResetToken, verifyResetToken };
