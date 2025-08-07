@@ -17,6 +17,7 @@ function Signup() {
     confirmPassword: "",
   });
 
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
@@ -26,19 +27,25 @@ function Signup() {
     const rememberedCredentials = JSON.parse(
       localStorage.getItem("rememberedCredentials"));
 
-      if(rememberedCredentials) {
-        setFormData((prevData) => ({
-          ...prevData,
-          email: rememberedCredentials.email || "",
-        password: rememberedCredentials.password || ""
-        }));
+    if (rememberedCredentials?.email) {
+      setFormData((prevData) => ({
+        ...prevData,
+        email: rememberedCredentials.email || "",
+        
+      }));
+      setRememberMe(true);
 
-        setRememberMe(true);
+      
+      const token = localStorage.getItem("token");
+      if (token && rememberedCredentials.token) {
+       
+        navigate("/home");
       }
-  }, []);
+    }
+  }, [navigate]);
 
 
-  // Load saved credentials on component mount
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
@@ -50,7 +57,7 @@ function Signup() {
 
   const allowedDomains = ["dvtsoftware.com"];
 
-  // email domain validation
+  
   const validateEmailDomain = (email) => {
     const domain = email.split("@")[1];
     return domain && allowedDomains.includes(domain);
@@ -90,7 +97,6 @@ function Signup() {
       e.target.name = "email";
     }
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // Clear errors when user starts typing
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
     }
@@ -167,13 +173,14 @@ const handleLogin = async () => {
       }
     );
 
-
-    localStorage.setItem("token", JSON.stringify(token.data.token));
+    
+    const tokenData = token.data.token;
+    localStorage.setItem("token", JSON.stringify(tokenData));
 
     if (rememberMe) {
       localStorage.setItem("rememberedCredentials", JSON.stringify({
         email: formData.email,
-        password: formData.password,
+        token: tokenData 
       }));
     } else {
       localStorage.removeItem("rememberedCredentials");
@@ -319,13 +326,12 @@ const handleLogin = async () => {
                     <h6 >Password</h6>
                     <div className="password-container">
                       <input  
-                      // className="password-input"
                       type="password"
                       name="password"
                       placeholder="Password" 
                       value={formData.password}
                       onChange={handleChange}
-                      classname={getInputClass("password")+" password-input"}
+                      className={getInputClass("password")+" password-input"}
                     />
                     {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
                       handleToggle(event, false)
@@ -345,10 +351,10 @@ const handleLogin = async () => {
                     
                 <div className="remember-me-container">
                      <div className="remember-me">
-                        <div class="toggle-switch">
-                          <input class="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
+                        <div className="toggle-switch">
+                          <input className="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
                           onChange={handleRememberMeToggle}/>
-                          <label class="toggle-label" for="toggle"></label>
+                          <label className="toggle-label" htmlFor="toggle"></label>
                         </div>
                         <p>Remember me</p>
                      </div>
@@ -388,11 +394,10 @@ const handleLogin = async () => {
               <div>
               <button className="hidden" onClick={() =>
                 {setIsSignUp(true)  
-                  setFormData(prev => ({
+                  setFormData({
                     email: "",
                     password: "",
-                  
-                  }))
+                  })
                   setErrors({})
                 }}
                 >
