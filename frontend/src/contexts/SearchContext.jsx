@@ -167,17 +167,18 @@ export const SearchContextProvider = ({children}) => {
  
         if (category === "Experience") {
 
-            updatedResults = handleChange(newSelectedFilter)
+            updatedResults = handleChange(filter,newSelectedFilter)
         }
        
         setFilteredResults(updatedResults);
     }
 
-    const handleChange = (newSelectedFilter) => {
-        
+    const handleChange = (filter,newSelectedFilter) => {
+        // console.log
         const filteredResults = searchResults.filter((employee) => {
+            console.log(newSelectedFilter)
             if(newSelectedFilter.length === 0) return true
-            if(newSelectedFilter.includes(employee.years_active.split(' ')[0])){
+            if(employee.years_active.split(' ')[0]){
                 return true
             }
             return false;
