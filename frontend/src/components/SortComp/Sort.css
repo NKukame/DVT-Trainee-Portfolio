@@ -44,6 +44,10 @@
   transition: color 0.3s ease;
 }
 
+.dark-mode .toggle-label {
+  color: var(--dark-mode-paragragh-white);
+}
+
 .sort-container .toggle-wrapper .toggle-label.active {
   background: var(--button-blue) !important;
   background-clip: text !important;
@@ -51,4 +55,8 @@
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
   font-weight: 600;
+}
+
+.dark-mode .sort-container .toggle-wrapper .toggle-label.active {
+  background-color: #37D5FF !important;
 }

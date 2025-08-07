@@ -57,7 +57,7 @@ function Filter() {
   const handleRemoveFilter = (type, value) => {
     switch (type) {
       case "location":
-        handleFilterClick(value, "location")
+        handleFilterClick(value, "Location")
         setLocationSelected(prev => prev.filter(v => v !== value));
         break;
       case "role":

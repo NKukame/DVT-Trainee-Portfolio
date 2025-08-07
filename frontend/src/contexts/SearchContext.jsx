@@ -110,8 +110,8 @@ export const SearchContextProvider = ({children}) => {
         }
         setSelectedFilter(newSelectedFilter);
        
-        console.log(filter, category);
-        console.log(newSelectedFilter);
+        console.log("handleFilterClick - filter:", filter, "category:", category);
+        console.log("newSelectedFilter:", newSelectedFilter);
        
  
         if(category.includes("Technologies")){
@@ -146,11 +146,15 @@ export const SearchContextProvider = ({children}) => {
  
         }
  
-        if (category === "location") {
+        if (category === "Location") {
+            console.log("Location filtering - newSelectedFilter:", newSelectedFilter);
             updatedResults = searchResults.filter((employee) => {
                 if (newSelectedFilter.length === 0) return true;
-                return newSelectedFilter.some(f => employee.location === f);
+                if (!employee.location) return false;
+                console.log("Comparing employee location:", employee.location.toLowerCase(), "with filters:", newSelectedFilter);
+                return newSelectedFilter.some(f => employee.location.toLowerCase() === f);
             });
+            console.log("Location filtered results:", updatedResults.length);
         }
  
         if (category === "Experience") {
