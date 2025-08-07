@@ -18,7 +18,7 @@ export default function SearchNav({filter, results,isPeopleSearch,setSearch}) {
       </div>
 
       <div>
-        <SelectScrollable filter={filter} results={results} />
+        <SelectScrollable filter={filter} results={results} isPeopleSearch={isPeopleSearch} />
       </div>
 
     </div>

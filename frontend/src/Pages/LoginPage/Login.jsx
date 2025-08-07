@@ -10,6 +10,7 @@ import axios from 'axios';
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name:"",
     email: "",
@@ -116,7 +117,7 @@ function Signup() {
       }
       try{
         const user = {email: formData.email, password: formData.password};
-  
+        setLoading(true)
         const userRegistered = await axios.post(
           'http://localhost:3000/register', 
           {
@@ -139,9 +140,11 @@ function Signup() {
         }  
         else{
           setErrors( {email:'Registration failed'})
+          setLoading(false)
         }
       }catch(err){
         setErrors({email: 'Registration failed'});
+        setLoading(false)
       }
     }
   };
@@ -160,6 +163,7 @@ const handleLogin = async () => {
   }
 
   try {
+    setLoading(true)
      const token =  await axios.post(
       'http://localhost:3000/login',
       {
@@ -189,7 +193,7 @@ const handleLogin = async () => {
     navigate("/home");
 
   } catch (error) {
-
+    setLoading(false)
     if (error.response && error.response.data) {
       const err = error.response.data;
       if (err.error === "Incorrect email") {
@@ -238,7 +242,7 @@ const handleLogin = async () => {
   return (
     <>
     <div className="LoginApp">
-      <div className={`login-container ${isSignUp ? "active" : ""}`}>
+      <div className={`login-container ${isSignUp ? "login-active" : ""}`}>
         {/* Sign Up Form */}
         <div className="form-container sign-up">
           <form onSubmit={handleSubmit}>
@@ -284,7 +288,9 @@ const handleLogin = async () => {
             {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
 
             </div>
-            <button className="submit" type="submit">Sign Up</button>
+            {loading ? <div className="form-loader"></div> : 
+            <button type="submit">Sign Up</button>}
+
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
                setFormData(prev => ({
@@ -361,8 +367,8 @@ const handleLogin = async () => {
                         <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
             </div>    
-          
-            <button type="submit">Sign In</button>
+            {loading ? <div className="form-loader"></div> : 
+            <button type="submit">Sign In</button>}
 
           </form>
         </div>
@@ -392,7 +398,7 @@ const handleLogin = async () => {
               <p>Smart Solutions</p>
               </div>
               <div>
-              <button className="hidden" onClick={() =>
+                  <button className="hidden" onClick={() =>
                 {setIsSignUp(true)  
                   setFormData({
                     email: "",
