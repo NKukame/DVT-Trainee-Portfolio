@@ -1,22 +1,24 @@
 import "./Filter.css"
 import React, { useEffect, useState, useContext } from "react";
-import { Building05, User01, Code02, Award01 } from "@untitled-ui/icons-react";
+import { Building05, User01, Code02, Award01, MarkerPin04 } from "@untitled-ui/icons-react";
 import { Combobox } from "../ComboComp/Combo";
 import { Badge } from "../BadgeComp/Badge";
 import { SearchContext } from "../../contexts/SearchContext";
 import { toDropdownOptions } from "../../lib/util";
 
 function Filter() {
-  const [industriesSelected, setIndustriesSelected] = useState([]);
+  const [locationSelected, setLocationSelected] = useState([]);
   const [rolesSelected, setRolesSelected] = useState([]);
   const [technologiesSelected, setTechnologiesSelected] = useState([]);
   const [experienceSelected, setExperienceSelected] = useState([]);
   const [shouldShowTags, setShouldShowTags] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
-  const {allLanguages, allRoles, handleFilterClick, allIndustries} = useContext(SearchContext)
+
+  const {allLanguages, allRoles, handleFilterClick, allLocations} = useContext(SearchContext)
   // Options for each dropdown
-  const industryOptions = toDropdownOptions(allIndustries)  
+  const locationOptions = toDropdownOptions(allLocations)  
+
   const techOptions = toDropdownOptions(allLanguages);
   const roleOptions = toDropdownOptions(allRoles);
   
@@ -31,10 +33,10 @@ function Filter() {
 
   // All selected filters
   const allSelectedFilters = [
-    ...industriesSelected.map(value => ({
-      type: "industry",
+    ...locationSelected.map(value => ({
+      type: "location",
       value,
-      label: industryOptions.find(opt => opt.value === value)?.label
+      label: locationOptions.find(opt => opt.value === value)?.label
     })),
     ...rolesSelected.map(value => ({
       type: "role",
@@ -56,8 +58,9 @@ function Filter() {
   // Handle removing a filter tag
   const handleRemoveFilter = (type, value) => {
     switch (type) {
-      case "industry":
-        setIndustriesSelected(prev => prev.filter(v => v !== value));
+      case "location":
+        handleFilterClick(value, "Location")
+        setLocationSelected(prev => prev.filter(v => v !== value));
         break;
       case "role":
         handleFilterClick(value, "Roles")
@@ -68,8 +71,8 @@ function Filter() {
         setTechnologiesSelected(prev => prev.filter(v => v !== value));
         break;
         case "experience":
-        handleFilterClick(value, "Experience")
         setExperienceSelected(prev => prev.filter(v => v !== value));
+        handleFilterClick(value, "Experience")
         break;
       default:
         break;
@@ -98,12 +101,14 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
-          <Building05  className="filter-section-icon" />
+
+          <MarkerPin04 className="filter-section-icon" />
+
           <Combobox
-            placeholder="Industries"
-            options={industryOptions}
-            value={industriesSelected}
-            onChange={setIndustriesSelected}
+            placeholder="Location"
+            options={locationOptions}
+            value={locationSelected}
+            onChange={setLocationSelected}
             multiple={true}
             handleFilterClick={handleFilterClick}
           />

@@ -164,6 +164,7 @@
 }
 
 .home-carousel-item-text h3{
+  color: var(--white);
   font-size: 25px;
 }
 

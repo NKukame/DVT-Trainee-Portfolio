@@ -4,6 +4,8 @@ import { usePDF } from 'react-to-pdf';
 import { Star, Calendar1, MapPin, Award } from 'lucide-react';
 import './GenerateCV.css'
 import CVHorizontalBarChart from '../../components/GenerateCVComps/CVHorizontalBarChart';
+import CVPolarChart from '../../components/GenerateCVComps/CVPolarChart';
+import CVProject from '../../components/GenerateCVComps/CVProject';
 
 function GenerateCV(){
     const location = useLocation();
@@ -12,7 +14,8 @@ function GenerateCV(){
       <>
         <section className="generate-cv-container">
           <div className="generate-cv-content-container" ref={targetRef}>
-            <header className="generate-cv-content-container-header">
+            <section className='first-page'>
+              <header className="generate-cv-content-container-header">
               <img
                 className="generate-cv-header-background"
                 src="/Cv_header.png"
@@ -46,53 +49,34 @@ function GenerateCV(){
                 </ul>
               </div>
 
-              <div className="generate-cv-content-career-chronology">
-                <h2>Career</h2>
-                <div className="generate-cv-stepper-box">
-                  <div className="generate-cv-stepper-step">
-                    <div className="generate-cv-stepper-circle">2018</div>
-                    <div className="generate-cv-stepper-line" />
-                    <div className="generate-cv-stepper-content">
-                      <div className="generate-cv-stepper-title">
-                        Senior UX Designer
+
+              {location.state.career.length > 0 && 
+                (
+                  <div className="generate-cv-content-career-chronology">
+                    <h2>Career</h2>
+                    { location.state.career.length > 0 ? location.state.career.map((e, i)=>
+                    <div key={i} className="generate-cv-stepper-box">
+                      <div className="generate-cv-stepper-step">
+                        <div className="generate-cv-stepper-circle">{e.duration.split('-')[1]}</div>
+                        <div className="generate-cv-stepper-line" />
+                        <div className="generate-cv-stepper-content">
+                          <div className="generate-cv-stepper-title">
+                          {e.role}
+                          </div>
+                          <div className="generate-cv-stepper-status">
+                            {e.company}
+                          </div>
+                          <div className="generate-cv-stepper-time">
+                            {e.duration}
+                          </div>
+                        </div>
                       </div>
-                      <div className="generate-cv-stepper-status">
-                        Standard Bank
-                      </div>
-                      <div className="generate-cv-stepper-time">
-                        2016 - 2018
-                      </div>
-                    </div>
+                      
+                      
+                    </div>) : (<div className='generate-cv-stepper-title'>No Career</div>) }
                   </div>
-                  <div className="generate-cv-stepper-step">
-                    <div className="generate-cv-stepper-circle">2016</div>
-                    <div className="generate-cv-stepper-line" />
-                    <div className="generate-cv-stepper-content">
-                      <div className="generate-cv-stepper-title">
-                        Intermediate UX Researcher
-                      </div>
-                      <div className="generate-cv-stepper-status">
-                        Standard Bank
-                      </div>
-                      <div className="generate-cv-stepper-time">
-                        2014 - 2016
-                      </div>
-                    </div>
-                  </div>
-                  <div className="generate-cv-stepper-step">
-                    <div className="generate-cv-stepper-circle">2014</div>
-                    <div className="generate-cv-stepper-content">
-                      <div className="generate-cv-stepper-title">UX Writer</div>
-                      <div className="generate-cv-stepper-status">
-                        Discovery
-                      </div>
-                      <div className="generate-cv-stepper-time">
-                        2012 - 2014
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                )
+              }
 
               <div className="generate-cv-content-skills-matrix">
                 <h2>Skills Matrix</h2>
@@ -101,8 +85,15 @@ function GenerateCV(){
                 </div>
               </div>
             </article>
+            </section>
+           {location.state.projects && location.state.projects.length > 0 && (
+              <section className='second-page'>
+                <CVProject user={location.state}/>
+                
+              </section>
+            )}
 
-            <aside className="generate-cv-sidebar">
+            <aside className={location.state.projects && location.state.projects.length > 0 ? "generate-cv-sidebar" : "generate-cv-sidebar-first-page"}>
               <div className="generate-cv-sidebar-item">
                 <div className="generate-cv-sidebar-item-pairing">
                   <Star className="generate-cv-sidebar-item-icon" size={15} />
@@ -151,8 +142,11 @@ function GenerateCV(){
                 <div className="generate-cv-education-items">
                   <h2>Certificates</h2>
                   <ul>
-                    <li>N/A</li>
-                  </ul>
+                  {location.state.certificates.map((cert, idx) => (
+                        <li key={idx}>
+                          {cert.name} - {cert.institution}
+                        </li>
+                      ))}</ul>
                 </div>
                 <div className="generate-cv-education-items">
                   <h2>Industry</h2>
@@ -181,11 +175,15 @@ function GenerateCV(){
                 </div>
                 <div className="generate-cv-education-items">
                   <h2>Soft Skills</h2>
+                  <div className='generate-cv-education-items-soft-skills'>
+
+                    <CVPolarChart user={location.state} />
+                  </div>
                 </div>
               </div>
             </aside>
           </div>
-          <button onClick={() => toPDF()}>Download PDF</button>
+          <button className='download-pdf' onClick={() => toPDF()}>Download PDF</button>
         </section>
       </>
     );
