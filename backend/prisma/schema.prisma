@@ -86,8 +86,9 @@ model Employee {
   photoUrl     String?
   bio          String
   role         EmployeeRole
-  education    Education?
-  career       Career?
+  education    Education[]
+  certificates Certificate[]
+  career       Career[]
   department   Department
   company      String
   location     String?
@@ -230,10 +231,16 @@ model Education {
   id       String           @id @default(uuid())
   institution     String        
   qualification String
-  certificates  String?
-  certificatesInstitution  String?
-  employeeId String    @unique
+  employeeId String    
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id       String           @id @default(uuid())
+  name          String
+  institution   String
+  employeeId    String
+  employee      Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
 model Career{
@@ -241,7 +248,7 @@ model Career{
   role     String
   company  String
   duration String?
-  employeeId String    @unique
+  employeeId String
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
