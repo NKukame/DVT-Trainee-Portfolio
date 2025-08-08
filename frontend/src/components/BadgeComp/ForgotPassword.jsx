@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import { Mail, ArrowLeft } from "lucide-react";
 import "./ForgotPassword.css";
+import { useEffect } from "react";
+
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -15,9 +17,25 @@ function ForgotPassword() {
     special: false
   });
 
+  const [loading, setLoading] = useState(false);
+  const [searchParam, setSearchParam] = useState(new URLSearchParams(window.location.search));
+  const navigate = useNavigate();
+  
+
+  
+  const allowedDomains = ["dvtsoftware.com", "gmail.com", "yahoo.com", "outlook.com"];
+  
+  useEffect(() => {
+    const token = searchParam.get("token");
+    if (token) {
+      setStep(3); 
+    }
+  }, [searchParam]);
+  
+  
   const checkPasswordCriteria = (password) => {
     const criteria = {
-      length: password.length === 7,
+      length: password.length >= 8, 
       special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
     };
 
@@ -25,11 +43,7 @@ function ForgotPassword() {
     return criteria;
   };
 
-  const navigate = useNavigate();
-
-  const allowedDomains = ["dvtsoftware.com"];
-
-  // Email domain validation
+  
   const validateEmailDomain = (email) => {
     const domain = email.split("@")[1];
     return domain && allowedDomains.includes(domain);
@@ -52,78 +66,148 @@ function ForgotPassword() {
 
   const validatePassword = () => {
     let newErrors = {};
-    let criteria = checkPasswordCriteria (newPassword);
+    let criteria = checkPasswordCriteria(newPassword);
 
     if (!newPassword) {
       newErrors.password = "Password is required";
-    } else if (!criteria.length || !criteria.special) {
-      newErrors.password = "Password does not meet requirements";
-  
+    } else {
+      if (!criteria.length || !criteria.special) {
+        newErrors.password = "Password does not meet requirements";
+      }
     }
 
     if (!confirmPassword) {
       newErrors.confirmPassword = "Confirm Password is required";
-    } else if (confirmPassword !== newPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
+    } else {
+      if (confirmPassword !== newPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handlePasswordChange = (e) => {
     const password = e.target.value;
     setNewPassword(password);
     checkPasswordCriteria(password);
 
-
-    if(error.password) {
+  
+    if (errors.password) {
       const criteria = checkPasswordCriteria(password);
-      if(password.length >0 && criteria.length || criteria.special) {
+      if (password.length > 0 && criteria.length && criteria.special) {
         setErrors(prev => ({
-          ...prev, password: ""}));
+          ...prev, 
+          password: ""
+        }));
       }
     }
+
+    
+    if (errors.confirmPassword && confirmPassword && password === confirmPassword) {
+      setErrors(prev => ({
+        ...prev, 
+        confirmPassword: ""
+      }));
+    }
   };
+
   const handleConfirmPasswordChange = (e) => {
     const confirmPwd = e.target.value;
     setConfirmPassword(confirmPwd);
 
-    if(error.confirmPassword && confirmPwd === newPassword) {
+   
+    if (errors.confirmPassword && confirmPwd === newPassword) {
       setErrors(prev => ({
-        ...prev, confirmPassword: ""}));
+        ...prev, 
+        confirmPassword: ""
+      }));
     }
   };
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
     if (validateEmail()) {
-      // In a real app, this would send a reset link to the email
-      setStep(2);
-    }
-  };
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:3000/forgot-password", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email }),
+        });
 
-  const handlePasswordSubmit = (e) => {
-    e.preventDefault();
-    if (validatePassword()) {
-      // In a real app, this would update the user's password
-      setStep(4);
-      
-      // Simulate updating the password in localStorage
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (storedUser && storedUser.email === email) {
-        storedUser.password = newPassword;
-        localStorage.setItem("user", JSON.stringify(storedUser));
+        if (!response.ok) {
+      setStep(2);
+        }else {
+          const errorData = await response.json();
+          setErrors({ email:errorData.error || "Failed to send reset email" });
+
+        }
+      } catch (error) {
+        console.error("Error sending reset email:", error);
+        setErrors({ email: "Failed to send reset email" });
+      } finally {
+        setLoading(false);
       }
     }
   };
 
-  const resendEmail = () => {
-    // In a real app, this would resend the reset link
-    alert("Reset link has been resent to " + email);
+  const handlePasswordSubmit = async(e) => {
+    e.preventDefault();
+    if (validatePassword()) {
+      setLoading(true);
+      const token = searchParam.get("token");
+
+      try{
+        const response = await fetch("http://localhost:3000/reset-password", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ token, newPassword }),
+        });
+
+        if (!response.ok) {
+          setStep(4);
+        } else {
+          const errorData = await response.json();
+          setErrors({ password: errorData.error || "Failed to reset password" });
+        }
+      } catch (error) {
+        console.error("Error resetting password:", error);
+        setErrors({ password: "Failed to reset password" });
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
+  const resendEmail = async() => {
+    const token = searchParam.get("token");
+    try {
+      const response = await fetch("http://localhost:3000/forgot-password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email }),
+      });
+      
+      if (!response.ok) {
+        alert("Reset link has been sent to " + email);
+      } else {
+        alert("Failed to resend email. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error resending reset email:", error);
+      alert("Failed to resend email. Please try again.");
+    } finally{
+      setLoading(false);
+    }
+  }; 
   const renderSteps = () => {
     switch (step) {
       case 1:
@@ -193,10 +277,7 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={newPassword}
-                    onChange={(e) => {
-                      validatePassword();
-                      setNewPassword(e.target.value);
-                    }}
+                    onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
                 </div>
@@ -210,10 +291,7 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={confirmPassword}
-                    onChange={(e) => {
-                      validatePassword();
-                      setConfirmPassword(e.target.value);
-                    }}
+                    onChange={handleConfirmPasswordChange}
                     className={errors.confirmPassword ? "error-border" : ""}
                   />
                 </div>
@@ -266,6 +344,21 @@ function ForgotPassword() {
         return null;
     }
   };
+//   const errorData = await response.json();
+//   setErrors({ password: errorData.error || "Failed to reset password" });
+//   return;
+// }
+// };l
+// // // Simulate updating the password in localStorage
+// // const storedUser = JSON.parse(localStorage.getItem("user"));
+// // if (storedUser && storedUser.email === email) {
+// //   storedUser.password = newPassword;
+// //         localStorage.setItem("user", JSON.stringify(storedUser));
+// //       }
+// //     }
+// //   };
+  
+  
 
   return (
     <div className="forgot-password-container">
