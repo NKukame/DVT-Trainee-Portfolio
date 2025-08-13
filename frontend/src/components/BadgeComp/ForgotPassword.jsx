@@ -9,7 +9,6 @@ import { useEffect } from "react";
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const location = useLocation();
-  console.log(location);
   const queryParams = new URLSearchParams(location.search);
   const [step, setStep] = useState(1); 
   const [errors, setErrors] = useState({});
@@ -21,17 +20,17 @@ function ForgotPassword() {
   });
   
   useEffect(() => {
-    
     console.log(queryParams.get("token"));
     if (queryParams.get("token")) {
-      setStep(3); // If token is present, skip to password reset step
+      setStep(3); 
     }
   }, [queryParams]);
 
+
   const checkPasswordCriteria = (password) => {
     const criteria = {
-      length: password.length === 7,
-      special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      length: password.length >= 8, 
+      special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) 
     };
 
     setPasswordCriteria(criteria);
@@ -65,13 +64,16 @@ function ForgotPassword() {
 
   const validatePassword = () => {
     let newErrors = {};
-    let criteria = checkPasswordCriteria (newPassword);
+    let criteria = checkPasswordCriteria(newPassword);
 
     if (!newPassword) {
       newErrors.password = "Password is required";
-    } else if (!criteria.length || !criteria.special) {
-      newErrors.password = "Password does not meet requirements";
-  
+    // } else if (!criteria.length && !criteria.special) {
+    //   newErrors.password = "Password must be at least 8 characters and contain a special character";
+    } else if (!criteria.length) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (!criteria.special) {
+      newErrors.password = "Password must contain a special character";
     }
 
     if (!confirmPassword) {
@@ -88,60 +90,161 @@ function ForgotPassword() {
   const handlePasswordChange = (e) => {
     const password = e.target.value;
     setNewPassword(password);
-    checkPasswordCriteria(password);
+    const criteria = checkPasswordCriteria(password);
 
-
-    if(error.password) {
-      const criteria = checkPasswordCriteria(password);
-      if(password.length >0 && criteria.length || criteria.special) {
-        setErrors(prev => ({
-          ...prev, password: ""}));
-      }
+    
+    if (errors.password && password.length > 0 && (criteria.length && criteria.special)) {
+      setErrors(prev => ({
+        ...prev, 
+        password: ""
+      }));
     }
   };
+
+  
   const handleConfirmPasswordChange = (e) => {
     const confirmPwd = e.target.value;
     setConfirmPassword(confirmPwd);
 
-    if(error.confirmPassword && confirmPwd === newPassword) {
+
+    if (errors.confirmPassword && confirmPwd === newPassword) {
       setErrors(prev => ({
-        ...prev, confirmPassword: ""}));
+        ...prev, 
+        confirmPassword: ""
+      }));
     }
   };
 
   const handleEmailSubmit = async(e) => {
     e.preventDefault();
-    if (validateEmail()) {
-      const logPassword = await axios.post("http://localhost:3000/forgot-password", { email:email }, {
-        headers: {
-          "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-          "Content-Type": "application/json"
+    if (!validateEmail()) return;
+
+    try {
+      
+      console.log("=== EMAIL SUBMIT DEBUG ===");
+      console.log("Raw email input:", `"${email}"`);
+      console.log("Email length:", email.length);
+      console.log("Email trimmed:", `"${email.trim()}"`);
+      console.log("Email normalized:", `"${email.trim().toLowerCase()}"`);
+      console.log("Allowed domains:", allowedDomains);
+      console.log("Email domain:", email.split("@")[1]);
+      console.log("Domain validation passed:", validateEmailDomain(email));
+      
+      const payload = { email: email.trim().toLowerCase() };
+      console.log("Payload being sent:", JSON.stringify(payload, null, 2));
+      
+      const response = await axios.post("http://localhost:3000/forgot-password", 
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
-      });
-      console.log(logPassword.data);
+      );
+      
+      console.log("SUCCESS - Response:", response.data);
       setStep(2);
       
-    }
-  };
-
-  const handlePasswordSubmit = (e) => {
-    e.preventDefault();
-    if (validatePassword()) {
-      // In a real app, this would update the user's password
-      setStep(4);
+    } catch (error) {
+      console.log("=== ERROR DEBUG ===");
+      console.error("Full error object:", error);
+      console.error("Error message:", error.message);
+      console.error("Error response:", error.response);
+      console.error("Error response status:", error.response?.status);
+      console.error("Error response data:", error.response?.data);
       
-      // Simulate updating the password in localStorage
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (storedUser && storedUser.email === email) {
-        storedUser.password = newPassword;
-        localStorage.setItem("user", JSON.stringify(storedUser));
+      if (error.response) {
+        const errorMessage = error.response.data?.error || error.response.data?.message || "Failed to send reset email";
+        
+        if (error.response.status === 500) {
+          setErrors({ email: "Server error. Please try again later." });
+        } else if (error.response.status === 400) {
+          setErrors({ email: errorMessage });
+        } else {
+          setErrors({ email: errorMessage });
+        }
+      } else if (error.request) {
+        setErrors({ email: "Cannot connect to server. Please check your connection." });
+      } else {
+        setErrors({ email: `Request error: ${error.message}` });
       }
     }
   };
 
-  const resendEmail = () => {
-    // In a real app, this would resend the reset link
-    alert("Reset link has been resent to " + email);
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    if (!validatePassword()) return;
+
+    const token = queryParams.get("token");
+    if (!token) {
+      setErrors({ general: "Invalid or missing reset token" });
+      return;
+    }
+
+    try {
+      
+      const response = await axios.post("http://localhost:3000/reset-password", {
+        token: token,
+        newPassword: newPassword
+      }, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.status === 200) {
+        console.log("Password updated successfully:", response.data);
+        setStep(4);
+        
+       
+        setNewPassword("");
+        setConfirmPassword("");
+        setPasswordCriteria({ length: false, special: false });
+        
+      } else {
+        setErrors({ general: response.data.error || "Failed to reset password" });
+      }
+
+    } catch (error) {
+      console.error("Error resetting password:", error);
+      
+      if (error.response) {
+       
+        const errorMessage = error.response.data?.error || error.response.data?.message || "Failed to reset password";
+        
+        if (error.response.status === 400) {
+          setErrors({ general: "Invalid or expired reset token" });
+        } else if (error.response.status === 404) { 
+          setErrors({ general: "User not found" });
+        } else {
+          setErrors({ general: errorMessage });
+        }
+      } else if (error.request) {
+      
+        setErrors({ general: "Network error. Please check your connection and try again." });
+      } else {
+       
+        setErrors({ general: "An unexpected error occurred. Please try again." });
+      }
+    }
+  };
+
+  const resendEmail = async () => {
+   
+    try {
+      const response = await axios.post("http://localhost:3000/forgot-password", 
+        { email: email.trim().toLowerCase() },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      alert("Reset link has been resent to " + email);
+    } catch (error) {
+      console.error("Error resending email:", error);
+      alert("Failed to resend email. Please try again.");
+    }
   };
 
   const renderSteps = () => {
@@ -205,6 +308,8 @@ function ForgotPassword() {
             <h1>Set new password</h1>
             <h4>Your new password must be different to<br />previously used passwords.</h4>
             
+            {errors.general && <p className="error-message" style={{marginBottom: "15px", color: "red"}}>{errors.general}</p>}
+            
             <form onSubmit={handlePasswordSubmit} className="forgot-form">
               <div className="form-field">
                 <h6>Password</h6>
@@ -213,10 +318,7 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={newPassword}
-                    onChange={(e) => {
-                      validatePassword();
-                      setNewPassword(e.target.value);
-                    }}
+                    onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
                 </div>
@@ -230,10 +332,7 @@ function ForgotPassword() {
                     type="password"
                     placeholder="••••••••"
                     value={confirmPassword}
-                    onChange={(e) => {
-                      validatePassword();
-                      setConfirmPassword(e.target.value);
-                    }}
+                    onChange={handleConfirmPasswordChange} 
                     className={errors.confirmPassword ? "error-border" : ""}
                   />
                 </div>
@@ -255,7 +354,17 @@ function ForgotPassword() {
                 </div>
               </div>
               
-              <button type="submit" className="reset-btn">Reset password</button>
+              <button 
+                type="submit" 
+                className="reset-btn"
+                disabled={!passwordCriteria.length || !passwordCriteria.special || !confirmPassword || confirmPassword !== newPassword}
+                style={{
+                  opacity: (!passwordCriteria.length || !passwordCriteria.special || !confirmPassword || confirmPassword !== newPassword) ? 0.6 : 1,
+                  cursor: (!passwordCriteria.length || !passwordCriteria.special || !confirmPassword || confirmPassword !== newPassword) ? 'not-allowed' : 'pointer'
+                }}
+              >
+                Reset password
+              </button>
             </form>
             
             <div className="back-to-login">

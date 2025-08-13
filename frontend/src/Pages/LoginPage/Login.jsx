@@ -64,34 +64,36 @@ function Signup() {
     return domain && allowedDomains.includes(domain);
   };
 
-  const validationForm = () => {
-    let newErrors = {};
+ const validationForm = () => {
+  let newErrors = {};
 
-    if (isSignUp) {
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = "Confirm Password is required";
-      } else if (formData.confirmPassword !== formData.password) {
-        newErrors.confirmPassword = "Confirm Password does not match";
-      }
+  if (isSignUp) {
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm Password is required";
+    } else if (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword = "Confirm Password does not match";
     }
-    
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
-    } else if (!validateEmailDomain(formData.email)) {
-      newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
-    }
+  }
+  
+  if (!formData.email) {
+    newErrors.email = "Email is required";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    newErrors.email = "Email is invalid";
+  } else if (!validateEmailDomain(formData.email)) {
+    newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
+  }
 
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+  if (!formData.password) {
+    newErrors.password = "Password is required";
+  } else if (formData.password.length < 8) { // FIXED: Changed >= to <
+    newErrors.password = "Password must be at least 8 characters";
+  } else if (!/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one special character";
+  }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
 
   const handleChange = (e) => {
     if (e.target.value.includes('@')){
@@ -422,5 +424,3 @@ const handleLogin = async () => {
 }
 
 export default Signup;
-
-
