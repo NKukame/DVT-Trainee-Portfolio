@@ -29,9 +29,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route element={<ProtectedRoutes/>}>
             <Route path="/home" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<Portfolio />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/userportfolio" element={<UserPortfolio />} />
             <Route path="/generate-cv" element={<GenerateCV />} />
           </Route>
