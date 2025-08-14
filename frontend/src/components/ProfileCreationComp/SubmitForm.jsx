@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import "./Form.css";
 import { SquarePen } from "lucide-react";
+import { use } from "react";
 
 function SubmitForm({
   basicInfo,
@@ -22,14 +23,20 @@ function SubmitForm({
     .filter((idx) => stepData[idx] && stepData[idx].title !== "Submit")
     .map((idx) => stepData[idx]?.title);
 
+    // const simpleUser = user.map((u) => u.id);
+    // console.log(simpleUser);
+    const editUser = localStorage.getItem('user').split(`"`)[1];
+    console.log(editUser);
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     setLoading(true);
+    
     const response = await fetch("http://localhost:3000/create-profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        editUser,
         basicInfo,
         skills,
         career,
@@ -43,7 +50,7 @@ function SubmitForm({
       setModalOpen(true);
       setTimeout(() => {
         setModalOpen(false);
-        navigate("/home"); 
+        navigate("/"); 
       }, 2000);
     } else {
       const data = await response.json();

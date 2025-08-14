@@ -10,6 +10,7 @@ import axios from 'axios';
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name:"",
     email: "",
@@ -17,7 +18,7 @@ function Signup() {
     confirmPassword: "",
   });
 
-// State to manage password visibility
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
@@ -27,19 +28,25 @@ function Signup() {
     const rememberedCredentials = JSON.parse(
       localStorage.getItem("rememberedCredentials"));
 
-      if(rememberedCredentials) {
-        setFormData((prevData) => ({
-          ...prevData,
-          email: rememberedCredentials.email || "",
-        password: rememberedCredentials.password || ""
-        }));
+    if (rememberedCredentials?.email) {
+      setFormData((prevData) => ({
+        ...prevData,
+        email: rememberedCredentials.email || "",
+        
+      }));
+      setRememberMe(true);
 
-        setRememberMe(true);
+      
+      const token = localStorage.getItem("token");
+      if (token && rememberedCredentials.token) {
+       
+        navigate("/home");
       }
-  }, []);
+    }
+  }, [navigate]);
 
 
-  // Load saved credentials on component mount
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
@@ -51,7 +58,7 @@ function Signup() {
 
   const allowedDomains = ["dvtsoftware.com"];
 
-  // email domain validation
+  
   const validateEmailDomain = (email) => {
     const domain = email.split("@")[1];
     return domain && allowedDomains.includes(domain);
@@ -91,7 +98,6 @@ function Signup() {
       e.target.name = "email";
     }
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // Clear errors when user starts typing
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
     }
@@ -111,7 +117,7 @@ function Signup() {
       }
       try{
         const user = {email: formData.email, password: formData.password};
-  
+        setLoading(true)
         const userRegistered = await axios.post(
           'http://localhost:3000/register', 
           {
@@ -122,7 +128,9 @@ function Signup() {
             "Content-Type" : "application/json"
           }}
         );
-  
+         const user_id = userRegistered.data.id;
+        
+         console.log("the user ", userRegistered)
         if(userRegistered.status === 201){
           setIsSignUp(false);
           setFormData(prev => ({
@@ -130,13 +138,16 @@ function Signup() {
             password: "",
             confirmPassword: "",
           }));
+          localStorage.setItem("user", JSON.stringify(user_id));
           navigate("/profile-creation");
         }  
         else{
           setErrors( {email:'Registration failed'})
+          setLoading(false)
         }
       }catch(err){
         setErrors({email: 'Registration failed'});
+        setLoading(false)
       }
     }
   };
@@ -155,6 +166,7 @@ const handleLogin = async () => {
   }
 
   try {
+    setLoading(true)
      const token =  await axios.post(
       'http://localhost:3000/login',
       {
@@ -168,13 +180,16 @@ const handleLogin = async () => {
       }
     );
 
-
-    localStorage.setItem("token", JSON.stringify(token.data.token));
+    
+    const tokenData = token.data.token;
+    const user_id = token.data.user;
+    localStorage.setItem("token", JSON.stringify(tokenData));
+    localStorage.setItem("userId", JSON.stringify(user_id));
 
     if (rememberMe) {
       localStorage.setItem("rememberedCredentials", JSON.stringify({
         email: formData.email,
-        password: formData.password,
+        token: tokenData 
       }));
     } else {
       localStorage.removeItem("rememberedCredentials");
@@ -183,7 +198,7 @@ const handleLogin = async () => {
     navigate("/home");
 
   } catch (error) {
-
+    setLoading(false)
     if (error.response && error.response.data) {
       const err = error.response.data;
       if (err.error === "Incorrect email") {
@@ -232,7 +247,7 @@ const handleLogin = async () => {
   return (
     <>
     <div className="LoginApp">
-      <div className={`login-container ${isSignUp ? "active" : ""}`}>
+      <div className={`login-container ${isSignUp ? "login-active" : ""}`}>
         {/* Sign Up Form */}
         <div className="form-container sign-up">
           <form onSubmit={handleSubmit}>
@@ -278,7 +293,9 @@ const handleLogin = async () => {
             {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
 
             </div>
-            <button className="submit" type="submit">Sign Up</button>
+            {loading ? <div className="form-loader"></div> : 
+           <button type="submit">Sign Up</button>}
+
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
                setFormData(prev => ({
@@ -320,13 +337,12 @@ const handleLogin = async () => {
                     <h6 >Password</h6>
                     <div className="password-container">
                       <input  
-                      // className="password-input"
                       type="password"
                       name="password"
                       placeholder="Password" 
                       value={formData.password}
                       onChange={handleChange}
-                      classname={getInputClass("password")+" password-input"}
+                      className={getInputClass("password")+" password-input"}
                     />
                     {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
                       handleToggle(event, false)
@@ -346,18 +362,18 @@ const handleLogin = async () => {
                     
                 <div className="remember-me-container">
                      <div className="remember-me">
-                        <div class="toggle-switch">
-                          <input class="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
+                        <div className="toggle-switch">
+                          <input className="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
                           onChange={handleRememberMeToggle}/>
-                          <label class="toggle-label" for="toggle"></label>
+                          <label className="toggle-label" htmlFor="toggle"></label>
                         </div>
                         <p>Remember me</p>
                      </div>
                         <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
             </div>    
-          
-            <button type="submit">Sign In</button>
+            {loading ? <div className="form-loader"></div> : 
+            <button type="submit">Sign In</button>}
 
           </form>
         </div>
@@ -387,13 +403,12 @@ const handleLogin = async () => {
               <p>Smart Solutions</p>
               </div>
               <div>
-              <button className="hidden" onClick={() =>
+                  <button className="hidden" onClick={() =>
                 {setIsSignUp(true)  
-                  setFormData(prev => ({
+                  setFormData({
                     email: "",
                     password: "",
-                  
-                  }))
+                  })
                   setErrors({})
                 }}
                 >

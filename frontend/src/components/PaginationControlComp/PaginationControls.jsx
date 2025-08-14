@@ -52,27 +52,32 @@ export default function Pagination(){
   );
 
   return (
-    <div className="pagination">
-      <button onClick={handlePrevious} disabled={currentPage === 1} className="prevBtn">
-        <ChevronLeft />
-      </button>
-      <ul className="pagination-list">
-        <div className="leftContainer">
-          {getLeftPages().map((page, i) =>
-            renderButton(page, [1].includes(i) && currentPage > 5)
-          )}
-        </div>
-        <li className="pagination-item active">{currentPage}</li>
-        <div className="rightContainer">
-          {getRightPages().map((page, i) =>
-            renderButton(page, [1].includes(i) && currentPage < total - 4)
-          )}
-        </div>
-      </ul>
-      <button onClick={handleNext} disabled={currentPage === total} className="nextBtn">
-        <ChevronRight />
-      </button>
-    </div>
+    <>
+    {
+      total > 1 &&
+      <div className="pagination">
+        <button onClick={handlePrevious} disabled={currentPage === 1} className="prevBtn">
+          <ChevronLeft />
+        </button>
+        <ul className="pagination-list">
+          <div className="leftContainer">
+            {getLeftPages().map((page, i) =>
+              renderButton(page, [1].includes(i) && currentPage > 5)
+            )}
+          </div>
+          <li className="pagination-item active">{currentPage}</li>
+          <div className="rightContainer">
+            {getRightPages().map((page, i) =>
+              renderButton(page, [1].includes(i) && currentPage < total - 4)
+            )}
+          </div>
+        </ul>
+        <button onClick={handleNext} disabled={currentPage === total} className="nextBtn">
+          <ChevronRight />
+        </button>
+      </div>
+    }
+    </>
   );
 };
 

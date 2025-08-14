@@ -23,9 +23,6 @@ export default function SearchResults() {
   }, [isEmployeeSearch, filteredResults]);
 
 
-  // useEffect(() => {
-  //    window.location.reload();
-  // }, [])
 
 
   return (

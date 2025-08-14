@@ -14,9 +14,14 @@ function getRandomPastDate() {
 }
 
 export default function CVProject(props) {
+  let checkIn = props.user.projects;
+  const answer = []
+  for(let index = 0; index < 2; index++) {
+    answer.push(checkIn[index])
+  }
   return (
     <>
-      {props.user.projects.map((proj, index) => (
+      {answer.map((proj, index) => ( 
         <section className="generate-cv-projects" key={index}>
           <section className="generate-cv-projects-header">
             <div className="generate-cv-project-background-container">
