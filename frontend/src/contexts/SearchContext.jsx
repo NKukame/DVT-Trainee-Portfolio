@@ -61,7 +61,7 @@ export const SearchContextProvider = ({children}) => {
                     experienced: emp.experience,
                     department: capitalizeFirstLetter(emp.department),
                     bio: emp.bio,
-                    availability: emp.availability,
+                    availability: emp.availability.available,
                     location: emp.location.split(',')[0],
                     emp_education: emp.education,
                     certificates: emp.certificates,
