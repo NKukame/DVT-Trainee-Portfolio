@@ -36,6 +36,11 @@ jobs:
             wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
             sudo apt-get update
             sudo apt-get install -y postgresql-client-17
+            which pg_dump
+            pg_dump --version
+            sudo update-alternatives --install /usr/bin/pg_dump pg_dump /usr/lib/postgresql/17/bin/pg_dump 1 --force
+            sudo update-alternatives --set pg_dump /usr/lib/postgresql/17/bin/pg_dump
+            pg_dump --version
     
       - name: Install dependencies
         run: npm install
