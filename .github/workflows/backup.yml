@@ -37,3 +37,4 @@ jobs:
         working-directory: backend
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          
