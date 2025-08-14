@@ -1,20 +1,19 @@
 name: Node.js CI
 
 on:
-  schedule:
-    - cron: "0 2 * * *"  # Runs every day at 2:00 AM UTC
+  workflow_dispatch: # allow manual run
   push:
-    branches: [ "development" ]
-  pull_request:
-    branches: [ "development" ]
+    branches: [ "development" ] # run on commits to development
+  schedule:
+    - cron: "0 2 * * *" # run daily at 2:00 AM UTC
 
 jobs:
-  build:
+  backup:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x] # choose one stable Node.js version
 
     steps:
       - uses: actions/checkout@v4
@@ -24,13 +23,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: backend/package-lock.json # point cache to backend
 
       - name: Install dependencies
-        run: |
-          cd backend
-          npm install
+        run: npm install
+        working-directory: backend
 
       - name: Run backup script
-        run: |
-          cd backend
-          npm run backup
+        run: npm run backup
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
