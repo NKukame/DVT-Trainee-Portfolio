@@ -1,0 +1,124 @@
+.profile-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.profile-modal-content {
+  background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
+  border-radius: 12px;
+  padding: 24px;
+  width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--userText-GrayText);
+}
+
+.profile-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.profile-modal-user-info h3 {
+  margin: 0 0 4px 0;
+  color: var(--navy-blue);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-modal-user-info p {
+  margin: 0;
+  color: var(--navy-blue);
+  font-size: 14px;
+}
+
+.profile-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.profile-modal-close:hover {
+  /* background-color: var(--hover-color); */
+  color: var(--required-asterisk);
+}
+
+.profile-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-modal-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.view-profile-btn {
+  background-color: var(--primary-color);
+  color: var(--navy-blue);
+}
+
+.view-profile-btn:hover {
+  background-color: var(--gray);
+}
+
+.logout-btn {
+  background-color: var(--button-blue);
+  color: var(--white);
+}
+
+.logout-btn:hover {
+  background-color: #dc2626;
+}
+
+.profile-modal-toggle {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  /* background-color: var(--card-background); */
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.profile-modal-toggle:hover {
+  background-color: var(--gray);
+}
+
+.toggle-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--navy-blue);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toggle-content svg {
+  color: var(--navy-blue);
+}
