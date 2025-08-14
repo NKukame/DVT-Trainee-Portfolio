@@ -37,4 +37,5 @@ jobs:
         working-directory: backend
         env:
           DATABASE_URL: ${{ env.DATABASE_URL }}
+          DATABASE_URL2: ${{ env.DATABASE_URL2 }}
           

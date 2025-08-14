@@ -36,6 +36,7 @@ async function waitForTunnel(host = "127.0.0.1", port = 5555, maxWait = 30000) {
   }
 
 async function main(){
+    console.log(process.env.DATABASE_URL);
     const dbName = "database";
     const filename = `${process.env.DB_NAME}_${isoFilename()}.bak`;
     const tunnelHost = "127.0.0.1";
@@ -44,7 +45,7 @@ async function main(){
     console.log(`Starting backup of ${filename}`);
   
     console.log("Starting Prisma tunnel...");
-    const tunnel = spawn("npx.cmd", [
+    const tunnel = spawn("npx", [
       "--yes", 
       "@prisma/ppg-tunnel",
       "--host", tunnelHost,
