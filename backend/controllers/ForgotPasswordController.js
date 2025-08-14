@@ -134,7 +134,7 @@ async function resetPassword(req, res) {
 }
 
 async function forgotPassword(req, res) {
-  const { email, provider = 'gmail' } = req.body; // Allow provider selection
+  const { email, provider = 'gmail' } = req.body; 
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
