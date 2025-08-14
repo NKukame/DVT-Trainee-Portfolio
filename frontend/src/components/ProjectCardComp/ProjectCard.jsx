@@ -12,11 +12,11 @@ export default function ProjectCard({ result, showAuthor = false, showTech = tru
     <div className="card-project shadow flex-col gap-10-px">
       <div>
         <p className="font-size-20-px">{result.name}</p>
-        <p className="font-size-12-px text-gray">{result.created_on}</p>
+        <p className="font-size-12-px text-gray">{result.created_on.slice(0, 10)}</p>
       </div>
 
       <div>
-        <p className="font-size-14-px">{result.description}</p>
+        <p className="font-size-14-px line-clamp-3 h-20">{result.description}</p>
       </div>
 
       {showTech && (<Badges badgeList={result.technologies} />  )}
@@ -49,7 +49,7 @@ function ProjectModal({setOpen, project}){
         </div>
 
         <div>
-          <img src={`./${project.screenshot}` } className='w-full'
+          <img src={`${project.screenshot}` } className='w-full'
           alt="" />
         </div>
         <div>

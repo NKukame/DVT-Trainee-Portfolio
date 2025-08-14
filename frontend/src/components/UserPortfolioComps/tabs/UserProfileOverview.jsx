@@ -51,8 +51,10 @@ function UserProfileOverview(props) {
 
       // After transition completes, move the first item to the end and reset styles
       setTimeout(() => {
-        const firstItem = items[0];
-        track.appendChild(firstItem);
+        const firstItem = track.firstElementChild;
+        if (firstItem) {
+          track.appendChild(firstItem);
+        }
         items.forEach((item) => item.classList.remove("slide-left"));
         updateStyles(); // Re-apply styles after DOM changes
       }, 500);
@@ -128,7 +130,7 @@ function UserProfileOverview(props) {
                       project.project.screenshot ||
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     }
-                    alt="Video Thumbnail"
+                    alt=" Project Screenshot"
                   />
 
                   <div className="video-item-text">

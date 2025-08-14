@@ -13,15 +13,25 @@
   font-weight: 700;
   margin: 20px;
 }
+
+.dark-mode .skills-header {
+  color: var(--dark-mode-alt-white);
+}
+
 .skills-education-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: #000;
+  color: var(--black);
   padding-right: 40px;
   padding-bottom: 20px;
   min-height: 10rem;
 }
+
+.dark-mode .skills-education-item {
+  color: var(--dark-mode-alt-white);
+}
+
 .skills-education-item li {
   list-style: none;
 }
@@ -49,16 +59,29 @@
   align-items: center;
 }
 .skills-education-header {
-  color: #072549;
+  color: var(--navy-blue);
   font-size: 2rem;
+}
+
+.dark-mode .skills-education-header {
+  color: var(--dark-mode-alt-white);
 }
 .skills-circle-header {
   margin-top: 20px;
-  color: #072549;
+  color: var(--navy-blue);
   font-size: 2rem;
 }
+
+.dark-mode .skills-circle-header {
+  color: var(--dark-mode-alt-white);
+}
+
 .skills-bar-header {
   margin-top: 20px;
-  color: #072549;
+  color: var(--navy-blue);
   font-size: 2rem;
+}
+
+.dark-mode .skills-bar-header {
+  color: var(--dark-mode-alt-white);
 }

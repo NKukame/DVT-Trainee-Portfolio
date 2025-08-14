@@ -27,6 +27,7 @@ function StatusForm({ data, onChange }) {
           <select
             id="status"
             name="status"
+            className="status-select"
             required
             value={data.status || ""}
             onChange={handleChange}

@@ -305,6 +305,7 @@ function CareerFrom({ data, onChange }) {
           <select
             id="department"
             name="department"
+            className=" the-department"
             value={department}
             onChange={(e) => {
               setDepartment(e.target.value);
@@ -334,7 +335,7 @@ function CareerFrom({ data, onChange }) {
           <div className="career-form-projects-container">
             <div className="career-form-projects-entries-container">
               <div className="career-projects-upload">
-                <Upload size={50} className="career-projects-upload-icon" />
+                <Upload size={50} className="career-projects-upload-icon" color="var(--navy-blue)"/>
                 <button onClick={() => setShowModal(true)}>
                   Upload Project
                 </button>
@@ -431,7 +432,7 @@ function CareerFrom({ data, onChange }) {
                 </>
               ) : (
                 <>
-                  <Camera size={30} className="career-projects-upload-icon" />
+                  <Camera size={30} className="career-projects-upload-icon" color="var(--navy-blue)" />
                   <input
                     type="file"
                     id="project-image"

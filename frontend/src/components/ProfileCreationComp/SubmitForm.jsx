@@ -14,6 +14,7 @@ function SubmitForm({
   stepData = [],
 }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
@@ -24,6 +25,7 @@ function SubmitForm({
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
+    setLoading(true);
     const response = await fetch("http://localhost:3000/create-profile", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -49,8 +51,12 @@ function SubmitForm({
       setModalOpen(true);
     }
   } catch (error) {
+    setLoading(false);
     setModalMessage("Network error: " + error.message);
     setModalOpen(true);
+    
+  }finally {
+    setLoading(false);
   }
 };
 
@@ -61,7 +67,12 @@ function SubmitForm({
           <div className="custom-submit-modal">
             <p>{modalMessage}</p>
             {!modalMessage.includes("successfully") && (
-              <button onClick={() => setModalOpen(false)} className="remove-profile-pic-btn">Close</button>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="remove-profile-pic-btn"
+              >
+                Close
+              </button>
             )}
           </div>
         </div>
@@ -214,7 +225,7 @@ function SubmitForm({
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
-                            {entry.certificate} - {entry.institution}
+                            {entry.certificate} - {entry.certificatesInstitution}
                           </div>
                         ))
                     : "-"}
@@ -432,9 +443,13 @@ function SubmitForm({
           </div>
 
           <div className="submit-form-button-container">
-            <button className="submit-form-button" type="submit">
-              Submit
-            </button>
+            {loading ? (
+              <div className="loader"></div>
+            ) : (
+              <button className="submit-form-button" type="submit">
+                Submit
+              </button>
+            )}
           </div>
         </div>
       </form>

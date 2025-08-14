@@ -132,6 +132,7 @@ function BasicInfo({ data, onChange }) {
                   onChange={handleChange}
                   required
                   style={{ font: "inherit" }}
+                  max="2008-12-31"
                 />
               </div>
             </div>

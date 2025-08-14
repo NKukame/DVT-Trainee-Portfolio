@@ -16,18 +16,18 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const HorizontalBarChart = (props) => {
   const data = {
-    labels: props.user.skills.slice(0, 6).map(skill => `${skill}`),
+    labels: props.user.techStack.slice(0, 6).map(skill => `${skill.techStack.name}`),
     datasets: [
       {
-        label: 'Usage (%)',
-        data: [60, 30, 20, 10, 40, 50],
+        label: 'Rating',
+        data: props.user.techStack.map(rate => `${rate.Techrating}`),
         backgroundColor: [
-            'rgba(7, 37, 73, 1)',
-            'rgba(8, 70, 119, 1)',
-            'rgba(17, 97, 158, 1)',
-            'rgba(2, 127, 185, 1)',
-            'rgba(97, 164, 207, 1)',
-            'rgba(0, 32, 56, 1)',
+            'rgba(255, 99, 132, 0.85)',
+            'rgba(54, 162, 235, 0.85)',
+            'rgba(255, 206, 86, 0.85)',
+            'rgba(75, 192, 192, 0.85)',
+            'rgba(153, 102, 255, 0.85)',
+            'rgba(255, 159, 64, 0.85)',
         ],
         borderRadius: 5,
         borderSkipped: false,
@@ -41,11 +41,37 @@ const HorizontalBarChart = (props) => {
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          color: 'rgba(102, 102, 102, 1)',
+          font: {
+            size: 14,
+            weight: 'bold',
+          },
+        },
       },
     },
     scales: {
+      y:{
+        ticks: {
+          color: 'rgba(102, 102, 102, 1)',
+          font: {
+            size: 14,
+            weight: 'bold',
+          }
+      }},
       x: {
         beginAtZero: true,
+        grid: {
+          color: 'rgba(71, 71, 71, 0.7)',
+          lineWidth: 0.8,
+        },
+        ticks: {
+          color: 'rgba(102, 102, 102, 1)',
+          font: {
+            size: 14,
+            weight: 'bold',
+          },
+        },
       },
     },
   };
