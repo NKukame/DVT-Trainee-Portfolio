@@ -13,11 +13,8 @@ import axios from "axios";
 import { Activity, Award, Calendar, CalendarCheck, MapPin, Pin, PinIcon } from "lucide-react";
 
 function Dashboard(props) {
-  // const id = props.testEmployee.employee_id;
-  // console.log(id);
-  // const tokenID = localStorage.getItem("userId").split('"')[1];
-
-  // console.log(tokenID);
+  const id = props.testEmployee.user.id;
+  const tokenID = localStorage.getItem("userId").split('"')[1];
   return (
     <div className="dashboard">
       <div className="profile">
@@ -34,13 +31,13 @@ function Dashboard(props) {
         </div>
 
         <div className="profile-info">
-          {/* { id === tokenID ?  */}
+          { id === tokenID ? 
           <Link to="/profile-creation" state={props.testEmployee}>
             <button className="manage-prfl">Edit Profile</button>
           </Link> 
-          {/* // : <Link to="/profile-creation" state={props.testEmployee}>
-          //   <button className="manage-prfl disabled" disabled>Edit Profile</button>
-          // </Link>} */}
+          : <Link to="/profile-creation" state={props.testEmployee}>
+            <button className="manage-prfl disabled" disabled>Edit Profile</button>
+          </Link>}
           <Link to="/generate-cv" state={props.testEmployee}>
             <button className="manage-prfl" >Generate Resume</button>
           </Link>
