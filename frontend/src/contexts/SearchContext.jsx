@@ -20,6 +20,10 @@ export const SearchContextProvider = ({children}) => {
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
 
+    
+  useEffect(() => {
+     searchData();
+  }, [])
     const searchData = async(page=1, query) =>{
         console.log(page)
         setIsLoading(true);
@@ -57,7 +61,7 @@ export const SearchContextProvider = ({children}) => {
                     experienced: emp.experience,
                     department: capitalizeFirstLetter(emp.department),
                     bio: emp.bio,
-                    availability: emp.availability.available,
+                    availability: emp.availability,
                     location: emp.location.split(',')[0],
                     emp_education: emp.education,
                     certificates: emp.certificates,
