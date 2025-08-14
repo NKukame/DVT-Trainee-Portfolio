@@ -128,7 +128,9 @@ function Signup() {
             "Content-Type" : "application/json"
           }}
         );
-  
+         const user_id = userRegistered.data.id;
+        
+         console.log("the user ", userRegistered)
         if(userRegistered.status === 201){
           setIsSignUp(false);
           setFormData(prev => ({
@@ -136,6 +138,7 @@ function Signup() {
             password: "",
             confirmPassword: "",
           }));
+          localStorage.setItem("user", JSON.stringify(user_id));
           navigate("/profile-creation");
         }  
         else{
@@ -179,7 +182,9 @@ const handleLogin = async () => {
 
     
     const tokenData = token.data.token;
+    const user_id = token.data.user;
     localStorage.setItem("token", JSON.stringify(tokenData));
+    localStorage.setItem("userId", JSON.stringify(user_id));
 
     if (rememberMe) {
       localStorage.setItem("rememberedCredentials", JSON.stringify({
@@ -289,7 +294,7 @@ const handleLogin = async () => {
 
             </div>
             {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sign Up</button>}
+           <button type="submit">Sign Up</button>}
 
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)

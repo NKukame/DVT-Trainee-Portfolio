@@ -95,9 +95,6 @@ export const SearchContextProvider = ({children}) => {
         }
     }
 
-    useEffect(() => {
-        searchData();
-     }, []);
  
     const handleInputChange = (query) => {
         // searchData(1, query);

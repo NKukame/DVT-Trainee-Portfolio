@@ -9,7 +9,7 @@ import '../SearchResultsComp/SearchPage.css';
 export default function SearchResults() {
 
   const location = useLocation();
-  const {filteredResults,total} = useContext(SearchContext);
+  const {filteredResults,total, searchData} = useContext(SearchContext);
   const queryParams = new URLSearchParams(location.search);
   const isProject = queryParams.get("isProject") === "true";
   const [isEmployeeSearch, setIsEmployeeSearch] = useState(!isProject);
@@ -23,9 +23,9 @@ export default function SearchResults() {
   }, [isEmployeeSearch, filteredResults]);
 
 
-  // useEffect(() => {
-  //    window.location.reload();
-  // }, [])
+  useEffect(() => {
+     searchData();
+  }, [])
 
 
   return (

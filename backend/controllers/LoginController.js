@@ -48,11 +48,11 @@ export default async function login(req, res) {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "24h" }
     );
-
+const user_id =  user.id
     res.status(200).json({
       message: "Login successful",
       token: accessToken,
-      // user: { id: user.id, email: user.email },
+      user: user_id
     });
   } catch (err) {
     console.error(err);
