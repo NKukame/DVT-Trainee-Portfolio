@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x] # choose one stable Node.js version
+        node-version: [18.x, 20.x, 22.x] # choose one stable Node.js version
 
     steps:
       - uses: actions/checkout@v4
