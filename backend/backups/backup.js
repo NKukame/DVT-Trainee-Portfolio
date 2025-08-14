@@ -1,11 +1,13 @@
 import {spawn} from "child_process";
 import {config} from "dotenv";
 import fs from "fs";
+import { URL } from "url";
+
 config();
+
 function isoFilename(){
     return new Date().toISOString().replace(/[:.]/g, "-");
 }
-
 
 async function waitForTunnel(host = "127.0.0.1", port = 5555, maxWait = 30000) {
     const start = Date.now();
@@ -33,41 +35,64 @@ async function waitForTunnel(host = "127.0.0.1", port = 5555, maxWait = 30000) {
     }
     
     throw new Error(`Tunnel not ready after ${maxWait}ms`);
-  }
+}
 
 async function main(){
-    console.log(process.env.DATABASE_URL);
-    const dbName = "database";
-    const filename = `${process.env.DB_NAME}_${isoFilename()}.bak`;
+    // Validate required environment variables
+    if (!process.env.DATABASE_URL) {
+        throw new Error("DATABASE_URL environment variable is required");
+    }
+
+    // Parse database name from DATABASE_URL
+    let dbName;
+    try {
+        const url = new URL(process.env.DATABASE_URL);
+        dbName = url.pathname.slice(1) || "database"; // Remove leading slash
+    } catch (error) {
+        console.error("Invalid DATABASE_URL:", error.message);
+        dbName = process.env.DB_NAME || "database";
+    }
+
+    const filename = `${dbName}_${isoFilename()}.bak`;
     const tunnelHost = "127.0.0.1";
     const tunnelPort = 5555;
   
     console.log(`Starting backup of ${filename}`);
-  
+    console.log(`Database URL: ${process.env.DATABASE_URL.replace(/:\/\/[^@]+@/, '://***:***@')}`); // Log safely
+
     console.log("Starting Prisma tunnel...");
-    const tunnel = spawn("npx", [
-      "--yes", 
-      "@prisma/ppg-tunnel",
-      "--host", tunnelHost,
-      "--port", tunnelPort.toString()
+    
+    // Detect platform for npx command
+    const npxCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    
+    const tunnel = spawn(npxCommand, [
+        "--yes", 
+        "@prisma/ppg-tunnel",
+        "--host", tunnelHost,
+        "--port", tunnelPort.toString()
     ], {
-      env: { ...process.env, DATABASE_URL: process.env.DATABASE_URL, NPX_YES: "1", PGSSLMODE: "disable" },
-      stdio: ["ignore", "pipe", "pipe"],
-      shell: true
+        env: { 
+            ...process.env, 
+            DATABASE_URL: process.env.DATABASE_URL, 
+            NPX_YES: "1", 
+            PGSSLMODE: "disable" 
+        },
+        stdio: ["ignore", "pipe", "pipe"],
+        shell: process.platform === 'win32'
     });
   
     let tunnelReady = false;
   
     tunnel.stdout.on("data", (data) => {
-      const output = data.toString();
-      console.log("Tunnel:", output.trim());
-      if (output.includes("Tunnel ready") || output.includes("listening")) {
-        tunnelReady = true;
-      }
+        const output = data.toString();
+        console.log("Tunnel:", output.trim());
+        if (output.includes("Tunnel ready") || output.includes("listening")) {
+            tunnelReady = true;
+        }
     });
   
     tunnel.stderr.on("data", (data) => {
-      console.error("Tunnel stderr:", data.toString());
+        console.error("Tunnel stderr:", data.toString());
     });
   
     try {
@@ -84,10 +109,13 @@ async function main(){
         }
         const outputPath = `./backups/${filename}`;
 
+        // Use tunnel connection string instead of DATABASE_URL2
+        const tunnelConnectionString = `postgresql://localhost:${tunnelPort}/${dbName}`;
+        
         const pgDump = spawn(
             "pg_dump",
             [
-                process.env.DATABASE_URL2,
+                tunnelConnectionString, // Use original DATABASE_URL
                 "--format=custom",
                 "--compress=9",
                 "--no-owner",
@@ -96,7 +124,10 @@ async function main(){
                 "-f",
                 outputPath
             ],
-            { stdio: ["ignore", "inherit", "inherit"], env: { ...process.env, PGSSLMODE: "disable" } }
+            { 
+                stdio: ["ignore", "inherit", "inherit"], 
+                env: { ...process.env, PGSSLMODE: "disable" } 
+            }
         );
 
         await new Promise((resolve, reject) => {
@@ -126,9 +157,10 @@ async function main(){
         }
     }
 }
+
 main()
-  .then(() => process.exit(0))
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+    .then(() => process.exit(0))
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    });
