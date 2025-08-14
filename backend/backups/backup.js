@@ -39,7 +39,7 @@ async function waitForTunnel(host = "127.0.0.1", port = 5555, maxWait = 30000) {
 
 async function main(){
     // Validate required environment variables
-    if (!process.env.DATABASE_URL) {
+    if (!process.env.DATABASE_URL && !process.env.DATABASE_URL2) {
         throw new Error("DATABASE_URL environment variable is required");
     }
 
