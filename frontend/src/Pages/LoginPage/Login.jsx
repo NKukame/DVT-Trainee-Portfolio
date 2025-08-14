@@ -400,9 +400,13 @@ const handleLogin = async () => {
               <p>Smart Solutions</p>
               </div>
               <div>
+                {
+                  !isSignUp &&
                   <button className="hidden" onClick={() =>
                 {setIsSignUp(true)  
+
                   setFormData({
+
                     email: "",
                     password: "",
                   })
@@ -411,6 +415,7 @@ const handleLogin = async () => {
                 >
                 Sign Up
               </button>
+                }
 
               
               </div>
