@@ -1,0 +1,36 @@
+name: Node.js CI
+
+on:
+  schedule:
+    - cron: "0 2 * * *"  # Runs every day at 2:00 AM UTC
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run backup script
+        run: |
+          cd backend
+          npm run backup
