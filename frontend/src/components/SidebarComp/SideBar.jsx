@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./SideBar.css";
 import dvtLogo from "../../assets/dvt_logo.jpg";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -10,20 +11,27 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
+import ProfileModal from "../ProfileModalComp/ProfileModal";
 
 function SideBar() {
-  // adjust the path
-
   const { darkMode, setDarkMode } = useDarkMode();
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  
+  const userInfo = {
+    name: "John Doe",
+    email: "john.doe@example.com"
+  };
 
   return (
     <>
       <div className="sidebar-container">
         <div className="sidebar-container-logo">
-          <img src={dvtLogo} alt="DVT Logo" className="sidebar-logo" />
-          <div className="logo-txt">
-            Smart People <br />{" "}
-            <span className="logo-txt">Smart Solutions</span>
+          <div className="sidebar-logo-section">
+            <img src={dvtLogo} alt="DVT Logo" className="sidebar-logo" />
+            <div className="logo-txt">
+              Smart People <br />{" "}
+              <span className="logo-txt">Smart Solutions</span>
+            </div>
           </div>
         </div>
 
@@ -123,66 +131,19 @@ function SideBar() {
         </div>
 
         <div className="sidebar-bottom">
-          <div
-            className="sidebar-nav-link"
-            onClick={() => setDarkMode(!darkMode)}
-          >
-            {/* <Link to="/"> */}
-            <div className="homeBtn">
-              <div className="dark-mode-logo-toogle">
-                {darkMode ? (
-                  <svg
-                    width="25px"
-                    height="25px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    width="25px"
-                    height="25px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M21.9548 12.9564C20.5779 15.3717 17.9791 17.0001 15 17.0001C10.5817 17.0001 7 13.4184 7 9.00008C7 6.02072 8.62867 3.42175 11.0443 2.04492C5.96975 2.52607 2 6.79936 2 11.9998C2 17.5227 6.47715 21.9998 12 21.9998C17.2002 21.9998 21.4733 18.0305 21.9548 12.9564Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                )}
-              </div>
-
-              <p className="home-txt"> {darkMode ? "Light" : "Dark"}</p>
-            </div>
-            {/* </Link> */}
+          <div className="profile-icon" onClick={() => setIsProfileModalOpen(true)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
-
-          {/* <div className="log-out">
-            <button className="logout-btn">
-              <div className="sign">
-                <svg viewBox="0 0 512 512">
-                  <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
-                </svg>
-              </div>
-
-              <div className="text">Logout</div>
-            </button>
-          </div> */}
         </div>
       </div>
+      
+      <ProfileModal 
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        userInfo={userInfo}
+      />
     </>
   );
 }
