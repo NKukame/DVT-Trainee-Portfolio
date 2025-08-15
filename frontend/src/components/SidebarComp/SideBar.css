@@ -169,6 +169,39 @@
   color: var(--light-blue);
 }
 
+.profile-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--light-blue);
+  transition: border-color 0.3s ease;
+}
+
+.dark-mode .profile-picture {
+  border-color: var(--white);
+}
+
+.profile-picture:hover {
+  border-color: var(--purple);
+}
+
+.dark-mode .profile-picture:hover {
+  border-color: var(--light-blue);
+}
+
 .sidebar-container:hover .sidebar-bottom{
     transform: translateX(calc(5% - 20px)); 
     transition: 0.5s ease-in-out;
