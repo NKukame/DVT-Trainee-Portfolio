@@ -53,4 +53,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_URL2: ${{ secrets.DATABASE_URL2 }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+          B2_APPLICATION_KEY_ID: ${{ secrets.B2_APPLICATION_KEY_ID }}
+          B2_BUCKET_ID: ${{ secrets.B2_BUCKET_ID }}
           
