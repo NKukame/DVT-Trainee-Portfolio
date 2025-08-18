@@ -190,7 +190,7 @@ totalRoutes.post('/register', signup);
  */
 totalRoutes.post('/create-profile', createProfileController); //done
 
-totalRoutes.patch('/profile', authenticateToken, EditUserController); //done
+totalRoutes.patch('/profile/:id', authenticateToken, EditUserController); //done
 
 /**
  * @swagger

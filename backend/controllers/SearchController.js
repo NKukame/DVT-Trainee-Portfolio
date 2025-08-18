@@ -270,6 +270,7 @@ export async function SearchEmployeeController(req, res) {
 
         select: {
           id: true,
+          title: true,
           name: true,
           surname: true,
           photoUrl: true,
@@ -280,6 +281,8 @@ export async function SearchEmployeeController(req, res) {
             }
           },
           email: true,
+          phone: true,
+          company: true,
           bio: true,
           experience: true,
           availability: {
