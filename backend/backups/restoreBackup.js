@@ -126,25 +126,25 @@ async function main() {
   });
 
   try {
-    await new Promise(r => setTimeout(r, 6000));
+    await new Promise(r => setTimeout(r, 3000));
     await waitForTunnel(tunnelHost, tunnelPort);
 
-    // const pgRestore = spawn("pg_restore", [
-    //   "--clean",
-    //   "--no-owner",
-    //   "--no-privileges",
-    //   "--verbose",
-    //   "--dbname", process.env.DATABASE_URL,
-    //   backupPath
-    // ], { stdio: ["ignore", "inherit", "inherit"], env: { ...process.env, PGSSLMODE: "disable" } });
+    const pgRestore = spawn("pg_restore", [
+      "--clean",
+      "--no-owner",
+      "--no-privileges",
+      "--verbose",
+      "--dbname", process.env.DATABASE_URL,
+      backupPath
+    ], { stdio: ["ignore", "inherit", "inherit"], env: { ...process.env, PGSSLMODE: "disable" } });
 
-    // await new Promise((resolve, reject) => {
-    //   pgRestore.on("error", reject);
-    //   pgRestore.on("close", code => {
-    //     if (code !== 0) return reject(new Error(`pg_restore exited with code ${code}`));
-    //     resolve();
-    //   });
-    // });
+    await new Promise((resolve, reject) => {
+      pgRestore.on("error", reject);
+      pgRestore.on("close", code => {
+        if (code !== 0) return reject(new Error(`pg_restore exited with code ${code}`));
+        resolve();
+      });
+    });
 
     console.log("Restore completed successfully.", tempFilePath);
   } finally {
