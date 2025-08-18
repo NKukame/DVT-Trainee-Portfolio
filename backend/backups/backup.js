@@ -123,8 +123,8 @@ async function main(){
         }
         const outputPath = `./backups/${filename}`;
 
-        // Use tunnel connection string instead of DATABASE_URL2
-        const tunnelConnectionString = `postgresql://localhost:${tunnelPort}/${dbName}?sslmode=disable`;
+        // Use tunnel connection string with explicit sslmode=disable
+        const tunnelConnectionString = `postgresql://localhost:${tunnelPort}/${dbName}`;
         
         const pgDump = spawn(
             "pg_dump",
@@ -140,7 +140,13 @@ async function main(){
             ],
             { 
                 stdio: ["ignore", "inherit", "inherit"], 
-                env: { ...process.env, PGSSLMODE: "disable" } 
+                env: { 
+                    ...process.env, 
+                    PGSSLMODE: "disable",
+                    PGSSLCERT: "",
+                    PGSSLKEY: "",
+                    PGSSLROOTCERT: ""
+                } 
             }
         );
 
