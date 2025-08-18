@@ -124,7 +124,7 @@ async function main(){
         const outputPath = `./backups/${filename}`;
 
         // Use tunnel connection string instead of DATABASE_URL2
-        const tunnelConnectionString = `postgresql://localhost:${tunnelPort}/${dbName}`;
+        const tunnelConnectionString = `postgresql://localhost:${tunnelPort}/${dbName}?sslmode=disable`;
         
         const pgDump = spawn(
             "pg_dump",
@@ -154,11 +154,11 @@ async function main(){
             });
         });
 
-        const buffer = await fsPromises.readFile(filename);
-        const stats = await fsPromises.stat(filename);
+        const buffer = await fsPromises.readFile(outputPath);
+        const stats = await fsPromises.stat(outputPath);
         const mb = stats.size / 1024 / 1024;
 
-        console.log(`Backup completed: ${filename} (${mb.toFixed(2)} MB) Now uploading to Backblaze B2`);
+        console.log(`Backup completed: ${outputPath} (${mb.toFixed(2)} MB) Now uploading to Backblaze B2`);
 
         const {data: file} = await b2.uploadFile({
             uploadUrl: uploadUrl.uploadUrl,
