@@ -54,7 +54,7 @@ export function UserSkeletonLoader(){
         {  
           listLoader.map((items)=>{
             return (
-              <div class="card-skeleton shadow">
+              <div key={items} class="card-skeleton shadow">
                 <div class="avatar-skeleton shimmer"></div>
                 <div class="info-skeleton">
                   <div class="line-skeleton short shimmer"></div>

@@ -10,7 +10,7 @@ function SearchBar(){
 
     return(
       <>
-        <div class="input-container">
+        <div className="input-container">
           <SearchIcon/>
           <input type="text"  placeholder="Find people or projects" onChange={(e) => handleInputChange(e.target.value)}/>
         </div>
