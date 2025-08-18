@@ -8,6 +8,7 @@ import Login from './Pages/LoginPage/Login.jsx'
 import Portfolio from './Pages/PortfolioPage/Portfolio.jsx';
 import UserPortfolio from './Pages/UserPortfolioPage/UserPortfolio.jsx';
 import ProfileCreation from './Pages/ProfileCreation/ProfileCreation.jsx';
+import EditProfile from './Pages/EditProfile/EditProfile.jsx';
 import SearchBar from './components/SearchBarComp/SearchBar.jsx';
 import Search from './Pages/SearchPage/Search.jsx';
 import GenerateCV from './Pages/GenerateCV/GenerateCV.jsx';
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/userportfolio" element={<UserPortfolio />} />
             <Route path="/generate-cv" element={<GenerateCV />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Route>
         </Routes>
       </Router>
