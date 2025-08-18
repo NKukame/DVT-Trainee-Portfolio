@@ -275,6 +275,11 @@ export async function SearchEmployeeController(req, res) {
           surname: true,
           photoUrl: true,
           department: true,
+          user:{
+            select: {
+              id: true,
+            }
+          },
           email: true,
           phone: true,
           company: true,
