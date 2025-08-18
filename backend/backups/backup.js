@@ -1,8 +1,10 @@
 import {spawn} from "child_process";
 import {config} from "dotenv";
-import fs from "fs";
 import { URL } from "url";
 import B2 from "backblaze-b2";
+import fs from 'fs';
+import fsPromises from 'fs/promises';
+import path from 'path';
 
 config();
 
@@ -116,7 +118,7 @@ async function main(){
             await new Promise(res => setTimeout(res, 10000));
         }
 
-        if (!fs.existsSync("./backups")) {
+        if (! fs.existsSync("./backups")) {
             fs.mkdirSync("./backups");
         }
         const outputPath = `./backups/${filename}`;
@@ -152,8 +154,8 @@ async function main(){
             });
         });
 
-        const buffer = fs.readFile(filename);
-        const stats = fs.stat(filename);
+        const buffer = await fsPromises.readFile(filename);
+        const stats = await fsPromises.stat(filename);
         const mb = stats.size / 1024 / 1024;
 
         console.log(`Backup completed: ${filename} (${mb.toFixed(2)} MB) Now uploading to Backblaze B2`);
