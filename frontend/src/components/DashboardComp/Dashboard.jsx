@@ -32,7 +32,7 @@ function Dashboard(props) {
 
         <div className="profile-info">
           { id === tokenID ? 
-          <Link to="/profile-creation" state={props.testEmployee}>
+          <Link to="/edit-profile" state={props.testEmployee}>
             <button className="manage-prfl">Edit Profile</button>
           </Link> 
           : <Link to="/profile-creation" state={props.testEmployee}>
