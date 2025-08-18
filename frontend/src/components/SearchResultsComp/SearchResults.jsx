@@ -54,25 +54,25 @@ export function UserSkeletonLoader(){
         {  
           listLoader.map((items)=>{
             return (
-              <div key={items} class="card-skeleton shadow">
-                <div class="avatar-skeleton shimmer"></div>
-                <div class="info-skeleton">
-                  <div class="line-skeleton short shimmer"></div>
-                  <div class="line-skeleton shorter shimmer"></div>
+              <div key={items} className="card-skeleton shadow">
+                <div className="avatar-skeleton shimmer"></div>
+                <div className="info-skeleton">
+                  <div className="line-skeleton short shimmer"></div>
+                  <div className="line-skeleton shorter shimmer"></div>
       
-                  <div class="row-skeleton">
-                    <div class="icon-line shimmer"></div>
-                    <div class="icon-line shimmer"></div>
-                    <div class="icon-line shimmer"></div>
+                  <div className="row-skeleton">
+                    <div className="icon-line shimmer"></div>
+                    <div className="icon-line shimmer"></div>
+                    <div className="icon-line shimmer"></div>
                   </div>
       
-                  <div class="tags-skeleton">
-                    <div class="tag shimmer"></div>
-                    <div class="tag shimmer"></div>
-                    <div class="tag shimmer"></div>
+                  <div className="tags-skeleton">
+                    <div className="tag shimmer"></div>
+                    <div className="tag shimmer"></div>
+                    <div className="tag shimmer"></div>
                   </div>
       
-                  <div class="button-skeleton shimmer"></div>
+                  <div className="button-skeleton shimmer"></div>
                 </div>
               </div>
             )
