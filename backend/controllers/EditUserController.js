@@ -1,3 +1,4 @@
+import { EmployeeRole } from "@prisma/client";
 import prisma from "../lib/prisma-redis-middleware.js";
 
 // import { Prisma, PrismaClient } from '@prisma/client';
@@ -86,58 +87,101 @@ const { id, name, surname, photoUrl, department, bio, experience, availability, 
             },
           },
         },
-        //   projects: {
-        //     select: {
-        //       project: {
-        //         select: {
-        //           id: true,
-        //           name: true,
-        //           description: true,
-        //           members: {
-        //             select: {
-        //               employee: {
-        //                 select: {
-        //                   name: true,
-        //                   photoUrl: true,
-        //                 },
-        //               },
-        //             },
-        //           },
-        //           techStack: {
-        //             select: {
-        //               techStack: {
-        //                 select: {
-        //                   name: true,
-        //                 },
-        //               },
-        //             },
-        //           },
-        //           github: true,
-        //           demo: true,
-        //           screenshot: true,
-        //           createdAt: true,
-        //           updatedAt: true,
-        //           industries: {
-        //             select: {
-        //               project: {
-        //                 select: {
-        //                   industries: {
-        //                     select: {
-        //                       industry: {
-        //                         select: {
-        //                           name: true,
-        //                         },
-        //                       },
-        //                     },
-        //                   },
-        //                 },
-        //               },
-        //             },
-        //           },
-        //         },
-        //       },
-        //     },
-        //   },
+        projects:{
+          update:{
+            where:{
+              projectId_employeeId: {
+                projectId: projects.projectID, 
+                employeeId: projects.employeeID
+              }
+            },
+            data:{
+              project:{
+                update:{
+                  where:{
+                    id: projects.projectID,
+                    projectId_employeeId: projects.projectId_employeeId,
+                  },
+                  data:{
+                    name: projects.name,
+                  description: projects.description,
+                  github: projects.github,
+                  demo: projects.demo,
+                  screenshot: projects.screenshot,
+                  updatedAt: new Date(),
+                
+                },
+                
+                }
+              }
+            }
+          }
+          
+        },
+//         projects: {
+//   update: {
+//     where: { projectId: projects.projectID }, // the relation id
+//     data: {
+//       project: {
+//         update: { 
+//           where: { id: projects.projectId_employeeId },
+//           data: {name: projects.name,
+//           description: projects.description,
+//           github: projects.github,
+//           demo: projects.demo,
+//           screenshot: projects.screenshot,
+//           updatedAt: new Date(),
+
+//           // Update members (via join table)
+//           member: {
+//             update: {
+//               where: {
+//                 employeeId: projects.member.employeeId,
+//               },
+//               data: {
+//                 employee: {
+//                   update: {
+//                     name: projects.member.name,
+//                     photoUrl: projects.member.photoUrl,
+//                   },
+//                 },
+//               },
+//             },
+//           },
+
+//           // Update tech stack
+//           // techStack: {
+//           //   update: {
+//           //     where: { techStackId: projects.techStack.techStackID },
+//           //     data: {
+//           //       techStack: {
+//           //         update: {
+//           //           name: projects.techStack.name,
+//           //         },
+//           //       },
+//           //     },
+//           //   },
+//           // },
+
+//           // Update industries
+//           // industries: {
+//           //   update: {
+//           //     where: { projectIndustryId: projects.industry.projectIndustryId },
+//           //     data: {
+//           //       industry: {
+//           //         update: {
+//           //           name: projects.industry.name,
+//           //         },
+//           //       },
+//           //     },
+//           //   },
+//           // }, 
+//         },
+//       },
+//     },
+//   },
+// },
+//  },
 
         testimonials: {
           update: {
@@ -178,7 +222,7 @@ const { id, name, surname, photoUrl, department, bio, experience, availability, 
     res.json("User Updated" , updateUser)
     }catch(error)
     {   
-        res.json({ProblemUpdating: error })
+        res.status(500).json({ProblemUpdating: error })
         console.log(error);
     }
 
