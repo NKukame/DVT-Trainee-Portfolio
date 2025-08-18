@@ -2,6 +2,7 @@ import {spawn} from "child_process";
 import {config} from "dotenv";
 import fs from "fs";
 import { URL } from "url";
+import B2 from "backblaze-b2";
 
 config();
 
@@ -54,6 +55,17 @@ async function main(){
     }
 
     const filename = `${dbName}_${isoFilename()}.bak`;
+    const b2 = new B2({
+      applicationKey: process.env.B2_APPLICATION_KEY,
+      applicationKeyId: process.env.B2_APPLICATION_KEY_ID,
+    });
+
+    await b2.authorize();
+
+    const {data: uploadUrl} = await b2.getUploadUrl({
+        bucketId: process.env.B2_BUCKET_ID,
+    });
+    
     const tunnelHost = "127.0.0.1";
     const tunnelPort = 5555;
   
@@ -140,7 +152,21 @@ async function main(){
             });
         });
 
-        console.log(`Backup completed and saved to ${outputPath}`);
+        const buffer = fs.readFile(filename);
+        const stats = fs.stat(filename);
+        const mb = stats.size / 1024 / 1024;
+
+        console.log(`Backup completed: ${filename} (${mb.toFixed(2)} MB) Now uploading to Backblaze B2`);
+
+        const {data: file} = await b2.uploadFile({
+            uploadUrl: uploadUrl.uploadUrl,
+            uploadAuthToken: uploadUrl.authorizationToken,
+            fileName: path.basename(filename), // Use just the filename, not the full path
+            data: buffer,
+            contentType: "application/octet-stream",
+        });
+
+        console.log(`Backup completed and saved to ${outputPath} and uploaded to Backblaze B2`);
     } finally {
         if (tunnel) {
             console.log("Closing tunnel...");
