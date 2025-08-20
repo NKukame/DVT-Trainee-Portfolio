@@ -93,9 +93,6 @@ console.log("our Api call",response)
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
                   />
                 </svg>
                 <p className="home-txt">Home</p>
