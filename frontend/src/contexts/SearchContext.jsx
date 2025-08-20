@@ -58,6 +58,7 @@ export const SearchContextProvider = ({children}) => {
                     github: emp.github,
                     user: emp.user,
                     linkedIn: emp.linkedIn,
+                    portfolio: emp.portfolio,
                     testimonials: emp.testimonials|| [],
                     role: capitalizeFirstLetter(emp.role),
                     softSkilled: emp.softSkills,
