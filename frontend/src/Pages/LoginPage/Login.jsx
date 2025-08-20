@@ -85,7 +85,7 @@ function Signup() {
 
   if (!formData.password) {
     newErrors.password = "Password is required";
-  } else if (formData.password.length < 8) { // FIXED: Changed >= to <
+  } else if (formData.password.length < 8) { 
     newErrors.password = "Password must be at least 8 characters";
   } else if (!/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/.test(formData.password)) {
     newErrors.password = "Password must contain at least one special character";
@@ -96,9 +96,9 @@ function Signup() {
 };
 
   const handleChange = (e) => {
-    if (e.target.value.includes('@')){
-      e.target.name = "email";
-    }
+    // if (e.target.value.includes('@')){
+    //   e.target.name = "email";
+    // }
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
@@ -213,7 +213,6 @@ const handleLogin = async () => {
 };
 
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -369,8 +368,7 @@ const handleLogin = async () => {
                         <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
             </div>    
-            {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sign In</button>}
+            {loading ? <div className="form-loader"></div> : <button type="submit">Sign In</button>}
 
           </form>
         </div>

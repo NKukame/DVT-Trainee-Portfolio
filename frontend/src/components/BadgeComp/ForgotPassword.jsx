@@ -12,6 +12,7 @@ function ForgotPassword() {
   const queryParams = new URLSearchParams(location.search);
   const [step, setStep] = useState(1); 
   const [errors, setErrors] = useState({});
+  const [Loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordCriteria, setPasswordCriteria] = useState({
@@ -132,7 +133,7 @@ function ForgotPassword() {
       
       const payload = { email: email.trim().toLowerCase() };
       console.log("Payload being sent:", JSON.stringify(payload, null, 2));
-      
+      setLoading(true);
       const response = await axios.post("http://localhost:3000/forgot-password", 
         payload,
         {
@@ -152,7 +153,7 @@ function ForgotPassword() {
       console.error("Error response:", error.response);
       console.error("Error response status:", error.response?.status);
       console.error("Error response data:", error.response?.data);
-      
+      setLoading(false);
       if (error.response) {
         const errorMessage = error.response.data?.error || error.response.data?.message || "Failed to send reset email";
         
@@ -270,8 +271,11 @@ function ForgotPassword() {
                 </div>
                 {errors.email && <p className="error-message">{errors.email}</p>}
               </div>
-              
-              <button type="submit" className="reset-btn">Reset password</button>
+
+              {Loading ? <div className="form-loader"></div> : 
+                <button type="submit" className="reset-btn">Reset password</button>
+              }
+             
             </form>
             
             <div className="back-to-login">

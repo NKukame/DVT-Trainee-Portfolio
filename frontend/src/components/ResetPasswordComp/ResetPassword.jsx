@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
-import "./Login.css";
+// import "./Login.css";
  
 function ResetPassword() {
   const [formData, setFormData] = useState({
@@ -205,10 +205,11 @@ function ResetPassword() {
                 />
                 {errors.email && <p className="error">{errors.email}</p>}
                
-                <button type="submit" disabled={loading}>
-                  {loading ? "Sending..." : "Send Reset Link"}
-                </button>
                
+              {Loading ? <div className="form-loader"></div> : 
+                <button type="submit" className="reset-btn">Reset password</button>
+              }
+ 
                 <Link to="/" style={{ marginTop: "15px" }}>Back to Login</Link>
               </form>
             )}
