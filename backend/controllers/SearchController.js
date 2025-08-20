@@ -292,6 +292,7 @@ export async function SearchEmployeeController(req, res) {
           },
           linkedIn: true,
           github: true,
+          portfolio: true,
           role: true,
           career: {
               select:{
@@ -326,6 +327,7 @@ export async function SearchEmployeeController(req, res) {
               Techrating: true,
               techStack: {
                 select: {
+                  id: true,
                   name: true,
                 },
               },

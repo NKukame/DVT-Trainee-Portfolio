@@ -9,6 +9,7 @@
     margin-left: 8%;
     background-color: var(--white);
     border-radius: 15px;
+    margin-bottom: 10px;
 }
 
 .edit-submit-section{
@@ -57,10 +58,13 @@
   width: 250px;
   border-bottom: 1px solid var(--dark-mode-blue);
   background: transparent;
+  transition: 0.3s ease;
 }
 
 .edit-form-group input:focus {
   outline: none;
+  border-color: var(--light-blue);
+  box-shadow: 0 4px 6px -2px rgba(77, 166, 255, 0.5);
 }
 
 .edit-form-group label{
@@ -104,4 +108,33 @@
     font-size: 24px;
     font-weight: 600;
     margin: 0;
+}
+
+.testimonial-edit-group, .project-edit-group, .career-edit-group{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.edit-profile-edit-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block: 20px;
+}
+
+.edit-profile-edit-btn{
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 10%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-edit-btn:hover{
+    background-color: var(--light-blue);
 }
