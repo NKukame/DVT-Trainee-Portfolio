@@ -52,6 +52,7 @@ export default function Pagination(){
   );
 
   return (
+
     <>
     {
       total > 1 &&
