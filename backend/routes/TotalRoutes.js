@@ -11,6 +11,7 @@ import { authenticateToken } from '../middleware/authenticateToken.js';
 import EditUserController from '../controllers/EditUserController.js';
 import MeController from '../controllers/MeController.js';
 import { UpdateUserController } from '../controllers/UpdateUserController.js';
+import { resetPassword } from '../controllers/ForgotPasswordController.js';
 
 
 const totalRoutes = express.Router();
@@ -294,7 +295,8 @@ totalRoutes.patch('/profile', authenticateToken, EditUserController); //done
  *               type: string
  *               example: forgot password
  */
-totalRoutes.put('/forgot-password', forgotPassword);
+totalRoutes.post('/forgot-password', forgotPassword);
+totalRoutes.post('/reset-password', resetPassword);
 
 /**
  * @swagger

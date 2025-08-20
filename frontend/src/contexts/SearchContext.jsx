@@ -24,7 +24,9 @@ export const SearchContextProvider = ({children}) => {
   useEffect(() => {
      searchData();
   }, [])
+
     const searchData = async(page=1, query) =>{
+
         console.log(page)
         setIsLoading(true);
 
@@ -34,6 +36,7 @@ export const SearchContextProvider = ({children}) => {
             axios.defaults.headers.post['Content-Type'] = 'application/json';
             
             const apiDataEmployee = await axios.get(`http://localhost:3000/search/employee`, {
+
                 params:{
                     page:page,
                     query:query
@@ -74,12 +77,14 @@ export const SearchContextProvider = ({children}) => {
                     techStack: emp.techStack,
                     skills: emp.techStack.map((link) => link.techStack.name),
                   }));
+
     
             const projectsWithTechStack = apiDataProject.data.projects.map(project => ({
                 project_id: project.id,
                 name: project.name,
                 description: project.description,
                 created_on: project.createdAt,
+
                 technologies: project.techStack.map(link => link.techStack.name),
                 industries: project.industries.map(link => link.industry.name),
                 username: project.members?.map(link => link.employee.name)[0],
@@ -99,6 +104,7 @@ export const SearchContextProvider = ({children}) => {
             setIsLoading(false)
         }
     }
+
 
  
     const handleInputChange = (query) => {
@@ -123,6 +129,7 @@ export const SearchContextProvider = ({children}) => {
             newSelectedFilter =  [...selectedFilter, filter];
         }
         setSelectedFilter(newSelectedFilter);
+
        
         console.log("handleFilterClick - filter:", filter, "category:", category);
         console.log("newSelectedFilter:", newSelectedFilter);
@@ -134,19 +141,21 @@ export const SearchContextProvider = ({children}) => {
                 if(newSelectedFilter.length === 0) return true;
                 if(employee.skills){
                     const lowerSkills = employee.skills.map(x => x.toLowerCase())
+
                     console.log(lowerSkills);        
                    
+
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
  
                 if(employee.technologies){
                     const lowerSkills = employee.technologies.map(x => x.toLowerCase())
+
                     console.log(lowerSkills);        
-                   
+
                     return newSelectedFilter.some((filter) => lowerSkills.includes(filter.toLowerCase()));
                 }
             });
-            console.log(updatedResults.length);
         }
         if(category.includes("Roles")){
             updatedResults = searchResults.filter((employee) => {
@@ -179,6 +188,7 @@ export const SearchContextProvider = ({children}) => {
         setFilteredResults(updatedResults);
     }
 
+
     const handleChange = (filter,newSelectedFilter) => {
         // console.log
         const filteredResults = searchResults.filter((employee) => {
@@ -186,11 +196,14 @@ export const SearchContextProvider = ({children}) => {
             if(newSelectedFilter.length === 0) return true
             if(employee.years_active){
                 return employee.years_active.split(' ')[0] === filter
+
             }
             return false;
         })
+
         console.log('done execwdfdflkgjfk')
         return [...filteredResults];
+
     };
  
  
@@ -200,6 +213,4 @@ export const SearchContextProvider = ({children}) => {
         </SearchContext.Provider>
     )
 }
- 
- 
- 
+

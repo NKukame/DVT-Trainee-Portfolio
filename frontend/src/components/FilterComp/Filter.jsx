@@ -14,9 +14,11 @@ function Filter() {
   const [shouldShowTags, setShouldShowTags] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
+
   const {allLanguages, allRoles, handleFilterClick, allLocations} = useContext(SearchContext)
   // Options for each dropdown
   const locationOptions = toDropdownOptions(allLocations)  
+
   const techOptions = toDropdownOptions(allLanguages);
   const roleOptions = toDropdownOptions(allRoles);
   
@@ -99,7 +101,9 @@ function Filter() {
     <section className="filter-container">
       <div className="filter-section">
         <div className="filter-dropdown">
+
           <MarkerPin04 className="filter-section-icon" />
+
           <Combobox
             placeholder="Location"
             options={locationOptions}
