@@ -13,6 +13,7 @@ function ForgotPassword() {
   const [step, setStep] = useState(1); 
   const [errors, setErrors] = useState({});
   const [Loading, setLoading] = useState(false);
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordCriteria, setPasswordCriteria] = useState({
@@ -201,6 +202,7 @@ function ForgotPassword() {
         setNewPassword("");
         setConfirmPassword("");
         setPasswordCriteria({ length: false, special: false });
+        navigate("/");
         
       } else {
         setErrors({ general: response.data.error || "Failed to reset password" });
