@@ -39,9 +39,10 @@ function SideBar() {
           'Content-Type': 'application/json'
         }
       });
-
+console.log("our Api call",response)
       if (response.ok) {
         const userData = await response.json();
+        console.log("our Api call",userData)
         const profilePictureUrl = userData.profilePicture 
           ? (userData.profilePicture.startsWith('data:') 
               ? userData.profilePicture 
@@ -51,7 +52,7 @@ function SideBar() {
         setUserInfo({
           name: userData.name,
           email: userData.email,
-          profilePicture: profilePictureUrl
+          profilePicture: userData.avatar
         });
       } else if (response.status === 401) {
         localStorage.removeItem('token');
@@ -175,7 +176,7 @@ function SideBar() {
               <img 
                 src={userInfo.profilePicture} 
                 alt="Profile" 
-                className="profile-picture"
+                className="sidebar-profile-picture"
                 onError={() => setUserInfo(prev => ({ ...prev, profilePicture: null }))}
               />
             ) : (

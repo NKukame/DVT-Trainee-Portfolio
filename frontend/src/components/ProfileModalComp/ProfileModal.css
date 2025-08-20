@@ -1,5 +1,7 @@
 .profile-modal-overlay {
   position: fixed;
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -11,14 +13,24 @@
   z-index: 1000;
 }
 
-.profile-modal-content {
+.profile-modal-content {position: fixed;
   background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
   border-radius: 12px;
   padding: 24px;
   width: 320px;
+  height: fit-content;
   max-width: 90vw;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--userText-GrayText);
+   /* top: 0;
+  left: 0; */
+  right: 1271px;
+  bottom: 16px;
+}
+
+.dark-mode .profile-modal-content {
+  background: linear-gradient(0deg, #02111E 0%, #04223D 100%);
+  border: 1px solid var(--dark-blue);
 }
 
 .profile-modal-header {
@@ -35,10 +47,18 @@
   font-weight: 600;
 }
 
+.dark-mode .profile-modal-user-info h3  {
+  color: var(--white);
+}
+
 .profile-modal-user-info p {
   margin: 0;
   color: var(--navy-blue);
   font-size: 14px;
+}
+
+.dark-mode .profile-modal-user-info p {
+  color: var(--white);
 }
 
 .profile-modal-close {
@@ -47,8 +67,12 @@
   cursor: pointer;
   padding: 4px;
   border-radius: 6px;
-  color: var(--text-secondary);
+  color: var(--navy-blue);
   transition: all 0.2s ease;
+}
+
+.dark-mode .profile-modal-close {
+  color: var(--white);
 }
 
 .profile-modal-close:hover {
@@ -83,14 +107,23 @@
   color: var(--navy-blue);
 }
 
+.dark-mode .view-profile-btn {
+  /* background-color: var(--dark-blue); */
+  color: var(--white);
+}
+
 .view-profile-btn:hover {
   background-color: var(--gray);
+}
+
+.dark-mode .view-profile-btn:hover {
+  background-color: var(--dark-blue);
 }
 
 .logout-btn {
   background-color: var(--gray);
   color: var(--navy-blue);
-  margin-left: -1px;
+  margin-left: 0px;
 }
 
 .logout-btn:hover {
@@ -115,6 +148,11 @@
   background-color: var(--gray);
 }
 
+.popUpLogOut:hover {
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+
 .toggle-content {
   display: flex;
   align-items: center;
@@ -124,6 +162,14 @@
   font-weight: 500;
 }
 
+.dark-mode .toggle-content {
+  color: var(--white);
+}
+
 .toggle-content svg {
   color: var(--navy-blue);
+}
+
+.dark-mode .toggle-content svg {
+  color: var(--white);
 }

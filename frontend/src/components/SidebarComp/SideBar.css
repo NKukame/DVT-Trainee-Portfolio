@@ -281,6 +281,15 @@
     margin-top: auto;
   }
 
+  .sidebar-profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--light-blue);
+    transition: border-color 0.3s ease;
+  }
+
   /* .sidebar-bottom .sidebar-nav-link{
     
     margin: 10px;
