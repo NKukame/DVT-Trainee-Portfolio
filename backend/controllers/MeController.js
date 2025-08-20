@@ -10,28 +10,43 @@ const MeController = async (req, res) => {
       where: { id: userId },
       include: {
         employee: {
-          select: {
-            name: true,
-            surname: true,
-            photoUrl: true
+          include: {
+            user: true,
+            availability: true,
+            techStack: {
+              include: {
+                techStack: true
+              }
+            },
+            projects: {
+              include: {
+                project: true
+              }
+            },
+            testimonials: true,
+            education: true,
+            certificates: true,
+            career: true,
+            softSkills: {
+              include: {
+                softSkill: true
+              }
+            }
           }
         }
       }
     });
     
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    if (!user || !user.employee) {
+      return res.status(404).json({ error: 'User or employee data not found' });
     }
     
-    const fullName = user.employee ? 
-      `${user.employee.name} ${user.employee.surname}`.trim() : 
-      user.email.split('@')[0];
-    
+    // Return employee data in the format expected by UserPortfolio components
     res.json({
-      id: user.id,
-      name: fullName,
-      email: user.email,
-      profilePicture: user.employee?.photoUrl || null
+      ...user.employee,
+      user: user,
+      avatar: user.employee.photoUrl,
+      availability: user.employee.availability?.available
     });
   } catch (error) {
     console.error('Error fetching current user:', error);

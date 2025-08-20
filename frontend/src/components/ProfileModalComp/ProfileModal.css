@@ -75,6 +75,7 @@
   transition: all 0.2s ease;
   width: 100%;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .view-profile-btn {
@@ -87,12 +88,14 @@
 }
 
 .logout-btn {
-  background-color: var(--button-blue);
-  color: var(--white);
+  background-color: var(--gray);
+  color: var(--navy-blue);
+  margin-left: -1px;
 }
 
 .logout-btn:hover {
-  background-color: #dc2626;
+  background-color: var(--button-blue);
+  color: var(--white);
 }
 
 .profile-modal-toggle {
@@ -104,6 +107,8 @@
   /* background-color: var(--card-background); */
   border: 1px solid var(--border-color);
   transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .profile-modal-toggle:hover {

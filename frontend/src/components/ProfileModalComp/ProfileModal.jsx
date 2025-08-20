@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ProfileModal.css";
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
 
 function ProfileModal({ isOpen, onClose, userInfo }) {
   const { darkMode, setDarkMode } = useDarkMode();
+  const navigate = useNavigate();
   
 
 
@@ -14,8 +16,26 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
     window.location.href = '/';
   };
 
-  const handleViewProfile = () => {
-    window.location.href = '/portfolio';
+  const handleViewProfile = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem('token'));
+      const response = await fetch('http://localhost:3000/api/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        const userData = await response.json();
+        navigate('/userportfolio', { state: userData });
+      } else {
+        navigate('/userportfolio');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      navigate('/userportfolio');
+    }
   };
 
 
