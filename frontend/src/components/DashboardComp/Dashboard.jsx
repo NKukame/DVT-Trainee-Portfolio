@@ -19,7 +19,7 @@ function Dashboard(props) {
     <div className="dashboard">
       <div className="profile">
         <div className="short-bio">
-          <div className="profile-picture">
+          <div className="dashboard-profile-picture">
             <img src={props.testEmployee.avatar} className="profile-img" alt="Profile" />
           </div>
 
