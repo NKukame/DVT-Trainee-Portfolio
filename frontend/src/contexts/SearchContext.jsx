@@ -20,6 +20,10 @@ export const SearchContextProvider = ({children}) => {
     const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
     const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
 
+    
+  useEffect(() => {
+     searchData();
+  }, [])
 
     const searchData = async(page=1, query) =>{
 
@@ -52,6 +56,7 @@ export const SearchContextProvider = ({children}) => {
                     surname: emp.surname,
                     email: emp.email,
                     github: emp.github,
+                    user: emp.user,
                     linkedIn: emp.linkedIn,
                     testimonials: emp.testimonials|| [],
                     role: capitalizeFirstLetter(emp.role),
@@ -101,9 +106,6 @@ export const SearchContextProvider = ({children}) => {
     }
 
 
-    useEffect(() => {
-        searchData();
-     }, []);
  
     const handleInputChange = (query) => {
         // searchData(1, query);
