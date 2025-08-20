@@ -296,6 +296,7 @@ export async function SearchEmployeeController(req, res) {
           role: true,
           career: {
               select:{
+                  id: true,
                   role: true,
                   company: true,
                   duration: true,
@@ -304,12 +305,14 @@ export async function SearchEmployeeController(req, res) {
           },
           education: {
             select: {
+              id: true,
               institution: true,
               qualification: true,
             },
           },
           certificates: {
             select: {
+              id: true,
               name: true,
               institution: true,
             },
@@ -388,6 +391,7 @@ export async function SearchEmployeeController(req, res) {
 
           testimonials: {
             select: {
+              id: true,
               quote: true,
               company: true,
               reference: true,

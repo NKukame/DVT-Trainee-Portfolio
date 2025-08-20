@@ -47,9 +47,8 @@ export default async function EditUserController(req, res) {
 
     if (education && Array.isArray(education)) {
       for (const edu of education) {
-        if (!edu.educationID) continue;
         await prisma.education.update({
-          where: { id: edu.educationID },
+          where: { id: edu.id },
           data: {
             institution: edu.institution,
             qualification: edu.qualification,
@@ -60,9 +59,8 @@ export default async function EditUserController(req, res) {
 
     if (certificates && Array.isArray(certificates)) {
       for (const cert of certificates) {
-        if (!cert.certificateID) continue;
         await prisma.certificate.update({
-          where: { id: cert.certificateID },
+          where: { id: cert.id },
           data: {
             name: cert.name,
             institution: cert.institution,
@@ -73,7 +71,6 @@ export default async function EditUserController(req, res) {
 
     if (testimonials && Array.isArray(testimonials)) {
       for (const testimonial of testimonials) {
-        if (!testimonial.id) continue;
         await prisma.testimonial.update({
           where: { id: testimonial.id },
           data: {
@@ -94,33 +91,12 @@ export default async function EditUserController(req, res) {
 
     if (projects && Array.isArray(projects)) {
       for (const project of projects) {
-        if (!project.projectId) continue;
-        await prisma.projectMember.upsert({
-          where: {
-            projectId_employeeId: {
-              projectId: project.projectId,
-              employeeId: id,
-            },
-          },
-          update: {
-            role: project.role,
-          },
-          create: {
-            projectId: project.projectId,
-            employeeId: id,
-            role: project.role,
-          },
-        });
-        // Optionally update the project itself if needed
         await prisma.project.update({
-          where: { id: project.projectId },
+          where: { id: project.id },
           data: {
             name: project.name,
             description: project.description,
-            github: project.github,
-            demo: project.demo,
-            screenshot: project.screenshot,
-            updatedAt: new Date(),
+            github: project.github
           },
         });
       }
@@ -166,6 +142,21 @@ export default async function EditUserController(req, res) {
           },
         });
       }
+    }
+
+    if(req.body.career && Array.isArray(req.body.career)) {
+      for(const job of req.body.career){
+        await prisma.career.update({
+          where: { id: job.id },
+          data:{
+            role: job.role,
+            company: job.company,
+            duration: job.duration
+          }
+        })
+      }
+      
+
     }
 
     res.status(200).json({ message: "User Updated", user: updateUser });

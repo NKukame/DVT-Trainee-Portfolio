@@ -29,7 +29,6 @@ function EditProfile(prop) {
     phone: location.state.phone || "",
     role: location.state.role || "",
     company: location.state.company || "",
-    // availability: location.state.availability.available || "",
     bio: location.state.bio || "",
     location: location.state.location || "",
     experience: location.state.experienced || "",
@@ -147,7 +146,6 @@ function EditProfile(prop) {
     });
   };
 
-
   /**
    * Handles the submission of the form by sending a PATCH request to the server
    * with the updated form data. If the request is successful, it sets the modal
@@ -159,48 +157,53 @@ function EditProfile(prop) {
    * @param {Event} event - The submit event triggered by the form.
    * @return {Promise<void>} A promise that resolves when the form submission is complete.
    */
- const handleSubmit = async (event) => {
-  event.preventDefault();
-  try {
-    setLoading(true);
-    const token = localStorage.getItem("token");
-    axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(token)}`;
-    console.log(token);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(
+        token
+      )}`;
 
-    const payload = {
-      ...formData,
-      department: formData.department.toUpperCase(),
-      role: formData.role.toUpperCase(),
-    };
+      const payload = {
+        ...formData,
+        department: formData.department.toUpperCase(),
+        role: formData.role.toUpperCase(),
+      };
 
-    const response = await axios.patch(
-      `http://localhost:3000/profile`,
-      payload
-    );
+      const response = await axios.patch(
+        `http://localhost:3000/profile`,
+        payload
+      );
 
-    // Axios: response.status and response.data
-    if (response.status === 200) {
-      setModalMessage("Profile Edited Successfully!");
+      // Axios: response.status and response.data
+      if (response.status === 200) {
+        setModalMessage("Profile Edited Successfully!");
+        setModalOpen(true);
+        setTimeout(() => {
+          setModalOpen(false);
+          navigate("/home");
+        }, 2000);
+      } else {
+        setModalMessage(
+          `Error: ${
+            response.data?.ProblemUpdating || "Failed To Edit Profile"
+          }`
+        );
+        setModalOpen(true);
+      }
+    } catch (error) {
+      setModalMessage(
+        `Network error: ${
+          error.response?.data?.ProblemUpdating || error.message
+        }`
+      );
       setModalOpen(true);
-      setTimeout(() => {
-        setModalOpen(false);
-        navigate("/home");
-      }, 2000);
-    } else {
-      setModalMessage(`Error: ${response.data?.ProblemUpdating || "Failed to submit profile"}`);
-      setModalOpen(true);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    setModalMessage(`Network error: ${error.response?.data?.ProblemUpdating || error.message}`);
-    setModalOpen(true);
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-  console.log("Form Data:", formData);
-  
+  };
 
   return (
     <>
@@ -208,7 +211,7 @@ function EditProfile(prop) {
         <div className="custom-submit-modal-overlay">
           <div className="custom-submit-modal">
             <p>{modalMessage}</p>
-            {!modalMessage.includes("successfully") && (
+            {!modalMessage.includes("Successfully") && (
               <button
                 onClick={() => setModalOpen(false)}
                 className="remove-profile-pic-btn"
