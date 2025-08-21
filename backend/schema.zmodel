@@ -12,9 +12,10 @@ plugin openapi {
   output   = "./openapi.json"      
   title    = "DVT Trainee Portfolio API"
   version  = "1.0.0"
-  flavor   = "rest"                 
+  flavor   = "rpc"                 
   prefix   = "/api/v2"
   description = "DVT Trainee Portfolio API"
+  omitInputDetails = true
   securitySchemes = {
     bearer: { type: "http", scheme: "bearer", bearerFormat: "JWT" }
   }

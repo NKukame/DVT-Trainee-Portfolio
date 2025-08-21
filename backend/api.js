@@ -15,7 +15,6 @@ REST_API.use(
     '/api/v2',
     ZenStackMiddleware({
         getPrisma: (request) => enhance(prisma),
-        handler: RestApiHandler({ endpoint: 'http://localhost:3000/api/v2' }),
     })
 );
 
