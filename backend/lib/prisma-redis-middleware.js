@@ -1,13 +1,39 @@
-import Redis from 'ioredis';
-import { Prisma, PrismaClient } from '@prisma/client';
-
-
+import Redis from "ioredis";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 const redis = new Redis({
-  host: process.env.REDIS_HOST || 'localhost',
+  host: process.env.REDIS_HOST || "localhost",
   port: process.env.REDIS_PORT || 6379,
- 
 });
+
+export async function generateKey(
+  query,
+  location,
+  role,
+  techStack,
+  industry,
+  field,
+  order,
+  page,
+  limit,
+  industries,
+) {
+  const key = [
+    query,
+    role,
+    location,
+    techStack,
+    industry,
+    field,
+    order,
+    page,
+    limit,
+    industries,
+  ]
+    .filter((possibleKey) => Boolean(possibleKey))
+    .join(":");
+  return key;
+}
 
 export async function getCache(key) {
   const cachedData = await redis.get(key);
@@ -15,11 +41,12 @@ export async function getCache(key) {
 }
 
 export async function setCache(key, data, ttl = 3600) {
-  await redis.set(key, JSON.stringify(data), 'EX', ttl);
+  await redis.set(key, JSON.stringify(data), "EX", ttl);
   return data;
 }
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
-export { redis};
+export { redis };
 export default prisma;
+

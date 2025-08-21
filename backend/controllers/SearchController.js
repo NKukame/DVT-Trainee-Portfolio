@@ -1,18 +1,12 @@
-import prisma, {redis} from "../lib/prisma-redis-middleware.js";
-import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
-
-
-
-
-
-
+import prisma, { generateKey, redis } from "../lib/prisma-redis-middleware.js";
+import { getCache, setCache } from "../lib/prisma-redis-middleware.js";
 
 /**
  * Search for projects with the given query, filters, sort, page, and limit.
- * 
+ *
  * @param {Object} req - The request object containing parameters.
  * @param {Object} res - The response object used to send back the result.
- * 
+ *
  * @property {string} req.params.query - The search query to filter projects by name or description.
  * @property {Object} req.params.filters - Filters to apply to the search, including industries and tech stack.
  * @property {Array<string>} [req.params.industries] - Industry filters for the projects.
@@ -21,25 +15,44 @@ import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
  * @property {string} req.params.order - The order of sorting, can be 'asc' or 'desc'.
  * @property {number} req.params.page - The page number of results to return.
  * @property {number} req.params.limit - The number of results to return per page.
- * 
+ *
  * @returns {Object} - The search results, including the projects and the total number of results.
- * 
+ *
  * @throws {404} - If no projects are found.
  */
 
-
 export async function SearchProjectController(req, res) {
+  const {
+    query,
+    industries,
+    techStack,
+    field,
+    order,
+    page = 1,
+    limit = 9,
+  } = req.query; // Changed from req.params to req.query
 
-  const { query,industries, techStack,field, order , page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
-  
   try {
-    const where = {}
-    const cacheKey = `searchProject:${query}-${industries}-${techStack}-${field}-${order}-${page}-${limit}`;
+    const where = {};
+    const cacheKey = generateKey(
+      query,
+      undefined,
+      undefined,
+      techStack,
+      undefined,
+      undefined,
+      order,
+      page,
+      limit,
+      industries,
+    );
+
+    console.log(cacheKey);
     const cached = await getCache(cacheKey);
     // if (cached) {
     //   console.log('Cache hit for SearchEmployeeController', query);
     //   const queryTime = Date.now();
-    
+
     //   return res.json({
     //     success: true,
     //     data: cached,
@@ -52,46 +65,45 @@ export async function SearchProjectController(req, res) {
     //   });
     // }
 
-    if(query) {
+    if (query) {
       where.OR = [
-        { name: { contains: query, mode: 'insensitive' } },
-        { description: { contains: query, mode: 'insensitive' } },
-      ]
+        { name: { contains: query, mode: "insensitive" } },
+        { description: { contains: query, mode: "insensitive" } },
+      ];
     }
 
-    if (industries?.length){
-      if(typeof industries === 'string') {
-        industries = [industries]
+    if (industries?.length) {
+      if (typeof industries === "string") {
+        industries = [industries];
       }
-      where.industry = { 
+      where.industry = {
         some: {
-          in: industries 
-        }
-      }
+          in: industries,
+        },
+      };
     }
 
-    if (techStack?.length){
-      if(typeof techStack === 'string') {
-        techStack = [techStack]
+    if (techStack?.length) {
+      if (typeof techStack === "string") {
+        techStack = [techStack];
       }
       where.techStack = {
         some: {
           techStack: {
             name: {
-              in: techStack 
-            }
-          }
-        }
-     }
+              in: techStack,
+            },
+          },
+        },
+      };
     }
 
-    const orderBy = {}
-
+    const orderBy = {};
 
     if (order && field) {
-      orderBy[field] = order
-    }else {
-      orderBy.createdAt = 'desc'
+      orderBy[field] = order;
+    } else {
+      orderBy.createdAt = "desc";
     }
 
     const [projects, total] = await Promise.all([
@@ -113,49 +125,48 @@ export async function SearchProjectController(req, res) {
               employee: {
                 select: {
                   name: true,
-                  photoUrl: true
-                }
-              }
-            }
+                  photoUrl: true,
+                },
+              },
+            },
           },
           industries: {
             select: {
-              industry: true
-            }
+              industry: true,
+            },
           },
           techStack: {
             select: {
               techStack: {
                 select: {
-                  name: true
-                }
-              }
-            }
-          }
-        }
+                  name: true,
+                },
+              },
+            },
+          },
+        },
       }),
-      prisma.project.count({ where })
+      prisma.project.count({ where }),
     ]);
 
     if (!projects) {
       return res.status(404).send({ message: "Projects not found" });
     }
-    await setCache(cacheKey, projects, 30 * 60); 
+    await setCache(cacheKey, projects, 30 * 60);
 
     return res.send({ projects, total });
   } catch (error) {
-    console.error('Search projects error:', error);
-    return res.status(500).json({ error: 'Failed to search projects' });
+    console.error("Search projects error:", error);
+    return res.status(500).json({ error: "Failed to search projects" });
   }
 }
 
-
 /**
  * Search for employees with the given query, filters, sort, page, and limit.
- * 
+ *
  * @param {Object} req - The request object containing parameters.
  * @param {Object} res - The response object used to send back the result.
- * 
+ *
  * @property {string} req.params.query - The search query to filter employees by name, surname, title, bio, company, or department.
  * @property {Object} req.params.filters - Filters to apply to the search, including location, role, tech stack, and industry.
  * @property {Array<string>} [req.params.location] - Location filters for the employees.
@@ -166,25 +177,44 @@ export async function SearchProjectController(req, res) {
  * @property {string} req.params.order - The order of sorting, can be 'asc' or 'desc'.
  * @property {number} req.params.page - The page number of results to return.
  * @property {number} req.params.limit - The number of results to return per page.
- * 
+ *
  * @returns {Object} - The search results, including the employees and the total number of results.
- * 
+ *
  * @throws {404} - If no employees are found.
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
-  // console.log(req.query);
+  let {
+    query,
+    location,
+    role,
+    techStack,
+    industry,
+    field,
+    order,
+    page = 1,
+    limit = 9,
+  } = req.query; // Changed from req.params to req.query
 
-  
   try {
     const where = {};
-    const cacheKey = `${query}`;
+    const cacheKey = await generateKey(
+      query,
+      location,
+      role,
+      techStack,
+      industry,
+      field,
+      order,
+      page,
+      limit,
+      undefined,
+    );
     const cached = await getCache(cacheKey);
+    console.log(cacheKey);
     // if (cached) {
     //   console.log('Cache hit for SearchEmployeeController', query);
-    
-    
+
     //   return res.json({
     //     success: true,
     //     data: cached,
@@ -196,69 +226,66 @@ export async function SearchEmployeeController(req, res) {
     //   });
     // }
 
-    if(query){
+    if (query) {
       where.OR = [
-        {name: {contains: query, mode: 'insensitive'}},
-        {surname: {contains: query, mode: 'insensitive'}},
-        {company: {contains: query, mode: 'insensitive'}},
-        { user : { email: {contains: query, mode: 'insensitive'}}},
-      ]
+        { name: { contains: query, mode: "insensitive" } },
+        { surname: { contains: query, mode: "insensitive" } },
+        { company: { contains: query, mode: "insensitive" } },
+        { user: { email: { contains: query, mode: "insensitive" } } },
+      ];
     }
 
     if (location?.length) {
-      if(typeof location === 'string') {
-        location = [location]
+      if (typeof location === "string") {
+        location = [location];
       }
-      where.location = { 
-        in: location 
-      }
+      where.location = {
+        in: location,
+      };
     }
 
     if (role?.length) {
-      if(typeof role === 'string') {
-        role = [role]
+      if (typeof role === "string") {
+        role = [role];
       }
-      where.role = { 
-        in: role 
-      }
+      where.role = {
+        in: role,
+      };
     }
 
     if (techStack?.length) {
-      if(typeof techStack === 'string') {
-        techStack = [techStack]
+      if (typeof techStack === "string") {
+        techStack = [techStack];
       }
 
       where.techStack = {
         some: {
           techStack: {
             name: {
-              in: techStack 
-            }
-          }
-        }
-        
-      }
+              in: techStack,
+            },
+          },
+        },
+      };
     }
 
     if (industry?.length) {
-      if(typeof industry === 'string') {
-        industry = [industry]
+      if (typeof industry === "string") {
+        industry = [industry];
       }
       where.industry = {
-          some: {
-            in: industry 
-          }
-      }
+        some: {
+          in: industry,
+        },
+      };
     }
 
-    // console.log(where);
-    
-    const orderBy = {}
+    const orderBy = {};
 
     if (field && order) {
-      orderBy[field] = order
-    }else {
-      orderBy.createdAt = 'desc'
+      orderBy[field] = order;
+    } else {
+      orderBy.createdAt = "desc";
     }
 
     const [employees, total] = await Promise.all([
@@ -274,10 +301,10 @@ export async function SearchEmployeeController(req, res) {
           surname: true,
           photoUrl: true,
           department: true,
-          user:{
+          user: {
             select: {
               id: true,
-            }
+            },
           },
           email: true,
           bio: true,
@@ -291,12 +318,11 @@ export async function SearchEmployeeController(req, res) {
           github: true,
           role: true,
           career: {
-              select:{
-                  role: true,
-                  company: true,
-                  duration: true,
-                  
-              },
+            select: {
+              role: true,
+              company: true,
+              duration: true,
+            },
           },
           education: {
             select: {
@@ -392,18 +418,15 @@ export async function SearchEmployeeController(req, res) {
       }),
       prisma.employee.count({ where }),
     ]);
-    
 
     if (!employees) {
       return res.status(404).send({ message: "Employees not found" });
-    } else{
+    } else {
       const pageCount = Math.ceil(total / limit);
-      await setCache(cacheKey, employees, 30 * 60); 
+      await setCache(cacheKey, employees, 30 * 60);
       return res.send({ employees, total, pageCount });
     }
   } catch (error) {
-    console.error('Search employees error:', error);
-    return res.status(500).json({ error: 'Failed to search employees' });
+    return res.status(500).json({ error: "Failed to search employees" });
   }
 }
-
