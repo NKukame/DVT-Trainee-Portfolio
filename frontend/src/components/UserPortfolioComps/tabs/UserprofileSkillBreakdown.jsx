@@ -9,20 +9,21 @@ function UserProfileSkillBreakdown(props) {
         <h1 className="skills-header">Skills Breakdown </h1>
         <section className="skills-education-section">
           <h2 className="skills-education-header">Education</h2>
-          {Array.isArray(props.testEmployee.emp_education) &&
-          props.testEmployee.emp_education.length > 0 ? (
-            <div className="skills-education-item">
-              <div>
-                <p className="skills-education-item-title">Formal Education</p>
-                <ul>
-                  {props.testEmployee.emp_education.map((edu, idx) => (
-                    <li key={idx}>
-                      {edu.qualification} - {edu.institution}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {Array.isArray(props.testEmployee.certificates) &&
+          {(() => {
+            const education = props.testEmployee?.education || props.testEmployee?.emp_education || [];
+            return Array.isArray(education) && education.length > 0 ? (
+              <div className="skills-education-item">
+                <div>
+                  <p className="skills-education-item-title">Formal Education</p>
+                  <ul>
+                    {education.map((edu, idx) => (
+                      <li key={idx}>
+                        {edu?.qualification || 'N/A'} - {edu?.institution || 'N/A'}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              {Array.isArray(props.testEmployee?.certificates) &&
                 props.testEmployee.certificates.length > 0 && (
                   <div>
                     <p className="skills-education-item-title">
@@ -31,16 +32,17 @@ function UserProfileSkillBreakdown(props) {
                     <ul>
                       {props.testEmployee.certificates.map((cert, idx) => (
                         <li key={idx}>
-                          {cert.name} - {cert.institution}
+                          {cert?.name || 'N/A'} - {cert?.institution || 'N/A'}
                         </li>
                       ))}
                     </ul>
                   </div>
                 )}
-            </div>
-          ) : (
-            <p>No education data available</p>
-          )}
+              </div>
+            ) : (
+              <p>No education data available</p>
+            );
+          })()}
         </section>
         <hr />
         <section className="skills-circle-section">

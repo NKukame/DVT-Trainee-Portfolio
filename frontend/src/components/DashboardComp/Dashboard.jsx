@@ -52,7 +52,7 @@ function Dashboard(props) {
             </p>
             <p>
               <Award size={15} className="dashboard-icon" />
-              {props.testEmployee.experienced ? props.testEmployee.experienced : "Not filled / N/A "} 
+              {props.testEmployee?.experience || props.testEmployee?.experienced || "Not filled / N/A "} 
             </p>
           </div>
         </div>

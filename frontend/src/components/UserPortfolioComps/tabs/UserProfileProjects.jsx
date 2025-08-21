@@ -26,7 +26,7 @@ const [empProject, setEmpProject] = useState([]);
 
       <main className="project-content">
         <section className="project-grid-content">
-          {props.testEmployee.projects.map((proj, index) => (
+          {(props.testEmployee?.projects || []).map((proj, index) => (
             <div className="project-grid-item" key={index}>
               <p className="profile-project-name">{proj.project.name}</p>
               <p>{proj.project.createdAt.slice(0, 10)}</p>
@@ -42,7 +42,7 @@ const [empProject, setEmpProject] = useState([]);
 
 
               <ul className="proficiency-list">
-                {Array.isArray(proj.project.techStack) &&
+                {Array.isArray(proj.project?.techStack) &&
                   proj.project.techStack.slice(0, 4).map((tech, idx) => (
                     <li key={idx} className="project-tag">
                       {tech.techStack?.name}
@@ -52,12 +52,12 @@ const [empProject, setEmpProject] = useState([]);
 
 
               <div className="profile-account">
-                { proj.project.members.length > 1 ?   (
+                { (proj.project?.members?.length || 0) > 1 ?   (
                     <>
                       <img
                         className="profile-account-image"
-                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : props.testEmployee.avatar}
-                        alt={proj.project.members[0].employee.name}
+                        src={proj.project.members?.[0]?.employee?.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : props.testEmployee.avatar}
+                        alt={proj.project.members?.[0]?.employee?.name || 'Team member'}
                       />
                       <p>{proj.project.members.length} More Collaborators</p>
                     </>
@@ -65,8 +65,8 @@ const [empProject, setEmpProject] = useState([]);
                     <>
                       <img
                         className="profile-account-image"
-                        src={proj.project.members[0].employee.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members[0].employee.photoUrl}
-                        alt={proj.project.members[0].employee.name}
+                        src={proj.project.members?.[0]?.employee?.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members?.[0]?.employee?.photoUrl}
+                        alt={proj.project.members?.[0]?.employee?.name || 'Team member'}
                       />
                       <p>{props.testEmployee.name} </p>
                     </>
