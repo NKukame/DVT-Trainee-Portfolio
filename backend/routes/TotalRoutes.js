@@ -8,7 +8,7 @@ import forgotPassword from '../controllers/ForgotPasswordController.js';
 import { deleteProjectController, deleteProfileController } from '../controllers/DeleteController.js';
 import signup from '../controllers/SignupController.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
-
+import { resetPassword } from '../controllers/ForgotPasswordController.js';
 
 const totalRoutes = express.Router();
 
@@ -217,7 +217,8 @@ totalRoutes.post('/create-profile', createProfileController); //done
  *               type: string
  *               example: forgot password
  */
-totalRoutes.put('/forgot-password', forgotPassword);
+totalRoutes.post('/forgot-password', forgotPassword);
+totalRoutes.post('/reset-password', resetPassword);
 
 /**
  * @swagger

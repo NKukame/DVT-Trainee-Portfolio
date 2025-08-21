@@ -1,11 +1,15 @@
+
 /* Custom MUI Switch styling */
 .MuiSwitch-track {
   transition: all 0.5s ease !important;
+
 }
+ */
 
 .MuiSwitch-thumb {
   transition: all 0.5s ease !important;
 }
+
 
 .MuiSwitch-switchBase {
   transition: all 0.5s ease !important;

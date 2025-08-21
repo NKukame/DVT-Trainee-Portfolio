@@ -3,6 +3,7 @@ import "./Sort.css";
 import Switch from '@mui/material/Switch';
 
 
+
 /**
 * Switch component for selecting a sort type.
 * Triggers onSortChange prop with selected value.
@@ -21,6 +22,7 @@ export function SelectScrollable({ filter, results, isPeopleSearch }) {
     const checked = event.target.checked;
     setIsAvailable(checked);
 
+
     console.log("Filtering by availability:", checked ? "Available only" : "All candidates");
     
     let sorted;
@@ -30,10 +32,12 @@ export function SelectScrollable({ filter, results, isPeopleSearch }) {
     } else {
       // Show all candidates
       sorted = [...originalResults.current];
+
     }
 
     filter(sorted);
   };
+
 
   // Only show toggle for people search, not projects
   if (!isPeopleSearch) {
