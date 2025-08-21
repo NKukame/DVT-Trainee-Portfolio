@@ -56,7 +56,7 @@ function Signup() {
     }
   }, []);
 
-  const allowedDomains = ["dvtsoftware.com"];
+  const allowedDomains = ["dvtsoftware.com", "gmail.com"];
 
   
   const validateEmailDomain = (email) => {
@@ -64,39 +64,41 @@ function Signup() {
     return domain && allowedDomains.includes(domain);
   };
 
-  const validationForm = () => {
-    let newErrors = {};
+ const validationForm = () => {
+  let newErrors = {};
 
-    if (isSignUp) {
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = "Confirm Password is required";
-      } else if (formData.confirmPassword !== formData.password) {
-        newErrors.confirmPassword = "Confirm Password does not match";
-      }
+  if (isSignUp) {
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm Password is required";
+    } else if (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword = "Confirm Password does not match";
     }
-    
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
-    } else if (!validateEmailDomain(formData.email)) {
-      newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
-    }
+  }
+  
+  if (!formData.email) {
+    newErrors.email = "Email is required";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    newErrors.email = "Email is invalid";
+  } else if (!validateEmailDomain(formData.email)) {
+    newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
+  }
 
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+  if (!formData.password) {
+    newErrors.password = "Password is required";
+  } else if (formData.password.length < 8) { 
+    newErrors.password = "Password must be at least 8 characters";
+  } else if (!/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one special character";
+  }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
 
   const handleChange = (e) => {
-    if (e.target.value.includes('@')){
-      e.target.name = "email";
-    }
+    // if (e.target.value.includes('@')){
+    //   e.target.name = "email";
+    // }
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
@@ -128,7 +130,9 @@ function Signup() {
             "Content-Type" : "application/json"
           }}
         );
-  
+         const user_id = userRegistered.data.id;
+        
+         console.log("the user ", userRegistered)
         if(userRegistered.status === 201){
           setIsSignUp(false);
           setFormData(prev => ({
@@ -136,6 +140,7 @@ function Signup() {
             password: "",
             confirmPassword: "",
           }));
+          localStorage.setItem("user", JSON.stringify(user_id));
           navigate("/profile-creation");
         }  
         else{
@@ -179,7 +184,9 @@ const handleLogin = async () => {
 
     
     const tokenData = token.data.token;
+    const user_id = token.data.user;
     localStorage.setItem("token", JSON.stringify(tokenData));
+    localStorage.setItem("userId", JSON.stringify(user_id));
 
     if (rememberMe) {
       localStorage.setItem("rememberedCredentials", JSON.stringify({
@@ -211,7 +218,6 @@ const handleLogin = async () => {
 };
 
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -289,7 +295,7 @@ const handleLogin = async () => {
 
             </div>
             {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sign Up</button>}
+           <button type="submit">Sign Up</button>}
 
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
@@ -367,8 +373,7 @@ const handleLogin = async () => {
                         <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
             </div>    
-            {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sign In</button>}
+            {loading ? <div className="form-loader"></div> : <button type="submit">Sign In</button>}
 
           </form>
         </div>
@@ -398,9 +403,13 @@ const handleLogin = async () => {
               <p>Smart Solutions</p>
               </div>
               <div>
+                {
+                  !isSignUp &&
                   <button className="hidden" onClick={() =>
                 {setIsSignUp(true)  
+
                   setFormData({
+
                     email: "",
                     password: "",
                   })
@@ -409,6 +418,7 @@ const handleLogin = async () => {
                 >
                 Sign Up
               </button>
+                }
 
               
               </div>
@@ -422,5 +432,3 @@ const handleLogin = async () => {
 }
 
 export default Signup;
-
-

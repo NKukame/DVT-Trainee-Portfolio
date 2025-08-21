@@ -14,7 +14,7 @@ ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const CVPolarChart = (props) => {
   const data = {
-    labels: props.user.softSkilled.map(skill => `${skill.softSkill.name}`) ,
+    labels: props.user.softSkilled.slice(0,4).map(skill => `${skill.softSkill.name}`) ,
     datasets: [
       {
         label: 'My Polar Dataset',
