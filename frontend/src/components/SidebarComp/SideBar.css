@@ -156,7 +156,7 @@
 }
 
 .sidebar-bottom{
-    width: 100%;
+    /* width: 100%; */
     margin-right: 13%;
     margin-top: auto;
     text-align: center;
@@ -183,7 +183,7 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
-  border-radius: 50% ;
+  /* border-radius: 50% ; */
 }
 
 .profile-icon:hover {
