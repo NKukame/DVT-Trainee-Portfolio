@@ -7,6 +7,7 @@ const redis = new Redis({
 });
 
 export async function generateKey(
+  type,
   query,
   location,
   role,
@@ -15,10 +16,10 @@ export async function generateKey(
   field,
   order,
   page,
-  limit,
   industries,
 ) {
   const key = [
+    type,
     query,
     role,
     location,
@@ -27,7 +28,6 @@ export async function generateKey(
     field,
     order,
     page,
-    limit,
     industries,
   ]
     .filter((possibleKey) => Boolean(possibleKey))
@@ -42,11 +42,9 @@ export async function getCache(key) {
 
 export async function setCache(key, data, ttl = 3600) {
   await redis.set(key, JSON.stringify(data), "EX", ttl);
-  return data;
 }
 
 const prisma = new PrismaClient();
 
 export { redis };
 export default prisma;
-

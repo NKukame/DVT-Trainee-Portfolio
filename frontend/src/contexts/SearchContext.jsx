@@ -11,7 +11,6 @@ export const SearchContextProvider = ({ children }) => {
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [total, setTotalPages] = useState(1);
-
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
   let [selectedFilter, setSelectedFilter] = useState([]);
@@ -19,15 +18,12 @@ export const SearchContextProvider = ({ children }) => {
   const allLanguages = [
     ...new Set(searchResults.map((employee) => employee.skills).flat()),
   ].filter((item) => item !== undefined);
-
   const allIndustries = [
     ...new Set(searchResults.map((employee) => employee.industries).flat()),
   ].filter((item) => item !== undefined);
-
   const allRoles = [
     ...new Set(searchResults.map((employee) => employee.role)),
   ].filter((item) => item !== undefined);
-
   const allLocations = [
     ...new Set(searchResults.map((employee) => employee.location)),
   ].filter((item) => item !== undefined);
@@ -37,6 +33,7 @@ export const SearchContextProvider = ({ children }) => {
   }, []);
 
   const searchData = async (page = 1, query) => {
+    console.log(page);
     setIsLoading(true);
 
     try {
@@ -132,72 +129,69 @@ export const SearchContextProvider = ({ children }) => {
 
   const handleFilterClick = (filter, category) => {
     let newSelectedFilter;
-    let updatedResults = searchResults;
 
-    if (selectedFilter.includes(filter)) {
-      newSelectedFilter = selectedFilter.filter((item) => item !== filter);
+    if (
+      selectedFilter.some((f) => f.value === filter && f.category === category)
+    ) {
+      // Remove filter
+      newSelectedFilter = selectedFilter.filter(
+        (item) => !(item.value === filter && item.category === category),
+      );
     } else {
-      newSelectedFilter = [...selectedFilter, filter];
+      // Add filter
+      newSelectedFilter = [...selectedFilter, { value: filter, category }];
     }
+
     setSelectedFilter(newSelectedFilter);
-    console.log(newSelectedFilter);
 
-    if (category.includes("Technologies") | (newSelectedFilter.length > 0)) {
-      updatedResults = searchResults.filter((employee) => {
-        if (newSelectedFilter.length === 0) return true;
-        if (employee.skills) {
-          const lowerSkills = employee.skills.map((x) => x.toLowerCase());
+    // Apply all filters at once
+    let updatedResults = searchResults.filter((employee) => {
+      return newSelectedFilter.every((f) => {
+        switch (f.category) {
+          case "Technologies":
+            if (employee.skills) {
+              return employee.skills
+                .map((x) => x.toLowerCase())
+                .includes(f.value.toLowerCase());
+            }
+            if (employee.technologies) {
+              return employee.technologies
+                .map((x) => x.toLowerCase())
+                .includes(f.value.toLowerCase());
+            }
+            return false;
 
-          return newSelectedFilter.some((filter) =>
-            lowerSkills.includes(filter.toLowerCase()),
-          );
-        }
+          case "Roles":
+            return (
+              employee.role &&
+              employee.role.toLowerCase() === f.value.toLowerCase()
+            );
 
-        if (employee.technologies) {
-          const lowerSkills = employee.technologies.map((x) => x.toLowerCase());
+          case "Location":
+            return (
+              employee.location &&
+              employee.location.toLowerCase() === f.value.toLowerCase()
+            );
 
-          return newSelectedFilter.some((filter) =>
-            lowerSkills.includes(filter.toLowerCase()),
-          );
+          case "Experience":
+            return (
+              employee.years_active &&
+              employee.years_active.split(" ")[0] === f.value
+            );
+
+          default:
+            return true;
         }
       });
-    }
-
-    if (category.includes("Roles") | (newSelectedFilter.length > 0)) {
-      updatedResults = searchResults.filter((employee) => {
-        if (newSelectedFilter.length === 0) return true;
-
-        if (employee.skills) {
-          if (newSelectedFilter.length === 0) return true;
-          return newSelectedFilter.some(
-            (f) => employee.role.toLowerCase() === f,
-          );
-        }
-      });
-    }
-
-    if ((category === "Location") | (newSelectedFilter.length > 0)) {
-      updatedResults = searchResults.filter((employee) => {
-        if (newSelectedFilter.length === 0) return true;
-        if (!employee.location) return false;
-
-        return newSelectedFilter.some(
-          (f) => employee.location.toLowerCase() === f,
-        );
-      });
-    }
-
-    if ((category === "Experience") | (newSelectedFilter.length > 0)) {
-      updatedResults = handleChange(filter, newSelectedFilter);
-    }
+    });
 
     setFilteredResults(updatedResults);
   };
 
   const handleChange = (filter, newSelectedFilter) => {
     const filteredResults = searchResults.filter((employee) => {
+      console.log(employee);
       if (newSelectedFilter.length === 0) return true;
-
       if (employee.years_active) {
         return employee.years_active.split(" ")[0] === filter;
       }

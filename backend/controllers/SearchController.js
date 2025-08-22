@@ -34,7 +34,8 @@ export async function SearchProjectController(req, res) {
 
   try {
     const where = {};
-    const cacheKey = generateKey(
+    const cacheKey = await generateKey(
+      "projects",
       query,
       undefined,
       undefined,
@@ -43,27 +44,14 @@ export async function SearchProjectController(req, res) {
       undefined,
       order,
       page,
-      limit,
       industries,
     );
 
     console.log(cacheKey);
     const cached = await getCache(cacheKey);
-    // if (cached) {
-    //   console.log('Cache hit for SearchEmployeeController', query);
-    //   const queryTime = Date.now();
-
-    //   return res.json({
-    //     success: true,
-    //     data: cached,
-    //     performance: {
-    //       queryTime: `${queryTime}ms`,
-    //       cached: true,
-    //       count: cached.length,
-    //       searchTerm: cacheKey
-    //     }
-    //   });
-    // }
+    if (cached) {
+      return res.status(200).send(cached);
+    }
 
     if (query) {
       where.OR = [
@@ -152,7 +140,7 @@ export async function SearchProjectController(req, res) {
     if (!projects) {
       return res.status(404).send({ message: "Projects not found" });
     }
-    await setCache(cacheKey, projects, 30 * 60);
+    await setCache(cacheKey, { projects, total }, 30 * 60);
 
     return res.send({ projects, total });
   } catch (error) {
@@ -199,6 +187,7 @@ export async function SearchEmployeeController(req, res) {
   try {
     const where = {};
     const cacheKey = await generateKey(
+      "employees",
       query,
       location,
       role,
@@ -207,24 +196,14 @@ export async function SearchEmployeeController(req, res) {
       field,
       order,
       page,
-      limit,
       undefined,
     );
     const cached = await getCache(cacheKey);
     console.log(cacheKey);
-    // if (cached) {
-    //   console.log('Cache hit for SearchEmployeeController', query);
-
-    //   return res.json({
-    //     success: true,
-    //     data: cached,
-    //     performance: {
-    //       cached: true,
-    //       count: cached.length,
-    //       searchTerm: cacheKey
-    //     }
-    //   });
-    // }
+    console.log(cached);
+    if (cached) {
+      return res.status(200).send(cached);
+    }
 
     if (query) {
       where.OR = [
@@ -423,10 +402,11 @@ export async function SearchEmployeeController(req, res) {
       return res.status(404).send({ message: "Employees not found" });
     } else {
       const pageCount = Math.ceil(total / limit);
-      await setCache(cacheKey, employees, 30 * 60);
+      await setCache(cacheKey, { employees, total, pageCount }, 30 * 60);
       return res.send({ employees, total, pageCount });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: "Failed to search employees" });
   }
 }
