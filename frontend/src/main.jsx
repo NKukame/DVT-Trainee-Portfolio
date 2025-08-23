@@ -24,7 +24,7 @@ import { EmployeeShow } from './Pages/Dashboard/employees/show.jsx';
 import { CreateEmployee } from './Pages/Dashboard/employees/create.jsx';
 import ProtectedRoutes from './components/ProtectedComp/ProtectedRoute';
 import routerBindings, { NavigateToResource } from '@refinedev/react-router';
-
+import Header from './components/HeaderComp/Header';
 
 // Your ProtectedRoutes component
 
@@ -69,6 +69,7 @@ const App = () => {
                   path="/dashboard"
                   element={
                     <Authenticated key="authenticated-routes" fallback={<h1>Unauthorized</h1>}>
+                      <Header/>
                       <Outlet />
                     </Authenticated>
                   }

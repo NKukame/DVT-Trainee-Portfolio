@@ -10,7 +10,10 @@ export const authProvider = {
       return { authenticated: Boolean(token) };
     },
     login: async ({ email, password }) => { throw new Error("Not implemented"); },
-    logout: async () => { throw new Error("Not implemented"); },
+    logout: async () => {
+      localStorage.removeItem("token");
+      return { success: true };
+  },
     onError: async (error) => { throw new Error("Not implemented"); },
     // optional methods
     register: async (params) => { throw new Error("Not implemented"); },
