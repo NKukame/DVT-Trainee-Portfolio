@@ -1,6 +1,6 @@
 import "./Body.css";
 import projects from "../../modal-resources/projects-modal.json";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import teamPortfolio from '../../../public/team-portfolio.json';

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import ProfileImage from "../../assets/icons8-profile-picture-100.png";
 import Calender from "../../assets/icons8-calendar-100.png";
 import Location from "../../assets/icons8-location-100.png";

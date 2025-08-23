@@ -1,7 +1,7 @@
 import SearchNav from "../SearchNavComp/SearchNav";
 import {  SearchContext}  from "../../contexts/SearchContext";
 import { useContext, useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import PaginationControls from '../PaginationControlComp/PaginationControls';
 import ResultsList from '../ResultsListComp/ResultsList';
 import '../SearchResultsComp/SearchPage.css';

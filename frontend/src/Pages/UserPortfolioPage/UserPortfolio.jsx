@@ -9,7 +9,7 @@ import { useState } from "react";
 import UserProfileOverview from "../../components/UserPortfolioComps/tabs/UserProfileOverview";
 import UserProfileProjects from "../../components/UserPortfolioComps/tabs/UserProfileProjects";
 import UserProfileSkillBreakdown from "../../components/UserPortfolioComps/tabs/UserprofileSkillBreakdown";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 function UserPortfolio(props) {
   const [activeTab, setActiveTab] = useState("overview");
