@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import React, { useState } from 'react';
 import { usePDF } from 'react-to-pdf';
 import { Star, Calendar1, MapPin, Award } from 'lucide-react';
