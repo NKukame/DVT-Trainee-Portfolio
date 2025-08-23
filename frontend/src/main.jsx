@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router";
-import { Refine } from "@refinedev/core";
+import { Refine, Authenticated } from "@refinedev/core";
 
 // ... your imports
 import './styles.css'
@@ -24,6 +24,7 @@ import { EmployeeShow } from './Pages/Dashboard/employees/show.jsx';
 import { CreateEmployee } from './Pages/Dashboard/employees/create.jsx';
 import ProtectedRoutes from './components/ProtectedComp/ProtectedRoute';
 import routerBindings, { NavigateToResource } from '@refinedev/react-router';
+
 
 // Your ProtectedRoutes component
 
@@ -64,14 +65,20 @@ const App = () => {
                 <Route path="/generate-cv" element={<GenerateCV />} />
                 
                 {/* Dashboard routes */}
-                <Route 
-                  path="/dashboard" 
-                  element={<NavigateToResource resource="employees" />} 
-                />
-                <Route path="/dashboard/employees" element={<EmployeeList />} />
-                <Route path="/dashboard/employees/:id" element={<EmployeeShow />} />
-                <Route path="/dashboard/employees/:id/edit" element={<EditEmployee />} />
-                <Route path="/dashboard/employees/create" element={<CreateEmployee />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <Authenticated key="authenticated-routes" fallback={<h1>Unauthorized</h1>}>
+                      <Outlet />
+                    </Authenticated>
+                  }
+                >
+                  <Route index element={<NavigateToResource resource='employees' />} />
+                  <Route path="employees" element={<EmployeeList/>} />
+                  <Route path="employees/:id" element={<EmployeeShow/>} />
+                  <Route path="employees/:id/edit" element={<EditEmployee/>} />
+                  <Route path="employees/create" element={<CreateEmployee/>} />
+                </Route>
               </Route>
             </Routes>
           </Refine>
