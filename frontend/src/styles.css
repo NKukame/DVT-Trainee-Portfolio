@@ -110,3 +110,9 @@ body.dark-mode {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--dark-yellow);
 }
+
+@media screen and (max-width: 500px) {
+  .app-layout {
+    display: block;
+  }
+}

@@ -20,10 +20,8 @@
     display: block;
     margin: 0;
     padding: 0;
-    border: 1px solid yellow;
   }
   .app-layout-body {
-    border: 1px solid red;
     justify-content: start;
     align-items: start;
     display: block;

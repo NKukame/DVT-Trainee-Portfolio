@@ -1,48 +1,47 @@
 .mobile-navbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: white;
   display: flex;
-  justify-content: space-around;
+  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
+  justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #ddd;
-  z-index: 1000;
+  padding: 10px;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
 }
 
-.nav-item {
-  flex: 1;
-  text-align: center;
-  font-size: 12px;
-  color: #555;
-  text-decoration: none;
+.mobile-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobilenav-dvtlogo {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.dock {
+  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 1px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+.dock-link {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  justify-items: center;
+  color: var(--white);
 }
-
-.nav-item i {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-
-.nav-item:hover {
-  color: #007bff;
-}
-
-.profile-pic {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 4px;
-}
-
-/* Hide navbar on desktop */
 @media (min-width: 768px) {
   .mobile-navbar {
+    display: none;
+  }
+  .dock {
     display: none;
   }
 }
