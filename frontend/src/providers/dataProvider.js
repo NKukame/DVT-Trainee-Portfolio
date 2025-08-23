@@ -43,7 +43,7 @@ export const dataProvider = {
 
         const [data, count] = await Promise.all([
             fetchData(params.resource, '/findMany', queryArgs),
-            fetchData(params.resource, '/count', queryArgs),
+            fetchData(params.resource, '/count'),
         ]);
 
         return { data, total: count };
