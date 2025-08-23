@@ -3,9 +3,6 @@ import React from "react";
 
 export const EditEmployee = ({ id = "fba62a39-1d53-4e79-9bb2-019902b40657" }) => {
   const { onFinish, mutation, query } = useForm({
-    action: "edit",
-    resource: "employee",
-    id: id,
     meta: {
       // Include related data when fetching
       include: {

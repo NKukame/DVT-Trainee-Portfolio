@@ -1,6 +1,8 @@
-import { useTable, useMany } from "@refinedev/core";
+import { useTable, useNavigation } from "@refinedev/core";
+import { Link } from "react-router";
 
 export const EmployeeList = () => {
+const { showUrl, editUrl } = useNavigation();
 const { tableQuery: { data, isLoading } ,
   current,
   setCurrent,
@@ -96,6 +98,7 @@ return (
         <th onClick={() => onSort("location")}>Location {indicator[getSorter("location")]}</th>
         <th onClick={() => onSort("experience")}>Experience {indicator[getSorter("experience")]}</th>
         <th>Projects</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -108,8 +111,11 @@ return (
             <td>{employee.department}</td>
             <td>{employee.location}</td>
             <td>{employee.experience}</td>
-            
             <td>{employee.projects.length}</td>
+            <td>
+                <Link to={showUrl("employee", employee.id)}>Show</Link>
+                <Link to={editUrl("employee", employee.id)}>Edit</Link>
+              </td>
           </tr>
         ))}
       </tbody>

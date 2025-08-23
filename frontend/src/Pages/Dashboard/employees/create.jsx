@@ -1,10 +1,7 @@
 import { useForm, useSelect } from "@refinedev/core";
 import React from "react";
 export const CreateEmployee = () => {
-  const { onFinish, mutation } = useForm({
-    action: "create",
-    resource: "employee",
-  });
+  const { onFinish, mutation } = useForm();
 
   const { options } = useSelect({
     resource: "techStack",

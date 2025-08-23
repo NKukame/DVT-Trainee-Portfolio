@@ -40,12 +40,12 @@ const App = () => {
             routerProvider={routerBindings}
             resources={[
               {
-                name: "employees",
-                list: "/dashboard/employees",
-                show: "/dashboard/employees/:id",
-                edit: "/dashboard/employees/:id/edit",
-                create: "/dashboard/employees/create",
-                meta: { label: "Employees" },
+                name: "employee",
+                list: "/dashboard/employee",
+                show: "/dashboard/employee/:id",
+                edit: "/dashboard/employee/:id/edit",
+                create: "/dashboard/employee/create",
+                meta: { label: "Employee" },
               },
             ]}
           >
@@ -74,11 +74,11 @@ const App = () => {
                     </Authenticated>
                   }
                 >
-                  <Route index element={<NavigateToResource resource='employees' />} />
-                  <Route path="employees" element={<EmployeeList/>} />
-                  <Route path="employees/:id" element={<EmployeeShow/>} />
-                  <Route path="employees/:id/edit" element={<EditEmployee/>} />
-                  <Route path="employees/create" element={<CreateEmployee/>} />
+                  <Route index element={<NavigateToResource resource='employee' />} />
+                  <Route path="employee" element={<EmployeeList/>} />
+                  <Route path="employee/:id" element={<EmployeeShow/>} />
+                  <Route path="employee/:id/edit" element={<EditEmployee/>} />
+                  <Route path="employee/create" element={<CreateEmployee/>} />
                 </Route>
               </Route>
             </Routes>

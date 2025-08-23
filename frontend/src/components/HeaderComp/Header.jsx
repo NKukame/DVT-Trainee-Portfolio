@@ -1,11 +1,11 @@
 import React from "react";
-import { useLogout, useGetIdentity, useNavigation } from "@refinedev/core";
+import { useLogout, useNavigation } from "@refinedev/core";
 
 import { Link } from "react-router";
 
 export default function Header() {
-  const { mutate, isLoading } = useLogout();
-  const { data: identity } = useGetIdentity();
+  const { mutate } = useLogout();
+
 
   // You can also use methods like list or create to trigger navigation.
   // We're using url methods to provide more semantically correct html.
@@ -15,11 +15,10 @@ export default function Header() {
     <>
       <h2>
         <span>Welcome, </span>
-        <span>{identity?.name ?? ""}</span>
       </h2>
-      <Link to={listUrl("employees")}>List Employees</Link>{" "}
-      <Link to={createUrl("employees")}>Create Employee</Link>{" "}
-      <button type="button" disabled={isLoading} onClick={mutate}>
+      <Link to={listUrl("employee")}>List Employees</Link>{" "}
+      <Link to={createUrl("employee")}>Create Employee</Link>{" "}
+      <button type="button" onClick={mutate}>
         Logout
       </button>
     </>
