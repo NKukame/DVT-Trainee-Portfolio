@@ -1,0 +1,75 @@
+.mobile-filter {
+  display: none;
+}
+
+.filter-modal {
+  position: absolute;
+  padding: 10px;
+  width: 99vw;
+  background: linear-gradient(-180deg, #04223d 80%, #02111e 10%);
+  border-radius: 10px;
+  z-index: 200;
+}
+.filter-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+  .search-tabs {
+    display: none;
+  }
+
+  .desktop-filter {
+    display: none;
+  }
+  .mobile-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 10px;
+  }
+
+  .filter-text {
+    text-decoration: underline;
+  }
+  .filter-tag-container {
+    display: none;
+  }
+
+  .filter-dropdown {
+    padding-bottom: 5px;
+  }
+
+  .filter-container {
+    margin-inline: 0px;
+  }
+  .placeholder {
+    font-size: large;
+  }
+  .dark-mode .button {
+    border: none;
+  }
+  .popoverContainer button {
+    width: 80vw;
+    border: none;
+  }
+
+  .filter-section {
+    box-shadow: none;
+    gap: 10px;
+    padding-inline: 0px;
+  }
+  .results-container {
+    max-width: initial;
+    border-radius: 2px;
+    width: 100vw;
+    padding: 5px;
+  }
+
+  .results-responsive {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: start;
+  }
+}

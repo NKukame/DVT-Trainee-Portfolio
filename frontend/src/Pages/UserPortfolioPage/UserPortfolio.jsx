@@ -16,26 +16,20 @@ function UserPortfolio(props) {
 
   return (
     <>
-      <div className="app-layout">
-        <SideBar />
+      <div className="portfolio-layout">
+        <Dashboard testEmployee={location.state} />
+        <div className="project-container">
+          <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        <div className="layout-body">
-          <div className="portfolio-layout">
-            <Dashboard testEmployee={location.state} />
-            <div className="project-container">
-              <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
-
-              {activeTab === "overview" && (
-                <UserProfileOverview testEmployee={location.state} />
-              )}
-              {activeTab === "projects" && (
-                <UserProfileProjects testEmployee={location.state} />
-              )}
-              {activeTab === "skills" && (
-                <UserProfileSkillBreakdown testEmployee={location.state} />
-              )}
-            </div>
-          </div>
+          {activeTab === "overview" && (
+            <UserProfileOverview testEmployee={location.state} />
+          )}
+          {activeTab === "projects" && (
+            <UserProfileProjects testEmployee={location.state} />
+          )}
+          {activeTab === "skills" && (
+            <UserProfileSkillBreakdown testEmployee={location.state} />
+          )}
         </div>
       </div>
     </>

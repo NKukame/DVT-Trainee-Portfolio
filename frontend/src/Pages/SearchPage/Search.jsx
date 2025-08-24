@@ -5,17 +5,13 @@ import SearchBar from "../../components/SearchBarComp/SearchBar";
 import { SearchContextProvider } from "../../contexts/SearchContext";
 function Search() {
   return (
-    <div className="app-layout">
-      {/* <SideBar /> */}
-
-      <div className="app-layout-body">
-        <section className="flex-col align-items-center justify-items-center gap-24-px m-20-px mobile-search">
-          <SearchBar />
-          <Filter />
-          <SearchResults />
-        </section>
+    <section className="flex-col align-items-center justify-items-center gap-24-px m-20-px mobile-search">
+      <SearchBar />
+      <div className="desktop-filter">
+        <Filter />
       </div>
-    </div>
+      <SearchResults />
+    </section>
   );
 }
 

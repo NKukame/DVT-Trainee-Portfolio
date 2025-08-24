@@ -1,12 +1,4 @@
 @media screen and (max-width: 500px) {
-  .results-responsive {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    justify-content: start;
-  }
-
-  .results-container {
-  }
   .filter-section {
     flex-direction: column;
   }
@@ -15,24 +7,10 @@
     justify-items: start;
     align-items: center;
     align-content: center;
-  }
-  .app-layout {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
-  .app-layout-body {
-    justify-content: start;
-    align-items: start;
-    display: block;
-    margin: 0;
-    padding: 0;
+    margin-block: 20px;
   }
   .input-container {
-    width: 90%;
-  }
-
-  .flex-col {
-    display: block;
+    width: 98%;
+    margin: 1px 10px;
   }
 }

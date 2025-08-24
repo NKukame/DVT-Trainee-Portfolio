@@ -11,9 +11,12 @@
 @import "./components/BodyComp/Body.css";
 @import "./components/SidebarComp/SideBar.css";
 
+@import "./components/FilterComp/Filter.css";
+
 @import "./responsive-styles/mobile.css";
 @import "./responsive-styles/mobile-home.css";
 @import "./responsive-styles/mobile-about.css";
+@import "./responsive-styles/mobile-search.css";
 @import "./responsive-styles/mobile-navbar.css";
 * {
   box-sizing: border-box;
@@ -120,6 +123,9 @@ body.dark-mode {
 
 @media screen and (max-width: 500px) {
   .app-layout {
+    display: block;
+  }
+  .app-layout-body {
     display: block;
   }
 }
