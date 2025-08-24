@@ -2,6 +2,11 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router";
 import { Refine, Authenticated } from "@refinedev/core";
+import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import { ThemeProvider } from "@mui/material/styles";
+import { RefineThemes } from "@refinedev/mui";
+import { ThemedLayoutV2, ThemedTitleV2 } from "@refinedev/mui";
 
 // ... your imports
 import './styles.css'
@@ -32,6 +37,9 @@ import Header from './components/HeaderComp/Header';
 const App = () => {
   return (
     <BrowserRouter>
+    <ThemeProvider theme={RefineThemes.Blue}>
+      <CssBaseline />
+      <GlobalStyles />
       <SearchContextProvider>
         <DarkModeProvider>
           <Refine 
@@ -69,8 +77,13 @@ const App = () => {
                   path="/dashboard"
                   element={
                     <Authenticated key="authenticated-routes" fallback={<h1>Unauthorized</h1>}>
-                      <Header/>
-                      <Outlet />
+                       <ThemedLayoutV2
+                       Title={(props) => (
+                        <ThemedTitleV2 {...props} text="DVT  Portfolio" />
+                      )}
+                       >
+                        <Outlet />
+                      </ThemedLayoutV2>
                     </Authenticated>
                   }
                 >
@@ -85,6 +98,7 @@ const App = () => {
           </Refine>
         </DarkModeProvider>
       </SearchContextProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };
