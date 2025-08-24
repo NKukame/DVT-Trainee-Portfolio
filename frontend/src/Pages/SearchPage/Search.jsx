@@ -1,4 +1,3 @@
-import "../../styles.css";
 import SideBar from "../../components/SidebarComp/SideBar";
 import Filter from "../../components/FilterComp/Filter";
 import SearchResults from "../../components/SearchResultsComp/SearchResults";

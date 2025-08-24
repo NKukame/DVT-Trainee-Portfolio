@@ -1,5 +1,3 @@
-import "../../styles.css";
-import "./Portfolio.css";
 import React, { useState, useEffect, useRef } from "react";
 import GridView from "../../components/GridViewComp/GridView";
 import { Link } from "react-router-dom";
@@ -10,7 +8,18 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SideBar from "../../components/SidebarComp/SideBar";
 import { AArrowDown } from "lucide-react";
 import { AArrowUp } from "lucide-react";
-import { Building01, CalendarCheck01, Laptop01, Mail01, MarkerPin01, MessageChatCircle, Phone, User02, User03, Users03 } from "@untitled-ui/icons-react";
+import {
+  Building01,
+  CalendarCheck01,
+  Laptop01,
+  Mail01,
+  MarkerPin01,
+  MessageChatCircle,
+  Phone,
+  User02,
+  User03,
+  Users03,
+} from "@untitled-ui/icons-react";
 
 function Portfolio() {
   const [team, setTeam] = useState([]);
@@ -122,11 +131,10 @@ function Portfolio() {
               </div>
             </div> */}
             <div className="about-us">
-
               <h1>
-                  {" "}
-                  About <span className="yellow-text"> Us </span>
-                </h1>
+                {" "}
+                About <span className="yellow-text"> Us </span>
+              </h1>
             </div>
             <div className="portfolio-view-container">
               {viewMode === "grid-view" ? (
@@ -255,45 +263,46 @@ function Portfolio() {
               )}
             </div>
             <section className=" team-info">
-                  <div className="team-info-text">
-                    <p>
-                      {" "}
-                      Meet our dynamic team, a blend of unique personalities and
-                      shared dedication. Our group includes loud and energetic
-                      voices like Sli and Remow, adding vibrancy to our discussions.
-                      We have the comedians—Phemelo, Njabulo, Gomo, Dylan, and
-                      Adrian—always keeping the atmosphere light and entertaining.{" "}
-                    </p>
-                    <p>
-                      {" "}
-                      <span className="yellow-text">
-                        {" "}
-                        Balancing this, the quiet and thoughtful Thabane, and Andile
-                        bring calm and reflection to the team. Everyone here is
-                        hardworking, pushing boundaries to achieve excellence.{" "}
-                      </span>
-                    </p>
-                    <p>
-                      {" "}
-                      Our friendly and bubbly spirit Pabs keep morale high, while
-                      the sharp intellect of Thabane, Njabulo, and Andile inspires
-                      us all. Phemelo, Remow, Gomo, Njabulo, and Andile are the
-                      pillars of responsibility, ensuring we stay on track, though
-                      Sli's occasional lateness reminds us we're human! Punctual
-                      star like Gomo leads by example.{" "}
-                    </p>
-                    <p>
-                      {" "}
-                      <span className="yellow-text">
-                        {" "}
-                        Our style icons—Phemelo, Gomo, Njabulo and Pabs—bring flair,
-                        while caffeine enthusiasts Njabulo, Sli, Adrian, and Thabane
-                        keep the team fueled. Together, we're a chilled and driven
-                        group, turning collaboration into success.
-                      </span>
-                    </p>
-                  </div>
-                </section>
+              <div className="team-info-text">
+                <p>
+                  {" "}
+                  Meet our dynamic team, a blend of unique personalities and
+                  shared dedication. Our group includes loud and energetic
+                  voices like Sli and Remow, adding vibrancy to our discussions.
+                  We have the comedians—Phemelo, Njabulo, Gomo, Dylan, and
+                  Adrian—always keeping the atmosphere light and
+                  entertaining.{" "}
+                </p>
+                <p>
+                  {" "}
+                  <span className="yellow-text">
+                    {" "}
+                    Balancing this, the quiet and thoughtful Thabane, and Andile
+                    bring calm and reflection to the team. Everyone here is
+                    hardworking, pushing boundaries to achieve excellence.{" "}
+                  </span>
+                </p>
+                <p>
+                  {" "}
+                  Our friendly and bubbly spirit Pabs keep morale high, while
+                  the sharp intellect of Thabane, Njabulo, and Andile inspires
+                  us all. Phemelo, Remow, Gomo, Njabulo, and Andile are the
+                  pillars of responsibility, ensuring we stay on track, though
+                  Sli's occasional lateness reminds us we're human! Punctual
+                  star like Gomo leads by example.{" "}
+                </p>
+                <p>
+                  {" "}
+                  <span className="yellow-text">
+                    {" "}
+                    Our style icons—Phemelo, Gomo, Njabulo and Pabs—bring flair,
+                    while caffeine enthusiasts Njabulo, Sli, Adrian, and Thabane
+                    keep the team fueled. Together, we're a chilled and driven
+                    group, turning collaboration into success.
+                  </span>
+                </p>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -349,7 +358,7 @@ function Portfolio() {
               </div>
 
               <div className="contact-item">
-              <Building01 />
+                <Building01 />
                 <div>
                   <p className="contact-me-company">Company:</p>
                   <p>{filteredAndSortedTeam[currentIndex].Company}</p>
@@ -381,7 +390,6 @@ function Portfolio() {
               </div>
             </section>
           </div>
-          
         </div>
       )}
     </>

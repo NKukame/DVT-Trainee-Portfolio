@@ -1,4 +1,3 @@
-import "./About.css";
 import placeHolder from "../../assets/group-picture.jfif";
 import SideBar from "../../components/SidebarComp/SideBar";
 

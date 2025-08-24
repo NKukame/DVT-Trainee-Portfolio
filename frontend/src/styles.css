@@ -3,10 +3,17 @@
 @import "./components/UserPortfolioComps/tabs/UserprofileSkillBreakdown.css";
 @import "./components/UserPortfolioComps/tabs/UserProfileOverview.css";
 @import "./components/SearchBarComp/SearchBar.css";
-@import "./responsive-styles/mobile.css";
+
+@import "./Pages/PortfolioPage/Portfolio.css";
+@import "./components/GridViewComp/GridView.css";
+@import "./Pages/AboutPage/About.css";
+
 @import "./components/BodyComp/Body.css";
 @import "./components/SidebarComp/SideBar.css";
+
+@import "./responsive-styles/mobile.css";
 @import "./responsive-styles/mobile-home.css";
+@import "./responsive-styles/mobile-about.css";
 @import "./responsive-styles/mobile-navbar.css";
 * {
   box-sizing: border-box;
