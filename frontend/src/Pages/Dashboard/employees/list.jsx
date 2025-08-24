@@ -13,6 +13,7 @@ const { tableQuery: { data, isLoading } ,
   resource: "employee" , 
   pagination: { current: 1, pageSize: 5},
   sorters: { initial: [{ field: "id", order: "asc" }] },
+  syncWithLocation: true,
   meta: { 
     include: {
       education: true,

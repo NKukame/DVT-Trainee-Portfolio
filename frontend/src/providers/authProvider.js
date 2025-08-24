@@ -12,7 +12,7 @@ export const authProvider = {
     login: async ({ email, password }) => { throw new Error("Not implemented"); },
     logout: async () => {
       localStorage.removeItem("token");
-      return { success: true };
+      return { success: true, redirectTo: "/" };
   },
     onError: async (error) => { throw new Error("Not implemented"); },
     // optional methods
