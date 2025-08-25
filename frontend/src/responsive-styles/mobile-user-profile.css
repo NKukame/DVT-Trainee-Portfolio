@@ -1,2 +1,128 @@
-@media (max-width: 500) {
+@media (max-width: 500px) {
+  .portfolio-layout {
+    display: block;
+  }
+
+  .dashboard {
+    display: none;
+  }
+
+  .project-container {
+    width: initial;
+    padding: 10px;
+  }
+
+  .profile-overview-container {
+    gap: 10px;
+  }
+
+  .tab-head-container {
+    font-size: smaller;
+  }
+
+  .profile-overview-text {
+    font-size: 1rem;
+    text-align: start;
+    font-weight: 300;
+  }
+
+  .profile-overview-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    align-self: baseline;
+    margin-block: initial;
+    margin: initial;
+  }
+
+  .profile-overview-ft-Projects {
+    font-size: 1.7rem;
+    font-weight: 600;
+    width: 98%;
+  }
+  .overview-video-header {
+    margin: 0px;
+  }
+  .static-testimonial-content {
+    flex-wrap: wrap;
+  }
+
+  .testimonial-item {
+    width: 100%;
+  }
+
+  .client-section {
+    margin-block: 20px;
+  }
+
+  .static-client-content {
+    margin: 0px;
+    gap: 6px;
+  }
+  .client-item {
+    height: 60px;
+    border-radius: 0px;
+    background: transparent;
+    padding: 0px;
+  }
+  .client-image {
+    border-radius: 0px;
+    border: none;
+  }
+
+  .project-grid-content {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    justify-items: center;
+  }
+
+  .project-content {
+    height: initial;
+    overflow-y: initial;
+    margin-top: 20px;
+  }
+  .dark-mode .profile-projects-title {
+    border: none;
+  }
+  .profile-projects-title {
+    padding: 10px;
+    display: initial;
+    font-weight: 600;
+    font-size: 1.7rem;
+    border: none;
+  }
+
+  .skills-header {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 15px;
+    display: none;
+  }
+  .skills-education-header {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 15px 0px;
+  }
+
+  .skills-education-item {
+    flex-wrap: wrap;
+    padding-right: 0px;
+  }
+  .skills-education-item-title {
+    margin-block: 5px;
+  }
+
+  .skills-circle-header,
+  .skills-bar-header {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    font-size: 1.3rem;
+  }
+  .skills-circle {
+    width: initial;
+    height: initial;
+  }
+  .skills-bar-graph canvas {
+    width: initial;
+    height: initial;
+  }
 }

@@ -123,6 +123,10 @@
   .video-item-text-inner p {
     font-size: 0.8rem;
     text-align: start;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to display */
+    -webkit-box-orient: vertical;
   }
 
   .video-item h3 {
