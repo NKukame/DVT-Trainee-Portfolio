@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useFieldArray } from "react-hook-form";
 import { useForm } from "@refinedev/react-hook-form";
-import { useAutocomplete, SaveButton } from "@refinedev/mui";
+import { useAutocomplete, SaveButton, Edit } from "@refinedev/mui";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -464,6 +464,7 @@ export const EditEmployee = () => {
   const record = query?.data?.data;
 
   return (
+    <Edit>
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Typography variant="h5">Edit Employee</Typography>
 
@@ -829,5 +830,6 @@ export const EditEmployee = () => {
         <SaveButton type="submit" />
       </Box>
     </Box>
+    </Edit>
   );
 };

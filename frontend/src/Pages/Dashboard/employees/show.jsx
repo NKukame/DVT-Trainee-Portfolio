@@ -1,5 +1,5 @@
 import { useShow } from "@refinedev/core";
-import { TextFieldComponent as TextField, MarkdownField } from "@refinedev/mui";
+import { TextFieldComponent as TextField, MarkdownField,Show } from "@refinedev/mui";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -43,6 +43,7 @@ export const EmployeeShow = () => {
     .filter(Boolean);
 
   return (
+    <Show>  
     <Stack gap={2}>
       <Stack direction="row" spacing={2} alignItems="center">
         {record.photoUrl ? (
@@ -206,5 +207,6 @@ export const EmployeeShow = () => {
         Created: {fmtDate(record.createdAt)} • Updated: {fmtDate(record.updatedAt)}
       </Typography>
     </Stack>
+    </Show>
   );
 };
