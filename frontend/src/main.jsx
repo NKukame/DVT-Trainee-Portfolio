@@ -28,7 +28,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="/home" element={<Home />} />
               <Route path="/about" element={<Portfolio />} />
               <Route path="/search" element={<Search />} />
-            <Route path="/profile-creation" element={<ProfileCreation />} />
+              <Route path="/profile-creation" element={<ProfileCreation />} />
               <Route path="/userportfolio" element={<UserPortfolio />} />
               <Route path="/generate-cv" element={<GenerateCV />} />
             </Route>
@@ -38,4 +38,3 @@ createRoot(document.getElementById("root")).render(
     </SearchContextProvider>
   </StrictMode>,
 );
-

@@ -1,4 +1,3 @@
-import "./UserPortfolio.css";
 import Dashboard from "../../components/DashboardComp/Dashboard";
 import ProjectCard from "../../components/ProjectsComp/Projects";
 import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard";
