@@ -1,882 +1,833 @@
-import { useForm, useSelect } from "@refinedev/core";
 import React from "react";
+import { Controller, useFieldArray } from "react-hook-form";
+import { useForm } from "@refinedev/react-hook-form";
+import { useAutocomplete, SaveButton } from "@refinedev/mui";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
 
-export const EditEmployee = ({ id = "fba62a39-1d53-4e79-9bb2-019902b40657" }) => {
-  const { onFinish, mutation, query } = useForm({
-    meta: {
-      // Include related data when fetching
-      include: {
-        education: true,
-        certificates: true,
-        career: true,
-        testimonials: true,
-        availability: true,
-        techStack: {
-          include: {
-            techStack: true
-          }
-        },
-        softSkills: {
-          include: {
-            softSkill: true
-          }
-        },
-        projects: {
-          include: {
-            project: {
-              include: {
-                techStack: {
-                  include: {
-                    techStack: true
-                  }
+/** helper: file -> base64 */
+const fileToBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    if (!file) return resolve(null);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (err) => reject(err);
+  });
+
+export const EditEmployee = () => {
+  const {
+    register,
+    control,
+    handleSubmit,
+    refineCore: { onFinish, query },
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    refineCoreProps: {
+      meta: {
+        include: {
+          education: true,
+          certificates: true,
+          career: true,
+          testimonials: true,
+          availability: true,
+          techStack: { include: { techStack: true } },
+          softSkills: { include: { softSkill: true } },
+          projects: {
+            include: {
+              project: {
+                include: {
+                  techStack: { include: { techStack: true } },
+                  industries: { include: { industry: true } },
                 },
-                industries: {
-                  include: {
-                    industry: true
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
+    },
+    defaultValues: {
+      title: "MR",
+      name: "",
+      surname: "",
+      birthday: "",
+      photoUrl: null,
+      role: "DEVELOPER",
+      department: "ENGINEERING",
+      company: "",
+      location: "",
+      email: "",
+      phone: "",
+      github: "",
+      linkedIn: "",
+      experience: "",
+      portfolio: "",
+      bio: "",
+      available: true,
+      client: "",
+      techStack: [],
+      softSkills: [],
+      education: [{ id: "", institution: "", qualification: "" }],
+      certificates: [{ id: "", name: "", institution: "" }],
+      career: [{ id: "", role: "", company: "", duration: "" }],
+      testimonials: [{ id: "", company: "", quote: "", reference: "" }],
+      projects: [
+        {
+          id: "",
+          name: "",
+          description: "",
+          repoLink: "",
+          demoLink: "",
+          technologies: [],
+          industries: [],
+          image: null,
+        },
+      ],
     },
   });
 
-  const { options: techStackOptions } = useSelect({
+  // Autocomplete sources
+  const { autocompleteProps: techAutocompleteProps } = useAutocomplete({
     resource: "techStack",
     optionLabel: "name",
     optionValue: "id",
   });
-
-  const { options: softSkillOptions } = useSelect({
+  const { autocompleteProps: softAutocompleteProps } = useAutocomplete({
     resource: "softSkill",
     optionLabel: "name",
     optionValue: "id",
   });
+  const { autocompleteProps: industryAutocompleteProps } = useAutocomplete({
+    resource: "industry",
+    optionLabel: "name",
+    optionValue: "name",
+  });
 
-  // Initialize state with empty arrays
-  const [educationEntries, setEducationEntries] = React.useState([{ id: "", institution: "", qualification: "" }]);
-  const [certificationEntries, setCertificationEntries] = React.useState([{ id: "", certificate: "", certificatesInstitution: "" }]);
-  const [careerEntries, setCareerEntries] = React.useState([{ id: "", role: "", company: "", duration: "" }]);
-  const [testimonials, setTestimonials] = React.useState([{ id: "", company: "", quote: "", reference: "" }]);
-  const [projects, setProjects] = React.useState([{ 
-    id: "",
-    name: "", 
-    description: "", 
-    repoLink: "", 
-    demoLink: "", 
-    technologies: [], 
-    industries: [],
-    image: ""
-  }]);
-
-  // Track which entries to delete
+  // track deletions for arrays (to be wired with array UI next)
   const [entriesToDelete, setEntriesToDelete] = React.useState({
     education: [],
     certificates: [],
     career: [],
     testimonials: [],
-    projects: []
+    projects: [],
   });
 
-  // Load data when component mounts
+  // Field arrays for dynamic sections
+  const {
+    fields: educationFields,
+    append: appendEducation,
+    remove: removeEducation,
+  } = useFieldArray({ control, name: "education" });
+  const {
+    fields: certificateFields,
+    append: appendCertificate,
+    remove: removeCertificate,
+  } = useFieldArray({ control, name: "certificates" });
+  const {
+    fields: careerFields,
+    append: appendCareer,
+    remove: removeCareer,
+  } = useFieldArray({ control, name: "career" });
+  const {
+    fields: testimonialFields,
+    append: appendTestimonial,
+    remove: removeTestimonial,
+  } = useFieldArray({ control, name: "testimonials" });
+  const {
+    fields: projectFields,
+    append: appendProject,
+    remove: removeProject,
+  } = useFieldArray({ control, name: "projects" });
+
+  // Removal handlers to capture IDs for deletion
+  const handleRemoveEducation = (index) => {
+    const id = getValues(`education.${index}.id`);
+    if (id) {
+      setEntriesToDelete((prev) => ({ ...prev, education: [...prev.education, id] }));
+    }
+    removeEducation(index);
+  };
+  const handleRemoveCertificate = (index) => {
+    const id = getValues(`certificates.${index}.id`);
+    if (id) {
+      setEntriesToDelete((prev) => ({ ...prev, certificates: [...prev.certificates, id] }));
+    }
+    removeCertificate(index);
+  };
+  const handleRemoveCareer = (index) => {
+    const id = getValues(`career.${index}.id`);
+    if (id) {
+      setEntriesToDelete((prev) => ({ ...prev, career: [...prev.career, id] }));
+    }
+    removeCareer(index);
+  };
+  const handleRemoveTestimonial = (index) => {
+    const id = getValues(`testimonials.${index}.id`);
+    if (id) {
+      setEntriesToDelete((prev) => ({ ...prev, testimonials: [...prev.testimonials, id] }));
+    }
+    removeTestimonial(index);
+  };
+  const handleRemoveProject = (index) => {
+    const id = getValues(`projects.${index}.id`);
+    if (id) {
+      setEntriesToDelete((prev) => ({ ...prev, projects: [...prev.projects, id] }));
+    }
+    removeProject(index);
+  };
+
+  // Load existing record into RHF defaults
   React.useEffect(() => {
-    if (query.data?.data) {
-      const record = query.data.data;
-      
-      // Populate education entries
-      if (record.education && record.education.length > 0) {
-        setEducationEntries(record.education.map(edu => ({
-          id: edu.id,
-          institution: edu.institution || "",
-          qualification: edu.qualification || ""
-        })));
+    const record = query?.data?.data;
+    if (!record) return;
+    reset({
+      title: record.title ?? "MR",
+      name: record.name ?? "",
+      surname: record.surname ?? "",
+      birthday: record.birthday
+        ? new Date(record.birthday).toISOString().split("T")[0]
+        : "",
+      photoUrl: null,
+      role: record.role ?? "DEVELOPER",
+      department: record.department ?? "ENGINEERING",
+      company: record.company ?? "",
+      location: record.location ?? "",
+      email: record.email ?? "",
+      phone: record.phone ?? "",
+      github: record.github ?? "",
+      linkedIn: record.linkedIn ?? "",
+      experience: record.experience ?? "",
+      portfolio: record.portfolio ?? "",
+      bio: record.bio ?? "",
+      available: record.availability?.available ?? true,
+      client: record.availability?.client ?? "",
+      techStack: (record.techStack || []).map((t) => t.techStackId),
+      softSkills: (record.softSkills || []).map((s) => s.softSkillId),
+      education:
+        (record.education || []).map((e) => ({
+          id: e.id,
+          institution: e.institution || "",
+          qualification: e.qualification || "",
+        })) || [{ id: "", institution: "", qualification: "" }],
+      certificates:
+        (record.certificates || []).map((c) => ({
+          id: c.id,
+          name: c.name || "",
+          institution: c.institution || "",
+        })) || [{ id: "", name: "", institution: "" }],
+      career:
+        (record.career || []).map((c) => ({
+          id: c.id,
+          role: c.role || "",
+          company: c.company || "",
+          duration: c.duration || "",
+        })) || [{ id: "", role: "", company: "", duration: "" }],
+      testimonials:
+        (record.testimonials || []).map((t) => ({
+          id: t.id,
+          company: t.company || "",
+          quote: t.quote || "",
+          reference: t.reference || "",
+        })) || [{ id: "", company: "", quote: "", reference: "" }],
+      projects:
+        (record.projects || []).map((pm) => ({
+          id: pm.project?.id,
+          name: pm.project?.name || "",
+          description: pm.project?.description || "",
+          repoLink: pm.project?.github || "",
+          demoLink: pm.project?.demo || "",
+          technologies: pm.project?.techStack?.map((ts) => ts.techStackId) || [],
+          industries:
+            pm.project?.industries?.map((ind) => ind.industry?.name).filter(Boolean) || [],
+          image: null,
+        })) || [
+          {
+            id: "",
+            name: "",
+            description: "",
+            repoLink: "",
+            demoLink: "",
+            technologies: [],
+            industries: [],
+            image: null,
+          },
+        ],
+    });
+    setEntriesToDelete({ education: [], certificates: [], career: [], testimonials: [], projects: [] });
+  }, [query?.data?.data, reset]);
+
+  const onSubmit = async (values) => {
+    const record = query?.data?.data;
+    const employeeId = record?.id;
+
+    // base64 conversions
+    const photoBase64 = values.photoUrl ? await fileToBase64(values.photoUrl) : undefined;
+
+    // tech/soft diffs
+    const existingTechIds = (record?.techStack || []).map((t) => t.techStackId);
+    const existingSoftIds = (record?.softSkills || []).map((s) => s.softSkillId);
+    const uniqTech = Array.from(new Set(values.techStack || []));
+    const uniqSoft = Array.from(new Set(values.softSkills || []));
+    const toAddTech = uniqTech.filter((id) => !existingTechIds.includes(id));
+    const toRemoveTech = existingTechIds.filter((id) => !uniqTech.includes(id));
+    const toAddSoft = uniqSoft.filter((id) => !existingSoftIds.includes(id));
+    const toRemoveSoft = existingSoftIds.filter((id) => !uniqSoft.includes(id));
+
+    // Helper to build delete/upsert blocks
+    const buildRelationshipOperation = (entries, idsToDelete, mapFn) => {
+      const op = {};
+      if ((idsToDelete || []).length > 0) {
+        op.deleteMany = { id: { in: idsToDelete } };
       }
-      
-      // Populate certification entries
-      if (record.certificates && record.certificates.length > 0) {
-        setCertificationEntries(record.certificates.map(cert => ({
-          id: cert.id,
-          certificate: cert.name || "",
-          certificatesInstitution: cert.institution || ""
-        })));
+      const valid = (entries || []).filter((e) => Object.values(e || {}).some((v) => v !== undefined && v !== null && String(v).trim() !== ""));
+      if (valid.length > 0) {
+        op.upsert = valid.map(mapFn);
       }
-      
-      // Populate career entries
-      if (record.career && record.career.length > 0) {
-        setCareerEntries(record.career.map(career => ({
-          id: career.id,
-          role: career.role || "",
-          company: career.company || "",
-          duration: career.duration || ""
-        })));
-      }
-      
-      // Populate testimonials
-      if (record.testimonials && record.testimonials.length > 0) {
-        setTestimonials(record.testimonials.map(testimonial => ({
-          id: testimonial.id,
-          company: testimonial.company || "",
-          quote: testimonial.quote || "",
-          reference: testimonial.reference || ""
-        })));
-      }
-      
-      // Populate projects
-      if (record.projects && record.projects.length > 0) {
-        setProjects(record.projects.map(projectMember => ({
-          id: projectMember.project?.id,
-          name: projectMember.project?.name || "",
-          description: projectMember.project?.description || "",
-          repoLink: projectMember.project?.github || "",
-          demoLink: projectMember.project?.demo || "",
-          technologies: projectMember.project?.techStack?.map(ts => ts.techStackId) || [],
-          industries: projectMember.project?.industries?.map(ind => ind.industry?.name) || [],
-          image: ""
-        })));
-      }
-    }
-  }, [query.data]);
+      return op;
+    };
 
-  // Add/remove functions with proper ID handling
-  const addEducationEntry = () => {
-    setEducationEntries([...educationEntries, { id: "", institution: "", qualification: "" }]);
-  };
+    // Projects upsert payload (with screenshot conversions)
+    const projectsUpsert = await Promise.all(
+      (values.projects || [])
+        .filter((p) => (p?.name || "").trim() !== "")
+        .map(async (p) => {
+          const screenshot = p.image ? await fileToBase64(p.image) : undefined;
+          return {
+            where: {
+              projectId_employeeId: {
+                projectId: p.id || "new-project-id",
+                employeeId,
+              },
+            },
+            update: {
+              role: values.role,
+              project: p.id
+                ? {
+                    update: {
+                      name: p.name,
+                      description: p.description,
+                      github: p.repoLink || null,
+                      demo: p.demoLink || null,
+                      ...(screenshot ? { screenshot } : {}),
+                      industries: {
+                        deleteMany: {},
+                        create: (p.industries || []).map((industryName) => ({
+                          industry: {
+                            connectOrCreate: {
+                              where: { name: industryName },
+                              create: { name: industryName },
+                            },
+                          },
+                        })),
+                      },
+                      techStack: {
+                        deleteMany: {},
+                        create: (p.technologies || []).map((techId) => ({ techStackId: techId })),
+                      },
+                    },
+                  }
+                : undefined,
+            },
+            create: {
+              role: values.role,
+              project: {
+                create: {
+                  name: p.name,
+                  description: p.description,
+                  github: p.repoLink || null,
+                  demo: p.demoLink || null,
+                  screenshot: p.image ? screenshot || null : null,
+                  industries: {
+                    create: (p.industries || []).map((industryName) => ({
+                      industry: {
+                        connectOrCreate: {
+                          where: { name: industryName },
+                          create: { name: industryName },
+                        },
+                      },
+                    })),
+                  },
+                  techStack: {
+                    create: (p.technologies || []).map((techId) => ({ techStackId: techId })),
+                  },
+                },
+              },
+            },
+          };
+        })
+    );
 
-  const removeEducationEntry = (index) => {
-    const newEntries = [...educationEntries];
-    const removedEntry = newEntries.splice(index, 1)[0];
-    
-    if (removedEntry.id) {
-      setEntriesToDelete(prev => ({
-        ...prev,
-        education: [...prev.education, removedEntry.id]
-      }));
-    }
-    
-    setEducationEntries(newEntries);
-  };
+    const birthday = values.birthday ? new Date(values.birthday).toISOString() : null;
 
-  const addCertificationEntry = () => {
-    setCertificationEntries([...certificationEntries, { id: "", certificate: "", certificatesInstitution: "" }]);
-  };
+    // Build nested operations (avoid empty objects)
+    const educationOp = buildRelationshipOperation(
+      values.education,
+      entriesToDelete.education,
+      (e) => ({
+        where: { id: e.id || "new" },
+        update: { institution: e.institution, qualification: e.qualification },
+        create: { institution: e.institution, qualification: e.qualification },
+      })
+    );
+    const certificatesOp = buildRelationshipOperation(
+      values.certificates,
+      entriesToDelete.certificates,
+      (c) => ({
+        where: { id: c.id || "new" },
+        update: { name: c.name, institution: c.institution },
+        create: { name: c.name, institution: c.institution },
+      })
+    );
+    const careerOp = buildRelationshipOperation(
+      values.career,
+      entriesToDelete.career,
+      (c) => ({
+        where: { id: c.id || "new" },
+        update: { role: c.role, company: c.company, duration: c.duration },
+        create: { role: c.role, company: c.company, duration: c.duration },
+      })
+    );
+    const testimonialsOp = buildRelationshipOperation(
+      values.testimonials,
+      entriesToDelete.testimonials,
+      (t) => ({
+        where: { id: t.id || "new" },
+        update: { company: t.company, quote: t.quote, reference: t.reference },
+        create: { company: t.company, quote: t.quote, reference: t.reference },
+      })
+    );
 
-  const removeCertificationEntry = (index) => {
-    const newEntries = [...certificationEntries];
-    const removedEntry = newEntries.splice(index, 1)[0];
-    
-    if (removedEntry.id) {
-      setEntriesToDelete(prev => ({
-        ...prev,
-        certificates: [...prev.certificates, removedEntry.id]
-      }));
-    }
-    
-    setCertificationEntries(newEntries);
-  };
+    const finalData = {
+      title: values.title,
+      name: values.name,
+      surname: values.surname,
+      birthday,
+      ...(photoBase64 ? { photoUrl: photoBase64 } : {}),
+      role: values.role,
+      department: values.department,
+      company: values.company,
+      location: values.location,
+      email: values.email,
+      phone: values.phone,
+      github: values.github,
+      linkedIn: values.linkedIn,
+      experience: values.experience,
+      portfolio: values.portfolio,
+      bio: values.bio,
+      availability: {
+        upsert: {
+          create: { available: !!values.available, client: values.client || "" },
+          update: { available: !!values.available, client: values.client || "" },
+        },
+      },
+      ...(Object.keys(educationOp).length ? { education: educationOp } : {}),
+      ...(Object.keys(certificatesOp).length ? { certificates: certificatesOp } : {}),
+      ...(Object.keys(careerOp).length ? { career: careerOp } : {}),
+      ...(Object.keys(testimonialsOp).length ? { testimonials: testimonialsOp } : {}),
+      projects: {
+        ...(entriesToDelete.projects.length
+          ? { deleteMany: { OR: entriesToDelete.projects.map((projectId) => ({ projectId })) } }
+          : {}),
+        ...(projectsUpsert.length ? { upsert: projectsUpsert } : {}),
+      },
+    };
 
-  const addCareerEntry = () => {
-    setCareerEntries([...careerEntries, { id: "", role: "", company: "", duration: "" }]);
-  };
-
-  const removeCareerEntry = (index) => {
-    const newEntries = [...careerEntries];
-    const removedEntry = newEntries.splice(index, 1)[0];
-    
-    if (removedEntry.id) {
-      setEntriesToDelete(prev => ({
-        ...prev,
-        career: [...prev.career, removedEntry.id]
-      }));
-    }
-    
-    setCareerEntries(newEntries);
-  };
-
-  const addTestimonial = () => {
-    setTestimonials([...testimonials, { id: "", company: "", quote: "", reference: "" }]);
-  };
-
-  const removeTestimonial = (index) => {
-    const newEntries = [...testimonials];
-    const removedEntry = newEntries.splice(index, 1)[0];
-    
-    if (removedEntry.id) {
-      setEntriesToDelete(prev => ({
-        ...prev,
-        testimonials: [...prev.testimonials, removedEntry.id]
-      }));
-    }
-    
-    setTestimonials(newEntries);
-  };
-
-  const addProject = () => {
-    setProjects([...projects, { 
-      id: "",
-      name: "", 
-      description: "", 
-      repoLink: "", 
-      demoLink: "", 
-      technologies: [], 
-      industries: [],
-      image: ""
-    }]);
-  };
-
-  const removeProject = (index) => {
-  const newEntries = [...projects];
-  const removedEntry = newEntries.splice(index, 1)[0];
-  
-  // For projects, we need to track the project ID, not the ProjectMember ID
-  if (removedEntry.id) {
-    setEntriesToDelete(prev => ({
-      ...prev,
-      projects: [...prev.projects, removedEntry.id]
-    }));
-  }
-  
-  setProjects(newEntries);
-};
-
-  const onSubmit = (event) => {
-  event.preventDefault();
-  
-  // Get form data
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
-
-  // Format birthday as ISO-8601 date
-  const birthday = data.birthday ? new Date(data.birthday).toISOString() : null;
-
-  // Handle photo upload - convert file to string URL
-  let photoUrl = query.data?.data?.photoUrl; // Keep existing photo if no new one uploaded
-  if (data.photoUrl && data.photoUrl instanceof File) {
-    photoUrl = URL.createObjectURL(data.photoUrl);
-  }
-
-  // Helper function to build delete/upsert operations
-  const buildRelationshipOperation = (entries, entriesToDelete, mapFn) => {
-    const operation = {};
-    
-    // Only add deleteMany if there are entries to delete
-    if (entriesToDelete.length > 0) {
-      operation.deleteMany = {
-        id: {
-          in: entriesToDelete
-        }
+    if (toAddTech.length || toRemoveTech.length) {
+      finalData.techStack = {
+        ...(toRemoveTech.length ? { deleteMany: { techStackId: { in: toRemoveTech } } } : {}),
+        ...(toAddTech.length ? { create: toAddTech.map((id) => ({ techStackId: id })) } : {}),
       };
     }
-    
-    // Filter and map entries for upsert
-    const validEntries = entries.filter(entry => {
-      // Check if entry has any meaningful content
-      return Object.values(entry).some(value => value && value !== "");
-    });
-    
-    if (validEntries.length > 0) {
-      operation.upsert = validEntries.map(mapFn);
+    if (toAddSoft.length || toRemoveSoft.length) {
+      finalData.softSkills = {
+        ...(toRemoveSoft.length ? { deleteMany: { softSkillId: { in: toRemoveSoft } } } : {}),
+        ...(toAddSoft.length ? { create: toAddSoft.map((id) => ({ softSkillId: id })) } : {}),
+      };
     }
-    
-    return operation;
+
+    await onFinish(finalData);
   };
 
-  // Create structured data for update
-  const finalData = {
-    title: data.title,
-    name: data.name,
-    surname: data.surname,
-    birthday: birthday,
-    photoUrl: photoUrl,
-    role: data.role,
-    department: data.department,
-    company: data.company,
-    location: data.location,
-    email: data.email,
-    phone: data.phone,
-    github: data.github,
-    linkedIn: data.linkedIn,
-    experience: data.experience,
-    portfolio: data.portfolio,
-    bio: data.bio,
-
-    // Relationships
-    techStack: {
-      deleteMany: {},
-      create: Array.from(document.getElementById("techStack").selectedOptions)
-        .map(option => ({
-          techStackId: option.value
-        }))
-    },
-    softSkills: {
-      deleteMany: {},
-      create: Array.from(document.getElementById("softSkills").selectedOptions)
-        .map(option => ({
-          softSkillId: option.value
-        }))
-    },
-    availability: {
-      upsert: {
-        create: {
-          available: data.available === "true",
-          client: data.client || ""
-        },
-        update: {
-          available: data.available === "true",
-          client: data.client || ""
-        }
-      }
-    },
-    
-    // Education with proper delete/upsert handling
-    education: buildRelationshipOperation(
-      educationEntries,
-      entriesToDelete.education,
-      (entry) => ({
-        where: { id: entry.id || "new" },
-        update: {
-          institution: entry.institution,
-          qualification: entry.qualification
-        },
-        create: {
-          institution: entry.institution,
-          qualification: entry.qualification
-        }
-      })
-    ),
-    
-    // Certificates with proper delete/upsert handling
-    certificates: buildRelationshipOperation(
-      certificationEntries,
-      entriesToDelete.certificates,
-      (entry) => ({
-        where: { id: entry.id || "new" },
-        update: {
-          name: entry.certificate,
-          institution: entry.certificatesInstitution
-        },
-        create: {
-          name: entry.certificate,
-          institution: entry.certificatesInstitution
-        }
-      })
-    ),
-    
-    // Career with proper delete/upsert handling
-    career: buildRelationshipOperation(
-      careerEntries,
-      entriesToDelete.career,
-      (entry) => ({
-        where: { id: entry.id || "new" },
-        update: {
-          role: entry.role,
-          company: entry.company,
-          duration: entry.duration
-        },
-        create: {
-          role: entry.role,
-          company: entry.company,
-          duration: entry.duration
-        }
-      })
-    ),
-    
-    // Testimonials with proper delete/upsert handling
-    testimonials: buildRelationshipOperation(
-      testimonials,
-      entriesToDelete.testimonials,
-      (entry) => ({
-        where: { id: entry.id || "new" },
-        update: {
-          company: entry.company,
-          quote: entry.quote,
-          reference: entry.reference
-        },
-        create: {
-          company: entry.company,
-          quote: entry.quote,
-          reference: entry.reference
-        }
-      })
-    ),
-    
-    // Projects with proper delete/upsert handling
-    projects: {
-      // Delete project memberships that should be removed
-      deleteMany: entriesToDelete.projects.length > 0 ? {
-        OR: entriesToDelete.projects.map(projectId => ({
-          projectId: projectId
-        }))
-      } : undefined,
-      
-      // Upsert project memberships
-      upsert: projects
-        .filter(project => project.name && project.name.trim() !== "")
-        .map(project => ({
-          where: {
-            projectId_employeeId: {
-              projectId: project.id || "new-project-id",
-              employeeId: id
-            }
-          },
-          update: {
-            role: data.role,
-            project: project.id ? {
-              update: {
-                name: project.name,
-                description: project.description,
-                github: project.repoLink,
-                demo: project.demoLink,
-                screenshot: project.image ? URL.createObjectURL(project.image) : undefined,
-                industries: {
-                  deleteMany: {},
-                  create: project.industries.map(industryName => ({
-                    industry: {
-                      connectOrCreate: {
-                        where: { name: industryName },
-                        create: { name: industryName }
-                      }
-                    }
-                  }))
-                },
-                techStack: {
-                  deleteMany: {},
-                  create: project.technologies.map(techId => ({
-                    techStackId: techId
-                  }))
-                }
-              }
-            } : undefined
-          },
-          create: {
-            role: data.role,
-            project: {
-              create: {
-                name: project.name,
-                description: project.description,
-                github: project.repoLink,
-                demo: project.demoLink,
-                screenshot: project.image ? URL.createObjectURL(project.image) : null,
-                industries: {
-                  create: project.industries.map(industryName => ({
-                    industry: {
-                      connectOrCreate: {
-                        where: { name: industryName },
-                        create: { name: industryName }
-                      }
-                    }
-                  }))
-                },
-                techStack: {
-                  create: project.technologies.map(techId => ({
-                    techStackId: techId
-                  }))
-                }
-              }
-            }
-          }
-        }))
-    }
-  };
-  
-  console.log(finalData);
-  // Call onFinish to submit
-  onFinish(finalData);
-};
-
-  if (!query.data?.data) {
+  if (!query?.data?.data) {
     return <div>Loading...</div>;
   }
 
-  const record = query.data.data;
+  const record = query?.data?.data;
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="title">Title</label>
-      <select id="title" name="title" defaultValue={record?.title}>
-        <option value="MR">Mr</option>
-        <option value="MRS">Mrs</option>
-        <option value="MS">Ms</option>
-        <option value="DR">Dr</option>
-      </select>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Typography variant="h5">Edit Employee</Typography>
 
-      <label htmlFor="name">Name</label>
-      <input type="text" id="name" name="name" defaultValue={record?.name} />
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={2}>
+          <TextField select label="Title" fullWidth defaultValue={record?.title ?? "MR"} {...register("title")}>
+            <MenuItem value="MR">Mr</MenuItem>
+            <MenuItem value="MRS">Mrs</MenuItem>
+            <MenuItem value="MS">Ms</MenuItem>
+            <MenuItem value="DR">Dr</MenuItem>
+          </TextField>
+        </Grid>
 
-      <label htmlFor="surname">Surname</label>
-      <input type="text" id="surname" name="surname" defaultValue={record?.surname} />
+        <Grid item xs={12} sm={5}>
+          <TextField label="Name" fullWidth {...register("name")} />
+        </Grid>
+        <Grid item xs={12} sm={5}>
+          <TextField label="Surname" fullWidth {...register("surname")} />
+        </Grid>
 
-      <label htmlFor="birthday">Birthday</label>
-      <input 
-        type="date" 
-        id="birthday" 
-        name="birthday" 
-        defaultValue={record?.birthday ? new Date(record.birthday).toISOString().split('T')[0] : ''}
-      />
+        <Grid item xs={12} sm={4}>
+          <TextField type="date" label="Birthday" InputLabelProps={{ shrink: true }} fullWidth {...register("birthday")} />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Controller control={control} name="photoUrl" render={({ field }) => (
+            <input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files?.[0] ?? null)} />
+          )} />
+          {record?.photoUrl && (
+            <div>
+              <Typography variant="caption">Current photo:</Typography>
+              <img src={record.photoUrl} alt="Current employee" style={{ width: 80, height: 80, objectFit: "cover", display: "block", marginTop: 4 }} />
+            </div>
+          )}
+        </Grid>
 
-      <label htmlFor="photoUrl">Photo</label>
-      <input type="file" id="photoUrl" name="photoUrl" />
-      {record?.photoUrl && (
-        <div>
-          <p>Current photo:</p>
-          <img src={record.photoUrl} alt="Current employee photo" style={{width: '100px', height: '100px', objectFit: 'cover'}} />
-        </div>
-      )}
+        <Grid item xs={12} sm={4}>
+          <TextField select label="Role" fullWidth defaultValue={record?.role ?? "DEVELOPER"} {...register("role")}>
+            <MenuItem value="DEVELOPER">Developer</MenuItem>
+            <MenuItem value="DESIGNER">Designer</MenuItem>
+            <MenuItem value="PROJECT_MANAGER">Project Manager</MenuItem>
+            <MenuItem value="TEAM_LEAD">Team Lead</MenuItem>
+            <MenuItem value="SENIOR_DEVELOPER">Senior Developer</MenuItem>
+          </TextField>
+        </Grid>
 
-      <label htmlFor="role">Role</label>
-      <select id="role" name="role" defaultValue={record?.role}>
-        <option value="DEVELOPER">Developer</option>
-        <option value="DESIGNER">Designer</option>
-        <option value="PROJECT_MANAGER">Project Manager</option>
-        <option value="TEAM_LEAD">Team Lead</option>
-        <option value="SENIOR_DEVELOPER">Senior Developer</option>
-      </select>
+        <Grid item xs={12} sm={4}>
+          <TextField select label="Department" fullWidth defaultValue={record?.department ?? "ENGINEERING"} {...register("department")}>
+            <MenuItem value="ENGINEERING">Engineering</MenuItem>
+            <MenuItem value="DESIGN">Design</MenuItem>
+            <MenuItem value="MARKETING">Marketing</MenuItem>
+            <MenuItem value="SALES">Sales</MenuItem>
+            <MenuItem value="HR">HR</MenuItem>
+          </TextField>
+        </Grid>
 
-      <label htmlFor="department">Department</label>
-      <select id="department" name="department" defaultValue={record?.department}>
-        <option value="ENGINEERING">Engineering</option>
-        <option value="DESIGN">Design</option>
-        <option value="MARKETING">Marketing</option>
-        <option value="SALES">Sales</option>
-        <option value="HR">HR</option>
-      </select>
+        <Grid item xs={12} sm={8}>
+          <TextField label="Company" fullWidth {...register("company")} />
+        </Grid>
 
-      <label htmlFor="company">Company</label>
-      <input type="text" id="company" name="company" defaultValue={record?.company} />
+        <Grid item xs={12} sm={6}>
+          <TextField label="Location" fullWidth {...register("location")} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField label="Email" fullWidth {...register("email")} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField label="Phone" fullWidth {...register("phone")} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField label="GitHub" fullWidth {...register("github")} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="LinkedIn" fullWidth {...register("linkedIn")} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Experience" fullWidth multiline rows={3} {...register("experience")} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Portfolio" fullWidth {...register("portfolio")} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Bio" fullWidth multiline rows={4} {...register("bio")} />
+        </Grid>
 
-      <label htmlFor="location">Location</label>
-      <input type="text" id="location" name="location" defaultValue={record?.location} />
+        <Grid item xs={12} sm={3}>
+          <Controller
+            control={control}
+            name="available"
+            render={({ field }) => (
+              <TextField
+                select
+                fullWidth
+                label="Available"
+                value={field.value ? "true" : "false"}
+                onChange={(e) => field.onChange(e.target.value === "true")}
+              >
+                <MenuItem value="true">Yes</MenuItem>
+                <MenuItem value="false">No</MenuItem>
+              </TextField>
+            )}
+          />
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <TextField label="Client" fullWidth {...register("client")} />
+        </Grid>
 
-      <label htmlFor="email">Email</label>
-      <input type="email" id="email" name="email" defaultValue={record?.email} />
+        <Grid item xs={12}>
+          <Controller
+            control={control}
+            name="techStack"
+            defaultValue={[]}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                options={techAutocompleteProps?.options || []}
+                getOptionLabel={(o) => o?.name ?? o?.title ?? ""}
+                isOptionEqualToValue={(option, value) => option?.id === (value?.id ?? value)}
+                value={(techAutocompleteProps?.options || []).filter((opt) => (field.value || []).includes(opt.id))}
+                onChange={(_, v) => field.onChange(v.map((it) => it?.id ?? it))}
+                renderInput={(params) => <TextField {...params} label="Tech Stack" />}
+              />
+            )}
+          />
+        </Grid>
 
-      <label htmlFor="phone">Phone</label>
-      <input type="tel" id="phone" name="phone" defaultValue={record?.phone} />
+        <Grid item xs={12}>
+          <Controller
+            control={control}
+            name="softSkills"
+            defaultValue={[]}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                options={softAutocompleteProps?.options || []}
+                getOptionLabel={(o) => o?.name ?? o?.title ?? ""}
+                isOptionEqualToValue={(option, value) => option?.id === (value?.id ?? value)}
+                value={(softAutocompleteProps?.options || []).filter((opt) => (field.value || []).includes(opt.id))}
+                onChange={(_, v) => field.onChange(v.map((it) => it?.id ?? it))}
+                renderInput={(params) => <TextField {...params} label="Soft Skills" />}
+              />
+            )}
+          />
+        </Grid>
 
-      <label htmlFor="github">GitHub</label>
-      <input type="text" id="github" name="github" defaultValue={record?.github} />
-
-      <label htmlFor="linkedIn">LinkedIn</label>
-      <input type="text" id="linkedIn" name="linkedIn" defaultValue={record?.linkedIn} />
-
-      <label htmlFor="experience">Experience</label>
-      <textarea id="experience" name="experience" defaultValue={record?.experience}></textarea>
-
-      <label htmlFor="portfolio">Portfolio</label>
-      <input type="text" id="portfolio" name="portfolio" defaultValue={record?.portfolio} />
-
-      <label htmlFor="bio">Bio</label>
-      <textarea id="bio" name="bio" defaultValue={record?.bio}></textarea>
-
-      <label htmlFor="available">Available</label>
-      <select id="available" name="available" defaultValue={record?.availability?.available?.toString()}>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-
-      <label htmlFor="client">Client</label>
-      <input type="text" id="client" name="client" defaultValue={record?.availability?.client} />
-
-      <label htmlFor="techStack">Tech Stack</label>
-      <select id="techStack" name="techStack" multiple>
-        {techStackOptions?.map((option) => (
-          <option 
-            key={option.value} 
-            value={option.value}
-            selected={record?.techStack?.some(ts => ts.techStackId === option.value)}
+        {/* Education */}
+        <Grid item xs={12}>
+          <Divider sx={{ my: 1 }} />
+          <Typography variant="h6">Education</Typography>
+          {educationFields.map((f, idx) => (
+            <Paper key={f.id} variant="outlined" sx={{ p: 2, my: 1 }}>
+              <input type="hidden" {...register(`education.${idx}.id`)} />
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} sm={5}>
+                  <TextField label="Institution" fullWidth {...register(`education.${idx}.institution`)} />
+                </Grid>
+                <Grid item xs={12} sm={5}>
+                  <TextField label="Qualification" fullWidth {...register(`education.${idx}.qualification`)} />
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <Button color="error" variant="outlined" onClick={() => handleRemoveEducation(idx)}>
+                    Remove
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ))}
+          <Button
+            variant="contained"
+            onClick={() => appendEducation({ id: "", institution: "", qualification: "" })}
           >
-            {option.label}
-          </option>
-        ))}
-      </select>
+            Add education
+          </Button>
+        </Grid>
 
-      <label htmlFor="softSkills">Soft Skills</label>
-      <select id="softSkills" name="softSkills" multiple>
-        {softSkillOptions?.map((option) => (
-          <option 
-            key={option.value} 
-            value={option.value}
-            selected={record?.softSkills?.some(ss => ss.softSkillId === option.value)}
+        {/* Certificates */}
+        <Grid item xs={12}>
+          <Divider sx={{ my: 1 }} />
+          <Typography variant="h6">Certificates</Typography>
+          {certificateFields.map((f, idx) => (
+            <Paper key={f.id} variant="outlined" sx={{ p: 2, my: 1 }}>
+              <input type="hidden" {...register(`certificates.${idx}.id`)} />
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} sm={5}>
+                  <TextField label="Name" fullWidth {...register(`certificates.${idx}.name`)} />
+                </Grid>
+                <Grid item xs={12} sm={5}>
+                  <TextField label="Institution" fullWidth {...register(`certificates.${idx}.institution`)} />
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <Button color="error" variant="outlined" onClick={() => handleRemoveCertificate(idx)}>
+                    Remove
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ))}
+          <Button
+            variant="contained"
+            onClick={() => appendCertificate({ id: "", name: "", institution: "" })}
           >
-            {option.label}
-          </option>
-        ))}
-      </select>
+            Add certificate
+          </Button>
+        </Grid>
 
-      <h3>Education</h3>
-      {educationEntries.map((entry, index) => (
-        <div key={index} className="education-entry">
-          <label htmlFor={`institution-${index}`}>Institution</label>
-          <input 
-            type="text" 
-            id={`institution-${index}`} 
-            name={`institution-${index}`} 
-            value={entry.institution}
-            onChange={(e) => {
-              const newEntries = [...educationEntries];
-              newEntries[index].institution = e.target.value;
-              setEducationEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`qualification-${index}`}>Qualification</label>
-          <input 
-            type="text" 
-            id={`qualification-${index}`} 
-            name={`qualification-${index}`} 
-            value={entry.qualification}
-            onChange={(e) => {
-              const newEntries = [...educationEntries];
-              newEntries[index].qualification = e.target.value;
-              setEducationEntries(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeEducationEntry(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addEducationEntry}>Add Education</button>
+        {/* Career */}
+        <Grid item xs={12}>
+          <Divider sx={{ my: 1 }} />
+          <Typography variant="h6">Career</Typography>
+          {careerFields.map((f, idx) => (
+            <Paper key={f.id} variant="outlined" sx={{ p: 2, my: 1 }}>
+              <input type="hidden" {...register(`career.${idx}.id`)} />
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} sm={4}>
+                  <TextField label="Role" fullWidth {...register(`career.${idx}.role`)} />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField label="Company" fullWidth {...register(`career.${idx}.company`)} />
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <TextField label="Duration" fullWidth {...register(`career.${idx}.duration`)} />
+                </Grid>
+                <Grid item xs={12} sm={1}>
+                  <Button color="error" variant="outlined" onClick={() => handleRemoveCareer(idx)}>
+                    Remove
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ))}
+          <Button variant="contained" onClick={() => appendCareer({ id: "", role: "", company: "", duration: "" })}>
+            Add career entry
+          </Button>
+        </Grid>
 
-      <h3>Certificates</h3>
-      {certificationEntries.map((entry, index) => (
-        <div key={index} className="certification-entry">
-          <label htmlFor={`certificate-${index}`}>Certificate</label>
-          <input 
-            type="text" 
-            id={`certificate-${index}`} 
-            name={`certificate-${index}`} 
-            value={entry.certificate}
-            onChange={(e) => {
-              const newEntries = [...certificationEntries];
-              newEntries[index].certificate = e.target.value;
-              setCertificationEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`certificatesInstitution-${index}`}>Institution</label>
-          <input 
-            type="text" 
-            id={`certificatesInstitution-${index}`} 
-            name={`certificatesInstitution-${index}`} 
-            value={entry.certificatesInstitution}
-            onChange={(e) => {
-              const newEntries = [...certificationEntries];
-              newEntries[index].certificatesInstitution = e.target.value;
-              setCertificationEntries(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeCertificationEntry(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addCertificationEntry}>Add Certificate</button>
-
-      <h3>Career</h3>
-      {careerEntries.map((entry, index) => (
-        <div key={index} className="career-entry">
-          <label htmlFor={`role-${index}`}>Role</label>
-          <input 
-            type="text" 
-            id={`role-${index}`} 
-            name={`role-${index}`} 
-            value={entry.role}
-            onChange={(e) => {
-              const newEntries = [...careerEntries];
-              newEntries[index].role = e.target.value;
-              setCareerEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`company-${index}`}>Company</label>
-          <input 
-            type="text" 
-            id={`company-${index}`} 
-            name={`company-${index}`} 
-            value={entry.company}
-            onChange={(e) => {
-              const newEntries = [...careerEntries];
-              newEntries[index].company = e.target.value;
-              setCareerEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`duration-${index}`}>Duration</label>
-          <input 
-            type="text" 
-            id={`duration-${index}`} 
-            name={`duration-${index}`} 
-            value={entry.duration}
-            onChange={(e) => {
-              const newEntries = [...careerEntries];
-              newEntries[index].duration = e.target.value;
-              setCareerEntries(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeCareerEntry(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addCareerEntry}>Add Career Entry</button>
-
-      <h3>Testimonials</h3>
-      {testimonials.map((entry, index) => (
-        <div key={index} className="testimonial-entry">
-          <label htmlFor={`company-${index}`}>Company</label>
-          <input 
-            type="text" 
-            id={`company-${index}`} 
-            name={`company-${index}`} 
-            value={entry.company}
-            onChange={(e) => {
-              const newEntries = [...testimonials];
-              newEntries[index].company = e.target.value;
-              setTestimonials(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`quote-${index}`}>Quote</label>
-          <textarea 
-            id={`quote-${index}`} 
-            name={`quote-${index}`} 
-            value={entry.quote}
-            onChange={(e) => {
-              const newEntries = [...testimonials];
-              newEntries[index].quote = e.target.value;
-              setTestimonials(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`reference-${index}`}>Reference</label>
-          <input 
-            type="text" 
-            id={`reference-${index}`} 
-            name={`reference-${index}`} 
-            value={entry.reference}
-            onChange={(e) => {
-              const newEntries = [...testimonials];
-              newEntries[index].reference = e.target.value;
-              setTestimonials(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeTestimonial(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addTestimonial}>Add Testimonial</button>
-
-      <h3>Projects</h3>
-      {projects.map((project, index) => (
-        <div key={index} className="project-entry">
-          <label htmlFor={`name-${index}`}>Project Name</label>
-          <input 
-            type="text" 
-            id={`name-${index}`} 
-            name={`name-${index}`} 
-            value={project.name}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].name = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`description-${index}`}>Description</label>
-          <textarea 
-            id={`description-${index}`} 
-            name={`description-${index}`} 
-            value={project.description}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].description = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`repoLink-${index}`}>Repository Link</label>
-          <input 
-            type="text" 
-            id={`repoLink-${index}`} 
-            name={`repoLink-${index}`} 
-            value={project.repoLink}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].repoLink = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`demoLink-${index}`}>Demo Link</label>
-          <input 
-            type="text" 
-            id={`demoLink-${index}`} 
-            name={`demoLink-${index}`} 
-            value={project.demoLink}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].demoLink = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`image-${index}`}>Project Image</label>
-          <input 
-            type="file" 
-            id={`image-${index}`} 
-            name={`image-${index}`} 
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].image = e.target.files[0];
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`technologies-${index}`}>Technologies</label>
-          <select 
-            id={`technologies-${index}`} 
-            name={`technologies-${index}`} 
-            multiple
-            value={project.technologies}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].technologies = Array.from(e.target.selectedOptions).map(option => option.value);
-              setProjects(newEntries);
-            }}
+        {/* Testimonials */}
+        <Grid item xs={12}>
+          <Divider sx={{ my: 1 }} />
+          <Typography variant="h6">Testimonials</Typography>
+          {testimonialFields.map((f, idx) => (
+            <Paper key={f.id} variant="outlined" sx={{ p: 2, my: 1 }}>
+              <input type="hidden" {...register(`testimonials.${idx}.id`)} />
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} sm={3}>
+                  <TextField label="Company" fullWidth {...register(`testimonials.${idx}.company`)} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField label="Quote" fullWidth multiline rows={2} {...register(`testimonials.${idx}.quote`)} />
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <TextField label="Reference" fullWidth {...register(`testimonials.${idx}.reference`)} />
+                </Grid>
+                <Grid item xs={12} sm={1}>
+                  <Button color="error" variant="outlined" onClick={() => handleRemoveTestimonial(idx)}>
+                    Remove
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ))}
+          <Button
+            variant="contained"
+            onClick={() => appendTestimonial({ id: "", company: "", quote: "", reference: "" })}
           >
-            {techStackOptions?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          
-          <label htmlFor={`industries-${index}`}>Industries</label>
-          <select 
-            id={`industries-${index}`} 
-            name={`industries-${index}`} 
-            multiple
-            value={project.industries}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].industries = Array.from(e.target.selectedOptions).map(option => option.value);
-              setProjects(newEntries);
-            }}
-          >
-            <option value="RETAIL">Retail</option>
-            <option value="BANKING">Banking</option>
-            <option value="INSURANCE">Insurance</option>
-            <option value="EDUCATION">Education</option>
-            <option value="MINING">Mining</option>
-            <option value="MECS">MECS</option>
-          </select>
-          
-          <button type="button" onClick={() => removeProject(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addProject}>Add Project</button>
+            Add testimonial
+          </Button>
+        </Grid>
 
-      {mutation.isSuccess && <span>Successfully updated!</span>}
-      <button type="submit">Update</button>
-    </form>
+        {/* Projects */}
+        <Grid item xs={12}>
+          <Divider sx={{ my: 1 }} />
+          <Typography variant="h6">Projects</Typography>
+          {projectFields.map((f, idx) => (
+            <Paper key={f.id} variant="outlined" sx={{ p: 2, my: 1 }}>
+              <input type="hidden" {...register(`projects.${idx}.id`)} />
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField label="Name" fullWidth {...register(`projects.${idx}.name`)} />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField label="Description" fullWidth multiline rows={3} {...register(`projects.${idx}.description`)} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField label="Repo link" fullWidth {...register(`projects.${idx}.repoLink`)} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField label="Demo link" fullWidth {...register(`projects.${idx}.demoLink`)} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Controller
+                    control={control}
+                    name={`projects.${idx}.technologies`}
+                    render={({ field }) => (
+                      <Autocomplete
+                        multiple
+                        options={techAutocompleteProps?.options || []}
+                        getOptionLabel={(o) => o?.name ?? o?.title ?? ""}
+                        isOptionEqualToValue={(option, value) => option?.id === (value?.id ?? value)}
+                        value={(techAutocompleteProps?.options || []).filter((opt) => (field.value || []).includes(opt.id))}
+                        onChange={(_, v) => field.onChange(v.map((it) => it?.id ?? it))}
+                        renderInput={(params) => <TextField {...params} label="Technologies" />}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Controller
+                    control={control}
+                    name={`projects.${idx}.industries`}
+                    render={({ field }) => (
+                      <Autocomplete
+                        multiple
+                        freeSolo
+                        options={(industryAutocompleteProps?.options || []).map((o) => o?.name || "")}
+                        value={field.value || []}
+                        onChange={(_, v) => field.onChange(v)}
+                        renderInput={(params) => <TextField {...params} label="Industries" />}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Controller
+                    control={control}
+                    name={`projects.${idx}.image`}
+                    render={({ field }) => (
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => field.onChange(e.target.files?.[0] ?? null)}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button color="error" variant="outlined" onClick={() => handleRemoveProject(idx)}>
+                    Remove project
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ))}
+          <Button
+            variant="contained"
+            onClick={() =>
+              appendProject({
+                id: "",
+                name: "",
+                description: "",
+                repoLink: "",
+                demoLink: "",
+                technologies: [],
+                industries: [],
+                image: null,
+              })
+            }
+          >
+            Add project
+          </Button>
+        </Grid>
+      </Grid>
+
+      <Box sx={{ mt: 2 }}>
+        <SaveButton type="submit" />
+      </Box>
+    </Box>
   );
 };

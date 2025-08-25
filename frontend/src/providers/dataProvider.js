@@ -109,11 +109,20 @@ async function fetchData(resource, endpoint, args) {
 }
 
 async function mutateData(resource, endpoint, method, args) {
+    // Debug: log employee update payloads for verification during testing
+    try {
+        if (resource === 'employee' && endpoint === 'update') {
+            // Avoid logging extremely large payloads blindly; stringify with limited spacing
+            // Note: This will include base64 images if present.
+            console.debug('[dataProvider] employee.update payload =>', JSON.stringify(args, null, 2));
+        }
+    } catch (_) { /* noop */ }
     const resp = await fetch(makeQuery(resource, endpoint), {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(args),
     });
+
     if (!resp.ok) {
         throw new Error(`Failed to post ${resource}: ${resp.statusText}`);
     }

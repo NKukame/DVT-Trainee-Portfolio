@@ -1,6 +1,6 @@
 import React from "react";
 import { useMany } from "@refinedev/core";
-import { useDataGrid, EditButton, ShowButton } from "@refinedev/mui";
+import { useDataGrid, EditButton, ShowButton,List } from "@refinedev/mui";
 
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -100,8 +100,9 @@ export const EmployeeList = () => {
 
   return (
     <div>
-      <h1>Employees</h1>
+      <List>
       <DataGrid {...dataGridProps} columns={columns} />
+      </List>
     </div>
   );
 };
