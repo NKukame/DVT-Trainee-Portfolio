@@ -464,7 +464,10 @@ export const EditEmployee = () => {
   const record = query?.data?.data;
 
   return (
-    <Edit>
+    <Edit footerButtons={() => (
+      <>
+      </>
+    )}>
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Typography variant="h5">Edit Employee</Typography>
 

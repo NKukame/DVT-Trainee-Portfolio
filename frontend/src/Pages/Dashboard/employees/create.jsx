@@ -270,7 +270,10 @@ export const CreateEmployee = () => {
   };
 
   return (
-    <Create>
+    <Create  footerButtons={() => (
+      <>
+      </>
+    )}>
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
