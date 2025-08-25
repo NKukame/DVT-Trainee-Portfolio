@@ -12,12 +12,19 @@
 @import "./components/SidebarComp/SideBar.css";
 
 @import "./components/FilterComp/Filter.css";
+@import "./components/ComboComp/Combo.css";
+
+@import "./Pages/ProfileCreation/ProfileCreation.css";
+@import "./components/ProfileCreationComp/Stepper.css";
+@import "./components/ProfileCreationComp/Form.css";
 
 @import "./responsive-styles/mobile.css";
 @import "./responsive-styles/mobile-home.css";
 @import "./responsive-styles/mobile-about.css";
+@import "./responsive-styles/mobile-profile.css";
 @import "./responsive-styles/mobile-search.css";
 @import "./responsive-styles/mobile-navbar.css";
+
 * {
   box-sizing: border-box;
   padding: 0;

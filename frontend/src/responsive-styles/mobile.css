@@ -11,6 +11,7 @@
   }
   .input-container {
     width: 98%;
+    height: 45px;
     margin: 1px 10px;
   }
 }

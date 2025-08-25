@@ -18,8 +18,15 @@
 @media screen and (max-width: 500px) {
   .search-tabs {
     display: none;
+    margin-bottom: 15px;
   }
 
+  .input-container input[type="text"]::placeholder {
+    font-size: 1rem;
+  }
+  .input-container input[type="text"] {
+    font-size: 1rem;
+  }
   .desktop-filter {
     display: none;
   }
@@ -55,6 +62,18 @@
     border: none;
   }
 
+  .popoverContent {
+    width: 93%;
+    box-shadow: none;
+  }
+
+  .close-filter {
+    background: none;
+    font-size: larger;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+  }
   .filter-section {
     box-shadow: none;
     gap: 10px;
@@ -65,6 +84,11 @@
     border-radius: 2px;
     width: 100vw;
     padding: 5px;
+  }
+  .no-results {
+    width: initial;
+    height: initial;
+    padding: 1em;
   }
 
   .results-responsive {

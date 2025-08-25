@@ -51,7 +51,9 @@ export default function SearchNav({
         <div className="filter-modal">
           <div className="filter-heading">
             <p>FILTER MY SEARCH</p>
-            <span>x</span>
+            <button onClick={() => setFilter(false)} className="close-filter">
+              x
+            </button>
           </div>
           <Filter />
         </div>

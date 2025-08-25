@@ -19,14 +19,19 @@
 
   #theTitle {
     width: initial;
-    font-size: 32px;
+    font-size: 30px;
     line-height: initial;
   }
   .content h2 {
     font-size: 1rem;
     margin: 0px;
+    text-align: justify;
   }
 
+  .home-carousel-item {
+    height: 300px;
+    width: 250px;
+  }
   .home-carousel-wrapper {
     display: block;
     width: 100vw;
@@ -40,24 +45,44 @@
   }
 
   .cta-button {
-    font-size: 28px;
+    font-size: 1.2rem;
     padding: 10px 20px;
     width: fit-content;
     height: initial;
-    margin: auto;
+    margin: 10px;
+    background: transparent;
+    text-decoration: underline;
+    text-decoration-color: var(--dark-blue);
   }
 
+  .home-carousel-item-text p {
+    font-size: small;
+  }
+  .home-carousel-item-text h3 {
+    font-size: larger;
+  }
+  .home-carousel-item-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cta-button img {
+    width: 19px;
+    height: 19px;
+  }
   .home-bottom {
     width: initial;
     height: initial;
     flex-direction: column;
+    gap: initial;
+    align-items: start;
   }
 
   .home-bottom p {
-    font-size: 1rem;
-    text-align: center;
+    font-size: 1.1rem;
+    text-align: start;
     margin: 10px 0px;
     font-weight: 400;
+    padding: 10px;
   }
   .video-carousel {
     margin: 0;
@@ -68,13 +93,14 @@
   }
 
   .video-track {
-    height: 210px;
+    height: 250px;
     position: relative;
   }
 
   .video-item {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
   }
 
   .video-item img {
@@ -85,20 +111,33 @@
     align-items: start;
     border-radius: 0px;
     background: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0, 0.9) 100%);
+    padding: 10px;
+    opacity: 1;
+    transform: translateY(0);
+    margin: 10px;
   }
   .video-item-text-inner h3 {
     color: var(--white);
   }
 
   .video-item-text-inner p {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     text-align: start;
   }
 
-  .video-see-more {
-    color: #000;
+  .video-item h3 {
+    font-size: 1.2rem;
   }
-  .sidebar-container{
+  .video-see-more {
+    color: var(--white);
+    align-self: self-end;
+    border-radius: 5px;
+    margin: 2px 16px;
+    padding: 2px 5px;
+    border: 1px solid var(--button-blue);
+    background: var(--button-blue);
+  }
+  .sidebar-container {
     display: none;
   }
 }

@@ -1,5 +1,3 @@
-import "../../styles.css";
-import "./ProfileCreation.css";
 import SideBar from "../../components/SidebarComp/SideBar";
 import Stepper from "../../components/ProfileCreationComp/Stepper";
 import { useState } from "react";
