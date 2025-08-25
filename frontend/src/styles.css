@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+@import "./Pages/LoginPage/Login.css";
+@import "./Pages/LoginPage/mobile.css";
+
 *{
     box-sizing: border-box;
     padding: 0;

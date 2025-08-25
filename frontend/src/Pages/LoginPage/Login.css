@@ -573,3 +573,24 @@ input.error-border {
 @keyframes l13{ 
   100%{transform: rotate(1turn)}
 }
+
+@media (min-width: var(--breakpoint-sm)) and (min-width: var(--breakpoint-md)) {
+    .login-container{
+        display: none;
+    }
+}
+@media (min-width: var(--breakpoint-sm)) {
+   .login-container{
+    display: none;
+   }
+}
+
+/* Medium devices */
+
+
+/* Large devices */
+@media (min-width: var(--breakpoint-lg)) {
+  .login-container{
+    display: none;
+  }
+}
