@@ -280,6 +280,7 @@ function ForgotPassword() {
                     onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
+                  
                 </div>
                 {errors.password && <p className="error-message">{errors.password}</p>}
               </div>

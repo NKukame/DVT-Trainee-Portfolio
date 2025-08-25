@@ -306,6 +306,34 @@ h1 {
     top: 15px;   
 }
 
+.lock-icon-confirm{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    left: 0px;
+    top: 50%;  
+    transform: translateY(-50%);
+    }
+
+    .lock-icon-password{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 10px 10px 10px 10px;
+    left: 40px;
+    top: 50%;  
+    transform: translateY(-130%);
+    }
+
 .mail-icon {
     position: absolute;
     cursor: pointer;
@@ -320,16 +348,12 @@ h1 {
 }
 
 .mail-icon-signup{
-    position: absolute;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    background-color: #fff;
-    Color: #a0a0a0;
-    margin: 0 10px;
-    left: 0%;
-    top: 15px;  
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-450%);
+  color: #a0a0a0;
+
 }
 
 .email-input-container{
@@ -555,3 +579,46 @@ input.error-border {
     font-size: 10px;
     font-family: 'Hanken Grotesk' sans-serif;
   }
+
+
+  /* HTML: <div class="loader"></div> */
+.form-loader {
+  width: 50px;
+  height: fit-content;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: 
+    radial-gradient(farthest-side, #02111E 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #04223D);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 5px),#000 0);
+  animation: l13 1s infinite linear;
+ 
+}
+@keyframes l13{ 
+  100%{transform: rotate(1turn)}
+}
+
+.password-container-signup {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Fixed signup form input styles */
+.sign-up-form input {
+    padding-left: 40px;
+}
+
+.sign-up-form .password-container-signup input {
+    padding-left: 40px;
+}
+
+/* Ensure email input in signup has proper padding */
+.sign-up-form input[name="email"] {
+    padding-left: 40px;
+}
+
+/* Ensure password input in signup has proper padding */
+.sign-up-form input[name="password"] {
+    padding-left: 40px;
+}

@@ -250,7 +250,7 @@ const handleLogin = async () => {
               className={getInputClass("email")}
             />
              
-            {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
+            <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/>
           {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
             
@@ -263,21 +263,36 @@ const handleLogin = async () => {
               onChange={handleChange}
               className={getInputClass("password")}
             />
+             <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
             
             {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
             <h6>Confirm Password</h6>
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={getInputClass("confirmPassword")}
-            />
-            {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
-
+            <div className="password-container-signup">
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password "
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={getInputClass("confirmPassword")}
+              />
+            <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
             </div>
-            <button className="submit" type="submit">Sign Up</button>
+            {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
+            </div>
+            
+             {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                      handleToggle(event, false)
+                    }}/>:
+
+                    <EyeClosed className="eyeclosed-icon password-icon" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                      handleToggle(event, true);
+                    }} />
+                    }
+                    
+           {loading ? <div className="form-loader"></div> : 
+            <button type="submit">Sign Up</button>}
+
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
                setFormData(prev => ({
