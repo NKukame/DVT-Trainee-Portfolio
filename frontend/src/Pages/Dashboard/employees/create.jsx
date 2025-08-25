@@ -1,581 +1,708 @@
-import { useForm, useSelect } from "@refinedev/core";
 import React from "react";
+import { useForm as useRhfForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm } from "@refinedev/react-hook-form";
+import { useAutocomplete, SaveButton } from "@refinedev/mui";
+import { useCreate } from "@refinedev/core";
+
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+
+/**
+ * Helper: file -> base64 string
+ */
+const fileToBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    if (!file) return resolve(null);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (err) => reject(err);
+  });
+
 export const CreateEmployee = () => {
-  const { onFinish, mutation } = useForm();
+  // useRefine-react-hook-form wrapper
+  const {
+    register,
+    control,
+    handleSubmit,
+    refineCore: { onFinish, query },
+    reset,
+    setValue,
+    formState: { errors },
+    saveButtonProps,
+  } = useForm({
+    // optional: you may supply resource: "employee" here,
+    // but we'll call useCreate() manually so it's not required
+    defaultValues: {
+      title: "MR",
+      name: "",
+      surname: "",
+      birthday: "",
+      photoUrl: null,
+      role: "DEVELOPER",
+      department: "ENGINEERING",
+      company: "",
+      location: "",
+      email: "",
+      phone: "",
+      github: "",
+      linkedIn: "",
+      experience: "",
+      portfolio: "",
+      bio: "",
+      available: true,
+      client: "",
+      techStack: [],
+      softSkills: [],
+      education: [{ institution: "", qualification: "" }],
+      certificates: [{ name: "", institution: "" }],
+      career: [{ role: "", company: "", duration: "" }],
+      testimonials: [{ company: "", quote: "", reference: "" }],
+      projects: [
+        {
+          name: "",
+          description: "",
+          repoLink: "",
+          demoLink: "",
+          technologies: [],
+          industries: [],
+          image: null,
+        },
+      ],
+    },
+  });
 
-  const { options } = useSelect({
+  // for create call
+  const { mutate: create } = useCreate();
+
+  // Autocomplete props for tech stack & soft skills
+  const { autocompleteProps: techAutocompleteProps } = useAutocomplete({
     resource: "techStack",
-    optionLabel: "name", 
-    optionValue: "id", 
+    optionLabel: "name",
+    optionValue: "id",
   });
 
-  const { options: softSkillOptions } = useSelect({
+  const { autocompleteProps: softAutocompleteProps } = useAutocomplete({
     resource: "softSkill",
-    optionLabel: "name", 
-    optionValue: "id", 
+    optionLabel: "name",
+    optionValue: "id",
   });
 
-  const [educationEntries, setEducationEntries] = React.useState([{ institution: "", qualification: "" }]);
-  const [certificationEntries, setCertificationEntries] = React.useState([{ certificate: "", certificatesInstitution: "" }]);
-  const [careerEntries, setCareerEntries] = React.useState([{ role: "", company: "", duration: "" }]);
-  const [testimonials, setTestimonials] = React.useState([{ company: "", quote: "", reference: "" }]);
-  const [projects, setProjects] = React.useState([{ 
-    name: "", 
-    description: "", 
-    repoLink: "", 
-    demoLink: "", 
-    technologies: [], 
-    industries: [] ,
-    image: ""
-  }]);
+  // field arrays
+  const {
+    fields: educationFields,
+    append: appendEducation,
+    remove: removeEducation,
+  } = useFieldArray({
+    control,
+    name: "education",
+  });
 
-  const addEducationEntry = () => {
-    setEducationEntries([...educationEntries, { institution: "", qualification: "" }]);
-  };
+  const {
+    fields: certificateFields,
+    append: appendCertificate,
+    remove: removeCertificate,
+  } = useFieldArray({
+    control,
+    name: "certificates",
+  });
 
-  const removeEducationEntry = (index) => {
-    const newEntries = [...educationEntries];
-    newEntries.splice(index, 1);
-    setEducationEntries(newEntries);
-  };
+  const {
+    fields: careerFields,
+    append: appendCareer,
+    remove: removeCareer,
+  } = useFieldArray({
+    control,
+    name: "career",
+  });
 
-  const addCertificationEntry = () => {
-    setCertificationEntries([...certificationEntries, { certificate: "", certificatesInstitution: "" }]);
-  };
+  const {
+    fields: testimonialFields,
+    append: appendTestimonial,
+    remove: removeTestimonial,
+  } = useFieldArray({
+    control,
+    name: "testimonials",
+  });
 
-  const removeCertificationEntry = (index) => {
-    const newEntries = [...certificationEntries];
-    newEntries.splice(index, 1);
-    setCertificationEntries(newEntries);
-  };
+  const {
+    fields: projectFields,
+    append: appendProject,
+    remove: removeProject,
+  } = useFieldArray({
+    control,
+    name: "projects",
+  });
 
-  const addCareerEntry = () => {
-    setCareerEntries([...careerEntries, { role: "", company: "", duration: "" }]);
-  };
+  const onSubmit = async (values) => {
+    try {
+      // convert main photo
+      const photoBase64 = values.photoUrl
+        ? await fileToBase64(values.photoUrl)
+        : null;
 
-  const removeCareerEntry = (index) => {
-    const newEntries = [...careerEntries];
-    newEntries.splice(index, 1);
-    setCareerEntries(newEntries);
-  };
+      // convert project images (async)
+      const projectsPayload = await Promise.all(
+        (values.projects || []).map(async (p) => {
+          const screenshot = p.image ? await fileToBase64(p.image) : null;
+          
 
-  const addTestimonial = () => {
-    setTestimonials([...testimonials, { company: "", quote: "", reference: "" }]);
-  };
-
-  const removeTestimonial = (index) => {
-    const newEntries = [...testimonials];
-    newEntries.splice(index, 1);
-    setTestimonials(newEntries);
-  };
-
-  const addProject = () => {
-    setProjects([...projects, { 
-      name: "", 
-      description: "", 
-      repoLink: "", 
-      demoLink: "", 
-      technologies: [], 
-      industries: [] ,
-      image: ""
-    }]);
-  };
-
-  const removeProject = (index) => {
-    const newEntries = [...projects];
-    newEntries.splice(index, 1);
-    setProjects(newEntries);
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-
-    // Format birthday as ISO-8601 date
-    const birthday = data.birthday ? new Date(data.birthday).toISOString() : null;
-
-    // Handle photo upload - convert file to string URL
-    let photoUrl = null;
-    if (data.photoUrl && data.photoUrl instanceof File) {
-      photoUrl = URL.createObjectURL(data.photoUrl);
-    }
-
-    
-
-    // Create structured data based on schema
-    const finalData = {
-      title: data.title,
-      name: data.name,
-      surname: data.surname,
-      birthday: birthday,
-      photoUrl: photoUrl,
-      role: data.role,
-      department: data.department,
-      company: data.company,
-      location: data.location,
-      email: data.email,
-      phone: data.phone,
-      github: data.github,
-      linkedIn: data.linkedIn,
-      experience: data.experience,
-      portfolio: data.portfolio,
-      bio: data.bio,
-
-      
-      // Relationships
-      techStack: {
-        create: data.techStack ? [{
-          techStackId: data.techStack
-        }] : []
-      },
-      softSkills: {
-        create: data.softSkills ? [{
-          softSkillId: data.softSkills
-        }] : []
-      },
-      availability: {
-        create: {
-          available: data.available === "true",
-          client: data.client || ""
-        }
-      },
-      education: {
-        create: educationEntries.map(entry => ({
-          institution: entry.institution,
-          qualification: entry.qualification
-        }))
-      },
-      certificates: {
-        create: certificationEntries.map(entry => ({
-          name: entry.certificate,
-          institution: entry.certificatesInstitution
-        }))
-      },
-      career: {
-        create: careerEntries.map(entry => ({
-          role: entry.role,
-          company: entry.company,
-          duration: entry.duration
-        }))
-      },
-      testimonials: {
-        create: testimonials.map(entry => ({
-          company: entry.company,
-          quote: entry.quote,
-          reference: entry.reference
-        }))
-      },
-      projects: {
-        create: projects.map(project => ({
-          role: data.role, // The employee's role in this project
-          project: {
-            create: {
-              name: project.name,
-              description: project.description,
-              github: project.repoLink,
-              demo: project.demoLink,
-              screenshot: project.image ? URL.createObjectURL(project.image) : null,
-              // Handle industries relationship
-              industries: {
-                create: project.industries.map(industryName => ({
-                  industry: {
-                    connectOrCreate: {
-                      where: { name: industryName },
-                      create: { name: industryName }
-                    }
-                  }
-                }))
+          return {
+            role: values.role,
+            project: {
+              create: {
+                name: p.name,
+                description: p.description,
+                github: p.repoLink || null,
+                demo: p.demoLink || null,
+                screenshot,
+                // industries: create if not exist (connectOrCreate)
+                industries: {
+                  create:
+                    (p.industries || []).map((industryName) => ({
+                      industry: {
+                        connectOrCreate: {
+                          where: { name: industryName },
+                          create: { name: industryName },
+                        },
+                      },
+                    })) || [],
+                },
+                techStack: {
+                  create:
+                    (p.technologies || []).map((techId) => ({
+                      techStackId:
+                        typeof techId === "object" ? techId.id ?? techId : techId,
+                    })) || [],
+                },
               },
-              // Handle techStack relationship
-              techStack: {
-                create: project.technologies.map(techId => ({
-                  techStackId: techId
-                }))
-              }
-            }
-          }
-        }))
-      }
-    };
+            },
+          };
+        })
+      );
+      // Format birthday as ISO-8601 date
+      const birthday = values.birthday ? new Date(values.birthday).toISOString() : null;
+      // build main payload matching your Prisma nested create shape
+      const finalData = {
+        title: values.title,
+        name: values.name,
+        surname: values.surname,
+        birthday: birthday,
+        photoUrl: photoBase64,
+        role: values.role,
+        department: values.department,
+        company: values.company,
+        location: values.location,
+        email: values.email,
+        phone: values.phone,
+        github: values.github,
+        linkedIn: values.linkedIn,
+        experience: values.experience,
+        portfolio: values.portfolio,
+        bio: values.bio,
+        techStack: {
+          create:
+            (values.techStack || []).map((t) => ({
+              techStackId: typeof t === "object" ? t.id ?? t : t,
+            })) || [],
+        },
+        softSkills: {
+          create:
+            (values.softSkills || []).map((s) => ({
+              softSkillId: typeof s === "object" ? s.id ?? s : s,
+            })) || [],
+        },
+        availability: {
+          create: {
+            available: !!values.available,
+            client: values.client || "",
+          },
+        },
+        education: {
+          create:
+            (values.education || []).map((e) => ({
+              institution: e.institution,
+              qualification: e.qualification,
+            })) || [],
+        },
+        certificates: {
+          create:
+            (values.certificates || []).map((c) => ({
+              name: c.name,
+              institution: c.institution,
+            })) || [],
+        },
+        career: {
+          create:
+            (values.career || []).map((c) => ({
+              role: c.role,
+              company: c.company,
+              duration: c.duration,
+            })) || [],
+        },
+        testimonials: {
+          create:
+            (values.testimonials || []).map((t) => ({
+              company: t.company,
+              quote: t.quote,
+              reference: t.reference,
+            })) || [],
+        },
+        projects: {
+          create: projectsPayload,
+        },
+      };
 
-    // Call onFinish to submit
-    onFinish(finalData);
+      // Use refine's create
+      await onFinish(finalData);
+    } catch (error) {
+      console.error("submit error", error);
+    }
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="title">Title</label>
-      <select id="title" name="title">
-        <option value="MR">Mr</option>
-        <option value="MRS">Mrs</option>
-        <option value="MS">Ms</option>
-        <option value="DR">Dr</option>
-      </select>
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+    >
+      <Typography variant="h5">Create Employee</Typography>
 
-      <label htmlFor="name">Name</label>
-      <input type="text" id="name" name="name" />
-
-      <label htmlFor="surname">Surname</label>
-      <input type="text" id="surname" name="surname" />
-
-      <label htmlFor="birthday">Birthday</label>
-      <input 
-        type="date" 
-        id="birthday" 
-        name="birthday" 
-      />
-
-      <label htmlFor="photoUrl">Photo</label>
-      <input type="file" id="photoUrl" name="photoUrl" />
-
-      <label htmlFor="role">Role</label>
-      <select id="role" name="role">
-        <option value="DEVELOPER">Developer</option>
-        <option value="DESIGNER">Designer</option>
-        <option value="PROJECT_MANAGER">Project Manager</option>
-        <option value="TEAM_LEAD">Team Lead</option>
-        <option value="SENIOR_DEVELOPER">Senior Developer</option>
-      </select>
-
-      <label htmlFor="department">Department</label>
-      <select id="department" name="department">
-        <option value="ENGINEERING">Engineering</option>
-        <option value="DESIGN">Design</option>
-        <option value="MARKETING">Marketing</option>
-        <option value="SALES">Sales</option>
-        <option value="HR">HR</option>
-      </select>
-
-      <label htmlFor="company">Company</label>
-      <input type="text" id="company" name="company" />
-
-      <label htmlFor="location">Location</label>
-      <input type="text" id="location" name="location" />
-
-      <label htmlFor="email">Email</label>
-      <input type="email" id="email" name="email" />
-
-      <label htmlFor="phone">Phone</label>
-      <input type="tel" id="phone" name="phone" />
-
-      <label htmlFor="github">GitHub</label>
-      <input type="text" id="github" name="github" />
-
-      <label htmlFor="linkedIn">LinkedIn</label>
-      <input type="text" id="linkedIn" name="linkedIn" />
-
-      <label htmlFor="experience">Experience</label>
-      <textarea id="experience" name="experience"></textarea>
-
-      <label htmlFor="portfolio">Portfolio</label>
-      <input type="text" id="portfolio" name="portfolio" />
-
-      <label htmlFor="bio">Bio</label>
-      <textarea id="bio" name="bio"></textarea>
-
-      <label htmlFor="available">Available</label>
-      <select id="available" name="available">
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-
-      <label htmlFor="client">Client</label>
-      <input type="text" id="client" name="client" />
-
-      <label htmlFor="techStack">Tech Stack</label>
-      <select id="techStack" name="techStack" multiple>
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-
-      <label htmlFor="softSkills">Soft Skills</label>
-      <select id="softSkills" name="softSkills" multiple>
-        {softSkillOptions?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-
-      <h3>Education</h3>
-      {educationEntries.map((entry, index) => (
-        <div key={index} className="education-entry">
-          <label htmlFor={`institution-${index}`}>Institution</label>
-          <input 
-            type="text" 
-            id={`institution-${index}`} 
-            name={`institution-${index}`} 
-            value={entry.institution}
-            onChange={(e) => {
-              const newEntries = [...educationEntries];
-              newEntries[index].institution = e.target.value;
-              setEducationEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`qualification-${index}`}>Qualification</label>
-          <input 
-            type="text" 
-            id={`qualification-${index}`} 
-            name={`qualification-${index}`} 
-            value={entry.qualification}
-            onChange={(e) => {
-              const newEntries = [...educationEntries];
-              newEntries[index].qualification = e.target.value;
-              setEducationEntries(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeEducationEntry(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addEducationEntry}>Add Education</button>
-
-      <h3>Certificates</h3>
-      {certificationEntries.map((entry, index) => (
-        <div key={index} className="certification-entry">
-          <label htmlFor={`certificate-${index}`}>Certificate</label>
-          <input 
-            type="text" 
-            id={`certificate-${index}`} 
-            name={`certificate-${index}`} 
-            value={entry.certificate}
-            onChange={(e) => {
-              const newEntries = [...certificationEntries];
-              newEntries[index].certificate = e.target.value;
-              setCertificationEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`certificatesInstitution-${index}`}>Institution</label>
-          <input 
-            type="text" 
-            id={`certificatesInstitution-${index}`} 
-            name={`certificatesInstitution-${index}`} 
-            value={entry.certificatesInstitution}
-            onChange={(e) => {
-              const newEntries = [...certificationEntries];
-              newEntries[index].certificatesInstitution = e.target.value;
-              setCertificationEntries(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeCertificationEntry(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addCertificationEntry}>Add Certificate</button>
-
-      <h3>Career</h3>
-      {careerEntries.map((entry, index) => (
-        <div key={index} className="career-entry">
-          <label htmlFor={`role-${index}`}>Role</label>
-          <input 
-            type="text" 
-            id={`role-${index}`} 
-            name={`role-${index}`} 
-            value={entry.role}
-            onChange={(e) => {
-              const newEntries = [...careerEntries];
-              newEntries[index].role = e.target.value;
-              setCareerEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`company-${index}`}>Company</label>
-          <input 
-            type="text" 
-            id={`company-${index}`} 
-            name={`company-${index}`} 
-            value={entry.company}
-            onChange={(e) => {
-              const newEntries = [...careerEntries];
-              newEntries[index].company = e.target.value;
-              setCareerEntries(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`duration-${index}`}>Duration</label>
-          <input 
-            type="text" 
-            id={`duration-${index}`} 
-            name={`duration-${index}`} 
-            value={entry.duration}
-            onChange={(e) => {
-              const newEntries = [...careerEntries];
-              newEntries[index].duration = e.target.value;
-              setCareerEntries(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeCareerEntry(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addCareerEntry}>Add Career Entry</button>
-
-      <h3>Testimonials</h3>
-      {testimonials.map((entry, index) => (
-        <div key={index} className="testimonial-entry">
-          <label htmlFor={`company-${index}`}>Company</label>
-          <input 
-            type="text" 
-            id={`company-${index}`} 
-            name={`company-${index}`} 
-            value={entry.company}
-            onChange={(e) => {
-              const newEntries = [...testimonials];
-              newEntries[index].company = e.target.value;
-              setTestimonials(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`quote-${index}`}>Quote</label>
-          <textarea 
-            id={`quote-${index}`} 
-            name={`quote-${index}`} 
-            value={entry.quote}
-            onChange={(e) => {
-              const newEntries = [...testimonials];
-              newEntries[index].quote = e.target.value;
-              setTestimonials(newEntries);
-           }}
-          />
-          
-          <label htmlFor={`reference-${index}`}>Reference</label>
-          <input 
-            type="text" 
-            id={`reference-${index}`} 
-            name={`reference-${index}`} 
-            value={entry.reference}
-            onChange={(e) => {
-              const newEntries = [...testimonials];
-              newEntries[index].reference = e.target.value;
-              setTestimonials(newEntries);
-            }}
-          />
-          
-          <button type="button" onClick={() => removeTestimonial(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addTestimonial}>Add Testimonial</button>
-
-      <h3>Projects</h3>
-      {projects.map((project, index) => (
-        <div key={index} className="project-entry">
-          <label htmlFor={`name-${index}`}>Project Name</label>
-          <input 
-            type="text" 
-            id={`name-${index}`} 
-            name={`name-${index}`} 
-            value={project.name}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].name = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`description-${index}`}>Description</label>
-          <textarea 
-            id={`description-${index}`} 
-            name={`description-${index}`} 
-            value={project.description}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].description = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`repoLink-${index}`}>Repository Link</label>
-          <input 
-            type="text" 
-            id={`repoLink-${index}`} 
-            name={`repoLink-${index}`} 
-            value={project.repoLink}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].repoLink = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`demoLink-${index}`}>Demo Link</label>
-          <input 
-            type="text" 
-            id={`demoLink-${index}`} 
-            name={`demoLink-${index}`} 
-            value={project.demoLink}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].demoLink = e.target.value;
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`image-${index}`}>Project Image</label>
-          <input 
-            type="file" 
-            id={`image-${index}`} 
-            name={`image-${index}`} 
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].image = e.target.files[0];
-              setProjects(newEntries);
-            }}
-          />
-          
-          <label htmlFor={`technologies-${index}`}>Technologies</label>
-          <select 
-            id={`technologies-${index}`} 
-            name={`technologies-${index}`} 
-            multiple
-            value={project.technologies}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].technologies = Array.from(e.target.selectedOptions).map(option => option.value);
-              setProjects(newEntries);
-            }}
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={2}>
+          <TextField
+            select
+            label="Title"
+            fullWidth
+            defaultValue="MR"
+            {...register("title")}
           >
-            {options?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          
-          <label htmlFor={`industries-${index}`}>Industries</label>
-          <select 
-            id={`industries-${index}`} 
-            name={`industries-${index}`} 
-            multiple
-            value={project.industries}
-            onChange={(e) => {
-              const newEntries = [...projects];
-              newEntries[index].industries = Array.from(e.target.selectedOptions).map(option => option.value);
-              setProjects(newEntries);
-            }}
-          >
-            <option value="RETAIL">Retail</option>
-            <option value="BANKING">Banking</option>
-            <option value="INSURANCE">Insurance</option>
-            <option value="EDUCATION">Education</option>
-            <option value="MINING">Mining</option>
-            <option value="MECS">MECS</option>
-          </select>
-          
-          <button type="button" onClick={() => removeProject(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addProject}>Add Project</button>
+            <MenuItem value="MR">Mr</MenuItem>
+            <MenuItem value="MRS">Mrs</MenuItem>
+            <MenuItem value="MS">Ms</MenuItem>
+            <MenuItem value="DR">Dr</MenuItem>
+          </TextField>
+        </Grid>
 
-      {mutation.isSuccess && <span>successfully submitted!</span>}
-      <button type="submit">Submit</button>
-    </form>
+        <Grid item xs={12} sm={5}>
+          <TextField label="Name" fullWidth {...register("name")} />
+        </Grid>
+
+        <Grid item xs={12} sm={5}>
+          <TextField label="Surname" fullWidth {...register("surname")} />
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <TextField
+            type="date"
+            label="Birthday"
+            InputLabelProps={{ shrink: true }}
+            fullWidth
+            {...register("birthday")}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <Controller
+            control={control}
+            name="photoUrl"
+            render={({ field }) => (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => field.onChange(e.target.files?.[0] ?? null)}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <TextField
+            select
+            label="Role"
+            fullWidth
+            defaultValue="DEVELOPER"
+            {...register("role")}
+          >
+            <MenuItem value="DEVELOPER">Developer</MenuItem>
+            <MenuItem value="DESIGNER">Designer</MenuItem>
+            <MenuItem value="PROJECT_MANAGER">Project Manager</MenuItem>
+            <MenuItem value="TEAM_LEAD">Team Lead</MenuItem>
+            <MenuItem value="SENIOR_DEVELOPER">Senior Developer</MenuItem>
+          </TextField>
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <TextField
+            select
+            label="Department"
+            fullWidth
+            defaultValue="ENGINEERING"
+            {...register("department")}
+          >
+            <MenuItem value="ENGINEERING">Engineering</MenuItem>
+            <MenuItem value="DESIGN">Design</MenuItem>
+            <MenuItem value="MARKETING">Marketing</MenuItem>
+            <MenuItem value="SALES">Sales</MenuItem>
+            <MenuItem value="HR">HR</MenuItem>
+          </TextField>
+        </Grid>
+
+        <Grid item xs={12} sm={8}>
+          <TextField label="Company" fullWidth {...register("company")} />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField label="Location" fullWidth {...register("location")} />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField label="Email" fullWidth {...register("email")} />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField label="Phone" fullWidth {...register("phone")} />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <TextField label="GitHub" fullWidth {...register("github")} />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            label="LinkedIn"
+            fullWidth
+            {...register("linkedIn")}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            label="Experience"
+            multiline
+            rows={3}
+            fullWidth
+            {...register("experience")}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField label="Portfolio" fullWidth {...register("portfolio")} />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            label="Bio"
+            multiline
+            rows={4}
+            fullWidth
+            {...register("bio")}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={3}>
+          <TextField select fullWidth label="Available" {...register("available")}>
+            <MenuItem value={true}>Yes</MenuItem>
+            <MenuItem value={false}>No</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <TextField label="Client" fullWidth {...register("client")} />
+        </Grid>
+
+        {/* Tech Stack Autocomplete (multiple) */}
+        <Grid item xs={12}>
+          <Controller
+            control={control}
+            name="techStack"
+            defaultValue={[]}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                {...techAutocompleteProps}
+                options={techAutocompleteProps?.options || []}
+                getOptionLabel={(o) => o?.name ?? o?.title ?? ""}
+                isOptionEqualToValue={(option, value) =>
+                  option?.id === (value?.id ?? value)
+                }
+                value={
+                  (techAutocompleteProps?.options || []).filter((opt) =>
+                    (field.value || []).includes(opt.id)
+                  ) || []
+                }
+                onChange={(_, v) =>
+                  field.onChange(v.map((item) => item?.id ?? item))
+                }
+                renderInput={(params) => (
+                  <TextField {...params} label="Tech Stack" />
+                )}
+              />
+            )}
+          />
+        </Grid>
+
+        {/* Soft Skills Autocomplete (multiple) */}
+        <Grid item xs={12}>
+          <Controller
+            control={control}
+            name="softSkills"
+            defaultValue={[]}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                {...softAutocompleteProps}
+                options={softAutocompleteProps?.options || []}
+                getOptionLabel={(o) => o?.name ?? o?.title ?? ""}
+                isOptionEqualToValue={(option, value) =>
+                  option?.id === (value?.id ?? value)
+                }
+                value={
+                  (softAutocompleteProps?.options || []).filter((opt) =>
+                    (field.value || []).includes(opt.id)
+                  ) || []
+                }
+                onChange={(_, v) =>
+                  field.onChange(v.map((item) => item?.id ?? item))
+                }
+                renderInput={(params) => (
+                  <TextField {...params} label="Soft Skills" />
+                )}
+              />
+            )}
+          />
+        </Grid>
+      </Grid>
+
+      {/* Repeating field groups: Education */}
+      <Box>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Education
+        </Typography>
+        {educationFields.map((f, idx) => (
+          <Grid container spacing={1} key={f.id} alignItems="center" sx={{ mb: 1 }}>
+            <Grid item xs={5}>
+              <TextField
+                label="Institution"
+                fullWidth
+                {...register(`education.${idx}.institution`)}
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <TextField
+                label="Qualification"
+                fullWidth
+                {...register(`education.${idx}.qualification`)}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <IconButton onClick={() => removeEducation(idx)}>
+                <RemoveIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        ))}
+        <Button startIcon={<AddIcon />} onClick={() => appendEducation({ institution: "", qualification: "" })}>
+          Add Education
+        </Button>
+      </Box>
+
+      {/* Certificates */}
+      <Box>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Certificates
+        </Typography>
+        {certificateFields.map((f, idx) => (
+          <Grid container spacing={1} key={f.id} alignItems="center" sx={{ mb: 1 }}>
+            <Grid item xs={5}>
+              <TextField label="Certificate" fullWidth {...register(`certificates.${idx}.name`)} />
+            </Grid>
+            <Grid item xs={5}>
+              <TextField label="Institution" fullWidth {...register(`certificates.${idx}.institution`)} />
+            </Grid>
+            <Grid item xs={2}>
+              <IconButton onClick={() => removeCertificate(idx)}>
+                <RemoveIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        ))}
+        <Button startIcon={<AddIcon />} onClick={() => appendCertificate({ name: "", institution: "" })}>
+          Add Certificate
+        </Button>
+      </Box>
+
+      {/* Career */}
+      <Box>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Career
+        </Typography>
+        {careerFields.map((f, idx) => (
+          <Grid container spacing={1} key={f.id} alignItems="center" sx={{ mb: 1 }}>
+            <Grid item xs={4}>
+              <TextField label="Role" fullWidth {...register(`career.${idx}.role`)} />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField label="Company" fullWidth {...register(`career.${idx}.company`)} />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField label="Duration" fullWidth {...register(`career.${idx}.duration`)} />
+            </Grid>
+            <Grid item xs={1}>
+              <IconButton onClick={() => removeCareer(idx)}>
+                <RemoveIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        ))}
+        <Button startIcon={<AddIcon />} onClick={() => appendCareer({ role: "", company: "", duration: "" })}>
+          Add Career
+        </Button>
+      </Box>
+
+      {/* Testimonials */}
+      <Box>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Testimonials
+        </Typography>
+        {testimonialFields.map((f, idx) => (
+          <Grid container spacing={1} key={f.id} alignItems="center" sx={{ mb: 1 }}>
+            <Grid item xs={3}>
+              <TextField label="Company" fullWidth {...register(`testimonials.${idx}.company`)} />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField label="Quote" fullWidth {...register(`testimonials.${idx}.quote`)} />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField label="Reference" fullWidth {...register(`testimonials.${idx}.reference`)} />
+            </Grid>
+            <Grid item xs={1}>
+              <IconButton onClick={() => removeTestimonial(idx)}>
+                <RemoveIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        ))}
+        <Button startIcon={<AddIcon />} onClick={() => appendTestimonial({ company: "", quote: "", reference: "" })}>
+          Add Testimonial
+        </Button>
+      </Box>
+
+      {/* Projects */}
+      <Box>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Projects
+        </Typography>
+
+        {projectFields.map((f, idx) => (
+          <Box key={f.id} sx={{ border: "1px solid #eee", p: 2, mb: 2 }}>
+            <Grid container spacing={1} alignItems="center">
+              <Grid item xs={12} sm={6}>
+                <TextField label="Project Name" fullWidth {...register(`projects.${idx}.name`)} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField label="Repository Link" fullWidth {...register(`projects.${idx}.repoLink`)} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField label="Description" multiline rows={3} fullWidth {...register(`projects.${idx}.description`)} />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField label="Demo Link" fullWidth {...register(`projects.${idx}.demoLink`)} />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name={`projects.${idx}.image`}
+                  control={control}
+                  render={({ field }) => (
+                    <input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files?.[0] ?? null)} />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  control={control}
+                  name={`projects.${idx}.technologies`}
+                  defaultValue={[]}
+                  render={({ field }) => (
+                    <Autocomplete
+                      multiple
+                      options={techAutocompleteProps?.options || []}
+                      getOptionLabel={(o) => o?.name ?? o?.title ?? ""}
+                      isOptionEqualToValue={(option, value) =>
+                        option?.id === (value?.id ?? value)
+                      }
+                      value={(techAutocompleteProps?.options || []).filter((opt) =>
+                        (field.value || []).includes(opt.id)
+                      )}
+                      onChange={(_, v) => field.onChange(v.map((it) => it?.id ?? it))}
+                      renderInput={(params) => <TextField {...params} label="Technologies" />}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  control={control}
+                  name={`projects.${idx}.industries`}
+                  defaultValue={[]}
+                  render={({ field }) => (
+                    <TextField
+                      select
+                      label="Industries"
+                      fullWidth
+                      SelectProps={{ multiple: true, value: field.value || [] }}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    >
+                      <MenuItem value="RETAIL">Retail</MenuItem>
+                      <MenuItem value="BANKING">Banking</MenuItem>
+                      <MenuItem value="INSURANCE">Insurance</MenuItem>
+                      <MenuItem value="EDUCATION">Education</MenuItem>
+                      <MenuItem value="MINING">Mining</MenuItem>
+                      <MenuItem value="MECS">MECS</MenuItem>
+                    </TextField>
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button color="error" onClick={() => removeProject(idx)} startIcon={<RemoveIcon />}>
+                  Remove Project
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        ))}
+
+        <Button startIcon={<AddIcon />} onClick={() => appendProject({
+          name: "",
+          description: "",
+          repoLink: "",
+          demoLink: "",
+          technologies: [],
+          industries: [],
+          image: null,
+        })}>
+          Add Project
+        </Button>
+      </Box>
+
+      <Box sx={{ mt: 2 }}>
+        {/* SaveButton from refine */}
+        <SaveButton  type="submit" />
+      </Box>
+    </Box>
   );
 };
