@@ -1,4 +1,4 @@
-// import ClientCarousel from "../usedComps/ClientCarousel";
+import ClientCarousel from "../usedComps/ClientCarousel";
 import { useState, useEffect, useContext } from "react";
 import "./UserProfileProjects.css";
 import { use } from "react";
