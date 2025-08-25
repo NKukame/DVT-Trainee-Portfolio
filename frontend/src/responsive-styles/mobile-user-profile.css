@@ -1,3 +1,7 @@
+.mobile-dashboard-container {
+  display: none;
+}
+
 @media (max-width: 500px) {
   .portfolio-layout {
     display: block;
@@ -17,9 +21,11 @@
   }
 
   .tab-head-container {
-    font-size: smaller;
+    font-size: medium;
+    position: sticky;
+    top: 11.2%;
+    background: linear-gradient(180deg, #04223d 0%, #02111e 100%);
   }
-
   .profile-overview-text {
     font-size: 1rem;
     text-align: start;
@@ -124,5 +130,84 @@
   .skills-bar-graph canvas {
     width: initial;
     height: initial;
+  }
+
+  .mobile-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: linear-gradient(180deg, #04223d 0%, #02111e 100%);
+    padding-bottom: 15px;
+  }
+  .mobile-profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .proficiencies {
+    border: none;
+  }
+
+  .user-caption,
+  .mobile-socials,
+  .mobile-name-availability,
+  .mobile-user-exeperience {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mobile-socials {
+    border-bottom: 1px solid #d4d4d440;
+  }
+  .footer {
+    margin: 0px;
+    border: none;
+    justify-content: start;
+    align-items: start;
+    width: initial;
+    padding: 0px;
+    padding-bottom: 10px;
+    gap: 8px;
+  }
+  .profile-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .profile-role {
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .dark-mode .proficiency-list .skill-tag {
+    border: none;
+  }
+  .proficiencies h2 {
+    font-size: 1.3rem;
+    margin-top: 0px;
+    font-weight: 300;
+  }
+  .proficiency-list li {
+    font-size: 0.7rem;
+    border: none;
+  }
+  .dark-mode .project-grid-item {
+    border: solid 1px #d4d4d440;
+  }
+  .dark-mode .project-tag {
+    border: solid 1px #d4d4d440;
+  }
+
+  .mobile-user-exeperience {
+    padding-bottom: 10px;
+  }
+  .user-caption {
+    align-items: start;
+    gap: 20px;
+    background: #052b4c3d;
+  }
+  .dark-mode .tab-head-container {
+    border: none;
   }
 }

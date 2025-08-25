@@ -18,92 +18,96 @@ import {
   Pin,
   PinIcon,
 } from "lucide-react";
+import { MobileDashboard } from "./MobileDashboard";
 
 function Dashboard(props) {
   const id = props.testEmployee.user.id;
   const tokenID = localStorage.getItem("userId").split('"')[1];
   return (
-    <div className="dashboard">
-      <div className="profile">
-        <div className="short-bio">
-          <div className="dashboard-profile-picture">
-            <img
-              src={props.testEmployee.avatar}
-              className="profile-img"
-              alt="Profile"
-            />
+    <>
+      <MobileDashboard id={id} tokenID={tokenID} user={props} />
+      <div className="dashboard">
+        <div className="profile">
+          <div className="short-bio">
+            <div className="dashboard-profile-picture">
+              <img
+                src={props.testEmployee.avatar}
+                className="profile-img"
+                alt="Profile"
+              />
+            </div>
+
+            <p className="profile-name">{props.testEmployee.name}</p>
+            <p className="profile-role">
+              <strong>{props.testEmployee.role}</strong>
+            </p>
           </div>
 
-          <p className="profile-name">{props.testEmployee.name}</p>
-          <p className="profile-role">
-            <strong>{props.testEmployee.role}</strong>
-          </p>
+          <div className="profile-info">
+            {id === tokenID ? (
+              <Link to="/profile-creation" state={props.testEmployee}>
+                <button className="manage-prfl">Edit Profile</button>
+              </Link>
+            ) : (
+              <Link to="/profile-creation" state={props.testEmployee}>
+                <button className="manage-prfl disabled" disabled>
+                  Edit Profile
+                </button>
+              </Link>
+            )}
+            <Link to="/generate-cv" state={props.testEmployee}>
+              <button className="manage-prfl">Generate Resume</button>
+            </Link>
+            <div className="profile-details">
+              <p>
+                {/* <Activity size={15} className="dashboard-icon" /> */}
+                <CalendarCheck size={15} className="dashboard-icon" />
+                {props.testEmployee.availability === null
+                  ? "Not filled / N/A"
+                  : props.testEmployee.availability
+                    ? "Available"
+                    : "Not Available"}
+              </p>
+              <p>
+                <MapPin size={15} className="dashboard-icon" />
+                {props.testEmployee.location
+                  ? props.testEmployee.location
+                  : "Not filled / N/A"}
+              </p>
+              <p>
+                <Award size={15} className="dashboard-icon" />
+                {props.testEmployee.experienced
+                  ? props.testEmployee.experienced
+                  : "Not filled / N/A "}
+              </p>
+            </div>
+          </div>
+          <div className="proficiencies">
+            <h2>Proficiencies</h2>
+            <ul className="proficiency-list">
+              {props.testEmployee.techStack.map((skill, index) => (
+                <li key={index} className="skill-tag">
+                  {skill.techStack.name}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-
-        <div className="profile-info">
-          {id === tokenID ? (
-            <Link to="/profile-creation" state={props.testEmployee}>
-              <button className="manage-prfl">Edit Profile</button>
-            </Link>
-          ) : (
-            <Link to="/profile-creation" state={props.testEmployee}>
-              <button className="manage-prfl disabled" disabled>
-                Edit Profile
-              </button>
-            </Link>
-          )}
-          <Link to="/generate-cv" state={props.testEmployee}>
-            <button className="manage-prfl">Generate Resume</button>
+        <footer className="footer">
+          <Link to={props.testEmployee.github}>
+            <img src={Github} alt="GitHub" className="socials" />
           </Link>
-          <div className="profile-details">
-            <p>
-              {/* <Activity size={15} className="dashboard-icon" /> */}
-              <CalendarCheck size={15} className="dashboard-icon" />
-              {props.testEmployee.availability === null
-                ? "Not filled / N/A"
-                : props.testEmployee.availability
-                  ? "Available"
-                  : "Not Available"}
-            </p>
-            <p>
-              <MapPin size={15} className="dashboard-icon" />
-              {props.testEmployee.location
-                ? props.testEmployee.location
-                : "Not filled / N/A"}
-            </p>
-            <p>
-              <Award size={15} className="dashboard-icon" />
-              {props.testEmployee.experienced
-                ? props.testEmployee.experienced
-                : "Not filled / N/A "}
-            </p>
-          </div>
-        </div>
-        <div className="proficiencies">
-          <h2>Proficiencies</h2>
-          <ul className="proficiency-list">
-            {props.testEmployee.techStack.map((skill, index) => (
-              <li key={index} className="skill-tag">
-                {skill.techStack.name}
-              </li>
-            ))}
-          </ul>
-        </div>
+
+          <Link to={props.testEmployee.linkedIn}>
+            <img src={LinkedIn} alt="LinkedIn" className="socials" />
+          </Link>
+
+          <Link to={`mailto: ${props.testEmployee.email}`}>
+            <img src={Email} alt="Email" className="socials" />
+          </Link>
+        </footer>
       </div>
-      <footer className="footer">
-        <Link to={props.testEmployee.github}>
-          <img src={Github} alt="GitHub" className="socials" />
-        </Link>
-
-        <Link to={props.testEmployee.linkedIn}>
-          <img src={LinkedIn} alt="LinkedIn" className="socials" />
-        </Link>
-
-        <Link to={`mailto: ${props.testEmployee.email}`}>
-          <img src={Email} alt="Email" className="socials" />
-        </Link>
-      </footer>
-    </div>
+    </>
   );
 }
 
