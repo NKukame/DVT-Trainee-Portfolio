@@ -15,6 +15,8 @@ import { Activity, Award, Calendar, CalendarCheck, MapPin, Pin, PinIcon } from "
 function Dashboard(props) {
   console.log(props);
   
+  const id = props.testEmployee.user.id;
+  const tokenID = localStorage.getItem("userId").split('"')[1];
   return (
     <div className="dashboard">
       <div className="profile">
