@@ -1,5 +1,3 @@
-import "../../styles.css";
-import "./UserPortfolio.css";
 import Dashboard from "../../components/DashboardComp/Dashboard";
 import ProjectCard from "../../components/ProjectsComp/Projects";
 import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard";
@@ -14,25 +12,23 @@ import { useLocation } from "react-router";
 function UserPortfolio(props) {
   const [activeTab, setActiveTab] = useState("overview");
   const location = useLocation();
-  
-  
 
   return (
     <>
-      <div className="app-layout">
-        <SideBar />
+      <div className="portfolio-layout">
+        <Dashboard testEmployee={location.state} />
+        <div className="project-container">
+          <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        <div className="layout-body">
-          <div className="portfolio-layout">
-            <Dashboard   testEmployee={location.state}/>
-            <div className="project-container">
-              <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
-
-              {activeTab === "overview" && <UserProfileOverview testEmployee={location.state}/>}
-              {activeTab === "projects" && <UserProfileProjects testEmployee={location.state}/>}
-              {activeTab === "skills" && <UserProfileSkillBreakdown testEmployee={location.state}/>}
-            </div>
-          </div>
+          {activeTab === "overview" && (
+            <UserProfileOverview testEmployee={location.state} />
+          )}
+          {activeTab === "projects" && (
+            <UserProfileProjects testEmployee={location.state} />
+          )}
+          {activeTab === "skills" && (
+            <UserProfileSkillBreakdown testEmployee={location.state} />
+          )}
         </div>
       </div>
     </>

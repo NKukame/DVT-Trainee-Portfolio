@@ -1,0 +1,71 @@
+.mobile-navbar {
+  display: flex;
+  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  padding: 10px;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
+
+.mobile-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobilenav-dvtlogo {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.dock {
+  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 1px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+.dock-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  color: var(--white);
+}
+@media (min-width: 768px) {
+  .mobile-navbar {
+    display: none;
+  }
+  .dock {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .sidebar-bottom {
+    margin: 0;
+  }
+
+  .homeBtn {
+    padding: 0;
+    display: block;
+  }
+
+  .profile-modal-content {
+    position: initial;
+    padding: 15px;
+    max-width: initial;
+    width: 100%;
+    border-radius: 0px;
+  }
+  .profile-modal-overlay {
+    position: initial;
+    display: block;
+  }
+}
