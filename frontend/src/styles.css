@@ -110,6 +110,10 @@ body.dark-mode {
   background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
 }
 
+.css-1xhj18k {
+  width: 100%;
+}
+
 .dark-mode .app-layout-body {
   background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
 }

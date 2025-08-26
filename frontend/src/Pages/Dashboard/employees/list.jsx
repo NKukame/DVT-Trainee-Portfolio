@@ -1,6 +1,6 @@
 import React from "react";
 import { useMany } from "@refinedev/core";
-import { useDataGrid, EditButton, ShowButton,List } from "@refinedev/mui";
+import { useDataGrid, EditButton, ShowButton,List,DeleteButton } from "@refinedev/mui";
 
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -91,18 +91,38 @@ export const EmployeeList = () => {
           <div>
             <ShowButton hideText recordItemId={row.id} />
             <EditButton hideText recordItemId={row.id} />
+            <DeleteButton hideText size="small" recordItemId={row.id} />
           </div>
         );
       },
       width: 150,
     },
+    {
+      field: "delete",
+      headerName: "Delete",
+      renderCell: function render({ row }) {
+        return (
+          <div>
+
+            <DeleteButton size="small" recordItemId={row.id} />
+          </div>
+        );
+      },
+      width: 150,
+    },
+
   ], []);
 
   return (
-    <div>
-      <List>
-      <DataGrid {...dataGridProps} columns={columns} />
-      </List>
+    <div style={{ width: "100%" }}>
+    <List sx={{ maxWidth: "none", width: "100%" }}>
+    <DataGrid
+    {...dataGridProps}
+    columns={columns}
+    sx={{ width: "100%" }}
+    autoHeight
+    />
+    </List>
     </div>
-  );
+    );
 };
