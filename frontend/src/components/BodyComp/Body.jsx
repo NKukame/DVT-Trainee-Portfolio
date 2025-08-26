@@ -205,7 +205,7 @@ function Body() {
             className="explore-more-work"
             onClick={() => navigate("/search?isProject=true")}
           >
-            Explore more work
+            Explore more projects
           </div>
           <button
             className="cta-button video-cta-button"

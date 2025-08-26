@@ -1,3 +1,6 @@
+.mobile-availability {
+  display: none;
+}
 .mobile-filter {
   display: none;
 }
@@ -30,6 +33,10 @@
   .desktop-filter {
     display: none;
   }
+  .mobile-availability {
+    display: block;
+  }
+
   .mobile-filter {
     display: flex;
     align-items: center;

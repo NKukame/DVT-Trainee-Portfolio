@@ -5,6 +5,7 @@ import {
   Code02,
   Award01,
   MarkerPin04,
+  Award02,
 } from "@untitled-ui/icons-react";
 import { Combobox } from "../ComboComp/Combo";
 import { Badge } from "../BadgeComp/Badge";
@@ -103,6 +104,20 @@ function Filter() {
   return (
     <section className="filter-container text-lg">
       <div className="filter-section">
+        <div className="filter-dropdown mobile-availability">
+          <Award02 className="filter-section-icon" />
+          <Combobox
+            placeholder="Availability"
+            options={[
+              { label: "All" },
+              { label: "Available" },
+              { label: "On-client" },
+            ]}
+            value={"All"}
+            multiple={false}
+            handleFilterClick={handleFilterClick}
+          />
+        </div>
         <div className="filter-dropdown">
           <MarkerPin04 className="filter-section-icon" />
 
