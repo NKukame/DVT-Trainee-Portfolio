@@ -8,7 +8,7 @@ import {
   PinIcon,
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Github from "../../assets/icons8-github-100.png";
 import LinkedIn from "../../assets/icons8-linkedin-100.png";
 import Email from "../../assets/icons8-email-100.png";
