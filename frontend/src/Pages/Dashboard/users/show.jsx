@@ -7,7 +7,7 @@ import {
 } from "@refinedev/mui";
 import { Typography, Stack } from "@mui/material";
 
-export const UserShow = () => {
+export const ShowUser = () => {
     const { query } = useShow();
     const { data, isLoading } = query;
 

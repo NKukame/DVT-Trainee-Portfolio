@@ -103,7 +103,7 @@ export const ListUser = () => {
                 headerName: "Delete",
                 sortable: false,
                 renderCell: function render({ row }) {
-                    return <DeleteButton  recordItemId={row.id} />;
+                    return <DeleteButton size="small" recordItemId={row.id} />;
                 },
 
             },
