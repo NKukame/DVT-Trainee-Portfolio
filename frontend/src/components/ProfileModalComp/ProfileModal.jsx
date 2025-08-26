@@ -16,26 +16,8 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
     window.location.href = '/';
   };
 
-  const handleViewProfile = async () => {
-    try {
-      const token = JSON.parse(localStorage.getItem('token'));
-      const response = await fetch('http://localhost:3000/api/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        const userData = await response.json();
-        navigate('/userportfolio', { state: userData });
-      } else {
-        navigate('/userportfolio');
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      navigate('/userportfolio');
-    }
+  const handleViewProfile = () => {
+    navigate('/userportfolio');
   };
 
 

@@ -32,12 +32,12 @@ function Dashboard(props) {
 
         <div className="profile-info">
           { id === tokenID ? 
-          <Link to="/profile-creation" state={props.testEmployee}>
+          <Link to="/edit-profile" state={props.testEmployee}>
             <button className="manage-prfl">Edit Profile</button>
           </Link> 
-          : <Link to="/profile-creation" state={props.testEmployee}>
+          : 
             <button className="manage-prfl disabled" disabled>Edit Profile</button>
-          </Link>}
+          }
           <Link to="/generate-cv" state={props.testEmployee}>
             <button className="manage-prfl" >Generate Resume</button>
           </Link>
@@ -54,7 +54,7 @@ function Dashboard(props) {
             </p>
             <p>
               <Award size={15} className="dashboard-icon" />
-              {props.testEmployee.experienced ? props.testEmployee.experienced : "Not filled / N/A "} 
+              {props.testEmployee?.experience || props.testEmployee?.experienced || "Not filled / N/A "} 
             </p>
           </div>
         </div>

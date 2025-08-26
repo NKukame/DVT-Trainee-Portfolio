@@ -276,6 +276,7 @@ export async function SearchEmployeeController(req, res) {
 
         select: {
           id: true,
+          title: true,
           name: true,
           surname: true,
           photoUrl: true,
@@ -286,6 +287,8 @@ export async function SearchEmployeeController(req, res) {
             },
           },
           email: true,
+          phone: true,
+          company: true,
           bio: true,
           experience: true,
           availability: {
@@ -295,22 +298,27 @@ export async function SearchEmployeeController(req, res) {
           },
           linkedIn: true,
           github: true,
+          portfolio: true,
           role: true,
           career: {
-            select: {
-              role: true,
-              company: true,
-              duration: true,
-            },
+              select:{
+                  id: true,
+                  role: true,
+                  company: true,
+                  duration: true,
+                  
+              },
           },
           education: {
             select: {
+              id: true,
               institution: true,
               qualification: true,
             },
           },
           certificates: {
             select: {
+              id: true,
               name: true,
               institution: true,
             },
@@ -328,6 +336,7 @@ export async function SearchEmployeeController(req, res) {
               Techrating: true,
               techStack: {
                 select: {
+                  id: true,
                   name: true,
                 },
               },
@@ -388,6 +397,7 @@ export async function SearchEmployeeController(req, res) {
 
           testimonials: {
             select: {
+              id: true,
               quote: true,
               company: true,
               reference: true,

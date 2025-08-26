@@ -183,6 +183,7 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  border-radius: 50% ;
 }
 
 .profile-icon:hover {
