@@ -18,11 +18,15 @@
 @import "./Pages/ProfileCreation/ProfileCreation.css";
 @import "./components/ProfileCreationComp/Stepper.css";
 @import "./components/ProfileCreationComp/Form.css";
+@import "./components/ProfileModalComp/ProfileModal.css";
+
+@import "./Pages/LoginPage/Login.css";
 
 @import "./Pages/UserPortfolioPage/UserPortfolio.css";
 @import "./components/DashboardComp/Dashboard.css";
 @import "./components/UserPortfolioComps/tabs/TabHead.css";
 @import "./components/UserPortfolioComps/tabs/UserProfileProjects.css";
+@import "./responsive-styles/mobile-login.css";
 @import "./components/UserPortfolioComps/usedComps/ClientCarousel.css";
 @import "./Pages/GenerateCV/GenerateCV.css";
 
