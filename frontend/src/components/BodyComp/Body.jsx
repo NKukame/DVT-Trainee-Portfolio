@@ -152,6 +152,9 @@ function Body() {
             team.
           </p>
 
+          <div className="meet-the-team" onClick={() => navigate("/about")}>
+            Learn more about the team
+          </div>
           <button className="cta-button" onClick={() => navigate("/about")}>
             <img src="./IconCTA.png" alt="" /> &nbsp; The Team
           </button>
@@ -198,6 +201,12 @@ function Body() {
             skills to tackle complex challenges and generate impactful results
             across multiple domains.
           </p>
+          <div
+            className="explore-more-work"
+            onClick={() => navigate("/search?isProject=true")}
+          >
+            Explore more work
+          </div>
           <button
             className="cta-button video-cta-button"
             onClick={() => navigate("/search?isProject=true")}

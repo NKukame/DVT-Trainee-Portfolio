@@ -17,10 +17,10 @@
 
 @media screen and (max-width: 500px) {
   .search-tabs {
-    display: none;
-    margin-bottom: 15px;
   }
-
+  .sort-container {
+    display: none;
+  }
   .input-container input[type="text"]::placeholder {
     font-size: 1rem;
   }
@@ -83,7 +83,7 @@
     max-width: initial;
     border-radius: 2px;
     width: 100vw;
-    padding: 5px;
+    padding: 10px;
   }
   .no-results {
     width: initial;
@@ -95,5 +95,6 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     justify-content: start;
+    gap: 10px;
   }
 }

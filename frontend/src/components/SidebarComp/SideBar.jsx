@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dvtLogo from "../../assets/dvt_logo.jpg";
-
+import ProfileModal from "../ProfileModalComp/ProfileModal.jsx";
 function SideBar() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState({

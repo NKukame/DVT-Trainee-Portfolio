@@ -13,6 +13,7 @@
 
 @import "./components/FilterComp/Filter.css";
 @import "./components/ComboComp/Combo.css";
+@import "./components/SortComp/Sort.css";
 
 @import "./Pages/ProfileCreation/ProfileCreation.css";
 @import "./components/ProfileCreationComp/Stepper.css";

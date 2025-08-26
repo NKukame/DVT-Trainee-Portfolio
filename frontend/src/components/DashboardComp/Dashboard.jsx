@@ -26,6 +26,7 @@ function Dashboard(props) {
   return (
     <>
       <MobileDashboard id={id} tokenID={tokenID} user={props} />
+
       <div className="dashboard">
         <div className="profile">
           <div className="short-bio">

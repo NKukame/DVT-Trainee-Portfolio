@@ -34,6 +34,7 @@
 
   .profile-overview-title {
     font-size: 1.7rem;
+    display: none;
     font-weight: 600;
     align-self: baseline;
     margin-block: initial;

@@ -31,7 +31,7 @@ export default function ResultsList({ results, isEmployeeSearch }) {
       )}
 
       {!isEmployeeSearch && (
-        <section className="grid-3-cols gap-24-px">
+        <section className="grid-3-cols gap-24-px results-responsive">
           {results.map((project, i) => {
             const timeStamp = new Date().getTime();
             return (
