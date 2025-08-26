@@ -1,3 +1,8 @@
+.meet-the-team,
+.explore-more-work {
+  display: none;
+}
+
 @media (max-width: 500px) {
   .app-layout {
     min-height: 100vh;
@@ -26,10 +31,11 @@
     font-size: 1rem;
     margin: 0px;
     text-align: start;
+    font-weight: 300;
   }
 
   .home-carousel-item {
-    height: 300px;
+    height: 310px;
     width: 250px;
   }
   .home-carousel-wrapper {
@@ -46,7 +52,13 @@
 
   .meet-the-team,
   .explore-more-work {
+    display: block;
     text-decoration: underline;
+    text-underline-offset: 5px;
+    padding: 0px 20px;
+    text-decoration-color: var(--dark-yellow);
+    width: initial;
+    margin: initial;
   }
   .cta-button {
     font-size: 1.2rem;
@@ -83,11 +95,12 @@
   }
 
   .home-bottom p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-align: start;
     margin: 10px 0px;
-    font-weight: 400;
+    font-weight: 300;
     margin: 10px 20px;
+    line-height: 1.5;
   }
   .video-carousel {
     margin: 0;
@@ -107,7 +120,11 @@
     height: 100%;
     padding: 10px;
   }
-
+  .video-bottom {
+    margin-block: 0px;
+    height: initial;
+    padding: 15px 0px;
+  }
   .video-item img {
     border-radius: 5px;
   }
