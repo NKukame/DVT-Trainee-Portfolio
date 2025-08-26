@@ -30,6 +30,26 @@ import { CreateEmployee } from './Pages/Dashboard/employees/create.jsx';
 import ProtectedRoutes from './components/ProtectedComp/ProtectedRoute';
 import routerBindings, { NavigateToResource } from '@refinedev/react-router';
 import Header from './components/HeaderComp/Header';
+import { ListUser } from './Pages/Dashboard/users/list.jsx';
+import { ShowUser } from './Pages/Dashboard/users/show.jsx';
+import { CreateUser } from './Pages/Dashboard/users/create.jsx';
+import { EditUser } from './Pages/Dashboard/users/edit.jsx';
+import { ListProject } from './Pages/Dashboard/projects/list.jsx';
+import { ShowProject } from './Pages/Dashboard/projects/show.jsx';
+import { CreateProject } from './Pages/Dashboard/projects/create.jsx';
+import { EditProject } from './Pages/Dashboard/projects/edit.jsx';
+import { ListTechStack } from './Pages/Dashboard/techstacks/list.jsx';
+import { ShowTechStack } from './Pages/Dashboard/techstacks/show.jsx';
+import { CreateTechStack } from './Pages/Dashboard/techstacks/create.jsx';
+import { EditTechStack } from './Pages/Dashboard/techstacks/edit.jsx';
+import DashboardSummary from './Pages/Dashboard/summary/index.jsx';
+import { ListSoftSkill } from './Pages/Dashboard/softSkills/list.jsx';
+import { ShowSoftSkill } from './Pages/Dashboard/softSkills/show.jsx';
+import { CreateSoftSkill } from './Pages/Dashboard/softSkills/create.jsx';
+import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
+import { ThemedSiderV2, RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
+import { Link } from "react-router";
+
 
 // Your ProtectedRoutes component
 
@@ -37,15 +57,17 @@ import Header from './components/HeaderComp/Header';
 const App = () => {
   return (
     <BrowserRouter>
-    <ThemeProvider theme={RefineThemes.Blue}>
+    <ThemeProvider theme={RefineThemes.Blue} >
       <CssBaseline />
       <GlobalStyles />
       <SearchContextProvider>
         <DarkModeProvider>
+          <RefineSnackbarProvider>
           <Refine 
             dataProvider={dataProvider}
             authProvider={authProvider}
             routerProvider={routerBindings}
+            notificationProvider={useNotificationProvider}
             resources={[
               {
                 name: "employee",
@@ -54,6 +76,38 @@ const App = () => {
                 edit: "/dashboard/employee/:id/edit",
                 create: "/dashboard/employee/create",
                 meta: { label: "Employee" },
+              },
+              {
+                name: "user",
+                list: "/dashboard/user",
+                show: "/dashboard/user/:id",
+                edit: "/dashboard/user/:id/edit",
+                create: "/dashboard/user/create",
+                meta: { label: "User" },
+              },
+              {
+                name: "project",
+                list: "/dashboard/project",
+                show: "/dashboard/project/:id",
+                edit: "/dashboard/project/:id/edit",
+                create: "/dashboard/project/create",
+                meta: { label: "Project" },
+              },
+              {
+                name: "techStack",
+                list: "/dashboard/techStack",
+                show: "/dashboard/techStack/:id",
+                edit: "/dashboard/techStack/:id/edit",
+                create: "/dashboard/techStack/create",
+                meta: { label: "TechStack" },
+              },
+              {
+                name: "softSkill",
+                list: "/dashboard/softSkill",
+                show: "/dashboard/softSkill/:id",
+                edit: "/dashboard/softSkill/:id/edit",
+                create: "/dashboard/softSkill/create",
+                meta: { label: "SoftSkill" },
               },
             ]}
           >
@@ -78,24 +132,60 @@ const App = () => {
                   element={
                     <Authenticated key="authenticated-routes" fallback={<h1>Unauthorized</h1>}>
                        <ThemedLayoutV2
+                        Sider={() => (
+                          <ThemedSiderV2
+                            render={({ items, logout }) => {
+                              return (
+                                <>
+                                <div style={{display: "flex", flexDirection: "column", padding: "1rem", visitedColor: "white"}}>
+                                  <Link to="/dashboard">Summary</Link>
+                                </div>
+                                  {items}
+                                  {logout}
+                                </>
+                              );
+                            }}
+                          />
+                        )}
+                      
                        Title={(props) => (
                         <ThemedTitleV2 {...props} text="DVT  Portfolio" />
                       )}
+
+                      Header={() => <></>}
                        >
                         <Outlet />
                       </ThemedLayoutV2>
                     </Authenticated>
                   }
                 >
-                  <Route index element={<NavigateToResource resource='employee' />} />
+                  <Route index element={<DashboardSummary />} />
+                  <Route path="summary" element={<DashboardSummary />} />
                   <Route path="employee" element={<EmployeeList/>} />
                   <Route path="employee/:id" element={<EmployeeShow/>} />
                   <Route path="employee/:id/edit" element={<EditEmployee/>} />
                   <Route path="employee/create" element={<CreateEmployee/>} />
+                  <Route path="user" element={<ListUser/>} />
+                  <Route path="user/:id" element={<ShowUser/>} />
+                  <Route path="user/:id/edit" element={<EditUser/>} />
+                  <Route path="user/create" element={<CreateUser/>} />
+                  <Route path="project" element={<ListProject/>} />
+                  <Route path="project/:id" element={<ShowProject/>} />
+                  <Route path="project/:id/edit" element={<EditProject/>} />
+                  <Route path="project/create" element={<CreateProject/>} />
+                  <Route path="techStack" element={<ListTechStack/>} />
+                  <Route path="techStack/:id" element={<ShowTechStack/>} />
+                  <Route path="techStack/:id/edit" element={<EditTechStack/>} />
+                  <Route path="techStack/create" element={<CreateTechStack/>} />
+                  <Route path="softSkill" element={<ListSoftSkill/>} />
+                  <Route path="softSkill/:id" element={<ShowSoftSkill/>} />
+                  <Route path="softSkill/:id/edit" element={<EditSoftSkill/>} />
+                  <Route path="softSkill/create" element={<CreateSoftSkill/>} />
                 </Route>
               </Route>
             </Routes>
           </Refine>
+          </RefineSnackbarProvider>
         </DarkModeProvider>
       </SearchContextProvider>
       </ThemeProvider>

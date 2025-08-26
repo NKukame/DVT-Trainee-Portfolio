@@ -19,6 +19,23 @@ export const authProvider = {
     register: async (params) => { throw new Error("Not implemented"); },
     forgotPassword: async (params) => { throw new Error("Not implemented"); },
     updatePassword: async (params) => { throw new Error("Not implemented"); },
-    getIdentity: async () => { throw new Error("Not implemented"); },
+    getIdentity: async () => {
+    
+      const token = JSON.parse(localStorage.getItem("token"));
+      const response = await fetch("http://localhost:3000/api/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.status < 200 || response.status > 299) {
+        return null;
+      }
+  
+      const data = await response.json();
+  
+      return data;
+    },
     getPermissions: async () => { throw new Error("Not implemented"); },
 };
