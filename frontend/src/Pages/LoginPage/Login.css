@@ -270,7 +270,7 @@ h1 {
     cursor: pointer;
     Color: #a0a0a0;
     margin: 0 10px;
-     transform: translateY(-40%);
+    transform: translateY(-40%);
     left: 80%;
     
 }
@@ -281,7 +281,8 @@ h1 {
     cursor: pointer;
     Color: #a0a0a0;
     margin: 0 10px;
-    transform: translateY(-40%);
+    margin-left: auto;
+    transform: translateY(80%);
     left: 80%;
 }
 
@@ -361,9 +362,9 @@ h1 {
     background-color: #fff;
     Color: #a0a0a0;
     margin: 10px 10px 10px 10px;
-    left: 40px;
+    left: 0px;
     top: 50%;  
-    transform: translateY(-130%);
+    transform: translateY(-100%);
     }
 
 .mail-icon {
@@ -381,18 +382,22 @@ h1 {
 
 .mail-icon-signup{
   position: absolute;
-  left: 50px;
+  display: flex;
+  left: 10x;
   top: 50%;
-  transform: translateY(-450%);
+  transform: translateY(-50%);
   color: #a0a0a0;
-
+  margin: 0 10px;
 }
 
 .email-input-container{
     width: 100%;
     position: relative;
     padding: auto;
-
+}
+.email-input-container-signup{
+    width: 100%;
+    position: relative;
 }
 .email-input{
     padding-left: 100px;

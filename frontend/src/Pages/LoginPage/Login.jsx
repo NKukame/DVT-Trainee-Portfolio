@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [loading, setLoading] = useState(false); // ADD THIS LINE
+  const [loading, setLoading] = useState(false); 
   const [formData, setFormData] = useState({
     name:"",
     email: "",
@@ -18,6 +18,7 @@ function Signup() {
   });
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -223,9 +224,19 @@ function Signup() {
     else{
       event.currentTarget.closest("div").querySelector("input").type = 'password'
     }
-    setIsPasswordVisible(isPassword)
+    setIsPasswordVisible(!isPasswordVisible)
   };
-      
+
+  // Confirm Password Eye icon toggle function
+  const handleConfirmPasswordToggle = (event, isPassword) => {
+    if (isPassword) {
+      event.currentTarget.closest("div").querySelector("input").type = 'text';
+    } else {
+      event.currentTarget.closest("div").querySelector("input").type = 'password';
+    }
+    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+  };
+
   return (
     <>
     <div className="LoginApp">
@@ -237,31 +248,41 @@ function Signup() {
 
             <div className="sign-up-form">
               <h6>Email</h6>
-              <input
-                type="email"
-                name="email"
-                placeholder=" Enter email address"
-                value={formData.email}
-                onChange={handleChange}
-                className={getInputClass("email")}
-              />
-               
-              <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/>
+              <div className="email-input-container-signup">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder=" Enter email address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={getInputClass("email")}
+                />
+                <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/>
+              </div>
               {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
-              <h6> Password</h6>
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                value={formData.password}
-                onChange={handleChange}
-                className={getInputClass("password")}
-              />
-              <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
-              
-              
+              <h6>Password</h6>
+              <div className="password-container-signup">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={getInputClass("password")}
+                />
+                <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
+                {isPasswordVisible ? 
+                  <Eye className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                    handleToggle(event, false)
+                  }} /> :
+                  <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                    handleToggle(event, true);
+                  }} />
+                }
+              </div>
               {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
+
               <h6>Confirm Password</h6>
               <div className="password-container-signup">
                 <input
@@ -272,23 +293,21 @@ function Signup() {
                   onChange={handleChange}
                   className={getInputClass("confirmPassword")}
                 />
-              <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
+                <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
+                {isConfirmPasswordVisible ? 
+                  <Eye className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                    handleConfirmPasswordToggle(event, false)
+                  }}/> :
+                  <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                    handleConfirmPasswordToggle(event, true);
+                  }} />
+                }
               </div>
               {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
             </div>
-            
-                     {isPasswordVisible ? <Eye className="eye-icon-signup password-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
-                        handleToggle(event, false)
-                      }}/>:
 
-                      <EyeClosed className="eyeclosed-icon-signup password-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
-                        handleToggle(event, true);
-                      }} />
-                      }
-
-                      
-            {loading ? <div className="form-loader"></div> : 
-            <button type="submit">Sign Up</button>}
+            {loading ? <div className="form-loader"></div> :
+              <button type="submit">Sign Up</button>}
 
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                  setIsSignUp(false)
@@ -404,9 +423,11 @@ function Signup() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    </>
+</div>
+</div>
+
+
+      </>
   );
 }
 
