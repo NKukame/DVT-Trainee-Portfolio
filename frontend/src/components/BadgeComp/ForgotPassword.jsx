@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import dvtLogo from "../../assets/DVT_Iogin_logo.png";
-import { Mail, ArrowLeft } from "lucide-react";
+import { Mail, ArrowLeft, Lock } from "lucide-react";
 import "./ForgotPassword.css";
 import axios from "axios";
 import { useEffect } from "react";
@@ -67,7 +67,7 @@ function ForgotPassword() {
   const validatePassword = () => {
     let newErrors = {};
     let criteria = checkPasswordCriteria(newPassword);
-    let criteria = checkPasswordCriteria(newPassword);
+   
 
     if (!newPassword) {
       newErrors.password = "Password is required";
@@ -113,9 +113,6 @@ function ForgotPassword() {
 
     if (errors.confirmPassword && confirmPwd === newPassword) {
       setErrors(prev => ({
-        ...prev, 
-        confirmPassword: ""
-      }));
         ...prev, 
         confirmPassword: ""
       }));
@@ -330,9 +327,9 @@ function ForgotPassword() {
                     placeholder="••••••••"
                     value={newPassword}
                     onChange={handlePasswordChange}
-                    onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
+                  <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
                   
                 </div>
                 {errors.password && <p className="error-message">{errors.password}</p>}
@@ -348,6 +345,7 @@ function ForgotPassword() {
                     onChange={handleConfirmPasswordChange} 
                     className={errors.confirmPassword ? "error-border" : ""}
                   />
+                  <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
                 </div>
                 {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
               </div>
