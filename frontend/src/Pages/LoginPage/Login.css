@@ -186,7 +186,7 @@ h1 {
     
 }
 
-.login-container.active .sign-in {
+.login-container.login-active .sign-in {
     transform: translateX(100%);
     
 }
@@ -264,6 +264,29 @@ h1 {
     right: 0;
 }
 
+.eye-icon-signup{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    margin-left: auto;
+    transform: translateY(80%);
+    left: 80%;
+    
+}
+
+.eyeclosed-icon-signup{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    margin-left: auto;
+    transform: translateY(80%);
+    left: 80%;
+}
+
 .eyeclosed-icon{
     position: absolute;
     right: 0;
@@ -293,6 +316,17 @@ h1 {
 
 }
 
+.password-icon-signup{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    transition: all 0.5s ease-in-out;
+
+}
 .lock-icon{
     position: absolute;
     cursor: pointer;
@@ -305,6 +339,34 @@ h1 {
     left: 0%;
     top: 15px;   
 }
+
+.lock-icon-confirm{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    left: 0px;
+    top: 50%;  
+    transform: translateY(-50%);
+    }
+
+    .lock-icon-password{
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 10px 10px 10px 10px;
+    left: 0px;
+    top: 50%;  
+    transform: translateY(-100%);
+    }
 
 .mail-icon {
     position: absolute;
@@ -320,23 +382,23 @@ h1 {
 }
 
 .mail-icon-signup{
-    position: absolute;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    background-color: #fff;
-    Color: #a0a0a0;
-    margin: 0 10px;
-    left: 0%;
-    top: 15px;  
+  position: absolute;
+  display: flex;
+  left: 10x;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0a0a0;
+  margin: 0 10px;
 }
 
 .email-input-container{
     width: 100%;
     position: relative;
     padding: auto;
-
+}
+.email-input-container-signup{
+    width: 100%;
+    position: relative;
 }
 .email-input{
     padding-left: 100px;
@@ -356,7 +418,7 @@ h1 {
     transition: all 0.6s ease-in-out;
 }
 
-.login-container.active .login-toggle {
+.login-container.login-active .login-toggle {
     transform: translateX(50%);
 }
 
@@ -385,7 +447,7 @@ h1 {
     transform: translateX(-200%);
 }
 
-.login-container.active .toggle-left {
+.login-container.login-active .toggle-left {
     transform: translateX(0);
 }
 
@@ -397,7 +459,7 @@ h1 {
     gap: 20px;
 }
 
-.login-container.active .toggle-right {
+.login-container.login-active .toggle-right {
     transform: translateX(200%);
 }
 
@@ -572,4 +634,29 @@ input.error-border {
 }
 @keyframes l13{ 
   100%{transform: rotate(1turn)}
+}
+
+.password-container-signup {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Fixed signup form input styles */
+.sign-up-form input {
+    padding-left: 40px;
+}
+
+.sign-up-form .password-container-signup input {
+    padding-left: 40px;
+}
+
+/* Ensure email input in signup has proper padding */
+.sign-up-form input[name="email"] {
+    padding-left: 40px;
+}
+
+/* Ensure password input in signup has proper padding */
+.sign-up-form input[name="password"] {
+    padding-left: 40px;
 }
