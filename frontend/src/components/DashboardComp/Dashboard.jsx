@@ -8,27 +8,41 @@ import Github from "../../assets/icons8-github-100.png";
 import LinkedIn from "../../assets/icons8-linkedin-100.png";
 import Email from "../../assets/icons8-email-100.png";
 import award from "../../assets/Award-01.png";
-import "./Dashboard.css";
 import axios from "axios";
-import { Activity, Award, Calendar, CalendarCheck, MapPin, Pin, PinIcon } from "lucide-react";
+import {
+  Activity,
+  Award,
+  Calendar,
+  CalendarCheck,
+  MapPin,
+  Pin,
+  PinIcon,
+} from "lucide-react";
+import { MobileDashboard } from "./MobileDashboard";
 
 function Dashboard(props) {
   const id = props.testEmployee.user.id;
   const tokenID = localStorage.getItem("userId").split('"')[1];
   return (
-    <div className="dashboard">
-      <div className="profile">
-        <div className="short-bio">
-          <div className="dashboard-profile-picture">
-            <img src={props.testEmployee.avatar} className="profile-img" alt="Profile" />
-          </div>
+    <>
+      <MobileDashboard id={id} tokenID={tokenID} user={props} />
 
-          <p className="profile-name">{props.testEmployee.name }</p>
-          <p className="profile-role">
-            <strong>{props.testEmployee.role}</strong>
-          </p>
-        
-        </div>
+      <div className="dashboard">
+        <div className="profile">
+          <div className="short-bio">
+            <div className="dashboard-profile-picture">
+              <img
+                src={props.testEmployee.avatar}
+                className="profile-img"
+                alt="Profile"
+              />
+            </div>
+
+            <p className="profile-name">{props.testEmployee.name}</p>
+            <p className="profile-role">
+              <strong>{props.testEmployee.role}</strong>
+            </p>
+          </div>
 
         <div className="profile-info">
           { id === tokenID && 

@@ -1,0 +1,107 @@
+@media (max-width: 500px) {
+  .stepper-container {
+    width: 99vw;
+    margin: 0;
+    border-radius: 0px;
+  }
+  .step-text {
+    display: none;
+  }
+
+  .step-progress {
+    width: initial;
+    height: 10px;
+    position: initial;
+  }
+  .steps {
+    height: initial;
+    padding: 0;
+    width: 100%;
+    position: initial;
+  }
+
+  .profile-creation-body {
+    display: initial;
+  }
+  .profile-creation-header {
+    margin: 5px;
+    position: sticky;
+    top: 11.1%;
+    z-index: 300;
+  }
+
+  /*basic form styles*/
+  .top-form-container {
+    flex-direction: column;
+  }
+
+  .profile-creation-content {
+    width: initial;
+    margin: 10px 5px;
+  }
+
+  .footer-form-container textarea {
+    width: 100%;
+    min-height: 70px;
+  }
+
+  .basic-info-form input {
+    width: 100%;
+  }
+
+  .profile-creation-content-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-picture-form {
+    padding: 15px;
+  }
+  .skills-dual-input,
+  .career-project-top-section,
+  .career-project-bottom-section,
+  .career-modal-button-section {
+    flex-wrap: wrap;
+  }
+
+  .skills-dual-input {
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .skills-form {
+    flex-direction: column;
+  }
+  .tech-stack-form-group {
+    min-height: initial;
+    margin: 25px 0px;
+  }
+
+  .form-group {
+    margin: 10px 0px;
+    width: 100%;
+  }
+  .skills-dropdown {
+    position: initial;
+  }
+
+  .chosen-tech-stack {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .career-form-container .skills-dual-input input {
+    width: 100%;
+  }
+  .testimonials-form input {
+    width: 100%;
+  }
+  .status-form-container input {
+    width: 100%;
+  }
+  .links-form-group input {
+    width: 100%;
+  }
+  .profile-creation-content-forms-container {
+    display: block;
+  }
+}

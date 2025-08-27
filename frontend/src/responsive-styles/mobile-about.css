@@ -1,0 +1,77 @@
+@media (max-width: 768px) {
+  .people-intro {
+    height: initial;
+    width: initial;
+  }
+
+  .theTitle {
+    font-size: 2.3rem;
+  }
+
+  .peopleDescription {
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .about-us h1 {
+    font-size: 2.3rem;
+  }
+
+  .about-us,
+  .people-info {
+    margin: 15px 0px;
+  }
+  .portfolio-view-container {
+    border-radius: 0px;
+    padding: 10px;
+    margin: 0px;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    max-width: initial;
+  }
+
+  .grid-portfolio-card {
+    width: initial;
+    height: 150px;
+  }
+
+  .grid-portfolio-card-title {
+    font-size: 0.8rem;
+    padding: 10px;
+    font-weight: 600;
+  }
+
+  .grid-portfolio-card-content {
+    display: none;
+  }
+
+  .team-info-text p {
+    font-size: 1rem;
+    text-align: start;
+    margin-inline: 15px;
+    line-height: 1.4;
+  }
+  .grid-container:has(.grid-portfolio-card:hover)
+    .grid-portfolio-card:not(:hover) {
+    filter: none;
+    transform: none;
+  }
+
+  .grid-portfolio-card:hover {
+    transform: none;
+    padding: 0px;
+  }
+  .grid-portfolio-card:hover .grid-portfolio-card-title {
+    padding: 10px;
+  }
+
+  .grid-wrapper {
+    display: initial;
+  }
+}

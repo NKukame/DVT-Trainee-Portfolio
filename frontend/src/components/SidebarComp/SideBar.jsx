@@ -1,25 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./SideBar.css";
 import dvtLogo from "../../assets/dvt_logo.jpg";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import LoginIcon from "@mui/icons-material/Login";
-import FolderSharedOutlinedIcon from "@mui/icons-material/FolderSharedOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
-import ProfileModal from "../ProfileModalComp/ProfileModal";
-
+import ProfileModal from "../ProfileModalComp/ProfileModal.jsx";
 function SideBar() {
-  const { darkMode, setDarkMode } = useDarkMode();
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
-    profilePicture: null
+    profilePicture: null,
   });
 
   useEffect(() => {
@@ -28,18 +16,18 @@ function SideBar() {
 
   const fetchCurrentUser = async () => {
     try {
-      const token = JSON.parse(localStorage.getItem('token'));
+      const token = JSON.parse(localStorage.getItem("token"));
       if (!token) {
         return;
       }
 
-      const response = await fetch('http://localhost:3000/api/me', {
+      const response = await fetch("http://localhost:3000/api/me", {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
-console.log("our Api call",response)
+      console.log("our Api call", response);
       if (response.ok) {
         const userData = await response.json();
         const profilePictureUrl = userData.profilePicture 
@@ -47,18 +35,18 @@ console.log("our Api call",response)
               ? userData.profilePicture 
               : `http://localhost:3000${userData.profilePicture}`)
           : null;
-        
+
         setUserInfo({
           name: userData.name,
           email: userData.email,
-          profilePicture: userData.avatar
+          profilePicture: userData.avatar,
         });
       } else if (response.status === 401) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
       }
     } catch (error) {
-      console.error('Error fetching current user:', error);
+      console.error("Error fetching current user:", error);
     }
   };
 
@@ -75,7 +63,7 @@ console.log("our Api call",response)
           </div>
         </div>
 
-        <div className="sidebar-container-content">
+        <div className="sidebar-container-content max-sm:hidden">
           <div className="sidebar-nav-link">
             <Link to="/home">
               <div className="homeBtn">
@@ -172,29 +160,34 @@ console.log("our Api call",response)
 
         <div className="sidebar-bottom">
           <div className="sidebar-nav-link">
-            <div className="homeBtn" onClick={() => setIsProfileModalOpen(true)}>
+            <div
+              className="homeBtn"
+              onClick={() => setIsProfileModalOpen(true)}
+            >
               {userInfo.profilePicture ? (
-                <img 
-                  src={userInfo.profilePicture} 
-                  alt="Profile" 
+                <img
+                  src={userInfo.profilePicture}
+                  alt="Profile"
                   className="profile-picture"
                   width="25"
                   height="25"
-                  onError={() => setUserInfo(prev => ({ ...prev, profilePicture: null }))}
-                /> 
+                  onError={() =>
+                    setUserInfo((prev) => ({ ...prev, profilePicture: null }))
+                  }
+                />
               ) : (
-                <svg 
-                  width="25px" 
-                  height="25px" 
-                  viewBox="0 0 24 24" 
+                <svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path 
-                    d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
+                  <path
+                    d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>

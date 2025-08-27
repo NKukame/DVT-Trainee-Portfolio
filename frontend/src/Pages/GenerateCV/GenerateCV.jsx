@@ -1,21 +1,22 @@
-import { useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
-import { usePDF } from 'react-to-pdf';
-import { Star, Calendar1, MapPin, Award } from 'lucide-react';
-import './GenerateCV.css'
-import CVHorizontalBarChart from '../../components/GenerateCVComps/CVHorizontalBarChart';
-import CVPolarChart from '../../components/GenerateCVComps/CVPolarChart';
-import CVProject from '../../components/GenerateCVComps/CVProject';
+import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { usePDF } from "react-to-pdf";
+import { Star, Calendar1, MapPin, Award } from "lucide-react";
+import CVHorizontalBarChart from "../../components/GenerateCVComps/CVHorizontalBarChart";
+import CVPolarChart from "../../components/GenerateCVComps/CVPolarChart";
+import CVProject from "../../components/GenerateCVComps/CVProject";
 
-function GenerateCV(){
-    const location = useLocation();
-    const { toPDF, targetRef } = usePDF({filename: `${location.state.name}-CV.pdf`});
-    return (
-      <>
-        <section className="generate-cv-container">
-          <div className="generate-cv-content-container" ref={targetRef}>
-            <section className='first-page'>
-              <header className="generate-cv-content-container-header">
+function GenerateCV() {
+  const location = useLocation();
+  const { toPDF, targetRef } = usePDF({
+    filename: `${location.state.name}-CV.pdf`,
+  });
+  return (
+    <>
+      <section className="generate-cv-container">
+        <div className="generate-cv-content-container" ref={targetRef}>
+          <section className="first-page">
+            <header className="generate-cv-content-container-header">
               <img
                 className="generate-cv-header-background"
                 src="/Cv_header.png"
@@ -49,34 +50,36 @@ function GenerateCV(){
                 </ul>
               </div>
 
-
-              {location.state.career.length > 0 && 
-                (
-                  <div className="generate-cv-content-career-chronology">
-                    <h2>Career</h2>
-                    { location.state.career.length > 0 ? location.state.career.map((e, i)=>
-                    <div key={i} className="generate-cv-stepper-box">
-                      <div className="generate-cv-stepper-step">
-                        <div className="generate-cv-stepper-circle">{e.duration.split('-')[1]}</div>
-                        <div className="generate-cv-stepper-line" />
-                        <div className="generate-cv-stepper-content">
-                          <div className="generate-cv-stepper-title">
-                          {e.role}
+              {location.state.career.length > 0 && (
+                <div className="generate-cv-content-career-chronology">
+                  <h2>Career</h2>
+                  {location.state.career.length > 0 ? (
+                    location.state.career.map((e, i) => (
+                      <div key={i} className="generate-cv-stepper-box">
+                        <div className="generate-cv-stepper-step">
+                          <div className="generate-cv-stepper-circle">
+                            {e.duration.split("-")[1]}
                           </div>
-                          <div className="generate-cv-stepper-status">
-                            {e.company}
-                          </div>
-                          <div className="generate-cv-stepper-time">
-                            {e.duration}
+                          <div className="generate-cv-stepper-line" />
+                          <div className="generate-cv-stepper-content">
+                            <div className="generate-cv-stepper-title">
+                              {e.role}
+                            </div>
+                            <div className="generate-cv-stepper-status">
+                              {e.company}
+                            </div>
+                            <div className="generate-cv-stepper-time">
+                              {e.duration}
+                            </div>
                           </div>
                         </div>
                       </div>
-                      
-                      
-                    </div>) : (<div className='generate-cv-stepper-title'>No Career</div>) }
-                  </div>
-                )
-              }
+                    ))
+                  ) : (
+                    <div className="generate-cv-stepper-title">No Career</div>
+                  )}
+                </div>
+              )}
 
               <div className="generate-cv-content-skills-matrix">
                 <h2>Skills Matrix</h2>
@@ -85,45 +88,48 @@ function GenerateCV(){
                 </div>
               </div>
             </article>
+          </section>
+          {location.state.projects && location.state.projects.length > 0 && (
+            <section className="second-page">
+              <CVProject user={location.state} />
             </section>
-           {location.state.projects && location.state.projects.length > 0 && (
-              <section className='second-page'>
-                <CVProject user={location.state}/>
-                
-              </section>
-            )}
+          )}
 
-            <aside className={location.state.projects && location.state.projects.length > 0 ? "generate-cv-sidebar" : "generate-cv-sidebar-first-page"}>
-              <div className="generate-cv-sidebar-item">
-                <div className="generate-cv-sidebar-item-pairing">
-                  <Star className="generate-cv-sidebar-item-icon" size={15} />
-                  <p>{location.state.department}</p>
-                </div>
-                <div className="generate-cv-sidebar-item-pairing">
-                  <Calendar1
-                    className="generate-cv-sidebar-item-icon"
-                    size={15}
-                  />
-                  <p>
-                    {location.state.availability
-                      ? "Available"
-                      : "Not Available"}
-                  </p>
-                </div>
-                <div className="generate-cv-sidebar-item-pairing">
-                  <MapPin className="generate-cv-sidebar-item-icon" size={15} />
-                  <p>{location.state.location}</p>
-                </div>
-                <div className="generate-cv-sidebar-item-pairing">
-                  <Award className="generate-cv-sidebar-item-icon" size={15} />
-                  <p>
-                    {location.state.experienced
-                      ? location.state.experienced
-                      : "N/A"}{" "}
-                    Experience
-                  </p>
-                </div>
+          <aside
+            className={
+              location.state.projects && location.state.projects.length > 0
+                ? "generate-cv-sidebar"
+                : "generate-cv-sidebar-first-page"
+            }
+          >
+            <div className="generate-cv-sidebar-item">
+              <div className="generate-cv-sidebar-item-pairing">
+                <Star className="generate-cv-sidebar-item-icon" size={15} />
+                <p>{location.state.department}</p>
               </div>
+              <div className="generate-cv-sidebar-item-pairing">
+                <Calendar1
+                  className="generate-cv-sidebar-item-icon"
+                  size={15}
+                />
+                <p>
+                  {location.state.availability ? "Available" : "Not Available"}
+                </p>
+              </div>
+              <div className="generate-cv-sidebar-item-pairing">
+                <MapPin className="generate-cv-sidebar-item-icon" size={15} />
+                <p>{location.state.location}</p>
+              </div>
+              <div className="generate-cv-sidebar-item-pairing">
+                <Award className="generate-cv-sidebar-item-icon" size={15} />
+                <p>
+                  {location.state.experienced
+                    ? location.state.experienced
+                    : "N/A"}{" "}
+                  Experience
+                </p>
+              </div>
+            </div>
 
               <div className="generate-cv-education-section">
                 <div className="generate-cv-education-items">
@@ -198,3 +204,4 @@ function GenerateCV(){
 }
 
 export default GenerateCV;
+

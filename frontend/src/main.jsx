@@ -1,5 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './styles.css'
 import Home from './Pages/HomePage/Home.jsx'
@@ -17,9 +17,8 @@ import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx
 import ProtectedRoutes from './components/ProtectedComp/ProtectedRoute.jsx';
 import { SearchContextProvider } from './contexts/SearchContext.jsx';
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-                
     <SearchContextProvider>
       <DarkModeProvider>
         
@@ -40,7 +39,5 @@ createRoot(document.getElementById('root')).render(
       </Router>
       </DarkModeProvider>
     </SearchContextProvider>
-    
-  </StrictMode>
-)
- 
+  </StrictMode>,
+);
