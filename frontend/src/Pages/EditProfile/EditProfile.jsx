@@ -48,11 +48,7 @@ function EditProfile(prop) {
       : location.state.certificates
       ? [location.state.certificates]
       : [{ name: '', institution: '' }],
-    softSkills: Array.isArray(location.state.softSkills)
-      ? location.state.softSkills
-      : location.state.softSkills
-      ? [location.state.softSkills]
-      : [{ skillsRating: '', softSkill: { name: '' } }],
+    softSkills: location.state.softSkilled || location.state.softSkills || [{ skillsRating: '', softSkill: { name: '' } }],
     techStack: Array.isArray(location.state.techStack)
       ? location.state.techStack
       : location.state.techStack
