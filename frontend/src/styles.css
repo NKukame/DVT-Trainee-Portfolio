@@ -55,7 +55,7 @@ body{
     
 }
 
-body.dark-mode {
+body .dark-mode {
     background: linear-gradient(-20deg, #04223D 0%, #02111E 100%);
     transition: 0.5s ease-in-out;
 }
