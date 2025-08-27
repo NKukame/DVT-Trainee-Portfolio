@@ -1,6 +1,7 @@
 .mobile-navbar {
   display: flex;
-  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
+  background-color: #d6d3d1;
+  color: var(--blue);
   justify-content: space-between;
   align-items: center;
   padding: 10px;
@@ -9,7 +10,10 @@
   top: 0px;
   z-index: 100;
 }
-
+.dark-mode .mobile-navbar {
+  background-color: var(--dark-mode-blue);
+  color: var(--white);
+}
 .mobile-top-bar {
   display: flex;
   align-items: center;
@@ -22,7 +26,8 @@
 }
 
 .dock {
-  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
+  background-color: #d6d3d1;
+  color: var(--blue);
   display: flex;
   justify-content: space-evenly;
   padding: 10px 1px;
@@ -30,12 +35,21 @@
   bottom: 0;
   z-index: 100;
 }
+.dark-mode .dock {
+  background-color: var(--dark-mode-blue);
+  color: var(--white);
+}
+
 .dock-link {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   justify-items: center;
+  color: var(--blue);
+}
+.dark-mode .dock-link {
+  background-color: var(--dark-mode-blue);
   color: var(--white);
 }
 @media (min-width: 768px) {

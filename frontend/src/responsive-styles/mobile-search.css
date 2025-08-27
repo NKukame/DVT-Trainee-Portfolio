@@ -40,8 +40,14 @@
   .mobile-filter {
     display: flex;
     align-items: center;
+    color: var(--black);
+    text-underline-offset: 3px;
     gap: 10px;
     padding: 0px 10px;
+  }
+
+  .dark-mode .mobile-filter {
+    color: var(--white);
   }
 
   .filter-text {
