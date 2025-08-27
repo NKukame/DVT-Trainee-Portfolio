@@ -14,9 +14,16 @@ REST_API.use(cors());
 REST_API.use(
     '/api/v2',
     ZenStackMiddleware({
-        getPrisma: (request) => enhance(prisma),
+        getPrisma: (request) => enhance(prisma, undefined, {
+            // Prisma Accelerate limits interactive transaction timeout to 15s
+            // Ref: P6005 error from Accelerate
+            transactionMaxWait: 10_000,
+            transactionTimeout: 15_000,
+        }),
     })
 );
+
+
 
 REST_API.use(totalRoutes);
 
