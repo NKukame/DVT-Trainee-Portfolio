@@ -70,17 +70,17 @@ function Dashboard(props) {
         </div>
       </div>
       <footer className="footer">
-        <Link to={props.testEmployee.github}>
+        {props.testEmployee.github && <Link target="_blank" to={props.testEmployee.github}>
           <img src={Github} alt="GitHub" className="socials" />
-        </Link>
+        </Link>}
 
-        <Link to={props.testEmployee.linkedIn}>
+        {props.testEmployee.linkedIn && <Link target="_blank" to={props.testEmployee.linkedIn}>
           <img src={LinkedIn} alt="LinkedIn" className="socials" />
-        </Link>
+        </Link>}
 
-        <Link to={`mailto: ${props.testEmployee.email}`}>
+        {props.testEmployee.email && <Link to={`mailto: ${props.testEmployee.email}`}>
           <img src={Email} alt="Email" className="socials" />
-        </Link>
+        </Link>}
       </footer>
     </div>
   );
