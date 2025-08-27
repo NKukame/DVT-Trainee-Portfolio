@@ -235,7 +235,7 @@ function EditProfile(prop) {
 
         <div className="edit-profile-body">
           <div className="edit-profile-content-header">
-            <h3>Edit Profile</h3>
+            <h3 className="edit-profile-content-title">Edit Profile</h3>
           </div>
 
           <div className="edit-submit-section">
@@ -427,8 +427,13 @@ function EditProfile(prop) {
                         className="tech-stack-item"
                         style={{ marginBottom: "20px" }}
                       >
-                        <select
-                          value={tech.Techrating || ""}
+                        <input
+                          type="range"
+                          min={1}
+                          max={5}
+                          step={1}
+                          className="range-slider"
+                          value={tech.Techrating || 1}
                           onChange={(e) =>
                             handleTechStackChange(
                               idx,
@@ -436,16 +441,12 @@ function EditProfile(prop) {
                               e.target.value
                             )
                           }
-                        >
-                          <option value="" disabled>
-                            Rating (Out of 5)
-                          </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
+                        />
+                        <span style={{ marginLeft: "10px" }}>
+                          {tech.Techrating
+                            ? `Rating: ${tech.Techrating}`
+                            : "Rating: 1"}
+                        </span>
 
                         <span
                           className="badge-default"
@@ -509,8 +510,13 @@ function EditProfile(prop) {
                         className="soft-skill-item"
                         style={{ marginBottom: "20px" }}
                       >
-                        <select
-                          value={skill.skillsRating || ""}
+                        <input
+                          type="range"
+                          min={1}
+                          max={5}
+                          step={1}
+                          className="range-slider"
+                          value={skill.skillsRating || 1}
                           onChange={(e) =>
                             handleSoftSkillChange(
                               idx,
@@ -518,16 +524,12 @@ function EditProfile(prop) {
                               e.target.value
                             )
                           }
-                        >
-                          <option value="" disabled>
-                            Rating (Out of 5)
-                          </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
+                        />
+                        <span style={{ marginLeft: "10px" }}>
+                          {skill.skillsRating
+                            ? `Rating: ${skill.skillsRating}`
+                            : "Rating: 1"}
+                        </span>
 
                         <span
                           className="badge-default"
