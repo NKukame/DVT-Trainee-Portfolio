@@ -9,6 +9,8 @@ export default function AuthForm({
   isPasswordVisible,
   setIsPasswordVisible,
   loading,
+  errors,
+  setErrors,
 }) {
   const toggleForm = () => {
     setIsSignUp((isSign) => !isSign);
@@ -38,7 +40,11 @@ export default function AuthForm({
               onChange={handleChange}
               className={"email" + " email-input"}
             />
-            <Mail className="mail-icon" strokeWidth={1} size={"20px"} />
+            {errors.email ? (
+              <p className="login-error">{errors.email}</p>
+            ) : (
+              <p className="login-error"></p>
+            )}
           </div>
 
           <label>Password</label>
@@ -51,26 +57,11 @@ export default function AuthForm({
               onChange={handleChange}
               className={"password" + " password-input"}
             />
-            {isPasswordVisible ? (
-              <Eye
-                className="eye-icon password-icon"
-                strokeWidth="1"
-                size={"20px"}
-                onClick={(event) => {
-                  handleToggle(event, false);
-                }}
-              />
+            {errors.password ? (
+              <p className="login-error">{errors.password}</p>
             ) : (
-              <EyeClosed
-                className="eyeclosed-icon password-icon"
-                strokeWidth="1"
-                size={"20px"}
-                onClick={(event) => {
-                  handleToggle(event, true);
-                }}
-              />
+              <p className="login-error"></p>
             )}
-            <Lock className="lock-icon" strokeWidth={1} size={"20px"} />
           </div>
 
           {isSignUp && (
@@ -84,19 +75,22 @@ export default function AuthForm({
                 onChange={handleChange}
                 className={"mobile-login-input"}
               />
+              {errors.confirmPassword ? (
+                <p className="signup-error">{errors.confirmPassword}</p>
+              ) : (
+                <p className="signup-error"></p>
+              )}
             </div>
           )}
-
-          {!isSignUp && (
-            <div className="options-row">
-              <div className="remember">
-                <div className="check">
-                  <input type="checkbox" />
-                </div>
-                <p className="remember-me">Remember me</p>
-              </div>
-              <a href="#">Forgot Password?</a>
-            </div>
+          {errors.password ? (
+            <p className="login-error">{errors.password}</p>
+          ) : (
+            <p className="login-error"></p>
+          )}
+          {errors.login ? (
+            <p className="login-error">{errors.login}</p>
+          ) : (
+            <p className="login-error"></p>
           )}
           {loading ? (
             <div className="form-loader"></div>

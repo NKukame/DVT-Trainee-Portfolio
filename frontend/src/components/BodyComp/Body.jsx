@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import teamPortfolio from "../../../public/team-portfolio.json";
-
+import hometeam from "../../assets/Group-Image.jfif";
 function Body() {
   const [team, setTeam] = useState([]);
   const navigate = useNavigate();
@@ -111,7 +111,10 @@ function Body() {
         </h2>
       </div>
 
-      <div className="home-carousel-wrapper">
+      <div className="team-pic">
+        <img src={hometeam} alt="" className="team"/>
+      </div>
+      <div className="home-carousel-wrapper mobile-home">
         <div className="home-carousel">
           {team.map((person, index) => (
             <div key={index} className="home-carousel-item">

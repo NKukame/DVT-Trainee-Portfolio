@@ -2,8 +2,14 @@
 .explore-more-work {
   display: none;
 }
+.team-pic{
+  display: none;
+}
 
 @media (max-width: 500px) {
+  .team-pic{
+    display: block;
+  }
   .app-layout {
     min-height: 100vh;
     width: 100vw;
@@ -15,6 +21,10 @@
     display: block;
     width: initial;
     max-width: initial;
+  }
+
+  .team{
+    width: 100%;
   }
 
   .modal-header {
@@ -171,6 +181,10 @@
     background: var(--button-blue);
   }
   .sidebar-container {
+    display: none;
+  }
+
+  .mobile-home{
     display: none;
   }
 }

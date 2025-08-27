@@ -248,6 +248,8 @@ function Signup() {
         isPasswordVisible={isPasswordVisible}
         setIsPasswordVisible={setIsPasswordVisible}
         loading={loading}
+        errors={errors}
+        setErrors={setErrors}
       />
       <div className="LoginApp">
         <div className={`login-container ${isSignUp ? "login-active" : ""}`}>
