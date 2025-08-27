@@ -18,8 +18,8 @@ function EditProfile(prop) {
   const [loading, setLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [formData, setFormData] = useState({
-    id: location.state.employee_id,
-    employee_id: location.state.employee_id,
+    id: location.state.id || location.state.employee_id,
+    employee_id: location.state.id || location.state.employee_id,
     department: location.state.department || "",
     title: location.state.title || "",
     name: location.state.name?.split(" ")[0] || "",
@@ -38,24 +38,36 @@ function EditProfile(prop) {
     availability: Array.isArray(location.state.availability)
       ? location.state.availability
       : [location.state.availability],
-    education: Array.isArray(location.state.emp_education)
-      ? location.state.emp_education
-      : [location.state.emp_education],
+    education: Array.isArray(location.state.education || location.state.emp_education)
+      ? (location.state.education || location.state.emp_education)
+      : (location.state.education || location.state.emp_education)
+      ? [location.state.education || location.state.emp_education]
+      : [{ qualification: '', institution: '' }],
     certificates: Array.isArray(location.state.certificates)
       ? location.state.certificates
-      : [location.state.certificates],
-    softSkilled: Array.isArray(location.state.softSkilled)
-      ? location.state.softSkilled
-      : [location.state.softSkilled],
+      : location.state.certificates
+      ? [location.state.certificates]
+      : [{ name: '', institution: '' }],
+    softSkills: Array.isArray(location.state.softSkills)
+      ? location.state.softSkills
+      : location.state.softSkills
+      ? [location.state.softSkills]
+      : [{ skillsRating: '', softSkill: { name: '' } }],
     techStack: Array.isArray(location.state.techStack)
       ? location.state.techStack
-      : [location.state.techStack],
+      : location.state.techStack
+      ? [location.state.techStack]
+      : [{ Techrating: '', techStack: { name: '' } }],
     testimonials: Array.isArray(location.state.testimonials)
       ? location.state.testimonials
-      : [location.state.testimonials],
+      : location.state.testimonials
+      ? [location.state.testimonials]
+      : [{ company: '', quote: '', reference: '' }],
     career: Array.isArray(location.state.career)
       ? location.state.career
-      : [location.state.career],
+      : location.state.career
+      ? [location.state.career]
+      : [{ role: '', company: '', duration: '' }],
     projects: Array.isArray(location.state.projects)
       ? location.state.projects.map((p) => p.project || p)
       : location.state.projects
@@ -95,12 +107,12 @@ function EditProfile(prop) {
 
   const handleSoftSkillChange = (index, field, value) => {
     setFormData((prev) => {
-      const updatedSkills = [...prev.softSkilled];
+      const updatedSkills = [...prev.softSkills];
       updatedSkills[index] = {
         ...updatedSkills[index],
         [field]: value,
       };
-      return { ...prev, softSkilled: updatedSkills };
+      return { ...prev, softSkills: updatedSkills };
     });
   };
 
@@ -495,7 +507,7 @@ function EditProfile(prop) {
                 <div className="edit-form-group">
                   <label className="form-label">Soft Skills</label>
                   <div className="soft-skills-list">
-                    {formData.softSkilled.map((skill, idx) => (
+                    {formData.softSkills.map((skill, idx) => (
                       <div
                         key={idx}
                         className="soft-skill-item"

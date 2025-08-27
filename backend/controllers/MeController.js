@@ -20,7 +20,20 @@ const MeController = async (req, res) => {
             },
             projects: {
               include: {
-                project: true
+                project: {
+                  include: {
+                    industries: {
+                      include: {
+                        industry: true
+                      }
+                    },
+                    techStack: {
+                      include: {
+                        techStack: true
+                      }
+                    }
+                  }
+                }
               }
             },
             testimonials: true,
@@ -41,12 +54,16 @@ const MeController = async (req, res) => {
       return res.status(404).json({ error: 'User or employee data not found' });
     }
     
-    // Return employee data in the format expected by UserPortfolio components
+    // Return employee data in the format expected by UserPortfolio components (same as search results)
     res.json({
       ...user.employee,
+      employee_id: user.employee.id,
       user: user,
       avatar: user.employee.photoUrl,
-      availability: user.employee.availability?.available
+      availability: user.employee.availability?.available,
+      emp_education: user.employee.education,
+      years_active: user.employee.experience,
+      experienced: user.employee.experience
     });
   } catch (error) {
     console.error('Error fetching current user:', error);
