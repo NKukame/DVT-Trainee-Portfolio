@@ -51,6 +51,7 @@ import { ThemedSiderV2, RefineSnackbarProvider, useNotificationProvider, } from 
 import { Link } from "react-router";
 
 
+
 // Your ProtectedRoutes component
 
 
@@ -134,9 +135,13 @@ const App = () => {
                        <ThemedLayoutV2
                         Sider={() => (
                           <ThemedSiderV2
+                          Title={(props) => (
+                           <ThemedTitleV2 icon={false} text="DVT  Portfolio"  />
+                          )}
                             render={({ items, logout }) => {
                               return (
                                 <>
+
                                 <div style={{display: "flex", flexDirection: "column", padding: "1rem", visitedColor: "white"}}>
                                   <Link to="/dashboard">Summary</Link>
                                 </div>
@@ -148,9 +153,6 @@ const App = () => {
                           />
                         )}
                       
-                       Title={(props) => (
-                        <ThemedTitleV2 {...props} text="DVT  Portfolio" />
-                      )}
 
                       Header={() => <></>}
                        >
