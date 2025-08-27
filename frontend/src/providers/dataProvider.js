@@ -71,7 +71,7 @@ export const dataProvider = {
     },
 
     update: async function (params) {
-        const data = await mutateData(params.resource, 'update', 'PUT', {
+        const data = await mutateData(params.resource, 'update', 'PATCH', {
             where: { id: params.id },
             data: params.variables,
         });
