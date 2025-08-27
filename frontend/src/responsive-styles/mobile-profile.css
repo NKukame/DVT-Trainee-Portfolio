@@ -2,6 +2,7 @@
   .stepper-container {
     width: 99vw;
     margin: 0;
+    border-radius: 0px;
   }
   .step-text {
     display: none;
@@ -24,6 +25,9 @@
   }
   .profile-creation-header {
     margin: 5px;
+    position: sticky;
+    top: 11.1%;
+    z-index: 300;
   }
 
   /*basic form styles*/
@@ -74,6 +78,7 @@
 
   .form-group {
     margin: 10px 0px;
+    width: 100%;
   }
   .skills-dropdown {
     position: initial;

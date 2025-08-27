@@ -21,7 +21,7 @@
 @media screen and (max-width: 500px) {
   .search-tabs {
   }
-  .sort-container {
+  .mobile-sort {
     display: none;
   }
   .input-container input[type="text"]::placeholder {

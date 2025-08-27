@@ -39,7 +39,7 @@ export default function SearchNav({
           </div>
           <FilterFunnel02 />
         </div>
-        <div>
+        <div className="mobile-sort">
           <SelectScrollable
             filter={filter}
             results={results}

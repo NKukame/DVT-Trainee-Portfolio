@@ -296,10 +296,13 @@ export default function AuthForm() {
 
           {!isSignUp && (
             <div className="options-row">
-              <label>
+              <div className="remember">
+                <div className="check">
+
                 <input type="checkbox" />
-                Remember me
-              </label>
+                </div>
+                <p className="remember-me">Remember me</p>
+              </div>
               <a href="#">Forgot Password?</a>
             </div>
           )}
