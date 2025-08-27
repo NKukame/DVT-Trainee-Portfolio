@@ -42,7 +42,6 @@ function SideBar() {
 console.log("our Api call",response)
       if (response.ok) {
         const userData = await response.json();
-        console.log("our Api call",userData)
         const profilePictureUrl = userData.profilePicture 
           ? (userData.profilePicture.startsWith('data:') 
               ? userData.profilePicture 
