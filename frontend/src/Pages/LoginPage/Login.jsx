@@ -239,7 +239,16 @@ function Signup() {
 
   return (
     <>
-      <AuthForm />
+      <AuthForm
+        formData={formData}
+        isSignUp={isSignUp}
+        setIsSignUp={setIsSignUp}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        isPasswordVisible={isPasswordVisible}
+        setIsPasswordVisible={setIsPasswordVisible}
+        loading={loading}
+      />
       <div className="LoginApp">
         <div className={`login-container ${isSignUp ? "login-active" : ""}`}>
           {/* Sign Up Form */}
@@ -490,4 +499,3 @@ function Signup() {
 }
 
 export default Signup;
-

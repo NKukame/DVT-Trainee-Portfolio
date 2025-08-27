@@ -104,4 +104,33 @@
   .profile-creation-content-forms-container {
     display: block;
   }
+
+  .submit-form-text-section {
+    flex-direction: column;
+  }
+
+  .fomr-label {
+    width: initial;
+    font-size: initial;
+  }
+
+  .submit-form-group.form-description {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .mobile-skills.submit-form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mobile-agreement {
+    font-size: medium;
+  }
+
+  .form-label.form-title-description {
+    font-weight: 700;
+    font-size: larger;
+  }
 }
