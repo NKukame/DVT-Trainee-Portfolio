@@ -31,19 +31,17 @@ function Dashboard(props) {
         </div>
 
         <div className="profile-info">
-          { id === tokenID ? 
+          { id === tokenID && 
           <Link to="/edit-profile" state={props.testEmployee}>
             <button className="manage-prfl">Edit Profile</button>
           </Link> 
-          : 
-            <button className="manage-prfl disabled" disabled>Edit Profile</button>
+          
           }
           <Link to="/generate-cv" state={props.testEmployee}>
             <button className="manage-prfl" >Generate Resume</button>
           </Link>
           <div className="profile-details">
             <p>
-              {/* <Activity size={15} className="dashboard-icon" /> */}
               <CalendarCheck size={15} className="dashboard-icon" />
               {(props.testEmployee.availability === null) ?   "Not filled / N/A" : 
               (props.testEmployee.availability ?   "Available" : "Not Available")}
