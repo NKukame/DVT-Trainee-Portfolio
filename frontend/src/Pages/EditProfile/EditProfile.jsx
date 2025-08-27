@@ -230,8 +230,6 @@ function EditProfile(prop) {
           </div>
         </div>
       )}
-      <div className="app-layout">
-        <SideBar />
 
         <div className="edit-profile-body">
           <div className="edit-profile-content-header">
@@ -747,7 +745,6 @@ function EditProfile(prop) {
             )}
           </div>
         </div>
-      </div>
     </>
   );
 }
