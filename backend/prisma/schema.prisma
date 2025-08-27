@@ -185,7 +185,7 @@ model EmployeeTechStack {
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   techStackId String
   techStack  TechStack @relation(fields: [techStackId], references: [id], onDelete: Cascade)
-  Techrating    String?
+  Techrating String?
 
   @@id([employeeId, techStackId])
 }

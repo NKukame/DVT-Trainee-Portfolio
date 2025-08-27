@@ -1,11 +1,6 @@
 import prisma, {redis} from "../lib/prisma-redis-middleware.js";
 import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
-
-
-
-
-
-
+import { setKeyValue } from '../lib/prisma-redis-middleware.js';
 
 /**
  * Search for projects with the given query, filters, sort, page, and limit.
@@ -27,30 +22,43 @@ import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
  * @throws {404} - If no projects are found.
  */
 
+// const shouldCache = query || (industries && industries.length) || (techStack && techStack.length);
 
 export async function SearchProjectController(req, res) {
+  const startTime = Date.now();
+  const { query, industries, techStack, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
 
-  const { query,industries, techStack,field, order , page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
-  
   try {
     const where = {}
-    const cacheKey = `searchProject:${query}-${industries}-${techStack}-${field}-${order}-${page}-${limit}`;
+    const cacheKey = setKeyValue(
+  'searchProject',
+  query,
+      Array.isArray(industries) ? industries.join(',') : industries,
+      Array.isArray(techStack) ? techStack.join(',') : techStack,
+  field,
+  order,
+  page,
+  limit
+);
+
     const cached = await getCache(cacheKey);
-    // if (cached) {
-    //   console.log('Cache hit for SearchEmployeeController', query);
-    //   const queryTime = Date.now();
+  
+    if (cached) {
+      console.log('Cache hit for SearchProjectController', query);
+      const queryTime = Date.now() - startTime;
     
-    //   return res.json({
-    //     success: true,
-    //     data: cached,
-    //     performance: {
-    //       queryTime: `${queryTime}ms`,
-    //       cached: true,
-    //       count: cached.length,
-    //       searchTerm: cacheKey
-    //     }
-    //   });
-    // }
+      return res.json({
+        // success: true,
+        projects: cached,
+        total: cached.total,
+        performance: {
+          queryTime: `${queryTime}ms`,
+          cached: true,
+          count: cached.projects,
+          searchTerm: cacheKey
+        }
+      });
+    }
 
     if(query) {
       where.OR = [
@@ -87,8 +95,7 @@ export async function SearchProjectController(req, res) {
 
     const orderBy = {}
 
-
-    if (order && field) {
+    if (field && order) {
       orderBy[field] = order
     }else {
       orderBy.createdAt = 'desc'
@@ -173,28 +180,44 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  let { query,location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
-  // console.log(req.query);
-
+  const startTime = Date.now();
+  let { query, location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query;
   
   try {
     const where = {};
-    const cacheKey = `${query}`;
+    const cacheKey = setKeyValue(
+      'searchEmployee',
+      query,
+      Array.isArray(location) ? location.join(',') : location,
+      Array.isArray(role) ? role.join(',') : role,
+      Array.isArray(techStack) ? techStack.join(',') : techStack,
+      Array.isArray(industry) ? industry.join(',') : industry,
+      field,
+      order,
+      page,
+      limit
+    );
+
+ 
     const cached = await getCache(cacheKey);
-    // if (cached) {
-    //   console.log('Cache hit for SearchEmployeeController', query);
     
-    
-    //   return res.json({
-    //     success: true,
-    //     data: cached,
-    //     performance: {
-    //       cached: true,
-    //       count: cached.length,
-    //       searchTerm: cacheKey
-    //     }
-    //   });
-    // }
+    if (cached) {
+      console.log('Cache hit for SearchEmployeeController', query);
+      const queryTime = Date.now() - startTime;
+      
+      return res.json({
+        // success: true,
+        employees: cached.employees,
+        total: cached.total,
+        pageCount: cached.pageCount,
+        performance: {
+          queryTime: `${queryTime}ms`,
+          cached: true,
+          count: cached,
+          searchTerm: cacheKey
+        }
+      });
+    }
 
     if(query){
       where.OR = [
@@ -236,28 +259,14 @@ export async function SearchEmployeeController(req, res) {
             }
           }
         }
-        
       }
     }
 
-    if (industry?.length) {
-      if(typeof industry === 'string') {
-        industry = [industry]
-      }
-      where.industry = {
-          some: {
-            in: industry 
-          }
-      }
-    }
-
-    // console.log(where);
-    
     const orderBy = {}
 
     if (field && order) {
       orderBy[field] = order
-    }else {
+    } else {
       orderBy.createdAt = 'desc'
     }
 
@@ -267,7 +276,6 @@ export async function SearchEmployeeController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-
         select: {
           id: true,
           name: true,
@@ -375,7 +383,6 @@ export async function SearchEmployeeController(req, res) {
               },
             },
           },
-
           testimonials: {
             select: {
               quote: true,
@@ -388,17 +395,25 @@ export async function SearchEmployeeController(req, res) {
       prisma.employee.count({ where }),
     ]);
     
-
     if (!employees) {
       return res.status(404).send({ message: "Employees not found" });
-    } else{
-      const pageCount = Math.ceil(total / limit);
-      await setCache(cacheKey, employees, 30 * 60); 
-      return res.send({ employees, total, pageCount });
     }
+
+    const pageCount = Math.ceil(total / limit);
+
+    const responseData ={
+      employees,
+      total,
+      pageCount
+    };
+    
+    // Cache the results (this was missing proper implementation)
+    await setCache(cacheKey, responseData, 30 * 60);
+
+    return res.send(responseData);
+    
   } catch (error) {
     console.error('Search employees error:', error);
     return res.status(500).json({ error: 'Failed to search employees' });
   }
 }
-

@@ -67,6 +67,7 @@ function ForgotPassword() {
   const validatePassword = () => {
     let newErrors = {};
     let criteria = checkPasswordCriteria(newPassword);
+    let criteria = checkPasswordCriteria(newPassword);
 
     if (!newPassword) {
       newErrors.password = "Password is required";
@@ -80,14 +81,15 @@ function ForgotPassword() {
 
     if (!confirmPassword) {
       newErrors.confirmPassword = "Confirm Password is required";
-    } else if (confirmPassword !== newPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
+    } else {
+      if (confirmPassword !== newPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
 
   const handlePasswordChange = (e) => {
     const password = e.target.value;
@@ -111,6 +113,9 @@ function ForgotPassword() {
 
     if (errors.confirmPassword && confirmPwd === newPassword) {
       setErrors(prev => ({
+        ...prev, 
+        confirmPassword: ""
+      }));
         ...prev, 
         confirmPassword: ""
       }));
@@ -325,8 +330,10 @@ function ForgotPassword() {
                     placeholder="••••••••"
                     value={newPassword}
                     onChange={handlePasswordChange}
+                    onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
+                  
                 </div>
                 {errors.password && <p className="error-message">{errors.password}</p>}
               </div>
@@ -401,6 +408,21 @@ function ForgotPassword() {
         return null;
     }
   };
+//   const errorData = await response.json();
+//   setErrors({ password: errorData.error || "Failed to reset password" });
+//   return;
+// }
+// };l
+// // // Simulate updating the password in localStorage
+// // const storedUser = JSON.parse(localStorage.getItem("user"));
+// // if (storedUser && storedUser.email === email) {
+// //   storedUser.password = newPassword;
+// //         localStorage.setItem("user", JSON.stringify(storedUser));
+// //       }
+// //     }
+// //   };
+  
+  
 
   return (
     <div className="forgot-password-container">

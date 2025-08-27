@@ -15,11 +15,18 @@ export async function getCache(key) {
 }
 
 export async function setCache(key, data, ttl = 3600) {
-  await redis.set(key, JSON.stringify(data), 'EX', ttl);
+  const stringified = JSON.stringify(data);
+  await redis.set(key, stringified, 'EX', ttl);
   return data;
+}
+
+export function setKeyValue(...parts) {
+  return parts.filter(part => part !== undefined && part !== null && part !== '')
+    .map(part => String(part)) 
+    .join(':');
 }
 
 const prisma = new PrismaClient()
 
-export { redis};
+export { redis };
 export default prisma;
