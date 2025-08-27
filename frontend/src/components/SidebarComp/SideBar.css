@@ -67,11 +67,11 @@
 }
 
 /* Change to four once you remove the login from the sidebar */
-.sidebar-container-content .sidebar-nav-link:nth-child(4){
+.sidebar-container-content .sidebar-nav-link:nth-child(3){
     transform: translateX(4%);
 }
 
-.sidebar-container:hover  .sidebar-nav-link:nth-child(4){
+.sidebar-container:hover  .sidebar-nav-link:nth-child(3){
     transform: translateX(0);
 }
 

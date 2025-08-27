@@ -101,7 +101,7 @@ console.log("our Api call",response)
           </div>
 
 
-          <div className="sidebar-nav-link">
+          {/* <div className="sidebar-nav-link">
             <Link to="/portfolio">
               <div className="homeBtn">
                 <svg
@@ -122,7 +122,7 @@ console.log("our Api call",response)
                 <p className="home-txt">Profile</p>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           <div className="sidebar-nav-link">
             <Link to="/about">
