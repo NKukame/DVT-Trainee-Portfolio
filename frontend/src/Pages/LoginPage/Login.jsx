@@ -27,22 +27,18 @@ function Signup() {
     const rememberedCredentials = JSON.parse(
       localStorage.getItem("rememberedCredentials"));
 
-    if (rememberedCredentials?.email) {
-      setFormData((prevData) => ({
-        ...prevData,
-        email: rememberedCredentials.email || "",
-        
-      }));
-      setRememberMe(true);
+      if(rememberedCredentials) {
+        setFormData((prevData) => ({
+          ...prevData,
+          email: rememberedCredentials.email || "",
+        password: rememberedCredentials.password || ""
+        }));
 
-      
-      const token = localStorage.getItem("token");
-      if (token && rememberedCredentials.token) {
-       
-        navigate("/home");
+        setRememberMe(true);
       }
   }, []);
 
+  // Load saved credentials on component mount
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
@@ -52,50 +48,49 @@ function Signup() {
     }
   }, []);
 
-  const allowedDomains = ["dvtsoftware.com", "gmail.com"];
+  const allowedDomains = ["dvtsoftware.com"];
 
-  
+  // email domain validation
   const validateEmailDomain = (email) => {
     const domain = email.split("@")[1];
     return domain && allowedDomains.includes(domain);
   };
 
- const validationForm = () => {
-  let newErrors = {};
+  const validationForm = () => {
+    let newErrors = {};
 
-  if (isSignUp) {
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Confirm Password is required";
-    } else if (formData.confirmPassword !== formData.password) {
-      newErrors.confirmPassword = "Confirm Password does not match";
+    if (isSignUp) {
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = "Confirm Password is required";
+      } else if (formData.confirmPassword !== formData.password) {
+        newErrors.confirmPassword = "Confirm Password does not match";
+      }
     }
-  }
-  
-  if (!formData.email) {
-    newErrors.email = "Email is required";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-    newErrors.email = "Email is invalid";
-  } else if (!validateEmailDomain(formData.email)) {
-    newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
-  }
+    
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    } else if (!validateEmailDomain(formData.email)) {
+      newErrors.email = `Allowed domains are ${allowedDomains.join(", ")}`;
+    }
 
-  if (!formData.password) {
-    newErrors.password = "Password is required";
-  } else if (formData.password.length < 8) { 
-    newErrors.password = "Password must be at least 8 characters";
-  } else if (!/(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/.test(formData.password)) {
-    newErrors.password = "Password must contain at least one special character";
-  }
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
 
-  setErrors(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
-    // if (e.target.value.includes('@')){
-    //   e.target.name = "email";
-    // }
+    if (e.target.value.includes('@')){
+      e.target.name = "email";
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear errors when user starts typing
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
     }
@@ -116,7 +111,7 @@ function Signup() {
       }
       try{
         const user = {email: formData.email, password: formData.password};
-        setLoading(true)
+  
         const userRegistered = await axios.post(
           'http://localhost:3000/register', 
           {
@@ -139,7 +134,6 @@ function Signup() {
         }  
         else{
           setErrors( {email:'Registration failed'})
-          setLoading(false)
         }
       }catch(err){
         setErrors({email: 'Registration failed'});
@@ -279,7 +273,7 @@ function Signup() {
                 />
                 <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
                 {isPasswordVisible ? 
-                  <Eye className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                  <Eye className="eye-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
                     handleToggle(event, false)
                   }} /> :
                   <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
@@ -301,7 +295,7 @@ function Signup() {
                 />
                 <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
                 {isConfirmPasswordVisible ? 
-                  <Eye className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                  <Eye className="eye-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
                     handleConfirmPasswordToggle(event, false)
                   }}/> :
                   <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
@@ -390,7 +384,8 @@ function Signup() {
                         <Link to="/forgot-password" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}> Forgot Your Password?</Link>
                 </div> 
             </div>    
-            {loading ? <div className="form-loader"></div> : <button type="submit">Sign In</button>}
+          
+            <button type="submit">Sign In</button>
 
           </form>
         </div>
@@ -413,13 +408,9 @@ function Signup() {
               <p>Smart Solutions</p>
               </div>
               <div>
-                {
-                  !isSignUp &&
-                  <button className="hidden" onClick={() =>
+              <button className="hidden" onClick={() =>
                 {setIsSignUp(true)  
-
-                  setFormData({
-
+                  setFormData(prev => ({
                     email: "",
                     password: "",
                   }))
