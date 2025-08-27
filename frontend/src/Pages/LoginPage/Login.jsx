@@ -86,9 +86,9 @@ function Signup() {
   };
 
   const handleChange = (e) => {
-    if (e.target.value.includes('@')){
-      e.target.name = "email";
-    }
+    // if (e.target.value.includes('@')){
+    //   e.target.name = "email";
+    // }
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear errors when user starts typing
     if (errors[e.target.name]) {
