@@ -264,6 +264,27 @@ h1 {
     right: 0;
 }
 
+.eye-icon-signup{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    Color: #a0a0a0;
+    margin: 0 10px;
+     transform: translateY(-40%);
+    left: 80%;
+    
+}
+
+.eyeclosed-icon-signup{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    transform: translateY(-40%);
+    left: 80%;
+}
+
 .eyeclosed-icon{
     position: absolute;
     right: 0;
@@ -293,6 +314,17 @@ h1 {
 
 }
 
+.password-icon-signup{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: #fff;
+    Color: #a0a0a0;
+    margin: 0 10px;
+    transition: all 0.5s ease-in-out;
+
+}
 .lock-icon{
     position: absolute;
     cursor: pointer;

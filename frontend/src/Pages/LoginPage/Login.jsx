@@ -4,12 +4,12 @@ import OnRememberMeIcon from "../../assets/OnRemember-me-icon.png";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import { Eye, EyeClosed, Mail, Lock, Weight } from "lucide-react";
-import { use } from "react";
+import { Eye, EyeClosed, Mail, Lock } from "lucide-react";
 import axios from 'axios';
 
 function Signup() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [loading, setLoading] = useState(false); // ADD THIS LINE
   const [formData, setFormData] = useState({
     name:"",
     email: "",
@@ -36,7 +36,6 @@ function Signup() {
         setRememberMe(true);
       }
   }, []);
-
 
   // Load saved credentials on component mount
   useEffect(() => {
@@ -98,14 +97,15 @@ function Signup() {
 
   const handleRememberMeToggle = () =>{
     setRememberMe(!rememberMe);
-
   };
 
   const handleSignup = async() => {
     if (validationForm()) {
+      setLoading(true);
       const storedUser = JSON.parse(localStorage.getItem("user"));
       if (storedUser && storedUser.email === formData.email ) {
         setErrors({ email: "This email or username is already registered" });
+        setLoading(false);
         return;
       }
       try{
@@ -136,70 +136,70 @@ function Signup() {
         }
       }catch(err){
         setErrors({email: 'Registration failed'});
+      } finally {
+        setLoading(false);
       }
     }
   };
 
+  const handleLogin = async () => {
+    if (!formData.email) {
+      setErrors({ email: "Email or Username is required" });
+      return;
+    }
 
+    if (!formData.password) {
+      setErrors({ password: "Password is required" });
+      return;
+    }
 
-const handleLogin = async () => {
-  if (!formData.email) {
-    setErrors({ email: "Email or Username is required" });
-    return;
-  }
+    setLoading(true);
 
-  if (!formData.password) {
-    setErrors({ password: "Password is required" });
-    return;
-  }
-
-  try {
-     const token =  await axios.post(
-      'http://localhost:3000/login',
-      {
-        email: formData.email,
-        password: formData.password,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+       const token =  await axios.post(
+        'http://localhost:3000/login',
+        {
+          email: formData.email,
+          password: formData.password,
         },
-      }
-    );
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
+      localStorage.setItem("token", JSON.stringify(token.data.token));
 
-    localStorage.setItem("token", JSON.stringify(token.data.token));
-
-    if (rememberMe) {
-      localStorage.setItem("rememberedCredentials", JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }));
-    } else {
-      localStorage.removeItem("rememberedCredentials");
-    }
-
-    navigate("/home");
-
-  } catch (error) {
-
-    if (error.response && error.response.data) {
-      const err = error.response.data;
-      if (err.error === "Incorrect email") {
-        setErrors({ email: "Email not found" });
-      } else if (err.error === "Incorrect password") {
-        setErrors({ password: "Incorrect password" });
+      if (rememberMe) {
+        localStorage.setItem("rememberedCredentials", JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }));
       } else {
-        setErrors({ login: err.error || "Login failed" });
+        localStorage.removeItem("rememberedCredentials");
       }
-    } else {
-      console.error("Login error:", error);
-      setErrors({ login: "Something went wrong. Please try again." });
+
+      navigate("/home");
+
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const err = error.response.data;
+        if (err.error === "Incorrect email") {
+          setErrors({ email: "Email not found" });
+        } else if (err.error === "Incorrect password") {
+          setErrors({ password: "Incorrect password" });
+        } else {
+          setErrors({ login: err.error || "Login failed" });
+        }
+      } else {
+        console.error("Login error:", error);
+        setErrors({ login: "Something went wrong. Please try again." });
+      }
+    } finally {
+      setLoading(false);
     }
-  }
-};
-
-
+  };
  
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -215,7 +215,7 @@ const handleLogin = async () => {
     return errors[field] ? "error-border" : "";
   }
 
-// Eye icon toggle function
+  // Eye icon toggle function
   const handleToggle = (event, isPassword) => {
     if(isPassword){
       event.currentTarget.closest("div").querySelector("input").type = 'text'
@@ -226,8 +226,6 @@ const handleLogin = async () => {
     setIsPasswordVisible(isPassword)
   };
       
-  
-
   return (
     <>
     <div className="LoginApp">
@@ -238,72 +236,70 @@ const handleLogin = async () => {
             <h1>Create Account</h1>
 
             <div className="sign-up-form">
-          
-        
-            <h6>Email</h6>
-            <input
-              type="email"
-              name="email"
-              placeholder=" Enter email address"
-              value={formData.email}
-              onChange={handleChange}
-              className={getInputClass("email")}
-            />
-             
-            <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/>
-          {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
+              <h6>Email</h6>
+              <input
+                type="email"
+                name="email"
+                placeholder=" Enter email address"
+                value={formData.email}
+                onChange={handleChange}
+                className={getInputClass("email")}
+              />
+               
+              <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"}/>
+              {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
 
-            
-            <h6> Password</h6>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
-              className={getInputClass("password")}
-            />
-             <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
-            
-            {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
-            <h6>Confirm Password</h6>
-            <div className="password-container-signup">
+              <h6> Password</h6>
               <input
                 type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password "
-                value={formData.confirmPassword}
+                name="password"
+                placeholder="Enter password"
+                value={formData.password}
                 onChange={handleChange}
-                className={getInputClass("confirmPassword")}
+                className={getInputClass("password")}
               />
-            <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
-            </div>
-            {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
+              <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
+              
+              
+              {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
+              <h6>Confirm Password</h6>
+              <div className="password-container-signup">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password "
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className={getInputClass("confirmPassword")}
+                />
+              <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
+              </div>
+              {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
             </div>
             
-             {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
-                      handleToggle(event, false)
-                    }}/>:
+                     {isPasswordVisible ? <Eye className="eye-icon-signup password-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                        handleToggle(event, false)
+                      }}/>:
 
-                    <EyeClosed className="eyeclosed-icon password-icon" strokeWidth="1"  size={"20px"} onClick={(event)=>{
-                      handleToggle(event, true);
-                    }} />
-                    }
-                    
-           {loading ? <div className="form-loader"></div> : 
+                      <EyeClosed className="eyeclosed-icon-signup password-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                        handleToggle(event, true);
+                      }} />
+                      }
+
+                      
+            {loading ? <div className="form-loader"></div> : 
             <button type="submit">Sign Up</button>}
 
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
-               setIsSignUp(false)
-               setFormData(prev => ({
-                name: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-              }))
-              setErrors({})
-
-               }}> Sign in </Link></p>
+                 setIsSignUp(false)
+                 setFormData(prev => ({
+                  name: "",
+                  email: "",
+                  password: "",
+                  confirmPassword: "",
+                }))
+                setErrors({})
+                 }}> Sign in </Link></p>
           </form>
         </div>
 
@@ -334,15 +330,14 @@ const handleLogin = async () => {
                     <h6 >Password</h6>
                     <div className="password-container">
                       <input  
-                      // className="password-input"
                       type="password"
                       name="password"
                       placeholder="Password" 
                       value={formData.password}
                       onChange={handleChange}
-                      classname={getInputClass("password")+" password-input"}
+                      className={getInputClass("password")+" password-input"}
                     />
-                    {isPasswordVisible ? < Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                    {isPasswordVisible ? <Eye className="eye-icon password-icon" strokeWidth="1" size={"20px"} onClick={(event)=>{
                       handleToggle(event, false)
                     }}/>:
 
@@ -360,10 +355,10 @@ const handleLogin = async () => {
                     
                 <div className="remember-me-container">
                      <div className="remember-me">
-                        <div class="toggle-switch">
-                          <input class="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
+                        <div className="toggle-switch">
+                          <input className="toggle-input" id="toggle" type="checkbox" checked={rememberMe}
                           onChange={handleRememberMeToggle}/>
-                          <label class="toggle-label" for="toggle"></label>
+                          <label className="toggle-label" htmlFor="toggle"></label>
                         </div>
                         <p>Remember me</p>
                      </div>
@@ -385,14 +380,7 @@ const handleLogin = async () => {
               <div>
               <p>Smart People</p> 
               <p>Smart Solutions</p>
-            
               </div>
-              
-              {/* <div>
-                <button className="hidden" onClick={() => setIsSignUp(false)}>
-                Sign In
-              </button></div> */}
-              
             </div>
             <div className="toggle-panel toggle-right">
             <img src={dvtLogo} alt="dvt"/>
@@ -406,15 +394,12 @@ const handleLogin = async () => {
                   setFormData(prev => ({
                     email: "",
                     password: "",
-                  
                   }))
                   setErrors({})
                 }}
                 >
                 Sign Up
               </button>
-
-              
               </div>
             </div>
           </div>
@@ -426,5 +411,3 @@ const handleLogin = async () => {
 }
 
 export default Signup;
-
-
