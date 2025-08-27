@@ -229,7 +229,7 @@ function Signup() {
   return (
     <>
     <div className="LoginApp">
-      <div className={`login-container ${isSignUp ? "active" : ""}`}>
+      <div className={`login-container ${isSignUp ? "login-active" : ""}`}>
         {/* Sign Up Form */}
         <div className="form-container sign-up">
           <form onSubmit={handleSubmit}>

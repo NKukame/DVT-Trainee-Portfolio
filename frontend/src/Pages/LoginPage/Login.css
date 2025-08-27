@@ -186,7 +186,7 @@ h1 {
     
 }
 
-.login-container.active .sign-in {
+.login-container.login-active .sign-in {
     transform: translateX(100%);
     
 }
@@ -215,7 +215,7 @@ h1 {
 }
 
 
-.login-container.active .sign-up {
+.login-container.login-active .sign-up {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
@@ -244,7 +244,7 @@ h1 {
     z-index: 1000;
 }
 
-.login-container.active .toggle-login-container{
+.login-container.login-active .toggle-login-container{
     transform: translateX(-100%);
 
 }
@@ -412,7 +412,7 @@ h1 {
     transition: all 0.6s ease-in-out;
 }
 
-.login-container.active .login-toggle {
+.login-container.login-active .login-toggle {
     transform: translateX(50%);
 }
 
@@ -441,7 +441,7 @@ h1 {
     transform: translateX(-200%);
 }
 
-.login-container.active .toggle-left {
+.login-container.login-active .toggle-left {
     transform: translateX(0);
 }
 
@@ -453,7 +453,7 @@ h1 {
     gap: 20px;
 }
 
-.login-container.active .toggle-right {
+.login-container.login-active .toggle-right {
     transform: translateX(200%);
 }
 
