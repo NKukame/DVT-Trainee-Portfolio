@@ -142,22 +142,39 @@ export default async function EditUserController(req, res) {
 
     if (req.body.techStack && Array.isArray(req.body.techStack)) {
       for (const stack of req.body.techStack) {
-        await prisma.employeeTechStack.upsert({
-          where: {
-            employeeId_techStackId: {
-              employeeId: id,
-              techStackId: stack.techStack?.id || stack.techStackId,
+        let techStackId = stack.techStack?.id || stack.techStackId;
+
+        // If techStackId is missing but name is present, look it up
+        if (!techStackId && stack.techStack?.name) {
+          const foundTech = await prisma.techStack.findFirst({
+            where: { name: stack.techStack.name },
+          });
+          techStackId = foundTech?.id;
+        }
+
+        // Only upsert if we have a valid techStackId
+        if (techStackId) {
+          await prisma.employeeTechStack.upsert({
+            where: {
+              employeeId_techStackId: {
+                employeeId: id,
+                techStackId: techStackId,
+              },
             },
-          },
-          update: {
-            Techrating: stack.Techrating,
-          },
-          create: {
-            employeeId: id,
-            techStackId: stack.techStack?.id || stack.techStackId,
-            Techrating: stack.Techrating,
-          },
-        });
+            update: {
+              Techrating: stack.Techrating,
+            },
+            create: {
+              employeeId: id,
+              techStackId: techStackId,
+              Techrating: stack.Techrating,
+            },
+          });
+        }
+        // Optionally, handle the case where techStackId is still missing
+        // else {
+        //   // log or skip
+        // }
       }
     }
 

@@ -4,6 +4,7 @@ import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
 import "./EditProfile.css";
 import axios from "axios";
+import techStack from "./EditJSON/techstack.json"
 
 /**
  * EditProfile is a React component that renders a form for editing user profile information.
@@ -187,6 +188,16 @@ function EditProfile(prop) {
       career: [
         ...prev.career,
         { role: '', company: '', duration: '' },
+      ],
+    }));
+  };
+
+  const handleAddTechStack = () => {
+    setFormData((prev) => ({
+      ...prev,
+      techStack: [
+        ...prev.techStack,
+        { Techrating: 1, techStack: { name: "" } },
       ],
     }));
   };
@@ -424,7 +435,9 @@ function EditProfile(prop) {
                 {formData.education.map((edu, idx) => (
                   <div key={idx} className="education-section">
                     <div className="edit-form-group">
-                      <label className="form-label">Qualification {idx + 1}</label>
+                      <label className="form-label">
+                        Qualification {idx + 1}
+                      </label>
                       <input
                         type="text"
                         value={edu.qualification || ""}
@@ -439,7 +452,9 @@ function EditProfile(prop) {
                     </div>
 
                     <div className="edit-form-group">
-                      <label className="form-label">Institution {idx + 1}</label>
+                      <label className="form-label">
+                        Institution {idx + 1}
+                      </label>
                       <input
                         type="text"
                         value={edu.institution || ""}
@@ -491,23 +506,51 @@ function EditProfile(prop) {
                             ? `Rating: ${tech.Techrating}`
                             : "Rating: 1"}
                         </span>
-
-                        <span
-                          className="badge-default"
-                          style={{
-                            marginRight: 8,
-                            width: "fit-content",
-                            height: "fit-content",
-                            display: "flex",
-                            marginBottom: 7,
-                          }}
-                        >
-                          {tech.techStack?.name}
-                        </span>
+                        {tech.techStack?.name ? (
+                          <span
+                            className="badge-default"
+                            style={{
+                              marginRight: 8,
+                              width: "fit-content",
+                              height: "fit-content",
+                              display: "flex",
+                              marginBottom: 7,
+                            }}
+                          >
+                            {tech.techStack.name}
+                          </span>
+                        ) : (
+                          <select
+                            value={tech.techStack?.name || ""}
+                            className="new-tech-stack-edit-select"
+                            onChange={(e) =>
+                              handleTechStackChange(idx, "techStack", {
+                                name: e.target.value,
+                              })
+                            }
+                          >
+                            <option value="" disabled>
+                              Select Tech Stack
+                            </option>
+                            {techStack.map((stack, i) => (
+                              <option key={i} value={stack.name}>
+                                {stack.name}
+                              </option>
+                            ))}
+                          </select>
+                        )}
                       </div>
                     ))}
                   </div>
+                  
                 </div>
+                <button
+                    type="button"
+                    className="edit-profile-add-btn"
+                    onClick={handleAddTechStack}
+                  >
+                    Add Tech Stack +
+                  </button>
               </div>
 
               <div className="edit-left-form-section">
