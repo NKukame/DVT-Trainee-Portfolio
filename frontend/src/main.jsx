@@ -8,7 +8,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { RefineThemes } from "@refinedev/mui";
 import { ThemedLayoutV2, ThemedTitleV2 } from "@refinedev/mui";
 
-// ... your imports
 import './styles.css'
 import Home from './Pages/HomePage/Home.jsx'
 import About from './Pages/AboutPage/About.jsx';
@@ -19,6 +18,7 @@ import ProfileCreation from './Pages/ProfileCreation/ProfileCreation.jsx';
 import Search from './Pages/SearchPage/Search.jsx';
 import GenerateCV from './Pages/GenerateCV/GenerateCV.jsx';
 import ForgotPassword from './components/BadgeComp/ForgotPassword.jsx';
+import EditProfile from './Pages/EditProfile/EditProfile.jsx';
 import { DarkModeProvider } from './components/DarkModeComp/DarkModeProvider.jsx';
 import { SearchContextProvider } from './contexts/SearchContext.jsx';
 import { dataProvider } from "./providers/dataProvider";
@@ -51,14 +51,26 @@ import { ThemedSiderV2, RefineSnackbarProvider, useNotificationProvider, } from 
 import { Link } from "react-router";
 
 
-
-// Your ProtectedRoutes component
-
-
+import { createTheme } from "@mui/material/styles";
+// make the primary color gray
+const overriddenLightTheme = createTheme({
+  ...RefineThemes.Blue,
+  palette: {
+    ...RefineThemes.Blue.palette,
+    primary: {
+      main: "#282828",
+      light: "#282828",
+      
+    },
+    secondary: {
+      main: "#2f82f1",
+    },
+  },
+});
 const App = () => {
   return (
     <BrowserRouter>
-    <ThemeProvider theme={RefineThemes.Blue} >
+    <ThemeProvider theme={overriddenLightTheme} >
       <CssBaseline />
       <GlobalStyles />
       <SearchContextProvider>
@@ -126,6 +138,7 @@ const App = () => {
                 <Route path="/portfolio" element={<About />} />
                 <Route path="/userportfolio" element={<UserPortfolio />} />
                 <Route path="/generate-cv" element={<GenerateCV />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
                 
                 {/* Dashboard routes */}
                 <Route
@@ -154,7 +167,6 @@ const App = () => {
                         )}
                       
 
-                      Header={() => <></>}
                        >
                         <Outlet />
                       </ThemedLayoutV2>
