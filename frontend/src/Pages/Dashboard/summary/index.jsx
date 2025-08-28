@@ -66,11 +66,12 @@ export const DashboardSummary = () => {
     filters: [{ field: "available", operator: "eq", value: true }],
   });
 
+  console.log(availableList);
   const totalEmployees = employeeList?.total ?? 0;
   const totalUsers = userList?.total ?? 0;
   const totalProjects = projectList?.total ?? 0;
   const totalTech = techList?.total ?? 0;
-  const availableEmployees = availableList?.total ?? 0;
+  const availableEmployees = availableList?.data?.length ?? 0;
   const availabilityPct = totalEmployees
     ? Math.round((availableEmployees / totalEmployees) * 100)
     : 0;
