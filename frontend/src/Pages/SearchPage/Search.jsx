@@ -4,6 +4,7 @@ import SearchResults from "../../components/SearchResultsComp/SearchResults";
 import SearchBar from "../../components/SearchBarComp/SearchBar";
 import { SearchContextProvider } from "../../contexts/SearchContext";
 function Search() {
+  
   return (
     <section className="flex-col align-items-center justify-items-center gap-24-px m-20-px mobile-search">
       <SearchBar />

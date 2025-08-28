@@ -131,70 +131,76 @@ function GenerateCV() {
               </div>
             </div>
 
-            <div className="generate-cv-education-section">
-              <div className="generate-cv-education-items">
-                <h2>Education</h2>
-                <ul>
-                  {(Array.isArray(location.state.emp_education)
-                    ? location.state.emp_education
-                    : [location.state.emp_education]
-                  ).map((edu, idx) => (
-                    <li key={idx}>
-                      {edu.qualification} - {edu.institution}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="generate-cv-education-items">
-                <h2>Certificates</h2>
-                <ul>
-                  {location.state.certificates.map((cert, idx) => (
-                    <li key={idx}>
-                      {cert.name} - {cert.institution}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="generate-cv-education-items">
-                <h2>Industry</h2>
-                <ul>
-                  {(() => {
-                    const industries = [
-                      ...new Set(
-                        location.state.projects.flatMap((proj) =>
-                          proj.project.industries.flatMap((ind) =>
-                            ind.project.industries.map(
-                              (item) => item.industry.name,
-                            ),
-                          ),
+              <div className="generate-cv-education-section">
+                <div className="generate-cv-education-items">
+                  <h2>Education</h2>
+                  <ul>
+                    {(Array.isArray(location.state.emp_education || location.state.education)
+                      ? (location.state.emp_education || location.state.education)
+                      : [location.state.emp_education || location.state.education]
+                    ).filter(edu => edu).map((edu, idx) => (
+                      <li key={idx}>
+                        {edu?.qualification || 'N/A'} - {edu?.institution || 'N/A'}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="generate-cv-education-items">
+                  <h2>Certificates</h2>
+                  <ul>
+                  {(location.state.certificates || []).map((cert, idx) => (
+                        <li key={idx}>
+                          {cert?.name || 'N/A'} - {cert?.institution || 'N/A'}
+                        </li>
+                      ))}</ul>
+                </div>
+                <div className="generate-cv-education-items">
+                  <h2>Industry</h2>
+                  <ul>
+                    {(() => {
+                      const industries = [
+                        ...new Set(
+                          (location.state.projects || []).flatMap((proj) => {
+                            // Handle both data structures
+                            const projectIndustries = proj.project?.industries || [];
+                            return projectIndustries.flatMap((ind) => {
+                              // Structure from /api/me: ind.industry.name
+                              if (ind?.industry?.name) {
+                                return ind.industry.name;
+                              }
+                              // Structure from search results: ind.project.industries[].industry.name
+                              if (ind?.project?.industries) {
+                                return ind.project.industries.map(item => item?.industry?.name || 'Unknown');
+                              }
+                              return 'Unknown';
+                            });
+                          })
                         ),
-                      ),
-                    ];
-                    return industries.length > 0 ? (
-                      industries.map((industry, idx) => (
-                        <li key={idx}>{industry}</li>
-                      ))
-                    ) : (
-                      <li>N/A</li>
-                    );
-                  })()}
-                </ul>
-              </div>
-              <div className="generate-cv-education-items">
-                <h2>Soft Skills</h2>
-                <div className="generate-cv-education-items-soft-skills">
-                  <CVPolarChart user={location.state} />
+                      ];
+                      return industries.length > 0 ? (
+                        industries.map((industry, idx) => (
+                          <li key={idx}>{industry}</li>
+                        ))
+                      ) : (
+                        <li>N/A</li>
+                      );
+                    })()}
+                  </ul>
+                </div>
+                <div className="generate-cv-education-items">
+                  <h2>Soft Skills</h2>
+                  <div className='generate-cv-education-items-soft-skills'>
+
+                    <CVPolarChart user={location.state} />
+                  </div>
                 </div>
               </div>
-            </div>
-          </aside>
-        </div>
-        <button className="download-pdf" onClick={() => toPDF()}>
-          Download PDF
-        </button>
-      </section>
-    </>
-  );
+            </aside>
+          </div>
+          <button className='download-pdf' onClick={() => toPDF()}>Download PDF</button>
+        </section>
+      </>
+    );
 }
 
 export default GenerateCV;

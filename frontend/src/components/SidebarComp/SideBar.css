@@ -70,12 +70,12 @@
 }
 
 /* Change to four once you remove the login from the sidebar */
-.sidebar-container-content .sidebar-nav-link:nth-child(4) {
-  transform: translateX(4%);
+.sidebar-container-content .sidebar-nav-link:nth-child(3){
+    transform: translateX(4%);
 }
 
-.sidebar-container:hover .sidebar-nav-link:nth-child(4) {
-  transform: translateX(0);
+.sidebar-container:hover  .sidebar-nav-link:nth-child(3){
+    transform: translateX(0);
 }
 
 .sidebar-container:hover .sidebar-container-content,
@@ -164,14 +164,14 @@
   color: var(--light-blue);
 }
 
-.sidebar-bottom {
-  width: 100%;
-  margin-right: 13%;
-  margin-top: auto;
-  text-align: center;
-  /* This might be a problem */
-  margin-bottom: 20px;
-  color: var(--light-blue);
+.sidebar-bottom{
+    /* width: 100%; */
+    margin-right: 13%;
+    margin-top: auto;
+    text-align: center;
+    /* This might be a problem */
+    margin-bottom: 20px;
+    color: var(--light-blue);
 }
 
 .sidebar-bottom .homeBtn:hover {
@@ -192,6 +192,7 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  /* border-radius: 50% ; */
 }
 
 .profile-icon:hover {

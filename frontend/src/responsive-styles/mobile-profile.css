@@ -2,6 +2,7 @@
   .stepper-container {
     width: 99vw;
     margin: 0;
+    border-radius: 0px;
   }
   .step-text {
     display: none;
@@ -24,6 +25,9 @@
   }
   .profile-creation-header {
     margin: 5px;
+    position: sticky;
+    top: 11.1%;
+    z-index: 300;
   }
 
   /*basic form styles*/
@@ -74,6 +78,7 @@
 
   .form-group {
     margin: 10px 0px;
+    width: 100%;
   }
   .skills-dropdown {
     position: initial;
@@ -98,5 +103,34 @@
   }
   .profile-creation-content-forms-container {
     display: block;
+  }
+
+  .submit-form-text-section {
+    flex-direction: column;
+  }
+
+  .fomr-label {
+    width: initial;
+    font-size: initial;
+  }
+
+  .submit-form-group.form-description {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .mobile-skills.submit-form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mobile-agreement {
+    font-size: medium;
+  }
+
+  .form-label.form-title-description {
+    font-weight: 700;
+    font-size: larger;
   }
 }

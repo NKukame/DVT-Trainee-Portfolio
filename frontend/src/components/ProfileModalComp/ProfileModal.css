@@ -24,8 +24,8 @@
   border: 1px solid var(--userText-GrayText);
    /* top: 0;
   left: 0; */
-  right: 1271px;
-  bottom: 16px;
+  right: 1110px;
+  bottom: 24px;
 }
 
 .dark-mode .profile-modal-content {
@@ -172,4 +172,12 @@
 
 .dark-mode .toggle-content svg {
   color: var(--white);
+}
+
+/* Custom loader for ProfileModal in dark mode */
+.dark-mode .profile-modal-user-info .form-loader {
+  background: 
+    radial-gradient(farthest-side, #ffffff 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #ffffff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
 }

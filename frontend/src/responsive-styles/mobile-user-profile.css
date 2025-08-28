@@ -13,18 +13,23 @@
 
   .project-container {
     width: initial;
+    padding: 0px;
+    min-height: initial;
+    border-radius: 0;
+  }
+
+  .tab{
+    font-weight: 300;
+  }
+  .profile-overview-container {
+    gap: 10px;
     padding: 10px;
   }
 
-  .profile-overview-container {
-    gap: 10px;
-  }
-
   .tab-head-container {
-    font-size: medium;
     position: sticky;
-    top: 11.2%;
-    background: linear-gradient(180deg, #04223d 0%, #02111e 100%);
+    top: 11.1%;
+    background: inherit;
   }
   .profile-overview-text {
     font-size: 1rem;
@@ -34,14 +39,17 @@
 
   .profile-overview-title {
     font-size: 1.7rem;
-    display: none;
     font-weight: 600;
     align-self: baseline;
     margin-block: initial;
     margin: initial;
   }
+.overview-video-carousel{
+  display: none;
+}
 
   .profile-overview-ft-Projects {
+    display: none;
     font-size: 1.7rem;
     font-weight: 600;
     width: 98%;
@@ -138,7 +146,7 @@
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-    background: linear-gradient(180deg, #04223d 0%, #02111e 100%);
+    background: inherit;
     padding-bottom: 15px;
   }
   .mobile-profile-pic {
@@ -158,6 +166,7 @@
     align-items: center;
     justify-content: space-between;
   }
+
   .mobile-socials {
     border-bottom: 1px solid #d4d4d440;
   }
@@ -175,12 +184,16 @@
     font-size: 1.5rem;
     font-weight: 500;
   }
-
+  
+  .profile-img{
+    border-radius: 50%;
+  }
+  
   .profile-role {
     font-weight: 300;
     margin: 0;
   }
-
+  
   .dark-mode .proficiency-list .skill-tag {
     border: none;
   }
@@ -199,16 +212,30 @@
   .dark-mode .project-tag {
     border: solid 1px #d4d4d440;
   }
-
+  
   .mobile-user-exeperience {
     padding-bottom: 10px;
   }
   .user-caption {
-    align-items: start;
+    align-items: center;
     gap: 20px;
-    background: #052b4c3d;
+    flex-direction: column;
+    background: inherit;
   }
   .dark-mode .tab-head-container {
     border: none;
+  }
+
+  .profile-edit-btn{
+    background: inherit;
+    border: none;
+    color: inherit;
+  }
+  .user-role{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
   }
 }

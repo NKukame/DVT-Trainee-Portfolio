@@ -45,15 +45,9 @@ function Dashboard(props) {
           </div>
 
           <div className="profile-info">
-            {id === tokenID ? (
-              <Link to="/profile-creation" state={props.testEmployee}>
+            {id === tokenID && (
+              <Link to="/edit-profile" state={props.testEmployee}>
                 <button className="manage-prfl">Edit Profile</button>
-              </Link>
-            ) : (
-              <Link to="/profile-creation" state={props.testEmployee}>
-                <button className="manage-prfl disabled" disabled>
-                  Edit Profile
-                </button>
               </Link>
             )}
             <Link to="/generate-cv" state={props.testEmployee}>
@@ -61,7 +55,6 @@ function Dashboard(props) {
             </Link>
             <div className="profile-details">
               <p>
-                {/* <Activity size={15} className="dashboard-icon" /> */}
                 <CalendarCheck size={15} className="dashboard-icon" />
                 {props.testEmployee.availability === null
                   ? "Not filled / N/A"
@@ -77,9 +70,9 @@ function Dashboard(props) {
               </p>
               <p>
                 <Award size={15} className="dashboard-icon" />
-                {props.testEmployee.experienced
-                  ? props.testEmployee.experienced
-                  : "Not filled / N/A "}
+                {props.testEmployee?.experience ||
+                  props.testEmployee?.experienced ||
+                  "Not filled / N/A "}
               </p>
             </div>
           </div>
@@ -95,17 +88,23 @@ function Dashboard(props) {
           </div>
         </div>
         <footer className="footer">
-          <Link to={props.testEmployee.github}>
-            <img src={Github} alt="GitHub" className="socials" />
-          </Link>
+          {props.testEmployee.github && (
+            <Link target="_blank" to={props.testEmployee.github}>
+              <img src={Github} alt="GitHub" className="socials" />
+            </Link>
+          )}
 
-          <Link to={props.testEmployee.linkedIn}>
-            <img src={LinkedIn} alt="LinkedIn" className="socials" />
-          </Link>
+          {props.testEmployee.linkedIn && (
+            <Link target="_blank" to={props.testEmployee.linkedIn}>
+              <img src={LinkedIn} alt="LinkedIn" className="socials" />
+            </Link>
+          )}
 
-          <Link to={`mailto: ${props.testEmployee.email}`}>
-            <img src={Email} alt="Email" className="socials" />
-          </Link>
+          {props.testEmployee.email && (
+            <Link to={`mailto: ${props.testEmployee.email}`}>
+              <img src={Email} alt="Email" className="socials" />
+            </Link>
+          )}
         </footer>
       </div>
     </>

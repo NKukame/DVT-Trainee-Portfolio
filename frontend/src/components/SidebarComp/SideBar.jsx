@@ -30,11 +30,10 @@ function SideBar() {
       console.log("our Api call", response);
       if (response.ok) {
         const userData = await response.json();
-        console.log("our Api call", userData);
-        const profilePictureUrl = userData.profilePicture
-          ? userData.profilePicture.startsWith("data:")
-            ? userData.profilePicture
-            : `http://localhost:3000${userData.profilePicture}`
+        const profilePictureUrl = userData.profilePicture 
+          ? (userData.profilePicture.startsWith('data:') 
+              ? userData.profilePicture 
+              : `http://localhost:3000${userData.profilePicture}`)
           : null;
 
         setUserInfo({
@@ -88,7 +87,8 @@ function SideBar() {
             </Link>
           </div>
 
-          <div className="sidebar-nav-link">
+
+          {/* <div className="sidebar-nav-link">
             <Link to="/portfolio">
               <div className="homeBtn">
                 <svg
@@ -109,7 +109,7 @@ function SideBar() {
                 <p className="home-txt">Profile</p>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           <div className="sidebar-nav-link">
             <Link to="/about">

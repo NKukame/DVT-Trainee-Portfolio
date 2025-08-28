@@ -23,10 +23,10 @@ function SubmitForm({
     .filter((idx) => stepData[idx] && stepData[idx].title !== "Submit")
     .map((idx) => stepData[idx]?.title);
 
-  // const simpleUser = user.map((u) => u.id);
-  // console.log(simpleUser);
-  const editUser = localStorage.getItem("user").split(`"`)[1];
-  console.log(editUser);
+    // const simpleUser = user.map((u) => u.id);
+    // console.log(simpleUser);
+    const editUser = localStorage.getItem('userId').split(`"`)[1];
+    console.log(editUser);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
