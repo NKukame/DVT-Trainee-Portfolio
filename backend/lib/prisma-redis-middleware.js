@@ -17,11 +17,10 @@ const redis = new Redis({
  */
 export async function clearCache(pattern = "*") {
   try {
-    // Get all keys matching the pattern
+  
     const keys = await redis.keys(pattern);
 
     if (keys.length > 0) {
-      // Delete all keys
       await redis.del(...keys);
       console.log(`🧹 Cleared ${keys.length} keys matching pattern: ${pattern}`);
     } else {
