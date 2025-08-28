@@ -25,8 +25,7 @@ export async function createProfileController(req, res) {
     "HR": "HR"
   };
   try {
-    const { basicInfo, skills, career, testimonials, links, status } = req.body;
-
+    const { basicInfo, skills, career, testimonials, links, status, editUser } = req.body;
     const employee = await prisma.employee.create({
       data: {
         photoUrl: (await uploadImage(basicInfo.profilePic?.image)) || null,
@@ -49,6 +48,17 @@ export async function createProfileController(req, res) {
         department: departmentMap[career.department] || "ENGINEERING",
       },
     });
+
+    await prisma.user.update({
+      where: {
+           id: editUser
+      }, 
+      data: {
+        employeeId: employee.id
+      }
+    })
+
+
 
     // Availability Table
     await prisma.availability.create({

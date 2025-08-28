@@ -13,13 +13,13 @@ import axios from "axios";
 import { Activity, Award, Calendar, CalendarCheck, MapPin, Pin, PinIcon } from "lucide-react";
 
 function Dashboard(props) {
-  console.log(props);
-  
+  const id = props.testEmployee.user.id;
+  const tokenID = localStorage.getItem("userId").split('"')[1];
   return (
     <div className="dashboard">
       <div className="profile">
         <div className="short-bio">
-          <div className="profile-picture">
+          <div className="dashboard-profile-picture">
             <img src={props.testEmployee.avatar} className="profile-img" alt="Profile" />
           </div>
 
@@ -31,9 +31,13 @@ function Dashboard(props) {
         </div>
 
         <div className="profile-info">
-          <Link to="/profile-creation">
+          { id === tokenID ? 
+          <Link to="/edit-profile" state={props.testEmployee}>
             <button className="manage-prfl">Edit Profile</button>
-          </Link>
+          </Link> 
+          : 
+            <button className="manage-prfl disabled" disabled>Edit Profile</button>
+          }
           <Link to="/generate-cv" state={props.testEmployee}>
             <button className="manage-prfl" >Generate Resume</button>
           </Link>
@@ -50,7 +54,7 @@ function Dashboard(props) {
             </p>
             <p>
               <Award size={15} className="dashboard-icon" />
-              {props.testEmployee.experienced ? props.testEmployee.experienced : "Not filled / N/A "} 
+              {props.testEmployee?.experience || props.testEmployee?.experienced || "Not filled / N/A "} 
             </p>
           </div>
         </div>

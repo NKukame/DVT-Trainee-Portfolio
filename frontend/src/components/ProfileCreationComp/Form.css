@@ -164,6 +164,7 @@ label, h3{
 }
 
 .custom-dropdown-toggle {
+  color: var(--dark-mode-buttonText);
   padding: 10px;
   border: 1px solid var(--progress-bar-gray);
   border-radius: 6px;
@@ -190,6 +191,7 @@ label, h3{
   background: var(--white);
   width: 100%;
   border: 1px solid var(--progress-bar-gray);
+  color: var(--dark-mode-buttonText);
   margin-top: 6px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -915,6 +917,7 @@ label, h3{
   border-radius: 10px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.2);
   text-align: center;
+  color: var(--navy-blue);
 }
 
 .form-group select {

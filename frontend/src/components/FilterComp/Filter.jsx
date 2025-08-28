@@ -98,7 +98,7 @@ function Filter() {
   }, [allSelectedFilters.length]);
 
   return (
-    <section className="filter-container">
+    <section className="filter-container text-lg">
       <div className="filter-section">
         <div className="filter-dropdown">
 
