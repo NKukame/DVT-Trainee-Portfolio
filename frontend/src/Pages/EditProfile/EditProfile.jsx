@@ -501,7 +501,7 @@ function EditProfile(prop) {
                             )
                           }
                         />
-                        <span style={{ marginLeft: "10px" }}>
+                        <span style={{ marginLeft: "10px" }} className="tech-rating-edit-label">
                           {tech.Techrating
                             ? `Rating: ${tech.Techrating}`
                             : "Rating: 1"}
@@ -619,7 +619,7 @@ function EditProfile(prop) {
                             )
                           }
                         />
-                        <span style={{ marginLeft: "10px" }}>
+                        <span style={{ marginLeft: "10px" }} className="skills-rating-edit-label">
                           {skill.skillsRating
                             ? `Rating: ${skill.skillsRating}`
                             : "Rating: 1"}
