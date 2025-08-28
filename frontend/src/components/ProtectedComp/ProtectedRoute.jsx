@@ -6,15 +6,19 @@ import MobileDock from "../SidebarComp/MobileNavDock";
 export default function ProtectedRoutes() {
   const token = localStorage.getItem("token");
   return (
+
     <>
-      <div className="app-layout">
-        <SideBar />
-        <MobileNavbar />
-        <div className="app-layout-body">
-          <Outlet />
+      {
+        !token ? <Navigate to={'/'} replace/> :
+        <div className="app-layout">
+          <SideBar />
+          <MobileNavbar />
+          <div className="app-layout-body">
+            <Outlet />
+          </div>
+          <MobileDock />
         </div>
-        <MobileDock />
-      </div>
+      }
     </>
   );
 }

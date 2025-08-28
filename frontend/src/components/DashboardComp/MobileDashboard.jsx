@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import Github from "../../assets/icons8-github-100.png";
 import LinkedIn from "../../assets/icons8-linkedin-100.png";
 import Email from "../../assets/icons8-email-100.png";
+import { Edit05 } from "@untitled-ui/icons-react";
 
 export function MobileDashboard({ user, tokenID, id }) {
   return (
@@ -25,26 +26,30 @@ export function MobileDashboard({ user, tokenID, id }) {
               className="profile-img"
             />
           </div>
-          <div className="profile-info">
-            {id === tokenID ? (
-              <Link to="/profile-creation" state={user.testEmployee}>
-                <button className="manage-prfl">Edit Profile</button>
-              </Link>
-            ) : (
-              <Link to="/profile-creation" state={user.testEmployee}>
-                <button className="manage-prfl disabled" disabled>
-                  Edit Profile
-                </button>
-              </Link>
-            )}
-            <Link to="/generate-cv" state={user.testEmployee}>
-              <button className="manage-prfl">Generate Resume</button>
-            </Link>
-          </div>
         </div>
         <div className="mobile-name-availability">
           <p className="profile-name">{user.testEmployee.name}</p>
-          <p>
+          <div className="profile-edit-icon">
+            <Link to="/edit-profile" state={user.testEmployee}>
+              <button className="profile-edit-btn"><Edit05/></button>
+            </Link>
+            
+          </div>
+          
+        </div>
+        <div className="mobile-user-exeperience">
+          <div className="user-role">
+            <p className="profile-role">
+              <strong>{user.testEmployee.role}</strong>
+            </p>
+            <p className="profile-role">
+              <Award size={15} className="dashboard-icon" />
+              {user.testEmployee.experienced
+                ? user.testEmployee.experienced
+                : "Not filled / N/A "}
+            </p>
+          </div>
+          <p className="profile-role">
             {/* <Activity size={15} className="dashboard-icon" /> */}
             <CalendarCheck size={15} className="dashboard-icon" />
             {user.testEmployee.availability === null
@@ -54,19 +59,8 @@ export function MobileDashboard({ user, tokenID, id }) {
                 : "Not Available"}
           </p>
         </div>
-        <div className="mobile-user-exeperience">
-          <p className="profile-role">
-            <strong>{user.testEmployee.role}</strong>
-          </p>
-          <p>
-            <Award size={15} className="dashboard-icon" />
-            {user.testEmployee.experienced
-              ? user.testEmployee.experienced
-              : "Not filled / N/A "}
-          </p>
-        </div>
         <div className="mobile-socials">
-          <p>
+          <p className="profile-role">
             <MapPin size={15} className="dashboard-icon" />
             {user.testEmployee.location
               ? user.testEmployee.location

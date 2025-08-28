@@ -29,7 +29,7 @@
   .tab-head-container {
     position: sticky;
     top: 11.1%;
-    background: linear-gradient(180deg, #04223D 100%, #02111E 100%);
+    background: inherit;
   }
   .profile-overview-text {
     font-size: 1rem;
@@ -146,7 +146,7 @@
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-    background: linear-gradient(180deg, #04223d 0%, #02111e 100%);
+    background: inherit;
     padding-bottom: 15px;
   }
   .mobile-profile-pic {
@@ -166,6 +166,7 @@
     align-items: center;
     justify-content: space-between;
   }
+
   .mobile-socials {
     border-bottom: 1px solid #d4d4d440;
   }
@@ -183,12 +184,16 @@
     font-size: 1.5rem;
     font-weight: 500;
   }
-
+  
+  .profile-img{
+    border-radius: 50%;
+  }
+  
   .profile-role {
     font-weight: 300;
     margin: 0;
   }
-
+  
   .dark-mode .proficiency-list .skill-tag {
     border: none;
   }
@@ -207,16 +212,30 @@
   .dark-mode .project-tag {
     border: solid 1px #d4d4d440;
   }
-
+  
   .mobile-user-exeperience {
     padding-bottom: 10px;
   }
   .user-caption {
-    align-items: start;
+    align-items: center;
     gap: 20px;
-    background: #052b4c3d;
+    flex-direction: column;
+    background: inherit;
   }
   .dark-mode .tab-head-container {
     border: none;
+  }
+
+  .profile-edit-btn{
+    background: inherit;
+    border: none;
+    color: inherit;
+  }
+  .user-role{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
   }
 }
