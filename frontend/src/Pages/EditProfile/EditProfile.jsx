@@ -23,7 +23,7 @@ function EditProfile(prop) {
     department: location.state.department || "",
     title: location.state.title || "",
     name: location.state.name?.split(" ")[0] || "",
-    photoUrl: location.state.avatar || "",
+    photoUrl: location.state.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     surname: location.state.surname || "",
     email: location.state.email || "",
     phone: location.state.phone || "",
@@ -36,8 +36,8 @@ function EditProfile(prop) {
     linkedIn: location.state.linkedIn || "",
     portfolio: location.state.portfolio || "",
     availability: Array.isArray(location.state.availability)
-      ? location.state.availability
-      : [location.state.availability],
+      ? location.state.availability[0]
+      : location.state.availability || "",
     education: Array.isArray(location.state.education || location.state.emp_education)
       ? (location.state.education || location.state.emp_education)
       : (location.state.education || location.state.emp_education)
