@@ -8,7 +8,11 @@ import forgotPassword from '../controllers/ForgotPasswordController.js';
 import { deleteProjectController, deleteProfileController } from '../controllers/DeleteController.js';
 import signup from '../controllers/SignupController.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
+import EditUserController from '../controllers/EditUserController.js';
+import MeController from '../controllers/MeController.js';
+import { UpdateUserController } from '../controllers/UpdateUserController.js';
 import { resetPassword } from '../controllers/ForgotPasswordController.js';
+
 
 const totalRoutes = express.Router();
 
@@ -147,6 +151,78 @@ totalRoutes.post('/register', signup);
 
 /**
  * @swagger
+ * /api/me:
+ *   get:
+ *     summary: Get current authenticated user information
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Current user information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: clw0z2k480000v8l5hnhn61ny
+ *                 firstName:
+ *                   type: string
+ *                   example: John
+ *                 lastName:
+ *                   type: string
+ *                   example: Doe
+ *                 email:
+ *                   type: string
+ *                   example: user@dvtsoftware.com
+ *                 profilePicture:
+ *                   type: string
+ *                   nullable: true
+ *                   example: https://example.com/profile.jpg
+ *       401:
+ *         description: Token missing or invalid
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
+totalRoutes.get('/api/me', authenticateToken, MeController);
+
+/**
+ * @swagger
+ * /api/user:
+ *   put:
+ *     summary: Update user's basic information (firstName, lastName)
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 example: Victor
+ *               lastName:
+ *                 type: string
+ *                 example: Khumalo
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *       401:
+ *         description: Token missing or invalid
+ *       500:
+ *         description: Server error
+ */
+totalRoutes.put('/api/user', authenticateToken, UpdateUserController);
+
+/**
+ * @swagger
  * /create-profile:
  *   post:
  *     summary: Create a new user profile
@@ -188,6 +264,8 @@ totalRoutes.post('/register', signup);
  *                   example: profile creation
  */
 totalRoutes.post('/create-profile', createProfileController); //done
+
+totalRoutes.patch('/profile', authenticateToken, EditUserController); //done
 
 /**
  * @swagger

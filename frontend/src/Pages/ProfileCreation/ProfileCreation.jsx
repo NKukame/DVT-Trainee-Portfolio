@@ -1,5 +1,3 @@
-import "../../styles.css";
-import "./ProfileCreation.css";
 import SideBar from "../../components/SidebarComp/SideBar";
 import Stepper from "../../components/ProfileCreationComp/Stepper";
 import { useState } from "react";
@@ -12,9 +10,7 @@ import StatusForm from "../../components/ProfileCreationComp/StatusForm";
 import SubmitForm from "../../components/ProfileCreationComp/SubmitForm";
 import { Save, X } from "lucide-react";
 
-
 function ProfileCreation() {
-  
   const [stepData, setStepData] = useState([
     {
       title: "Basic Information",
@@ -47,7 +43,7 @@ function ProfileCreation() {
     },
   ]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [visitedSteps, setVisitedSteps] = useState([0]); 
+  const [visitedSteps, setVisitedSteps] = useState([0]);
   const [formData, setFormData] = useState({
     basicInfo: {},
     skills: {},
@@ -73,7 +69,7 @@ function ProfileCreation() {
   const isSkillsIncomplete = (data) => {
     const hasEducation = Array.isArray(data.educationEntries)
       ? data.educationEntries.some(
-          (entry) => entry.qualification && entry.institution
+          (entry) => entry.qualification && entry.institution,
         )
       : false;
 
@@ -83,7 +79,7 @@ function ProfileCreation() {
 
     const allTechHasExperience = hasTech
       ? data.selectedTechnologies.every(
-          (tech) => data.techExperience && data.techExperience[tech]
+          (tech) => data.techExperience && data.techExperience[tech],
         )
       : false;
 
@@ -93,7 +89,7 @@ function ProfileCreation() {
   const isCareerIncomplete = (data) => {
     if (!Array.isArray(data.careerEntries)) return true;
     return !data.careerEntries.some(
-      (entry) => entry.role && entry.company && entry.duration
+      (entry) => entry.role && entry.company && entry.duration,
     );
   };
 
@@ -117,23 +113,30 @@ function ProfileCreation() {
   };
 
   const incompleteSteps = getIncompleteSteps();
-  
+
   const handleStepChange = (index) => {
     setCurrentStep(index);
     setVisitedSteps((visited) =>
-      visited.includes(index) ? visited : [...visited, index]
+      visited.includes(index) ? visited : [...visited, index],
     );
   };
 
   const handleNext = () => {
-    const stepKeys = ["basicInfo", "skills", "career", "testimonials", "links", "status"];
+    const stepKeys = [
+      "basicInfo",
+      "skills",
+      "career",
+      "testimonials",
+      "links",
+      "status",
+    ];
     const currentKey = stepKeys[currentStep];
     console.log(`Current Step (${currentKey}) Data:`, formData[currentKey]);
     if (currentStep < stepData.length - 1) {
       setCurrentStep((prev) => {
         const nextStep = prev + 1;
         setVisitedSteps((visited) =>
-          visited.includes(nextStep) ? visited : [...visited, nextStep]
+          visited.includes(nextStep) ? visited : [...visited, nextStep],
         );
         return nextStep;
       });
@@ -223,60 +226,54 @@ function ProfileCreation() {
 
   return (
     <>
-      <div className="app-layout">
-        <SideBar />
+      <div className="profile-creation-body">
+        <div className="profile-creation-header">
+          <Stepper
+            currentStep={currentStep}
+            stepData={stepData}
+            setCurrentStep={handleStepChange}
+            visitedSteps={visitedSteps}
+            incompleteSteps={incompleteSteps}
+          />
+        </div>
 
-        <div className="app-layout-body">
-          <div className="profile-creation-body">
-            <div className="profile-creation-header">
-              <Stepper
-                currentStep={currentStep}
-                stepData={stepData}
-                setCurrentStep={handleStepChange}
-                visitedSteps={visitedSteps}
-                incompleteSteps={incompleteSteps}
-              />
+        <div className="profile-creation-content">
+          <div className="profile-creation-content-header">
+            <h1>{stepData[currentStep].title}</h1>
+          </div>
+
+          <div className="profile-creation-content-forms-container">
+            {renderStepContent(currentStep)}
+          </div>
+
+          <div className="profile-creation-content-footer">
+            <div className="profile-creation-content-footer-left-sided-buttons">
+              <button className="profile-creation-cancel-btn">
+                {" "}
+                <X size={15} className="profile-creation-button-icon" />
+                Cancel
+              </button>
+              <button className="profile-creation-save-btn">
+                {" "}
+                <Save size={15} className="profile-creation-button-icon" />
+                Save & Exit
+              </button>
             </div>
 
-            <div className="profile-creation-content">
-              <div className="profile-creation-content-header">
-                <h1>{stepData[currentStep].title}</h1>
-              </div>
+            <div className="profile-creation-content-footer-page-numbers">
+              <p>Page {currentStep + 1} of 7</p>
+            </div>
 
-              <div className="profile-creation-content-forms-container">
-                {renderStepContent(currentStep)}
-              </div>
-
-              <div className="profile-creation-content-footer">
-                <div className="profile-creation-content-footer-left-sided-buttons">
-                  <button className="profile-creation-cancel-btn">
-                    {" "}
-                    <X size={15} className="profile-creation-button-icon" />
-                    Cancel
-                  </button>
-                  <button className="profile-creation-save-btn">
-                    {" "}
-                    <Save size={15} className="profile-creation-button-icon" />
-                    Save & Exit
-                  </button>
-                </div>
-
-                <div className="profile-creation-content-footer-page-numbers">
-                  <p>Page {currentStep + 1} of 7</p>
-                </div>
-
-                <div className="profile-creation-content-footer-left-sided-buttons">
-                  <button onClick={handlePrevious} disabled={currentStep === 0}>
-                    Previous
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    disabled={currentStep === stepData.length - 1}
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
+            <div className="profile-creation-content-footer-left-sided-buttons">
+              <button onClick={handlePrevious} disabled={currentStep === 0}>
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={currentStep === stepData.length - 1}
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>

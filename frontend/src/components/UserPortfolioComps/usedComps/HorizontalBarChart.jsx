@@ -15,12 +15,14 @@ import { Bar } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const HorizontalBarChart = (props) => {
+  const techStack = props.user?.techStack || [];
+  
   const data = {
-    labels: props.user.techStack.slice(0, 6).map(skill => `${skill.techStack.name}`),
+    labels: techStack.slice(0, 6).map(skill => `${skill?.techStack?.name || 'Unknown'}`),
     datasets: [
       {
         label: 'Rating',
-        data: props.user.techStack.map(rate => `${rate.Techrating}`),
+        data: techStack.map(rate => `${rate?.Techrating || 0}`),
         backgroundColor: [
             'rgba(255, 99, 132, 0.85)',
             'rgba(54, 162, 235, 0.85)',

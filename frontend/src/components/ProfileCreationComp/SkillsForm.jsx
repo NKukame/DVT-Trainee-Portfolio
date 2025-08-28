@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./Form.css";
 import techStack from "./techstack.json";
 import softSkillsData from "./SoftSkills.json";
 
@@ -24,10 +23,12 @@ function SkillsForm({ data, onChange }) {
     setSelectedSoftSkills(data.selectedSoftSkills || []);
     setSoftSkillRatings(data.softSkillRatings || {});
     setEducationEntries(
-      data.educationEntries || [{ qualification: "", institution: "" }]
+      data.educationEntries || [{ qualification: "", institution: "" }],
     );
     setCertificationEntries(
-      data.certificationEntries || [{ certificate: "", certificatesInstitution: "" }]
+      data.certificationEntries || [
+        { certificate: "", certificatesInstitution: "" },
+      ],
     );
     setTechExperience(data.techExperience || {});
   }, [data]);
@@ -35,7 +36,7 @@ function SkillsForm({ data, onChange }) {
   useEffect(() => {
     // Group techStack by category
     const grouped = {};
-    techStack.forEach(item => {
+    techStack.forEach((item) => {
       if (!grouped[item.category]) grouped[item.category] = [];
       grouped[item.category].push(item.name);
     });
@@ -137,7 +138,6 @@ function SkillsForm({ data, onChange }) {
       techExperience,
     });
   };
-  
 
   const handleEducationChange = (index, event) => {
     const { name, value } = event.target;
@@ -155,7 +155,7 @@ function SkillsForm({ data, onChange }) {
     } else {
       setEducationEntries(updated);
     }
-    
+
     onChange({
       ...data,
       selectedTechnologies,
@@ -197,7 +197,10 @@ function SkillsForm({ data, onChange }) {
       updated[index].certificate &&
       updated[index].certificatesInstitution
     ) {
-      newEntries = [...updated, { certificate: "", certificatesInstitution: "" }];
+      newEntries = [
+        ...updated,
+        { certificate: "", certificatesInstitution: "" },
+      ];
       setCertificationEntries(newEntries);
     } else {
       setCertificationEntries(updated);
@@ -445,7 +448,7 @@ function SkillsForm({ data, onChange }) {
                           })}
                         </div>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               )}

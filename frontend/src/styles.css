@@ -1,105 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap");
+@import "./components/SearchResultsComp/SearchPage.css";
+@import "./components/UserPortfolioComps/tabs/UserprofileSkillBreakdown.css";
+@import "./components/UserPortfolioComps/tabs/UserProfileOverview.css";
+@import "./components/SearchBarComp/SearchBar.css";
+
+@import "./Pages/PortfolioPage/Portfolio.css";
+@import "./components/GridViewComp/GridView.css";
+@import "./Pages/AboutPage/About.css";
+
+@import "./components/BodyComp/Body.css";
+@import "./components/SidebarComp/SideBar.css";
+
+@import "./components/FilterComp/Filter.css";
+@import "./components/ComboComp/Combo.css";
+@import "./components/SortComp/Sort.css";
+
+@import "./Pages/ProfileCreation/ProfileCreation.css";
+@import "./components/ProfileCreationComp/Stepper.css";
+@import "./components/ProfileCreationComp/Form.css";
+@import "./components/ProfileModalComp/ProfileModal.css";
+
+@import "./Pages/LoginPage/Login.css";
+
+@import "./Pages/UserPortfolioPage/UserPortfolio.css";
+@import "./components/DashboardComp/Dashboard.css";
+@import "./components/UserPortfolioComps/tabs/TabHead.css";
+@import "./components/UserPortfolioComps/tabs/UserProfileProjects.css";
+@import "./responsive-styles/mobile-login.css";
+@import "./components/UserPortfolioComps/usedComps/ClientCarousel.css";
+@import "./Pages/GenerateCV/GenerateCV.css";
+
+@import "./responsive-styles/mobile.css";
+@import "./responsive-styles/mobile-home.css";
+@import "./responsive-styles/mobile-about.css";
+@import "./responsive-styles/mobile-profile.css";
+@import "./responsive-styles/mobile-search.css";
+@import "./responsive-styles/mobile-user-profile.css";
+@import "./responsive-styles/mobile-navbar.css";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-:root{
-    --white: #FFFFFF;
-    --yellow: #FFE500;
-    --progress-bar-orange: #FFC302;
-    --progress-bar-gray: #D4D4D4;
-    --blue: #2B5876;
-    --light-blue: #027FB9;
-    --purple: #4e4376;
-    --gray: #D1D1D1;
-    --black: #000000;
-    --button-blue: #027FB9;
-    --button-blue-hover: #006492;
-    --navy-blue: #072549;
-    --cv-line-blue: #01518B;
-    --userText-grayText: rgb(82, 82, 82);
-    --addSkills-buttonText: #344054;
-    --filter-section-icon-colour: #084677;
-    --profile-creation-stepper-gray: rgb(64, 64, 64);
-    --required-asterisk: #ff0000;
-    /* Dark Mode Colors */
-    --dark-yellow: #E2BF00;
-    --dark-blue: #084677;
-    --dark-mode-blue: #052B4C;
-    --dark-cerulean: #084677;
-    --dark-gray:   #e7e5e4;
-    --dark-mode-title-white: #e5e5e5;
-    --dark-mode-paragragh-white: #fafafa;
-    --dark-mode-alt-white: #F4F5F7;
-    --dark-mode-buttonText: #052B4C;
+:root {
+  --white: #ffffff;
+  --yellow: #ffe500;
+  --progress-bar-orange: #ffc302;
+  --progress-bar-gray: #d4d4d4;
+  --blue: #2b5876;
+  --light-blue: #027fb9;
+  --purple: #4e4376;
+  --gray: #d1d1d1;
+  --black: #000000;
+  --button-blue: #027fb9;
+  --button-blue-hover: #006492;
+  --navy-blue: #072549;
+  --cv-line-blue: #01518b;
+  --userText-grayText: rgb(82, 82, 82);
+  --addSkills-buttonText: #344054;
+  --filter-section-icon-colour: #084677;
+  --profile-creation-stepper-gray: rgb(64, 64, 64);
+  --required-asterisk: #ff0000;
+  /* Dark Mode Colors */
+  --dark-yellow: #e2bf00;
+  --dark-blue: #084677;
+  --dark-mode-blue: #052b4c;
+  --dark-cerulean: #084677;
+  --dark-gray: #e7e5e4;
+  --dark-mode-title-white: #e5e5e5;
+  --dark-mode-paragragh-white: #fafafa;
+  --dark-mode-alt-white: #f4f5f7;
+  --dark-mode-buttonText: #052b4c;
 }
 
 .dark {
-  --filter-section-icon-colour: #F4F5F7; 
+  --filter-section-icon-colour: #f4f5f7;
 }
 
 /* Don't Change anything here */
-body{
-    background: linear-gradient(180deg, #E5E5E5 10%, #F9FAFB 100%);
-    /* background: linear-gradient(90deg, #F9FAFB 0%, #E5E5E5 100%); */
-    background-attachment: fixed;
-    background-size: cover;
-    font-family: "Hanken Grotesk", sans-serif;
-    color: var(--white);
-    transition: 0.5s ease-in-out;
-    
+body {
+  background: linear-gradient(180deg, #e5e5e5 10%, #f9fafb 100%);
+  /* background: linear-gradient(90deg, #F9FAFB 0%, #E5E5E5 100%); */
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Hanken Grotesk", sans-serif;
+  color: var(--white);
+  transition: 0.5s ease-in-out;
 }
 
 body.dark-mode {
-    background: linear-gradient(-20deg, #04223D 0%, #02111E 100%);
-    transition: 0.5s ease-in-out;
+  background: linear-gradient(-20deg, #04223d 0%, #02111e 100%);
+  transition: 0.5s ease-in-out;
 }
 /* body.dark-mode #theTitle {
     color: red;
 } */
-.app-layout{
-    display: flex;
-    flex-direction: row;
+.app-layout {
+  display: flex;
+  flex-direction: row;
 }
 
-.app-layout-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
-
+.app-layout-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
 }
 
-.dark-mode .app-layout-body{
-    background: linear-gradient(0deg, #02111E 0%, #04223D 100%);
+.css-1xhj18k {
+  width: 100%;
 }
 
-::-webkit-scrollbar{
-    width: 7px;
-    background-color: var(--white); 
+.dark-mode .app-layout-body {
+  background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
 }
 
-.dark-mode::-webkit-scrollbar{
-    background-color: var(--dark-blue); 
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: var(--white);
 }
 
-::-webkit-scrollbar-track{
-    margin-block: 1em;
+.dark-mode::-webkit-scrollbar {
+  background-color: var(--dark-blue);
 }
 
-::-webkit-scrollbar-thumb{
-    border-radius: 100px;
-    background-color: var(--blue);
-    padding-top: 10px;
+::-webkit-scrollbar-track {
+  margin-block: 1em;
 }
 
-.dark-mode::-webkit-scrollbar-thumb{
-    background-color: var(--white);
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: var(--blue);
+  padding-top: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover{
-    background: var(--dark-yellow);
+.dark-mode::-webkit-scrollbar-thumb {
+  background-color: var(--white);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-yellow);
+}
+
+@media screen and (max-width: 500px) {
+  .app-layout {
+    display: block;
+  }
+  .app-layout-body {
+    display: block;
+  }
 }

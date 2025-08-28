@@ -103,6 +103,14 @@
     margin-block: 10px;
 }
 
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .dark-mode .profile-overview-ft-Projects{
     color: var(--dark-mode-alt-white);
     border-top: var(--dark-mode-alt-white) solid 1px;
@@ -124,7 +132,9 @@
   display: block;
   cursor: pointer;
 }
-
+.video-item-text-inner{
+    width: 80%;
+}
 
 @keyframes overview-logo-slider {
   from {

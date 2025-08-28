@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Upload, Camera, Save, X } from "lucide-react";
-import "./Form.css";
 import techStack from "./techstack.json";
 
 function CareerFrom({ data, onChange }) {
   const [careerEntries, setCareerEntries] = useState(
-    data.careerEntries || [{ role: "", company: "", duration: "" }]
+    data.careerEntries || [{ role: "", company: "", duration: "" }],
   );
   const [showModal, setShowModal] = useState(false);
   const industriesList = [
@@ -95,14 +94,14 @@ function CareerFrom({ data, onChange }) {
 
     const filteredEntries = updatedEntries.filter(
       (entry) =>
-        entry.role.trim() || entry.company.trim() || entry.duration.trim()
+        entry.role.trim() || entry.company.trim() || entry.duration.trim(),
     );
 
     onChange({
       ...data,
       careerEntries: filteredEntries,
       projects,
-      department
+      department,
       // ...add other fields if needed
     });
 
@@ -129,7 +128,7 @@ function CareerFrom({ data, onChange }) {
     const updatedEntries = careerEntries.filter((_, i) => i !== index);
     const filteredEntries = updatedEntries.filter(
       (entry) =>
-        entry.role.trim() || entry.company.trim() || entry.duration.trim()
+        entry.role.trim() || entry.company.trim() || entry.duration.trim(),
     );
     setCareerEntries(updatedEntries);
 
@@ -152,7 +151,7 @@ function CareerFrom({ data, onChange }) {
   const handleTechnologyClick = (technology) => {
     if (selectedTechnologies.includes(technology)) {
       setSelectedTechnologies(
-        selectedTechnologies.filter((t) => t !== technology)
+        selectedTechnologies.filter((t) => t !== technology),
       );
     } else {
       setSelectedTechnologies([...selectedTechnologies, technology]);
@@ -335,7 +334,11 @@ function CareerFrom({ data, onChange }) {
           <div className="career-form-projects-container">
             <div className="career-form-projects-entries-container">
               <div className="career-projects-upload">
-                <Upload size={50} className="career-projects-upload-icon" color="var(--navy-blue)"/>
+                <Upload
+                  size={50}
+                  className="career-projects-upload-icon"
+                  color="var(--navy-blue)"
+                />
                 <button onClick={() => setShowModal(true)}>
                   Upload Project
                 </button>
@@ -432,7 +435,11 @@ function CareerFrom({ data, onChange }) {
                 </>
               ) : (
                 <>
-                  <Camera size={30} className="career-projects-upload-icon" color="var(--navy-blue)" />
+                  <Camera
+                    size={30}
+                    className="career-projects-upload-icon"
+                    color="var(--navy-blue)"
+                  />
                   <input
                     type="file"
                     id="project-image"
@@ -543,7 +550,7 @@ function CareerFrom({ data, onChange }) {
                               })}
                             </div>
                           </div>
-                        )
+                        ),
                       )}
                     </div>
                   )}
