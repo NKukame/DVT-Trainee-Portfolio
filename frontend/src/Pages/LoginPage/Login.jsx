@@ -177,10 +177,7 @@ function Signup() {
         }
       );
 
-      const tokenData = token.data.token;
-      const user_id = token.data.user;
-      localStorage.setItem("token", JSON.stringify(tokenData));
-      localStorage.setItem("userId", JSON.stringify(user_id));
+      localStorage.setItem("token", JSON.stringify(token.data.token));
 
       if (rememberMe) {
         localStorage.setItem(
@@ -329,38 +326,21 @@ function Signup() {
                 {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
               </div>
 
-              {loading ? <div className="form-loader"></div> :
-                <button type="submit">Sign Up</button>}
+            {loading ? <div className="form-loader"></div> :
+              <button type="submit">Sign Up</button>}
 
-              <p
-                className="signInBlack"
-                style={{
-                  color: "#257A99",
-                  fontWeight: "500",
-                  fontSize: "10px",
-                }}
-              >
-                Already have an account?{" "}
-                <Link
-                  to="#"
-                  style={{ fontWeight: "500", fontSize: "10px" }}
-                  onClick={() => {
-                    setIsSignUp(false);
-                    setFormData((prev) => ({
-                      name: "",
-                      email: "",
-                      password: "",
-                      confirmPassword: "",
-                    }));
-                    setErrors({});
-                  }}
-                >
-                  {" "}
-                  Sign in{" "}
-                </Link>
-              </p>
-            </form>
-          </div>
+            <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
+                 setIsSignUp(false)
+                 setFormData(prev => ({
+                  name: "",
+                  email: "",
+                  password: "",
+                  confirmPassword: "",
+                }))
+                setErrors({})
+                 }}> Sign in </Link></p>
+          </form>
+        </div>
 
           {/* Sign In Form */}
           <div className="login-container-form">
