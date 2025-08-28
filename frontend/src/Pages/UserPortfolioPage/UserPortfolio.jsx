@@ -1,5 +1,6 @@
 import "../../styles.css";
 import "./UserPortfolio.css";
+import "../LoginPage/Login.css";
 import Dashboard from "../../components/DashboardComp/Dashboard";
 import ProjectCard from "../../components/ProjectsComp/Projects";
 import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard";
@@ -46,7 +47,14 @@ function UserPortfolio(props) {
   const testEmployee = location.state || employeeData;
   
   if (!testEmployee) {
-    return <div>Loading...</div>;
+    return (
+      <div className="app-layout">
+        <SideBar />
+        <div className="layout-body" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <div className="form-loader" style={{ width: '60px', height: '60px' }}></div>
+        </div>
+      </div>
+    );
   }
 
   return (
