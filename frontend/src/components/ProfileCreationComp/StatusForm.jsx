@@ -1,4 +1,5 @@
 import React from "react";
+import "./Form.css";
 
 function StatusForm({ data, onChange }) {
   const assigned = data.status || "";
@@ -63,9 +64,7 @@ function StatusForm({ data, onChange }) {
           </label>
           <div className="skills-dual-input">
             <div className="form-group">
-              <label htmlFor="assessment-start">
-                Start Date<span className="required-asterisk">*</span>
-              </label>
+              <label htmlFor="assessment-start">Start Date<span className="required-asterisk">*</span></label>
               <input
                 type="date"
                 id="assessment-start"
@@ -75,13 +74,11 @@ function StatusForm({ data, onChange }) {
                 required
                 disabled={isInactive}
                 max={today}
-                style={{ font: "inherit" }}
+                style={{font: "inherit"}}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="assessment-end">
-                End Date<span className="required-asterisk">*</span>
-              </label>
+              <label htmlFor="assessment-end">End Date<span className="required-asterisk">*</span></label>
               <input
                 type="date"
                 id="assessment-end"
@@ -91,7 +88,7 @@ function StatusForm({ data, onChange }) {
                 required
                 disabled={isInactive}
                 min={data.assessmentStart || today}
-                style={{ font: "inherit" }}
+                style={{font: "inherit"}}
               />
             </div>
           </div>

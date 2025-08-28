@@ -1,9 +1,10 @@
+import "./Body.css";
 import projects from "../../modal-resources/projects-modal.json";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import teamPortfolio from "../../../public/team-portfolio.json";
-import hometeam from "../../assets/Group-Image.jfif";
+import teamPortfolio from '../../../public/team-portfolio.json';
+
 function Body() {
   const [team, setTeam] = useState([]);
   const navigate = useNavigate();
@@ -102,19 +103,14 @@ function Body() {
   return (
     <div className="container">
       <div className="content">
-        <h1 id="theTitle" className="max-sm:text-sm">
-          Meet our newest cadets
-        </h1>
+        <h1 id="theTitle">Meet our newest cadets</h1>
         <h2>
           Welcome our class of 2025 and get ready to be blown away! This group
           of fresh talent is expertly trained and ready to invigorate your team
         </h2>
       </div>
 
-      <div className="team-pic">
-        <img src={hometeam} alt="" className="team"/>
-      </div>
-      <div className="home-carousel-wrapper mobile-home">
+      <div className="home-carousel-wrapper">
         <div className="home-carousel">
           {team.map((person, index) => (
             <div key={index} className="home-carousel-item">
@@ -132,12 +128,7 @@ function Body() {
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p
-                        className="badge-default"
-                        style={{ paddingInline: "5px" }}
-                      >
-                        {tech}
-                      </p>
+                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech}</p>
                     </li>
                   ))}
                 </ul>
@@ -155,12 +146,10 @@ function Body() {
             team.
           </p>
 
-          <div className="meet-the-team" onClick={() => navigate("/about")}>
-            Learn more about the team
-          </div>
           <button className="cta-button" onClick={() => navigate("/about")}>
             <img src="./IconCTA.png" alt="" /> &nbsp; The Team
           </button>
+
         </div>
       </div>
 
@@ -204,21 +193,12 @@ function Body() {
             skills to tackle complex challenges and generate impactful results
             across multiple domains.
           </p>
-          <div
-            className="explore-more-work"
-            onClick={() => navigate("/search?isProject=true")}
-          >
-            Explore more projects
-          </div>
-          <button
-            className="cta-button video-cta-button"
-            onClick={() => navigate("/search?isProject=true")}
-          >
+          <button className="cta-button video-cta-button"  onClick={() => navigate("/search?isProject=true")}>
             <img src="./IconCTA.png" alt="" /> &nbsp; The Work
           </button>
         </div>
       </div>
-      {isModalOpen && selectedProject && (
+     {isModalOpen && selectedProject && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             {/* <button className="modal-close" onClick={closeModal}>
@@ -226,13 +206,8 @@ function Body() {
             </button> */}
 
             <div className="modal-header">
-              <h2>{selectedProject.title}</h2>{" "}
-              <div className="modal-owner-container">
-                <img
-                  src={selectedProject.ownerImage}
-                  alt={selectedProject.owner}
-                  className="modal-owner-img"
-                />
+              <h2>{selectedProject.title}</h2>              <div className="modal-owner-container">
+                <img src={selectedProject.ownerImage} alt={selectedProject.owner} className="modal-owner-img" />
                 <p className="modal-owner">{selectedProject.owner}</p>
               </div>
             </div>
@@ -246,23 +221,23 @@ function Body() {
               />
             )}
 
+
             <p className="modal-description">
-              <strong>Description:</strong> <br />
-              {selectedProject.description}
+              <strong>Description:</strong> <br />{selectedProject.description}
             </p>
 
             <h4 className="modal-technologies">Technologies Used:</h4>
             <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
               {selectedProject.technologies.map((tech, index) => (
-                <li key={index}>
-                  <p className="badge-default">{tech}</p>
-                </li>
+                (<li key={index}><p className='badge-default'>{tech}</p></li>)
               ))}
             </ul>
 
             <button className="modal-project-link">
               <a href={selectedProject.link}>Repository</a>
             </button>
+
+
           </div>
         </div>
       )}

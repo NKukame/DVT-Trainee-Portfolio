@@ -1,5 +1,5 @@
 import {Avatar, Tooltip } from "@mui/material";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Badges from '../BadgeComp/Badges';
 import { Award02 , GitBranch01, Mail01, MarkerPin01 } from "@untitled-ui/icons-react";
 import Tippy from '@tippyjs/react';
@@ -9,7 +9,7 @@ import github from '../../assets/Github.png';
 import slack from '../../assets/Slack.png';
 import linkedIn from '../../assets/Linkedin.png';
 import email from '../../assets/email-Icon.png';
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import UserPortfolio from "../../Pages/UserPortfolioPage/UserPortfolio";
 export function UserCard({  user,showDetails = true }) {
   const [open, setOpen] = useState(false);

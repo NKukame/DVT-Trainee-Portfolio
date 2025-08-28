@@ -90,7 +90,7 @@ function UserProfileOverview(props) {
         <h1 className="profile-overview-title">Hello World!</h1>
         <p className="profile-overview-text">{props.testEmployee.bio}</p>
         <section className="testimonial-overview-section">
-          {props.testEmployee.testimonials.length >= 3 ? (
+          {Array.isArray(props.testEmployee.testimonials).length === 3 ? (
             <div className="testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
                 <div key={i} className="testimonial-item">
@@ -126,8 +126,8 @@ function UserProfileOverview(props) {
                   <img
                     className="overview-video-item-image"
                     src={
-                      project.project.screenshot ? project.project.screenshot:
-                      "https://cdn.pixabay.com/photo/2024/07/20/17/12/warning-8908707_1280.png"
+                      project.project.screenshot ||
+                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     }
                     alt=" Project Screenshot"
                   />
@@ -135,7 +135,7 @@ function UserProfileOverview(props) {
                   <div className="video-item-text">
                     <div className="video-item-text-inner">
                       <h3>{project.project.name}</h3>
-                      <p className="line-clamp">{project.project.description}</p>
+                      <p>{project.project.description}</p>
                     </div>
                     <div
                       className="video-see-more"
@@ -152,6 +152,9 @@ function UserProfileOverview(props) {
         {isModalOpen && selectedProject && (
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              {/* <button className="modal-close" onClick={closeModal}>
+              X
+            </button> */}
 
               <div className="modal-header">
                 <h2>{selectedProject.name}</h2>{" "}
@@ -174,13 +177,18 @@ function UserProfileOverview(props) {
                 />
               )}
 
-              <p className="modal-description ">
+              <p className="modal-description">
                 <strong>Description:</strong> <br />
                 {selectedProject.description}
               </p>
 
               <h4 className="modal-technologies">Technologies Used:</h4>
               <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
+                {/* {selectedProject.technologies.map((tech, index) => (
+                  <li key={index}>
+                    <p className="badge-default">{tech}</p>
+                  </li>
+                ))} */}
                 {Array.isArray(selectedProject.techStack) &&
                   selectedProject.techStack.map((tech, idx) => (
                     <li key={idx} className="project-tag">

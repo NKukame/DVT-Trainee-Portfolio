@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import {  useNavigate } from "react-router-dom";
 import "./Form.css";
 import { SquarePen } from "lucide-react";
 import { use } from "react";
 
-function SubmitForm({ 
+function SubmitForm({
   basicInfo,
   skills,
   career,
@@ -28,43 +28,44 @@ function SubmitForm({
     const editUser = localStorage.getItem('userId').split(`"`)[1];
     console.log(editUser);
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-
-      const response = await fetch("http://localhost:3000/create-profile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          editUser,
-          basicInfo,
-          skills,
-          career,
-          testimonials,
-          links,
-          status,
-        }),
-      });
-      if (response.ok) {
-        setModalMessage("Profile submitted successfully!");
-        setModalOpen(true);
-        setTimeout(() => {
-          setModalOpen(false);
-          navigate("/");
-        }, 2000);
-      } else {
-        const data = await response.json();
-        setModalMessage("Error: " + (data.error || "Failed to submit profile"));
-        setModalOpen(true);
-      }
-    } catch (error) {
-      setLoading(false);
-      setModalMessage("Network error: " + error.message);
+  e.preventDefault();
+  try {
+    setLoading(true);
+    
+    const response = await fetch("http://localhost:3000/create-profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        editUser,
+        basicInfo,
+        skills,
+        career,
+        testimonials,
+        links,
+        status,
+      }),
+    });
+    if (response.ok) {
+      setModalMessage("Profile submitted successfully!");
       setModalOpen(true);
-    } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setModalOpen(false);
+        navigate("/"); 
+      }, 2000);
+    } else {
+      const data = await response.json();
+      setModalMessage("Error: " + (data.error || "Failed to submit profile"));
+      setModalOpen(true);
     }
-  };
+  } catch (error) {
+    setLoading(false);
+    setModalMessage("Network error: " + error.message);
+    setModalOpen(true);
+    
+  }finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -184,7 +185,7 @@ function SubmitForm({
                   skills.educationEntries.length > 0
                     ? skills.educationEntries
                         .filter(
-                          (entry) => entry.qualification || entry.institution,
+                          (entry) => entry.qualification || entry.institution
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
@@ -227,12 +228,11 @@ function SubmitForm({
                   skills.certificationEntries.length > 0
                     ? skills.certificationEntries
                         .filter(
-                          (entry) => entry.certificate || entry.institution,
+                          (entry) => entry.certificate || entry.institution
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
-                            {entry.certificate} -{" "}
-                            {entry.certificatesInstitution}
+                            {entry.certificate} - {entry.certificatesInstitution}
                           </div>
                         ))
                     : "-"}
@@ -282,7 +282,7 @@ function SubmitForm({
                     ? career.careerEntries
                         .filter(
                           (entry) =>
-                            entry.role || entry.company || entry.duration,
+                            entry.role || entry.company || entry.duration
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
@@ -412,7 +412,7 @@ function SubmitForm({
                   {status?.assessmentStart && status?.assessmentEnd
                     ? `${status.assessmentStart.replace(
                         /-/g,
-                        "/",
+                        "/"
                       )} - ${status.assessmentEnd.replace(/-/g, "/")}`
                     : "-"}
                 </p>

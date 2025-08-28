@@ -1,5 +1,4 @@
 import { EmployeeRole } from "@prisma/client";
-import { clearCache } from "../lib/prisma-redis-middleware.js";
 import prisma from "../lib/prisma-redis-middleware.js";
 
 // import { Prisma, PrismaClient } from '@prisma/client';
@@ -48,75 +47,38 @@ export default async function EditUserController(req, res) {
 
     if (education && Array.isArray(education)) {
       for (const edu of education) {
-        if(edu.id){
-
-          await prisma.education.update({
-            where: { id: edu.id },
-            data: {
-              institution: edu.institution,
-              qualification: edu.qualification,
-            },
-          });
-        }else{
-          await prisma.education.create({
-            data: {
-              institution: edu.institution,
-              qualification: edu.qualification,
-              employeeId: id,
-            },
-          });
-        }
+        await prisma.education.update({
+          where: { id: edu.id },
+          data: {
+            institution: edu.institution,
+            qualification: edu.qualification,
+          },
+        });
       }
     }
 
     if (certificates && Array.isArray(certificates)) {
       for (const cert of certificates) {
-        if (cert.id) {
-          // Update existing certificate
-          await prisma.certificate.update({
-            where: { id: cert.id },
-            data: {
-              name: cert.name,
-              institution: cert.institution,
-            },
-          });
-        } else {
-          // Create new certificate
-          await prisma.certificate.create({
-            data: {
-              name: cert.name,
-              institution: cert.institution,
-              employeeId: id, // 🔑 link to employee
-            },
-          });
-        }
+        await prisma.certificate.update({
+          where: { id: cert.id },
+          data: {
+            name: cert.name,
+            institution: cert.institution,
+          },
+        });
       }
     }
 
-
     if (testimonials && Array.isArray(testimonials)) {
       for (const testimonial of testimonials) {
-        if (testimonial.id) {
-          // Update existing testimonial
-          await prisma.testimonial.update({
-            where: { id: testimonial.id },
-            data: {
-              quote: testimonial.quote,
-              company: testimonial.company,
-              reference: testimonial.reference,
-            },
-          });
-        } else {
-          // Create new testimonial
-          await prisma.testimonial.create({
-            data: {
-              quote: testimonial.quote,
-              company: testimonial.company,
-              reference: testimonial.reference,
-              employeeId: id, // Make sure to associate with the employee
-            },
-          });
-        }
+        await prisma.testimonial.update({
+          where: { id: testimonial.id },
+          data: {
+            quote: testimonial.quote,
+            company: testimonial.company,
+            reference: testimonial.reference,
+          },
+        });
       }
     }
 
@@ -196,9 +158,6 @@ export default async function EditUserController(req, res) {
       
 
     }
-
-    clearCache();
-
 
     res.status(200).json({ message: "User Updated", user: updateUser });
   } catch (error) {

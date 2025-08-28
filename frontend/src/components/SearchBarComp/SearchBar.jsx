@@ -1,4 +1,5 @@
 import { useContext, useState, useCallback } from "react";
+import "./SearchBar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import { SearchContext } from "../../contexts/SearchContext.jsx";
 
