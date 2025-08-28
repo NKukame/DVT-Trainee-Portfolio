@@ -52,7 +52,7 @@
   background-color: var(--dark-mode-blue);
   color: var(--white);
 }
-@media (min-width: 768px) {
+@media (min-width: 500px) {
   .mobile-navbar {
     display: none;
   }
