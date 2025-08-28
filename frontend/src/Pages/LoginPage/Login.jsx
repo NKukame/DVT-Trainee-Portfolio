@@ -2,7 +2,7 @@ import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import OffRememberMeIcon from "../../assets/OffRemeber-me-icon.png";
 import OnRememberMeIcon from "../../assets/OnRemember-me-icon.png";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import "./Login.css";
 import { Eye, EyeClosed, Mail, Lock } from "lucide-react";
 import axios from 'axios';
