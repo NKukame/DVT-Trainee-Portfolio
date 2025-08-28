@@ -1,38 +1,36 @@
 import { useRef, useState, useEffect } from "react";
 import projects from "../../../modal-resources/projects-modal.json";
-import "./userProfileOverview.css";
 
 function UserProfileOverview(props) {
   const trackRef = useRef(null);
-    const intervalRef = useRef(null);
-  
-    // Combined function that handles both animation and styling
-    const updateStyles = () => {
-      if (!trackRef.current) return;
-  
-      const items = trackRef.current.querySelectorAll(".video-item");
-  
-      items.forEach((item, index) => {
-        item.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-        item.style.position = "absolute";
-  
-        if (index === 0) {
-          item.style.transform = "translateX(0) scale(1)";
-          item.style.zIndex = 3;
-          item.style.opacity = 1;
-        } else if (index === 1) {
-          item.style.transform = "translateX(330px) scale(0.85)";
-          item.style.zIndex = 2;
-          item.style.opacity = 0.9;
-        }
-        else {
-          // Cards beyond 3rd: push them far right and hide
-          item.style.transform = `translateX(900px) scale(0.5)`;
-          item.style.zIndex = 0;
-          item.style.opacity = 0;
-        }
-      });
-    };
+  const intervalRef = useRef(null);
+
+  // Combined function that handles both animation and styling
+  const updateStyles = () => {
+    if (!trackRef.current) return;
+
+    const items = trackRef.current.querySelectorAll(".video-item");
+
+    items.forEach((item, index) => {
+      item.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+      item.style.position = "absolute";
+
+      if (index === 0) {
+        item.style.transform = "translateX(0) scale(1)";
+        item.style.zIndex = 3;
+        item.style.opacity = 1;
+      } else if (index === 1) {
+        item.style.transform = "translateX(330px) scale(0.85)";
+        item.style.zIndex = 2;
+        item.style.opacity = 0.9;
+      } else {
+        // Cards beyond 3rd: push them far right and hide
+        item.style.transform = `translateX(900px) scale(0.5)`;
+        item.style.zIndex = 0;
+        item.style.opacity = 0;
+      }
+    });
+  };
   const startAnimation = () => {
     // First apply the initial styles
     updateStyles();
@@ -59,32 +57,33 @@ function UserProfileOverview(props) {
         updateStyles(); // Re-apply styles after DOM changes
       }, 500);
     }, 3000);
-  };const stopAnimation = () => {
-      clearInterval(intervalRef.current);
-    };
-  
-    useEffect(() => {
-      // Initial styles and start animation on mount
-      updateStyles();
-      startAnimation();
-  
-      // Clear interval on unmount
-      return () => stopAnimation();
-    }, []);
-    // Modal Code
-      const [selectedProject, setSelectedProject] = useState(null);
-      const [isModalOpen, setIsModalOpen] = useState(false);
-    
-      const openModal = (project) => {
-        setSelectedProject(project);
-        setIsModalOpen(true);
-      };
-    
-      const closeModal = () => {
-        setSelectedProject(null);
-        setIsModalOpen(false);
-      };
-  
+  };
+  const stopAnimation = () => {
+    clearInterval(intervalRef.current);
+  };
+
+  useEffect(() => {
+    // Initial styles and start animation on mount
+    updateStyles();
+    startAnimation();
+
+    // Clear interval on unmount
+    return () => stopAnimation();
+  }, []);
+  // Modal Code
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <section className="profile-overview-container">
@@ -161,9 +160,7 @@ function UserProfileOverview(props) {
                 <h2>{selectedProject.name}</h2>{" "}
                 <div className="modal-owner-container">
                   <img
-                    src={
-                      selectedProject.avatar
-                    }
+                    src={selectedProject.avatar}
                     alt={selectedProject.name}
                     className="modal-owner-img"
                   />

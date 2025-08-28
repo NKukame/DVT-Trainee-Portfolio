@@ -129,12 +129,12 @@ function GenerateCV(){
                 <div className="generate-cv-education-items">
                   <h2>Education</h2>
                   <ul>
-                    {(Array.isArray(location.state.emp_education)
-                      ? location.state.emp_education
-                      : [location.state.emp_education]
-                    ).map((edu, idx) => (
+                    {(Array.isArray(location.state.emp_education || location.state.education)
+                      ? (location.state.emp_education || location.state.education)
+                      : [location.state.emp_education || location.state.education]
+                    ).filter(edu => edu).map((edu, idx) => (
                       <li key={idx}>
-                        {edu.qualification} - {edu.institution}
+                        {edu?.qualification || 'N/A'} - {edu?.institution || 'N/A'}
                       </li>
                     ))}
                   </ul>
@@ -142,9 +142,9 @@ function GenerateCV(){
                 <div className="generate-cv-education-items">
                   <h2>Certificates</h2>
                   <ul>
-                  {location.state.certificates.map((cert, idx) => (
+                  {(location.state.certificates || []).map((cert, idx) => (
                         <li key={idx}>
-                          {cert.name} - {cert.institution}
+                          {cert?.name || 'N/A'} - {cert?.institution || 'N/A'}
                         </li>
                       ))}</ul>
                 </div>
@@ -154,13 +154,21 @@ function GenerateCV(){
                     {(() => {
                       const industries = [
                         ...new Set(
-                          location.state.projects.flatMap((proj) =>
-                            proj.project.industries.flatMap((ind) =>
-                              ind.project.industries.map(
-                                (item) => item.industry.name
-                              )
-                            )
-                          )
+                          (location.state.projects || []).flatMap((proj) => {
+                            // Handle both data structures
+                            const projectIndustries = proj.project?.industries || [];
+                            return projectIndustries.flatMap((ind) => {
+                              // Structure from /api/me: ind.industry.name
+                              if (ind?.industry?.name) {
+                                return ind.industry.name;
+                              }
+                              // Structure from search results: ind.project.industries[].industry.name
+                              if (ind?.project?.industries) {
+                                return ind.project.industries.map(item => item?.industry?.name || 'Unknown');
+                              }
+                              return 'Unknown';
+                            });
+                          })
                         ),
                       ];
                       return industries.length > 0 ? (
