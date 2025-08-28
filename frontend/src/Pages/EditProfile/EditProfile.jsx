@@ -154,6 +154,34 @@ function EditProfile(prop) {
     });
   };
 
+  const handleAddTestimonial = () => {
+    setFormData((prev) => ({
+      ...prev,
+      testimonials: [
+        ...prev.testimonials,
+        { company: "", quote: "", reference: "" },
+      ],
+    }));
+  };
+  const handleAddCerificates = () => {
+    setFormData((prev) => ({
+      ...prev,
+      certificates: [
+        ...prev.certificates,
+        { name: "", institution: "" },
+      ],
+    }));
+  };
+  const handleAddEducation = () => {
+    setFormData((prev) => ({
+      ...prev,
+      education: [
+        ...prev.education,
+        { qualification: "", institution: "" },
+      ],
+    }));
+  };
+
   /**
    * Handles the submission of the form by sending a PATCH request to the server
    * with the updated form data. If the request is successful, it sets the modal
@@ -385,7 +413,7 @@ function EditProfile(prop) {
                 {formData.education.map((edu, idx) => (
                   <div key={idx} className="education-section">
                     <div className="edit-form-group">
-                      <label className="form-label">Qualification</label>
+                      <label className="form-label">Qualification {idx + 1}</label>
                       <input
                         type="text"
                         value={edu.qualification || ""}
@@ -400,7 +428,7 @@ function EditProfile(prop) {
                     </div>
 
                     <div className="edit-form-group">
-                      <label className="form-label">Institution</label>
+                      <label className="form-label">Institution {idx + 1}</label>
                       <input
                         type="text"
                         value={edu.institution || ""}
@@ -415,6 +443,13 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddEducation}
+                >
+                  Add Education +
+                </button>
 
                 <div className="edit-form-group">
                   <label className="form-label">Tech Stack</label>
@@ -498,6 +533,13 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddCerificates}
+                >
+                  Add Certificates +
+                </button>
 
                 <div className="edit-form-group">
                   <label className="form-label">Soft Skills</label>
@@ -642,6 +684,14 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddTestimonial}
+                >
+                  Add Testimonial +
+                </button>
               </div>
             </div>
           </div>
