@@ -157,3 +157,22 @@ input[type="range"]:focus,
   box-shadow: none;
   border-color: inherit;
 }
+
+.edit-profile-add-btn {
+    background-color: white;
+  border: 1px solid var(--dark-mode-blue);
+  color: var(--dark-mode-blue);
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  width: 25%;
+  margin-left: 25%;
+  transition: background 0.3s, color 0.3s;
+}
+
+.edit-profile-add-btn:hover {
+  background: var(--dark-mode-blue);
+  color: white;
+}

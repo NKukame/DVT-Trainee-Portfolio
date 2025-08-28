@@ -5,6 +5,7 @@ import SearchResults from "../../components/SearchResultsComp/SearchResults";
 import SearchBar from "../../components/SearchBarComp/SearchBar";
 import { SearchContextProvider } from "../../contexts/SearchContext";
 function Search() {
+  
   return (
     <div className="app-layout">
         <SideBar />
