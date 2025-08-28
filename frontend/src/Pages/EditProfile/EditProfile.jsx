@@ -4,6 +4,7 @@ import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
 import "./EditProfile.css";
 import axios from "axios";
+import techStack from "./EditJSON/techstack.json"
 
 /**
  * EditProfile is a React component that renders a form for editing user profile information.
@@ -154,6 +155,53 @@ function EditProfile(prop) {
     });
   };
 
+  const handleAddTestimonial = () => {
+    setFormData((prev) => ({
+      ...prev,
+      testimonials: [
+        ...prev.testimonials,
+        { company: "", quote: "", reference: "" },
+      ],
+    }));
+  };
+  const handleAddCerificates = () => {
+    setFormData((prev) => ({
+      ...prev,
+      certificates: [
+        ...prev.certificates,
+        { name: "", institution: "" },
+      ],
+    }));
+  };
+  const handleAddEducation = () => {
+    setFormData((prev) => ({
+      ...prev,
+      education: [
+        ...prev.education,
+        { qualification: "", institution: "" },
+      ],
+    }));
+  };
+  const handleAddCareerChronology = () => {
+    setFormData((prev) => ({
+      ...prev,
+      career: [
+        ...prev.career,
+        { role: '', company: '', duration: '' },
+      ],
+    }));
+  };
+
+  const handleAddTechStack = () => {
+    setFormData((prev) => ({
+      ...prev,
+      techStack: [
+        ...prev.techStack,
+        { Techrating: 1, techStack: { name: "" } },
+      ],
+    }));
+  };
+
   /**
    * Handles the submission of the form by sending a PATCH request to the server
    * with the updated form data. If the request is successful, it sets the modal
@@ -235,7 +283,7 @@ function EditProfile(prop) {
 
         <div className="edit-profile-body">
           <div className="edit-profile-content-header">
-            <h3>Edit Profile</h3>
+            <h3 className="edit-profile-content-title">Edit Profile</h3>
           </div>
 
           <div className="edit-submit-section">
@@ -387,7 +435,9 @@ function EditProfile(prop) {
                 {formData.education.map((edu, idx) => (
                   <div key={idx} className="education-section">
                     <div className="edit-form-group">
-                      <label className="form-label">Qualification</label>
+                      <label className="form-label">
+                        Qualification {idx + 1}
+                      </label>
                       <input
                         type="text"
                         value={edu.qualification || ""}
@@ -402,7 +452,9 @@ function EditProfile(prop) {
                     </div>
 
                     <div className="edit-form-group">
-                      <label className="form-label">Institution</label>
+                      <label className="form-label">
+                        Institution {idx + 1}
+                      </label>
                       <input
                         type="text"
                         value={edu.institution || ""}
@@ -417,6 +469,13 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddEducation}
+                >
+                  Add Education +
+                </button>
 
                 <div className="edit-form-group">
                   <label className="form-label">Tech Stack</label>
@@ -427,8 +486,13 @@ function EditProfile(prop) {
                         className="tech-stack-item"
                         style={{ marginBottom: "20px" }}
                       >
-                        <select
-                          value={tech.Techrating || ""}
+                        <input
+                          type="range"
+                          min={1}
+                          max={5}
+                          step={1}
+                          className="range-slider"
+                          value={tech.Techrating || 1}
                           onChange={(e) =>
                             handleTechStackChange(
                               idx,
@@ -436,33 +500,57 @@ function EditProfile(prop) {
                               e.target.value
                             )
                           }
-                        >
-                          <option value="" disabled>
-                            Rating (Out of 5)
-                          </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-
-                        <span
-                          className="badge-default"
-                          style={{
-                            marginRight: 8,
-                            width: "fit-content",
-                            height: "fit-content",
-                            display: "flex",
-                            marginBottom: 7,
-                          }}
-                        >
-                          {tech.techStack?.name}
+                        />
+                        <span style={{ marginLeft: "10px" }}>
+                          {tech.Techrating
+                            ? `Rating: ${tech.Techrating}`
+                            : "Rating: 1"}
                         </span>
+                        {tech.techStack?.name ? (
+                          <span
+                            className="badge-default"
+                            style={{
+                              marginRight: 8,
+                              width: "fit-content",
+                              height: "fit-content",
+                              display: "flex",
+                              marginBottom: 7,
+                            }}
+                          >
+                            {tech.techStack.name}
+                          </span>
+                        ) : (
+                          <select
+                            value={tech.techStack?.name || ""}
+                            className="new-tech-stack-edit-select"
+                            onChange={(e) =>
+                              handleTechStackChange(idx, "techStack", {
+                                name: e.target.value,
+                              })
+                            }
+                          >
+                            <option value="" disabled>
+                              Select Tech Stack
+                            </option>
+                            {techStack.map((stack, i) => (
+                              <option key={i} value={stack.name}>
+                                {stack.name}
+                              </option>
+                            ))}
+                          </select>
+                        )}
                       </div>
                     ))}
                   </div>
+                  
                 </div>
+                <button
+                    type="button"
+                    className="edit-profile-add-btn"
+                    onClick={handleAddTechStack}
+                  >
+                    Add Tech Stack +
+                  </button>
               </div>
 
               <div className="edit-left-form-section">
@@ -499,6 +587,13 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddCerificates}
+                >
+                  Add Certificates +
+                </button>
 
                 <div className="edit-form-group">
                   <label className="form-label">Soft Skills</label>
@@ -509,8 +604,13 @@ function EditProfile(prop) {
                         className="soft-skill-item"
                         style={{ marginBottom: "20px" }}
                       >
-                        <select
-                          value={skill.skillsRating || ""}
+                        <input
+                          type="range"
+                          min={1}
+                          max={5}
+                          step={1}
+                          className="range-slider"
+                          value={skill.skillsRating || 1}
                           onChange={(e) =>
                             handleSoftSkillChange(
                               idx,
@@ -518,16 +618,12 @@ function EditProfile(prop) {
                               e.target.value
                             )
                           }
-                        >
-                          <option value="" disabled>
-                            Rating (Out of 5)
-                          </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
+                        />
+                        <span style={{ marginLeft: "10px" }}>
+                          {skill.skillsRating
+                            ? `Rating: ${skill.skillsRating}`
+                            : "Rating: 1"}
+                        </span>
 
                         <span
                           className="badge-default"
@@ -642,6 +738,14 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddTestimonial}
+                >
+                  Add Testimonial +
+                </button>
               </div>
             </div>
           </div>
@@ -731,6 +835,13 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddCareerChronology}
+                >
+                  Add Chronology +
+                </button>
               </div>
             </div>
           </div>

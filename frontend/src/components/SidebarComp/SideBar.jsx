@@ -42,7 +42,6 @@ function SideBar() {
 console.log("our Api call",response)
       if (response.ok) {
         const userData = await response.json();
-        console.log("our Api call",userData)
         const profilePictureUrl = userData.profilePicture 
           ? (userData.profilePicture.startsWith('data:') 
               ? userData.profilePicture 
@@ -101,7 +100,7 @@ console.log("our Api call",response)
           </div>
 
 
-          <div className="sidebar-nav-link">
+          {/* <div className="sidebar-nav-link">
             <Link to="/portfolio">
               <div className="homeBtn">
                 <svg
@@ -122,7 +121,7 @@ console.log("our Api call",response)
                 <p className="home-txt">Profile</p>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           <div className="sidebar-nav-link">
             <Link to="/about">
