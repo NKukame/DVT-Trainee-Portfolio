@@ -63,7 +63,8 @@ const MeController = async (req, res) => {
       availability: user.employee.availability?.available,
       emp_education: user.employee.education,
       years_active: user.employee.experience,
-      experienced: user.employee.experience
+      experienced: user.employee.experience,
+      role: user.role
     });
   } catch (error) {
     console.error('Error fetching current user:', error);

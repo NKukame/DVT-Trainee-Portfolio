@@ -1,5 +1,3 @@
-import "./ClientCarousel.css";
-
 function ClientCarousel() {
   const clients = [
     {

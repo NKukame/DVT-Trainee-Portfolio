@@ -1,69 +1,134 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./ProfileModal.css";
+import { useNavigate } from "react-router";
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
 
 function ProfileModal({ isOpen, onClose, userInfo }) {
   const { darkMode, setDarkMode } = useDarkMode();
   const navigate = useNavigate();
-  
-
 
   if (!isOpen) return null;
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   const handleViewProfile = () => {
     navigate('/userportfolio');
   };
 
+  const handleRole = () => {
+    navigate('/dashboard');
+    onClose();
+  };
 
+  console.log(userInfo);
 
   return (
     <div className="profile-modal-overlay" onClick={onClose}>
-      <div className="profile-modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="profile-modal-content"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="profile-modal-header">
           <div className="profile-modal-user-info">
-            <h3>{userInfo?.name || "Loading..."}</h3>
+            {userInfo?.name ? (
+              <h3>{userInfo.name}</h3>
+            ) : (
+              <div className="form-loader" style={{ margin: '10px 0' }}></div>
+            )}
             <p>{userInfo?.email || ""}</p>
           </div>
           <button className="profile-modal-close" onClick={onClose}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
 
         <div className="profile-modal-actions">
-
-          <button className="profile-modal-btn view-profile-btn" onClick={handleViewProfile}>
+          <button
+            className="profile-modal-btn view-profile-btn"
+            onClick={handleViewProfile}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             View Profile
           </button>
+          {/* show dashboard button based on role */}
+          {userInfo?.role === "ADMIN" && (
+            <button
+              className="profile-modal-btn view-profile-btn"
+              onClick={handleRole}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M8 21V7C8 6.07003 8 5.60504 8.10222 5.22354C8.37962 4.18827 9.18827 3.37962 10.2235 3.10222C10.605 3 11.07 3 12 3C12.93 3 13.395 3 13.7765 3.10222C14.8117 3.37962 15.6204 4.18827 15.8978 5.22354C16 5.60504 16 6.07003 16 7V21M5.2 21H18.8C19.9201 21 20.4802 21 20.908 20.782C21.2843 20.5903 21.5903 20.2843 21.782 19.908C22 19.4802 22 18.9201 22 17.8V10.2C22 9.07989 22 8.51984 21.782 8.09202C21.5903 7.71569 21.2843 7.40973 20.908 7.21799C20.4802 7 19.9201 7 18.8 7H5.2C4.07989 7 3.51984 7 3.09202 7.21799C2.71569 7.40973 2.40973 7.71569 2.21799 8.09202C2 8.51984 2 9.07989 2 10.2V17.8C2 18.9201 2 19.4802 2.21799 19.908C2.40973 20.2843 2.71569 20.5903 3.09202 20.782C3.51984 21 4.0799 21 5.2 21Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            View Dashboard
+          </button>
+          )}
 
-          <div className="profile-modal-btn view-profile-btn" onClick={() => setDarkMode(!darkMode)}>
+          <div
+            className="profile-modal-btn view-profile-btn"
+            onClick={() => setDarkMode(!darkMode)}
+          >
             <div className="toggle-content">
               {darkMode ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               ) : (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M21.9548 12.9564C20.5779 15.3717 17.9791 17.0001 15 17.0001C10.5817 17.0001 7 13.4184 7 9.00008C7 6.02072 8.62867 3.42175 11.0443 2.04492C5.96975 2.52607 2 6.79936 2 11.9998C2 17.5227 6.47715 21.9998 12 21.9998C17.2002 21.9998 21.4733 18.0305 21.9548 12.9564Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M21.9548 12.9564C20.5779 15.3717 17.9791 17.0001 15 17.0001C10.5817 17.0001 7 13.4184 7 9.00008C7 6.02072 8.62867 3.42175 11.0443 2.04492C5.96975 2.52607 2 6.79936 2 11.9998C2 17.5227 6.47715 21.9998 12 21.9998C17.2002 21.9998 21.4733 18.0305 21.9548 12.9564Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               )}
               <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
             </div>
           </div>
 
-          <button className="profile-modal-btn popUpLogOut" onClick={handleLogout}>
+          <button
+            className="profile-modal-btn popUpLogOut"
+            onClick={handleLogout}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             Log Out
           </button>
@@ -74,3 +139,4 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
 }
 
 export default ProfileModal;
+
