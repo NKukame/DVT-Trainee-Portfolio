@@ -75,5 +75,4 @@ export function setKeyValue(...parts) {
 const prisma = new PrismaClient();
 
 export { redis };
-export { redis };
 export default prisma;
