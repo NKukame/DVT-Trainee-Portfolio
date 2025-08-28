@@ -12,6 +12,7 @@ function MobileNavbar() {
     name: "",
     email: "",
     profilePicture: null,
+    role: "",
   });
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function MobileNavbar() {
           name: userData.name,
           email: userData.email,
           profilePicture: userData.avatar,
+          role: userData.role,
         });
       } else if (response.status === 401) {
         localStorage.removeItem("token");

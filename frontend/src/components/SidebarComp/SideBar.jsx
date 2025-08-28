@@ -8,6 +8,7 @@ function SideBar() {
     name: "",
     email: "",
     profilePicture: null,
+    role: "",
   });
 
   useEffect(() => {
@@ -27,9 +28,10 @@ function SideBar() {
           "Content-Type": "application/json",
         },
       });
-      console.log("our Api call", response);
+      // console.log("our Api call", response);
       if (response.ok) {
         const userData = await response.json();
+        console.log("our Api call", userData);
         const profilePictureUrl = userData.profilePicture 
           ? (userData.profilePicture.startsWith('data:') 
               ? userData.profilePicture 
@@ -40,6 +42,7 @@ function SideBar() {
           name: userData.name,
           email: userData.email,
           profilePicture: userData.avatar,
+          role: userData.role,
         });
       } else if (response.status === 401) {
         localStorage.removeItem("token");
