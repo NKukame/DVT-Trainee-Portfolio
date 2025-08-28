@@ -181,6 +181,15 @@ function EditProfile(prop) {
       ],
     }));
   };
+  const handleAddCareerChronology = () => {
+    setFormData((prev) => ({
+      ...prev,
+      career: [
+        ...prev.career,
+        { role: '', company: '', duration: '' },
+      ],
+    }));
+  };
 
   /**
    * Handles the submission of the form by sending a PATCH request to the server
@@ -783,6 +792,13 @@ function EditProfile(prop) {
                     </div>
                   </div>
                 ))}
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddCareerChronology}
+                >
+                  Add Chronology +
+                </button>
               </div>
             </div>
           </div>

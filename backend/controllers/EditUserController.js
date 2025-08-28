@@ -182,19 +182,28 @@ export default async function EditUserController(req, res) {
       }
     }
 
-    if(req.body.career && Array.isArray(req.body.career)) {
-      for(const job of req.body.career){
-        await prisma.career.update({
-          where: { id: job.id },
-          data:{
-            role: job.role,
-            company: job.company,
-            duration: job.duration
-          }
-        })
+    if (req.body.career && Array.isArray(req.body.career)) {
+      for (const job of req.body.career) {
+        if (job.id) {
+          await prisma.career.update({
+            where: { id: job.id },
+            data: {
+              role: job.role,
+              company: job.company,
+              duration: job.duration,
+            },
+          });
+        } else {
+          await prisma.career.create({
+            data: {
+              employeeId: id,
+              role: job.role,
+              company: job.company,
+              duration: job.duration,
+            },
+          });
+        }
       }
-      
-
     }
 
     clearCache();
