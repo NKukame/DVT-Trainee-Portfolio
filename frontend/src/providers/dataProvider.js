@@ -141,68 +141,59 @@ async function deleteData(resource, endpoint, args) {
 
 
 function transformFilter(filter) {
-    return match(filter)
-        .with({ operator: 'eq' }, (f) => ({ [f.field]: f.value }))
-        .with({ operator: 'ne' }, (f) => ({ NOT: { [f.field]: f.value } }))
-        .with({ operator: 'in' }, (f) => ({ [f.field]: { in: f.value } }))
-        .with({ operator: 'nin' }, (f) => ({ [f.field]: { notIn: f.value } }))
-        .with(
-            { operator: P.union('gt', 'lt', 'gte', 'lte', 'contains') },
-            (f) => ({ [f.field]: { [f.operator]: f.value } })
-        )
-        .with({ operator: 'between' }, (f) => ({
-            [f.field]: { gte: f.value[0], lte: f.value[1] },
-        }))
-        .with({ operator: 'nbetween' }, (f) => ({
-            NOT: transformFilter({ ...f, operator: 'between' }),
-        }))
-        .with({ operator: 'startswith' }, (f) => ({
-            [f.field]: { startsWith: f.value, mode: 'insensitive' },
-        }))
-        .with({ operator: 'endswith' }, (f) => ({
-            [f.field]: { endsWith: f.value, mode: 'insensitive' },
-        }))
-        .with({ operator: 'containss' }, (f) => ({
-            [f.field]: { contains: f.value, mode: 'insensitive' },
-        }))
-        .with({ operator: 'startswiths' }, (f) => ({
-            [f.field]: { startsWith: f.value },
-        }))
-        .with({ operator: 'endswiths' }, (f) => ({
-            [f.field]: { endsWith: f.value },
-        }))
-        .with({ operator: 'ncontains' }, (f) => ({
-            NOT: {
-                ...transformFilter({ ...f, operator: 'contains' }),
-                mode: 'insensitive',
-            },
-        }))
-        .with({ operator: 'nstartswith' }, (f) => ({
-            NOT: {
-                ...transformFilter({ ...f, operator: 'startswith' }),
-                mode: 'insensitive',
-            },
-        }))
-        .with({ operator: 'nendswith' }, (f) => ({
-            NOT: {
-                ...transformFilter({ ...f, operator: 'endswith' }),
-                mode: 'insensitive',
-            },
-        }))
-        .with({ operator: 'ncontainss' }, (f) => ({
-            NOT: transformFilter({ ...f, operator: 'contains' }),
-        }))
-        .with({ operator: 'nstartswiths' }, (f) => ({
-            NOT: transformFilter({ ...f, operator: 'startswith' }),
-        }))
-        .with({ operator: 'nendswiths' }, (f) => ({
-            NOT: transformFilter({ ...f, operator: 'endswith' }),
-        }))
-        .with({ operator: 'null' }, (f) => ({ [f.field]: null }))
-        .with({ operator: 'nnull' }, (f) => ({ NOT: { [f.field]: null } }))
-        .with({ operator: 'and' }, (f) => ({
-            AND: f.value.map(transformFilter),
-        }))
-        .with({ operator: 'or' }, (f) => ({ OR: f.value.map(transformFilter) }))
-        .exhaustive();
+    const { field, operator, value } = filter;
+
+    switch (operator) {
+        case 'eq':
+            return { [field]: value };
+        case 'ne':
+            return { NOT: { [field]: value } };
+        case 'in':
+            return { [field]: { in: value } };
+        case 'nin':
+            return { [field]: { notIn: value } };
+        case 'gt':
+        case 'lt':
+        case 'gte':
+        case 'lte':
+        case 'contains':
+            return { [field]: { [operator]: value } };
+        case 'between':
+            return { [field]: { gte: value[0], lte: value[1] } };
+        case 'nbetween':
+            return { NOT: transformFilter({ ...filter, operator: 'between' }) };
+        case 'startswith':
+            return { [field]: { startsWith: value, mode: 'insensitive' } };
+        case 'endswith':
+            return { [field]: { endsWith: value, mode: 'insensitive' } };
+        case 'containss': // Note: this seems like a typo of 'contains', but keeping as is.
+            return { [field]: { contains: value, mode: 'insensitive' } };
+        case 'startswiths':
+            return { [field]: { startsWith: value } };
+        case 'endswiths':
+            return { [field]: { endsWith: value } };
+        case 'ncontains':
+            return { NOT: { ...transformFilter({ ...filter, operator: 'contains' }), mode: 'insensitive' } };
+        case 'nstartswith':
+            return { NOT: { ...transformFilter({ ...filter, operator: 'startswith' }), mode: 'insensitive' } };
+        case 'nendswith':
+            return { NOT: { ...transformFilter({ ...filter, operator: 'endswith' }), mode: 'insensitive' } };
+        case 'ncontainss':
+            return { NOT: transformFilter({ ...filter, operator: 'contains' }) };
+        case 'nstartswiths':
+            return { NOT: transformFilter({ ...filter, operator: 'startswith' }) };
+        case 'nendswiths':
+            return { NOT: transformFilter({ ...filter, operator: 'endswith' }) };
+        case 'null':
+            return { [field]: null };
+        case 'nnull':
+            return { NOT: { [field]: null } };
+        case 'and':
+            return { AND: value.map(transformFilter) };
+        case 'or':
+            return { OR: value.map(transformFilter) };
+        default:
+            // Or throw an error if unsupported operator should be handled strictly.
+            return {};
+    }
 }
