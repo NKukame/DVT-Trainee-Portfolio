@@ -273,7 +273,6 @@ export async function SearchEmployeeController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
-
         select: {
           id: true,
           title: true,
@@ -394,7 +393,6 @@ export async function SearchEmployeeController(req, res) {
               },
             },
           },
-
           testimonials: {
             select: {
               id: true,
