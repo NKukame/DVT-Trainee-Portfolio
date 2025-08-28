@@ -173,3 +173,11 @@
 .dark-mode .toggle-content svg {
   color: var(--white);
 }
+
+/* Custom loader for ProfileModal in dark mode */
+.dark-mode .profile-modal-user-info .form-loader {
+  background: 
+    radial-gradient(farthest-side, #ffffff 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #ffffff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
+}
