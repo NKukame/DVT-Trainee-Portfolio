@@ -43,6 +43,12 @@ function UserPortfolio(props) {
     fetchCurrentUserData();
   }, [location.state]);
   
+  useEffect(() => {
+      if (window.sessionStorage.getItem("searchPageReloaded")) {
+        window.sessionStorage.removeItem("searchPageReloaded", "true");
+      }
+    }, []);
+
   const testEmployee = location.state || employeeData;
   
   if (!testEmployee) {
