@@ -47,6 +47,7 @@ export async function SearchProjectController(req, res) {
       industries,
     );
 
+    console.log(cacheKey);
     const cached = await getCache(cacheKey);
     if (cached) {
       return res.status(200).send(cached);
@@ -198,6 +199,8 @@ export async function SearchEmployeeController(req, res) {
       undefined,
     );
     const cached = await getCache(cacheKey);
+    console.log(cacheKey);
+    console.log(cached);
     if (cached) {
       return res.status(200).send(cached);
     }

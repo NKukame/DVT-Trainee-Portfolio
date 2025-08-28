@@ -1,4 +1,6 @@
-function TabHead({ activeTab, setActiveTab }) {
+import "./TabHead.css";
+
+function TabHead({activeTab, setActiveTab }) {
   return (
     <>
       <section className="tab-head-container">

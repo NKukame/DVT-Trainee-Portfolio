@@ -1,24 +1,8 @@
-import { Navigate, Outlet } from "react-router";
-import SideBar from "../SidebarComp/SideBar";
-import MobileNavbar from "../SidebarComp/MobileNavBar";
-import MobileDock from "../SidebarComp/MobileNavDock";
+import { Navigate, Outlet} from "react-router-dom";
 
-export default function ProtectedRoutes() {
-  const token = localStorage.getItem("token");
-  return (
+export default function ProtectedRoutes(){
 
-    <>
-      {
-        !token ? <Navigate to={'/'} replace/> :
-        <div className="app-layout">
-          <SideBar />
-          <MobileNavbar />
-          <div className="app-layout-body">
-            <Outlet />
-          </div>
-          <MobileDock />
-        </div>
-      }
-    </>
-  );
+  const token = localStorage.getItem('token');
+  return !token ? <Navigate to={'/'} replace /> : <Outlet/>;
+
 }
