@@ -1,6 +1,3 @@
-import prisma, {redis} from "../lib/prisma-redis-middleware.js";
-import { getCache,setCache } from "../lib/prisma-redis-middleware.js";
-import { setKeyValue } from '../lib/prisma-redis-middleware.js';
 import prisma, { generateKey, redis } from "../lib/prisma-redis-middleware.js";
 import { getCache, setCache } from "../lib/prisma-redis-middleware.js";
 
@@ -25,9 +22,6 @@ import { getCache, setCache } from "../lib/prisma-redis-middleware.js";
  */
 
 export async function SearchProjectController(req, res) {
-  const startTime = Date.now();
-  const { query, industries, techStack, field, order, page = 1, limit = 9 } = req.query; // Changed from req.params to req.query
-
   const {
     query,
     industries,
@@ -39,18 +33,6 @@ export async function SearchProjectController(req, res) {
   } = req.query; // Changed from req.params to req.query
 
   try {
-    const where = {}
-    const cacheKey = setKeyValue(
-  'searchProject',
-  query,
-      Array.isArray(industries) ? industries.join(',') : industries,
-      Array.isArray(techStack) ? techStack.join(',') : techStack,
-  field,
-  order,
-  page,
-  limit
-);
-
     const where = {};
     const cacheKey = await generateKey(
       "projects",
@@ -67,23 +49,6 @@ export async function SearchProjectController(req, res) {
 
     console.log(cacheKey);
     const cached = await getCache(cacheKey);
-  
-    if (cached) {
-      console.log('Cache hit for SearchProjectController', query);
-      const queryTime = Date.now() - startTime;
-    
-      return res.json({
-        // success: true,
-        projects: cached,
-        total: cached.total,
-        performance: {
-          queryTime: `${queryTime}ms`,
-          cached: true,
-          count: cached.projects,
-          searchTerm: cacheKey
-        }
-      });
-    }
     if (cached) {
       return res.status(200).send(cached);
     }
@@ -121,12 +86,6 @@ export async function SearchProjectController(req, res) {
       };
     }
 
-    const orderBy = {}
-
-    if (field && order) {
-      orderBy[field] = order
-    }else {
-      orderBy.createdAt = 'desc'
     const orderBy = {};
 
     if (order && field) {
@@ -213,9 +172,6 @@ export async function SearchProjectController(req, res) {
  */
 
 export async function SearchEmployeeController(req, res) {
-  const startTime = Date.now();
-  let { query, location, role, techStack, industry, field, order, page = 1, limit = 9 } = req.query;
-  
   let {
     query,
     location,
@@ -230,20 +186,6 @@ export async function SearchEmployeeController(req, res) {
 
   try {
     const where = {};
-    const cacheKey = setKeyValue(
-      'searchEmployee',
-      query,
-      Array.isArray(location) ? location.join(',') : location,
-      Array.isArray(role) ? role.join(',') : role,
-      Array.isArray(techStack) ? techStack.join(',') : techStack,
-      Array.isArray(industry) ? industry.join(',') : industry,
-      field,
-      order,
-      page,
-      limit
-    );
-
- 
     const cacheKey = await generateKey(
       "employees",
       query,
@@ -331,6 +273,7 @@ export async function SearchEmployeeController(req, res) {
         orderBy,
         skip: (page - 1) * limit,
         take: Number(limit),
+
         select: {
           id: true,
           title: true,
