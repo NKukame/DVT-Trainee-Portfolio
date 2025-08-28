@@ -94,6 +94,9 @@ function Signup() {
   };
 
   const handleChange = (e) => {
+    // if (e.target.value.includes('@')){
+    //   e.target.name = "email";
+    // }
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear errors when user starts typing
     if (errors[e.target.name]) {
@@ -303,28 +306,28 @@ function Signup() {
                 </div>
                 {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
 
-                <h6>Confirm Password</h6>
-                <div className="password-container-signup">
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password "
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className={getInputClass("confirmPassword")}
-                  />
-                  <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"} />
-                  {isConfirmPasswordVisible ? 
-                    <Eye className="eye-icon-signup" strokeWidth="1" size={"20px"} onClick={(event) => {
-                      handleConfirmPasswordToggle(event, false)
-                    }} /> :
-                    <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event) => {
-                      handleConfirmPasswordToggle(event, true);
-                    }} />
-                  }
-                </div>
-                {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
+              <h6>Confirm Password</h6>
+              <div className="password-container-signup">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password "
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className={getInputClass("confirmPassword")}
+                />
+                <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
+                {isConfirmPasswordVisible ? 
+                  <Eye className="eye-icon-signup" strokeWidth="1" size={"20px"} onClick={(event)=>{
+                    handleConfirmPasswordToggle(event, false)
+                  }}/> :
+                  <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1"  size={"20px"} onClick={(event)=>{
+                    handleConfirmPasswordToggle(event, true);
+                  }} />
+                }
               </div>
+              {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
+            </div>
 
             {loading ? <div className="form-loader"></div> :
               <button type="submit">Sign Up</button>}
