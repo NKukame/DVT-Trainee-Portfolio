@@ -130,22 +130,46 @@ function Signup() {
             "Content-Type" : "application/json"
           }}
         );
-         const user_id = userRegistered.data.id;
-        
-         console.log("the user ", userRegistered)
-        if(userRegistered.status === 201){
-          setIsSignUp(false);
-          setFormData(prev => ({
-            ...prev,
-            password: "",
-            confirmPassword: "",
-          }));
-          localStorage.setItem("user", JSON.stringify(user_id));
-          navigate("/profile-creation");
-        }  
-        else{
-          setErrors( {email:'Registration failed'})
-          setLoading(false)
+        const user_id = userRegistered.data.id;
+
+        console.log("the user ", userRegistered);
+        if (userRegistered.status === 201) {
+          // Auto-login after successful registration
+          try {
+            const loginResponse = await axios.post(
+              "http://localhost:3000/login",
+              {
+                email: formData.email,
+                password: formData.password,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              },
+            );
+            
+            const tokenData = loginResponse.data.token;
+            const user_id = loginResponse.data.user;
+            localStorage.setItem("token", JSON.stringify(tokenData));
+            localStorage.setItem("userId", JSON.stringify(user_id));
+            
+            setLoading(false);
+            navigate("/profile-creation");
+          } catch (loginError) {
+            console.error("Auto-login failed:", loginError);
+            setLoading(false);
+            // If auto-login fails, just switch to login form
+            setIsSignUp(false);
+            setFormData((prev) => ({
+              ...prev,
+              password: "",
+              confirmPassword: "",
+            }));
+          }
+        } else {
+          setErrors({ email: "Registration failed" });
+          setLoading(false);
         }
       }catch(err){
         setErrors({email: 'Registration failed'});
@@ -254,48 +278,59 @@ const handleLogin = async () => {
           <form onSubmit={handleSubmit}>
             <h1>Create Account</h1>
 
-            <div className="sign-up-form">
-          
-        
-            <h6>Email</h6>
-            <input
-              type="email"
-              name="email"
-              placeholder=" Enter email address"
-              value={formData.email}
-              onChange={handleChange}
-              className={getInputClass("email")}
-            />
-             
-            {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
-          {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
+              <div className="sign-up-form">
+                <h6>Email</h6>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder=" Enter email address"
+                  value={formData.email || ""}
+                  onChange={handleChange}
+                  className={getInputClass("email")}
+                />
 
-            
-            <h6> Password</h6>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
-              className={getInputClass("password")}
-            />
-            
-            {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
-            <h6>Confirm Password</h6>
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={getInputClass("confirmPassword")}
-            />
-            {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
+                {/* <Mail className="mail-icon" strokeWidth={1} size={"20px"}/> */}
+                {errors.email ? (
+                  <p className="signup-error">{errors.email}</p>
+                ) : (
+                  <p className="signup-error"></p>
+                )}
 
-            </div>
-            {loading ? <div className="form-loader"></div> : 
-           <button type="submit">Sign Up</button>}
+                <h6> Password</h6>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  value={formData.password || ""}
+                  onChange={handleChange}
+                  className={getInputClass("password")}
+                />
+
+                {errors.password ? (
+                  <p className="signup-error">{errors.password}</p>
+                ) : (
+                  <p className="signup-error"></p>
+                )}
+                <h6>Confirm Password</h6>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword || ""}
+                  onChange={handleChange}
+                  className={getInputClass("confirmPassword")}
+                />
+                {errors.confirmPassword ? (
+                  <p className="signup-error">{errors.confirmPassword}</p>
+                ) : (
+                  <p className="signup-error"></p>
+                )}
+              </div>
+              {loading ? (
+                <div className="form-loader"></div>
+              ) : (
+                <button type="submit">Sign Up</button>
+              )}
 
             <p className="signInBlack" style={{ color: "#257A99", fontWeight: "500", fontSize:"10px" }}>Already have an account? <Link to="#" style={{ fontWeight: "500", fontSize:"10px" }} onClick={() =>{
                setIsSignUp(false)
@@ -322,14 +357,14 @@ const handleLogin = async () => {
             <div className="sign-in-h6">
             <h6 >Email </h6>
 
-                    <div className="email-input-container">
-                        <input
-                          type="text"
-                          name="email"
-                          placeholder="Enter email"
-                          value={formData.email }
-                          onChange={handleChange}
-                          className={getInputClass("email")+" email-input"}
+                  <div className="email-input-container">
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="Enter email"
+                      value={formData.email || ""}
+                      onChange={handleChange}
+                      className={getInputClass("email") + " email-input"}
                     />
                     <Mail className="mail-icon" strokeWidth={1} size={"20px"}/>
                     </div>
@@ -340,8 +375,8 @@ const handleLogin = async () => {
                       <input  
                       type="password"
                       name="password"
-                      placeholder="Password" 
-                      value={formData.password}
+                      placeholder="Password"
+                      value={formData.password || ""}
                       onChange={handleChange}
                       className={getInputClass("password")+" password-input"}
                     />

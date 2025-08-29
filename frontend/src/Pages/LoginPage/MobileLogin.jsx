@@ -242,7 +242,7 @@ export default function AuthForm() {
               type="text"
               name="email"
               placeholder="Enter email"
-              value={formData.email}
+              value={formData.email || ""}
               onChange={handleChange}
               className={"email" + " email-input"}
             />
@@ -255,7 +255,7 @@ export default function AuthForm() {
               type="password"
               name="password"
               placeholder="Password"
-              value={formData.password}
+              value={formData.password || ""}
               onChange={handleChange}
               className={"password" + " password-input"}
             />
@@ -288,7 +288,7 @@ export default function AuthForm() {
                 type="password"
                 name="confirmPassword"
                 placeholder="Confirm Password"
-                value={formData.confirmPassword}
+                value={formData.confirmPassword || ""}
                 onChange={handleChange}
                 className={"mobile-login-input"}
               />
