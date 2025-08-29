@@ -38,6 +38,13 @@ export const SearchContextProvider = ({ children }) => {
 
     try {
       const token = localStorage.getItem("token");
+      
+      if (!token) {
+        console.error('No token found');
+        setIsLoading(false);
+        return;
+      }
+      
       axios.defaults.headers.common["authorization"] =
         `Bearer ${JSON.parse(token)}`;
       axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -121,7 +128,11 @@ export const SearchContextProvider = ({ children }) => {
         employeesWithTechStackNames.concat(projectsWithTechStack),
       );
     } catch (err) {
-      console.log(err);
+      console.error('Search error:', err);
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+      }
     } finally {
       setIsLoading(false);
     }

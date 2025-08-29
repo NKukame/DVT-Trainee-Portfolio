@@ -20,22 +20,31 @@ export const authProvider = {
     forgotPassword: async (params) => { throw new Error("Not implemented"); },
     updatePassword: async (params) => { throw new Error("Not implemented"); },
     getIdentity: async () => {
-    
       const token = JSON.parse(localStorage.getItem("token"));
-      const response = await fetch("http://localhost:3000/api/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-  
-      if (response.status < 200 || response.status > 299) {
+      const userId = JSON.parse(localStorage.getItem("userId"));
+      
+      if (!token || !userId) {
         return null;
       }
-  
-      const data = await response.json();
-  
-      return data;
+
+      try {
+        const response = await fetch(`http://localhost:3000/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+    
+        if (response.status < 200 || response.status > 299) {
+          return null;
+        }
+    
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching user identity:', error);
+        return null;
+      }
     },
     getPermissions: async () => { throw new Error("Not implemented"); },
 };
