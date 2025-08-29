@@ -18,24 +18,58 @@ const MeController = async (req, res) => {
                 techStack: true
               }
             },
-            projects: {
-              include: {
-                project: {
-                  include: {
-                    industries: {
-                      include: {
-                        industry: true
-                      }
+              projects: {
+            select: {
+              project: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                  members: {
+                    select: {
+                      employee: {
+                        select: {
+                          name: true,
+                          photoUrl: true,
+                        },
+                      },
                     },
-                    techStack: {
-                      include: {
-                        techStack: true
-                      }
-                    }
-                  }
-                }
-              }
+                  },
+                  techStack: {
+                    select: {
+                      techStack: {
+                        select: {
+                          name: true,
+                        },
+                      },
+                    },
+                  },
+                  github: true,
+                  demo: true,
+                  screenshot: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  industries: {
+                    select: {
+                      project: {
+                        select: {
+                          industries: {
+                            select: {
+                              industry: {
+                                select: {
+                                  name: true,
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
+          },
             testimonials: true,
             education: true,
             certificates: true,

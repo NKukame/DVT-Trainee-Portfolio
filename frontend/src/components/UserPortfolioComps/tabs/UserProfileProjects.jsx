@@ -65,7 +65,7 @@ const [empProject, setEmpProject] = useState([]);
                     <>
                       <img
                         className="profile-account-image"
-                        src={proj.project.members?.[0]?.employee?.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members?.[0]?.employee?.photoUrl}
+                        src={proj.project.members?.[0]?.employee?.photoUrl === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : proj.project.members?.[0]?.employee?.photoUrl }
                         alt={proj.project.members?.[0]?.employee?.name || 'Team member'}
                       />
                       <p>{props.testEmployee.name} </p>
