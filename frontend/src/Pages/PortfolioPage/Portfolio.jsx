@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import GridView from "../../components/GridViewComp/GridView";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import UserProfile from "../UserPortfolioPage/UserPortfolio";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
