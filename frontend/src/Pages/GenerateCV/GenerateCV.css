@@ -300,7 +300,7 @@
     border: 2px solid var(--white);
     border-radius: 1rem;
     padding: 10px 20px;
-    background-color: transparent;
+    background-color: var(--dark-blue);
     color: var(--white);
     cursor: pointer;
 }
