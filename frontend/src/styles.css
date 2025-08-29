@@ -4,7 +4,6 @@
 @import "./components/UserPortfolioComps/tabs/UserProfileOverview.css";
 @import "./components/SearchBarComp/SearchBar.css";
 
-@import "./Pages/PortfolioPage/Portfolio.css";
 @import "./components/GridViewComp/GridView.css";
 @import "./Pages/AboutPage/About.css";
 
@@ -29,6 +28,7 @@
 @import "./responsive-styles/mobile-login.css";
 @import "./components/UserPortfolioComps/usedComps/ClientCarousel.css";
 @import "./Pages/GenerateCV/GenerateCV.css";
+@import "./Pages/PortfolioPage/Portfolio.css";                 
 
 @import "./responsive-styles/mobile.css";
 @import "./responsive-styles/mobile-home.css";

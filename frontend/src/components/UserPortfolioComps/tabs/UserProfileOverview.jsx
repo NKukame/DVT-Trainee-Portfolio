@@ -90,7 +90,7 @@ function UserProfileOverview(props) {
         <h1 className="profile-overview-title">Hello World!</h1>
         <p className="profile-overview-text">{props.testEmployee.bio}</p>
         <section className="testimonial-overview-section">
-          {props.testEmployee.testimonials.length >= 3 ? (
+          {props.testEmployee.testimonials.length > 3 ? (
             <div className="testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
                 <div key={i} className="testimonial-item">

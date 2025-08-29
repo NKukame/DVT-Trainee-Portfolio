@@ -42,7 +42,7 @@ function SideBar() {
           name: userData.name,
           email: userData.email,
           profilePicture: userData.avatar,
-          role: userData.role,
+          role: userData.user_role,
         });
       } else if (response.status === 401) {
         localStorage.removeItem("token");
