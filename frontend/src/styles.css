@@ -1,8 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap");
-/* @import "tailwindcss"; */
-
+@import "./components/SearchResultsComp/SearchPage.css";
 @import "./components/UserPortfolioComps/tabs/UserprofileSkillBreakdown.css";
 @import "./components/UserPortfolioComps/tabs/UserProfileOverview.css";
+@import "./components/SearchBarComp/SearchBar.css";
+
+@import "./components/GridViewComp/GridView.css";
+@import "./Pages/AboutPage/About.css";
+
+@import "./components/BodyComp/Body.css";
+@import "./components/SidebarComp/SideBar.css";
+
+@import "./components/FilterComp/Filter.css";
+@import "./components/ComboComp/Combo.css";
+@import "./components/SortComp/Sort.css";
+
+@import "./Pages/ProfileCreation/ProfileCreation.css";
+@import "./components/ProfileCreationComp/Stepper.css";
+@import "./components/ProfileCreationComp/Form.css";
+@import "./components/ProfileModalComp/ProfileModal.css";
+
+@import "./Pages/LoginPage/Login.css";
+
+@import "./Pages/UserPortfolioPage/UserPortfolio.css";
+@import "./components/DashboardComp/Dashboard.css";
+@import "./components/UserPortfolioComps/tabs/TabHead.css";
+@import "./components/UserPortfolioComps/tabs/UserProfileProjects.css";
+@import "./responsive-styles/mobile-login.css";
+@import "./components/UserPortfolioComps/usedComps/ClientCarousel.css";
+@import "./Pages/GenerateCV/GenerateCV.css";
+@import "./Pages/PortfolioPage/Portfolio.css";                 
+
+@import "./responsive-styles/mobile.css";
+@import "./responsive-styles/mobile-home.css";
+@import "./responsive-styles/mobile-about.css";
+@import "./responsive-styles/mobile-profile.css";
+@import "./responsive-styles/mobile-search.css";
+@import "./responsive-styles/mobile-user-profile.css";
+@import "./responsive-styles/mobile-navbar.css";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
 :root {
   --white: #ffffff;
@@ -70,6 +110,10 @@ body.dark-mode {
   background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
 }
 
+.css-1xhj18k {
+  width: 100%;
+}
+
 .dark-mode .app-layout-body {
   background: linear-gradient(0deg, #02111e 0%, #04223d 100%);
 }
@@ -101,3 +145,11 @@ body.dark-mode {
   background: var(--dark-yellow);
 }
 
+@media screen and (max-width: 500px) {
+  .app-layout {
+    display: block;
+  }
+  .app-layout-body {
+    display: block;
+  }
+}

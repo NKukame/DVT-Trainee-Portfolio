@@ -1,11 +1,10 @@
-import { useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
-import { usePDF } from 'react-to-pdf';
-import { Star, Calendar1, MapPin, Award } from 'lucide-react';
-import './GenerateCV.css'
-import CVHorizontalBarChart from '../../components/GenerateCVComps/CVHorizontalBarChart';
-import CVPolarChart from '../../components/GenerateCVComps/CVPolarChart';
-import CVProject from '../../components/GenerateCVComps/CVProject';
+import { useLocation } from "react-router";
+import React, { useState } from "react";
+import { usePDF } from "react-to-pdf";
+import { Star, Calendar1, MapPin, Award } from "lucide-react";
+import CVHorizontalBarChart from "../../components/GenerateCVComps/CVHorizontalBarChart";
+import CVPolarChart from "../../components/GenerateCVComps/CVPolarChart";
+import CVProject from "../../components/GenerateCVComps/CVProject";
 
 function GenerateCV(){
     const location = useLocation();
@@ -228,3 +227,4 @@ function GenerateCV(){
 }
 
 export default GenerateCV;
+

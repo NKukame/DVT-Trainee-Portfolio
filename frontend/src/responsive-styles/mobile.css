@@ -1,0 +1,22 @@
+@media screen and (max-width: 500px) {
+  .filter-section {
+    flex-direction: column;
+  }
+  .mobile-search {
+    justify-content: start;
+    justify-items: start;
+    align-items: center;
+    align-content: center;
+    margin-block: 0px;
+    padding: 15px 5px;
+  }
+  .input-container {
+    width: 98%;
+    height: 45px;
+    margin: 1px 10px;
+  }
+
+  .gap-24-px {
+    gap: 24px;
+  }
+}

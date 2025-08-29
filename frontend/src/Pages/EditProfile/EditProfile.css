@@ -12,6 +12,10 @@
     margin-bottom: 10px;
 }
 
+.dark-mode .edit-profile-body{
+    background-color: var(--dark-cerulean);
+}
+
 .edit-profile-content-title{
     padding-left: 10px;
 }
@@ -54,6 +58,17 @@
     color: var(--dark-mode-blue);
     gap: 20px;
 }
+
+.dark-mode .edit-form-group input,
+.dark-mode .edit-form-group select,
+.dark-mode .edit-form-group textarea,
+.dark-mode .tech-stack-list .badge-default,
+.dark-mode .soft-skills-list .badge-default,
+.dark-mode .skills-rating-edit-label,
+.dark-mode .tech-rating-edit-label{
+    color: var(--white);
+}
+
 
 .edit-form-group input {
     font-family: inherit;
@@ -148,6 +163,7 @@
 }
 
 .soft-skill-item .range-slider, .tech-stack-item .range-slider{
+    margin-top: 5px;
     width: 200px;
 }
 

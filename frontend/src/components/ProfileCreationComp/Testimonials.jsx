@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Upload, Save, X, Pencil, Trash2 } from "lucide-react";
-import "./Form.css";
 
 function Testimonials({ data, onChange }) {
   const [clientEntries, setClientEntries] = useState(data?.clients || [""]);
@@ -81,7 +80,7 @@ function Testimonials({ data, onChange }) {
   const handleDeleteTestimonial = () => {
     if (editIndex !== null) {
       const updatedTestimonials = testimonials.filter(
-        (_, i) => i !== editIndex
+        (_, i) => i !== editIndex,
       );
       setTestimonials(updatedTestimonials);
       updateParent(clientEntries, updatedTestimonials);
@@ -131,7 +130,11 @@ function Testimonials({ data, onChange }) {
           <div className="testimonial-insertion-container">
             <div className="testimonial-upload-container">
               <div className="testimonial-upload">
-                <Upload size={30} className="career-projects-upload-icon" color="var(--navy-blue)" />
+                <Upload
+                  size={30}
+                  className="career-projects-upload-icon"
+                  color="var(--navy-blue)"
+                />
                 <button type="button" onClick={() => setShowModal(true)}>
                   Upload Testimonial
                 </button>
@@ -280,9 +283,18 @@ function Testimonials({ data, onChange }) {
             <div className="testimonial-success-modal-header">
               <h3>Add Testimonial</h3>
 
-              <div className="testimonial-success-modal-close" onClick={() => setShowSuccessModal(false)}>X</div>
-            </div>            
-            <p>You have successfully added a testimonial to your profile. After an admin has reviewed and approved your submission it will become visible on your profile..</p>
+              <div
+                className="testimonial-success-modal-close"
+                onClick={() => setShowSuccessModal(false)}
+              >
+                X
+              </div>
+            </div>
+            <p>
+              You have successfully added a testimonial to your profile. After
+              an admin has reviewed and approved your submission it will become
+              visible on your profile..
+            </p>
             <button
               className="testimonial-modal-submit-button"
               onClick={() => setShowSuccessModal(false)}

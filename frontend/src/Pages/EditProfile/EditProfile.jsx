@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { useState } from "react";
 import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
@@ -278,8 +278,6 @@ function EditProfile(prop) {
           </div>
         </div>
       )}
-      <div className="app-layout">
-        <SideBar />
 
         <div className="edit-profile-body">
           <div className="edit-profile-content-header">
@@ -501,7 +499,7 @@ function EditProfile(prop) {
                             )
                           }
                         />
-                        <span style={{ marginLeft: "10px" }}>
+                        <span style={{ marginLeft: "10px" }} className="tech-rating-edit-label">
                           {tech.Techrating
                             ? `Rating: ${tech.Techrating}`
                             : "Rating: 1"}
@@ -619,7 +617,7 @@ function EditProfile(prop) {
                             )
                           }
                         />
-                        <span style={{ marginLeft: "10px" }}>
+                        <span style={{ marginLeft: "10px" }} className="skills-rating-edit-label">
                           {skill.skillsRating
                             ? `Rating: ${skill.skillsRating}`
                             : "Rating: 1"}
@@ -856,7 +854,6 @@ function EditProfile(prop) {
             )}
           </div>
         </div>
-      </div>
     </>
   );
 }

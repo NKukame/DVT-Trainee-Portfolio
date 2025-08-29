@@ -1,5 +1,3 @@
-import "./Stepper.css";
-
 function Stepper({
   currentStep,
   stepData,
