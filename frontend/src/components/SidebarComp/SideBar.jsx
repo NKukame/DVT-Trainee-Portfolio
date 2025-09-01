@@ -195,7 +195,7 @@ function SideBar() {
                   />
                 </svg>
               )}
-              <p className="home-txt">{userInfo.name || "Profile"}</p>
+              <p className="home-txt">{userInfo.name.split(" ")[0] || "Profile"}</p>
             </div>
           </div>
         </div>
