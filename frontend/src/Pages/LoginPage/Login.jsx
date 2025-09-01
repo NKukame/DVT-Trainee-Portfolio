@@ -502,47 +502,47 @@ function Signup() {
           </div>
         </div>
         {/* Mobile form toggle - only visible on mobile */}
-<div className="mobile-form-toggle">
-  {!isSignUp ? (
-    <p>
-      Don't have an account?{" "}
-      <a
-        href="#"
-        onClick={() => {
-          setIsSignUp(true);
-          setFormData(prev => ({
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-          }));
-          setErrors({});
-        }}
-      >
-        Sign up
-      </a>
-    </p>
-  ) : (
-    <p>
-      Already have an account?{" "}
-      <a
-        href="#"
-        onClick={() => {
-          setIsSignUp(false);
-          setFormData(prev => ({
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-          }));
-          setErrors({});
-        }}
-      >
-        Sign in
-      </a>
-    </p>
-  )}
-</div>
+  {/* <div className="mobile-form-toggle">
+    {!isSignUp ? (
+      <p>
+        Don't have an account?{" "}
+        <a
+          href="#"
+          onClick={() => {
+            setIsSignUp(true);
+            setFormData(prev => ({
+              name: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }));
+            setErrors({});
+          }}
+        >
+          Sign up
+        </a>
+      </p>
+    ) : (
+      <p>
+        Already have an account?{" "}
+        <a
+          href="#"
+          onClick={() => {
+            setIsSignUp(false);
+            setFormData(prev => ({
+              name: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }));
+            setErrors({});
+          }}
+        >
+          Sign in
+        </a>
+      </p>
+    )}
+  </div> */}
       </div>
     </>
   );
