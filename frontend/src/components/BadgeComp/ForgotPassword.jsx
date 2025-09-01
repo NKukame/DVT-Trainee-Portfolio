@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router";
 import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import { Mail, ArrowLeft } from "lucide-react";
 import "./ForgotPassword.css";

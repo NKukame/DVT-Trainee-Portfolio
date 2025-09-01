@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import "../../Pages/LoginPage/Login.css";
+import { useNavigate } from "react-router"; 
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
 
 function ProfileModal({ isOpen, onClose, userInfo }) {
@@ -121,9 +120,5 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
   );
 }
 
-<<<<<<< HEAD
-export default ProfileModal;
-
-=======
 export default ProfileModal;
 

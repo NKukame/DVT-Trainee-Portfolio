@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import "./SideBar.css";
 import dvtLogo from "../../assets/dvt_logo.jpg";
