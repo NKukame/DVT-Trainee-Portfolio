@@ -1,0 +1,223 @@
+.edit-profile-body{
+    display: flex;
+    flex-direction: column;
+    min-height: 96vh;
+    gap: 10px;
+    height: 100%;
+    width: 90%;
+    margin-top: 20px;
+    margin-left: 8%;
+    background-color: var(--white);
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.edit-profile-picture-form{
+    margin-left: 40px;
+}
+
+.change-profile-pic{
+    margin-top: 10px;
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    width: 30%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.change-profile-pic:hover{
+    background-color: var(--light-blue);
+}
+
+.change-profile-pic-button-container{
+    margin-left: 20px;
+}
+
+.dark-mode .edit-profile-body{
+    background-color: var(--dark-cerulean);
+}
+
+.edit-profile-content-title{
+    padding-left: 10px;
+}
+
+.edit-submit-section{
+    padding: 20px;
+}
+
+.edit-form-text-section{
+    display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.edit-right-form-section, 
+.edit-left-form-section, 
+.education-section,
+.certificate-section{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 50%;
+}
+
+
+.soft-skill-item, .tech-stack-item {
+  display: flex; 
+  align-items: flex-start; 
+  justify-content: flex-start;
+  gap: 25px;
+  width: 100%;
+}
+
+.education-section, .certificate-section{
+    width: 100%;
+}
+
+.edit-form-group{
+    display: flex;
+    color: var(--dark-mode-blue);
+    gap: 20px;
+}
+
+.dark-mode .edit-form-group input,
+.dark-mode .edit-form-group select,
+.dark-mode .edit-form-group textarea,
+.dark-mode .tech-stack-list .badge-default,
+.dark-mode .soft-skills-list .badge-default,
+.dark-mode .skills-rating-edit-label,
+.dark-mode .tech-rating-edit-label{
+    color: var(--white);
+}
+
+
+.edit-form-group input {
+    font-family: inherit;
+  font-size: 14px;
+  display: block;
+  width: 200px;
+  border: none;
+  width: 250px;
+  border-bottom: 1px solid var(--progress-bar-gray);
+  background: transparent;
+  transition: 0.3s ease;
+}
+
+.edit-form-group input:focus {
+  outline: 0;
+  border-bottom-color: var(--dark-mode-blue);
+  transform: none;
+}
+
+.edit-form-group label{
+    color: var(--dark-mode-blue);
+    width: 20%;
+}
+
+.edit-form-group select{
+    font-size: 14px;
+    display: block;
+    font-family: inherit;
+    width: 250px;
+    border: none;
+    border-bottom: 1px solid var(--progress-bar-gray);
+    background: transparent;
+}
+
+.edit-form-group textarea{
+    font-size: 14px;
+    display: block;
+    font-family: inherit;
+    width: 480px;
+    height: 110px;
+    border-radius: 10px;
+    border: 1px solid var(--progress-bar-gray);
+    background: transparent;
+    padding: 5px;
+}
+
+
+.edit-profile-content-header{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    background-color: var(--dark-mode-blue);
+    padding: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.edit-profile-content-header h3{
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.testimonial-edit-group, .project-edit-group, .career-edit-group{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.edit-profile-edit-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block: 20px;
+}
+
+.edit-profile-edit-btn{
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 10%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-edit-btn:hover{
+    background-color: var(--light-blue);
+}
+
+.soft-skill-item .range-slider, .tech-stack-item .range-slider{
+    margin-top: 5px;
+    width: 180px;
+}
+
+input[type="range"]:focus,
+.range-slider:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}
+
+.edit-profile-add-btn {
+    background-color: white;
+  border: 1px solid var(--dark-mode-blue);
+  color: var(--dark-mode-blue);
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  width: 25%;
+  margin-left: 35%;
+  transition: background 0.3s, color 0.3s;
+}
+
+.edit-profile-add-btn:hover {
+  background: var(--dark-mode-blue);
+  color: white;
+}
+
+.tech-stack-list .new-tech-stack-edit-select{
+    width: 150px;
+}

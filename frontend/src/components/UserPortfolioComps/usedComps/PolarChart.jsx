@@ -15,12 +15,14 @@ ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const PolarChart = (props) => {
   const darkMode = localStorage.getItem('darkMode') === 'enabled';
+  const softSkills = props.user?.softSkills || props.user?.softSkilled || [];
+  
   const data = {
-    labels: props.user.softSkilled.map(skill => `${skill.softSkill.name}`) ,
+    labels: softSkills.map(skill => `${skill?.softSkill?.name || 'Unknown'}`) ,
     datasets: [
       {
         label: 'My Polar Dataset',
-        data: props.user.softSkilled.map(rate => `${rate.skillsRating}`) ,
+        data: softSkills.map(rate => `${rate?.skillsRating || 0}`) ,
         backgroundColor: [
           'rgba(0, 122, 255, 1)',    // Bright Blue (good in both modes)
           'rgba(255, 99, 132, 1)',   // Soft Red for contrast

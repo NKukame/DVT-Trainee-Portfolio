@@ -13,12 +13,14 @@ import {
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const CVPolarChart = (props) => {
+  const softSkills = props.user?.softSkills || props.user?.softSkilled || [];
+  
   const data = {
-    labels: props.user.softSkilled.map(skill => `${skill.softSkill.name}`) ,
+    labels: softSkills.slice(0,4).map(skill => `${skill?.softSkill?.name || 'Unknown'}`) ,
     datasets: [
       {
         label: 'My Polar Dataset',
-        data: props.user.softSkilled.slice(0,4).map(rate => `${rate.skillsRating}`) ,
+        data: softSkills.slice(0,4).map(rate => `${rate?.skillsRating || 0}`) ,
         backgroundColor: [
           'rgb(245, 245, 220)',    // Bright Blue (good in both modes)
           'rgba(255, 99, 132, 1)',   // Soft Red for contrast

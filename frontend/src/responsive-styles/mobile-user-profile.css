@@ -1,0 +1,241 @@
+.mobile-dashboard-container {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .portfolio-layout {
+    display: block;
+  }
+
+  .dashboard {
+    display: none;
+  }
+
+  .project-container {
+    width: initial;
+    padding: 0px;
+    min-height: initial;
+    border-radius: 0;
+  }
+
+  .tab{
+    font-weight: 300;
+  }
+  .profile-overview-container {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .tab-head-container {
+    position: sticky;
+    top: 11.1%;
+    background: inherit;
+  }
+  .profile-overview-text {
+    font-size: 1rem;
+    text-align: start;
+    font-weight: 300;
+  }
+
+  .profile-overview-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    align-self: baseline;
+    margin-block: initial;
+    margin: initial;
+  }
+.overview-video-carousel{
+  display: none;
+}
+
+  .profile-overview-ft-Projects {
+    display: none;
+    font-size: 1.7rem;
+    font-weight: 600;
+    width: 98%;
+  }
+  .overview-video-header {
+    margin: 0px;
+  }
+  .static-testimonial-content {
+    flex-wrap: wrap;
+  }
+
+  .testimonial-item {
+    width: 100%;
+  }
+
+  .client-section {
+    margin-block: 20px;
+  }
+
+  .static-client-content {
+    margin: 0px;
+    gap: 6px;
+  }
+  .client-item {
+    height: 60px;
+    border-radius: 0px;
+    background: transparent;
+    padding: 0px;
+  }
+  .client-image {
+    border-radius: 0px;
+    border: none;
+  }
+
+  .project-grid-content {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    justify-items: center;
+  }
+
+  .project-content {
+    height: initial;
+    overflow-y: initial;
+    margin-top: 20px;
+  }
+  .dark-mode .profile-projects-title {
+    border: none;
+  }
+  .profile-projects-title {
+    padding: 10px;
+    display: initial;
+    font-weight: 600;
+    font-size: 1.7rem;
+    border: none;
+  }
+
+  .skills-header {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 15px;
+    display: none;
+  }
+  .skills-education-header {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 15px 0px;
+  }
+
+  .skills-education-item {
+    flex-wrap: wrap;
+    padding-right: 0px;
+  }
+  .skills-education-item-title {
+    margin-block: 5px;
+  }
+
+  .skills-circle-header,
+  .skills-bar-header {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    font-size: 1.3rem;
+  }
+  .skills-circle {
+    width: initial;
+    height: initial;
+  }
+  .skills-bar-graph canvas {
+    width: initial;
+    height: initial;
+  }
+
+  .mobile-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: inherit;
+    padding-bottom: 15px;
+  }
+  .mobile-profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .proficiencies {
+    border: none;
+  }
+
+  .user-caption,
+  .mobile-socials,
+  .mobile-name-availability,
+  .mobile-user-exeperience {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-socials {
+    border-bottom: 1px solid #d4d4d440;
+  }
+  .footer {
+    margin: 0px;
+    border: none;
+    justify-content: start;
+    align-items: start;
+    width: initial;
+    padding: 0px;
+    padding-bottom: 10px;
+    gap: 8px;
+  }
+  .profile-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .profile-img{
+    border-radius: 50%;
+  }
+  
+  .profile-role {
+    font-weight: 300;
+    margin: 0;
+  }
+  
+  .dark-mode .proficiency-list .skill-tag {
+    border: none;
+  }
+  .proficiencies h2 {
+    font-size: 1.3rem;
+    margin-top: 0px;
+    font-weight: 300;
+  }
+  .proficiency-list li {
+    font-size: 0.7rem;
+    border: none;
+  }
+  .dark-mode .project-grid-item {
+    border: solid 1px #d4d4d440;
+  }
+  .dark-mode .project-tag {
+    border: solid 1px #d4d4d440;
+  }
+  
+  .mobile-user-exeperience {
+    padding-bottom: 10px;
+  }
+  .user-caption {
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    background: inherit;
+  }
+  .dark-mode .tab-head-container {
+    border: none;
+  }
+
+  .profile-edit-btn{
+    background: inherit;
+    border: none;
+    color: inherit;
+  }
+  .user-role{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+  }
+}

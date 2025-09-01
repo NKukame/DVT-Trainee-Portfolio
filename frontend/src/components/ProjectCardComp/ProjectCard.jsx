@@ -1,5 +1,5 @@
 import Badges from '../BadgeComp/Badges';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { LinkExternal01, XClose } from '@untitled-ui/icons-react';
 import { useState } from 'react';
 
