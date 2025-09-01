@@ -167,46 +167,6 @@ function Signup() {
         } else {
           setErrors({ email: "Registration failed" });
           setLoading(false);
-        const user_id = userRegistered.data.id;
-
-        console.log("the user ", userRegistered);
-        if (userRegistered.status === 201) {
-          // Auto-login after successful registration
-          try {
-            const loginResponse = await axios.post(
-              "http://localhost:3000/login",
-              {
-                email: formData.email,
-                password: formData.password,
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              },
-            );
-            
-            const tokenData = loginResponse.data.token;
-            const user_id = loginResponse.data.user;
-            localStorage.setItem("token", JSON.stringify(tokenData));
-            localStorage.setItem("userId", JSON.stringify(user_id));
-            
-            setLoading(false);
-            navigate("/profile-creation");
-          } catch (loginError) {
-            console.error("Auto-login failed:", loginError);
-            setLoading(false);
-            // If auto-login fails, just switch to login form
-            setIsSignUp(false);
-            setFormData((prev) => ({
-              ...prev,
-              password: "",
-              confirmPassword: "",
-            }));
-          }
-        } else {
-          setErrors({ email: "Registration failed" });
-          setLoading(false);
         }
       } catch (err) {
         setErrors({ email: "Registration failed" });
