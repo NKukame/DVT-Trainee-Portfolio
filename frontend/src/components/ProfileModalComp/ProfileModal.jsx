@@ -33,6 +33,11 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
             ) : (
               <div className="form-loader" style={{ margin: '10px 0' }}></div>
             )}
+            {userInfo?.name ? (
+              <h3>{userInfo.name}</h3>
+            ) : (
+              <div className="form-loader" style={{ margin: '10px 0' }}></div>
+            )}
             <p>{userInfo?.email || ""}</p>
           </div>
           <button className="profile-modal-close" onClick={onClose}>
@@ -116,5 +121,9 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
   );
 }
 
+<<<<<<< HEAD
+export default ProfileModal;
+
+=======
 export default ProfileModal;
 

@@ -21,7 +21,7 @@ function Dashboard(props) {
     <div className="dashboard">
       <div className="profile">
         <div className="short-bio">
-          <div className="profile-picture">
+          <div className="dashboard-profile-picture">
             <img src={props.testEmployee.avatar} className="profile-img" alt="Profile" />
           </div>
 
@@ -33,15 +33,17 @@ function Dashboard(props) {
         </div>
 
         <div className="profile-info">
-          <Link to="/profile-creation">
+          { id === tokenID && 
+          <Link to="/edit-profile" state={props.testEmployee}>
             <button className="manage-prfl">Edit Profile</button>
-          </Link>
+          </Link> 
+          
+          }
           <Link to="/generate-cv" state={props.testEmployee}>
             <button className="manage-prfl" >Generate Resume</button>
           </Link>
           <div className="profile-details">
             <p>
-              {/* <Activity size={15} className="dashboard-icon" /> */}
               <CalendarCheck size={15} className="dashboard-icon" />
               {(props.testEmployee.availability === null) ?   "Not filled / N/A" : 
               (props.testEmployee.availability ?   "Available" : "Not Available")}
@@ -52,6 +54,7 @@ function Dashboard(props) {
             </p>
             <p>
               <Award size={15} className="dashboard-icon" />
+              {props.testEmployee?.experience || props.testEmployee?.experienced || "Not filled / N/A "} 
               {props.testEmployee?.experience || props.testEmployee?.experienced || "Not filled / N/A "} 
             </p>
           </div>
@@ -68,17 +71,17 @@ function Dashboard(props) {
         </div>
       </div>
       <footer className="footer">
-        <Link to={props.testEmployee.github}>
+        {props.testEmployee.github && <Link target="_blank" to={props.testEmployee.github}>
           <img src={Github} alt="GitHub" className="socials" />
-        </Link>
+        </Link>}
 
-        <Link to={props.testEmployee.linkedIn}>
+        {props.testEmployee.linkedIn && <Link target="_blank" to={props.testEmployee.linkedIn}>
           <img src={LinkedIn} alt="LinkedIn" className="socials" />
-        </Link>
+        </Link>}
 
-        <Link to={`mailto: ${props.testEmployee.email}`}>
+        {props.testEmployee.email && <Link to={`mailto: ${props.testEmployee.email}`}>
           <img src={Email} alt="Email" className="socials" />
-        </Link>
+        </Link>}
       </footer>
     </div>
   );

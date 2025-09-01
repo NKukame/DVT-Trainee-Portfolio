@@ -19,9 +19,9 @@ const [empProject, setEmpProject] = useState([]);
 
   return (
     <>
-      <section className="client-section">
+      {/* <section className="client-section">
         <ClientCarousel />
-      </section>
+      </section> */}
       <h1 className="profile-projects-title">Projects</h1>
 
       <main className="project-content">

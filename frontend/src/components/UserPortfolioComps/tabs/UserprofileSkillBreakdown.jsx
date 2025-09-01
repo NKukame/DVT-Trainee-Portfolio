@@ -1,8 +1,6 @@
-import "./UserProfileSkillBreakdown.css";
 import PolarChart from "../usedComps/PolarChart";
 import HorizontalBarChart from "../usedComps/HorizontalBarChart";
 function UserProfileSkillBreakdown(props) {
- 
   return (
     <>
       <section className="skills-breakdown-section">
