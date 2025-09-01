@@ -250,18 +250,7 @@ function Signup() {
 
   return (
     <>
-      <AuthForm
-        formData={formData}
-        isSignUp={isSignUp}
-        setIsSignUp={setIsSignUp}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        isPasswordVisible={isPasswordVisible}
-        setIsPasswordVisible={setIsPasswordVisible}
-        loading={loading}
-        errors={errors}
-        setErrors={setErrors}
-      />
+      
       <div className="LoginApp">
         <div className={`login-container ${isSignUp ? "login-active" : ""}`}>
           {/* Sign Up Form */}
@@ -487,49 +476,48 @@ function Signup() {
             </div>
           </div>
         </div>
-
         {/* Mobile form toggle - only visible on mobile */}
-        <div className="mobile-form-toggle">
-          {!isSignUp ? (
-            <p>
-              Don't have an account?{" "}
-              <a
-                href="#"
-                onClick={() => {
-                  setIsSignUp(true);
-                  setFormData(prev => ({
-                    name: "",
-                    email: "",
-                    password: "",
-                    confirmPassword: "",
-                  }));
-                  setErrors({});
-                }}
-              >
-                Sign up
-              </a>
-            </p>
-          ) : (
-            <p>
-              Already have an account?{" "}
-              <a
-                href="#"
-                onClick={() => {
-                  setIsSignUp(false);
-                  setFormData(prev => ({
-                    name: "",
-                    email: "",
-                    password: "",
-                    confirmPassword: "",
-                  }));
-                  setErrors({});
-                }}
-              >
-                Sign in
-              </a>
-            </p>
-          )}
-        </div>
+<div className="mobile-form-toggle">
+  {!isSignUp ? (
+    <p>
+      Don't have an account?{" "}
+      <a
+        href="#"
+        onClick={() => {
+          setIsSignUp(true);
+          setFormData(prev => ({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }));
+          setErrors({});
+        }}
+      >
+        Sign up
+      </a>
+    </p>
+  ) : (
+    <p>
+      Already have an account?{" "}
+      <a
+        href="#"
+        onClick={() => {
+          setIsSignUp(false);
+          setFormData(prev => ({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }));
+          setErrors({});
+        }}
+      >
+        Sign in
+      </a>
+    </p>
+  )}
+</div>
       </div>
     </>
   );
