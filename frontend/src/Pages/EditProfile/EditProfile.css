@@ -218,6 +218,6 @@ input[type="range"]:focus,
   color: white;
 }
 
-.tech-stack-list .new-tech-stack-edit-select{
+.tech-stack-list .new-tech-stack-edit-select, .soft-skills-list .new-soft-skill-edit-select{
     width: 150px;
 }
