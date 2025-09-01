@@ -115,7 +115,7 @@
 
 .edit-form-group label{
     color: var(--dark-mode-blue);
-    width: 19%;
+    width: 20%;
 }
 
 .edit-form-group select{
@@ -189,7 +189,7 @@
 
 .soft-skill-item .range-slider, .tech-stack-item .range-slider{
     margin-top: 5px;
-    width: 200px;
+    width: 180px;
 }
 
 input[type="range"]:focus,
