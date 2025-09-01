@@ -12,6 +12,31 @@
     margin-bottom: 10px;
 }
 
+.edit-profile-picture-form{
+    margin-left: 40px;
+}
+
+.change-profile-pic{
+    margin-top: 10px;
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    width: 30%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.change-profile-pic:hover{
+    background-color: var(--light-blue);
+}
+
+.change-profile-pic-button-container{
+    margin-left: 20px;
+}
+
 .dark-mode .edit-profile-body{
     background-color: var(--dark-cerulean);
 }
@@ -90,7 +115,7 @@
 
 .edit-form-group label{
     color: var(--dark-mode-blue);
-    width: 19%;
+    width: 20%;
 }
 
 .edit-form-group select{
@@ -164,7 +189,7 @@
 
 .soft-skill-item .range-slider, .tech-stack-item .range-slider{
     margin-top: 5px;
-    width: 200px;
+    width: 180px;
 }
 
 input[type="range"]:focus,

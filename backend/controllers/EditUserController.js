@@ -1,6 +1,7 @@
 import { EmployeeRole } from "@prisma/client";
 import { clearCache } from "../lib/prisma-redis-middleware.js";
 import prisma from "../lib/prisma-redis-middleware.js";
+import uploadImage from "../upload.js";
 
 // import { Prisma, PrismaClient } from '@prisma/client';
 
@@ -28,6 +29,18 @@ export default async function EditUserController(req, res) {
       softSkills,
       techStack,
     } = req.body;
+
+    let uploadedPhotoUrl = null;
+
+    if (photoUrl) {
+
+      if (photoUrl.startsWith("data:image")) {
+        uploadedPhotoUrl = await uploadImage(photoUrl);
+      } else {
+        uploadedPhotoUrl = photoUrl; 
+      }
+    }
+
     const updateUser = await prisma.employee.updateMany({
       where: {
         id: `${id}`,
@@ -35,7 +48,7 @@ export default async function EditUserController(req, res) {
       data: {
         name: `${name}`,
         surname: `${surname}`,
-        photoUrl: `${photoUrl}`,
+        photoUrl: uploadedPhotoUrl,
         department: `${department}`,
         bio: `${bio}`,
         experience: `${experience}`,
