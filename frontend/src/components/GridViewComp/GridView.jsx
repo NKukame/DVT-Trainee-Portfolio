@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
-import "./GridView.css";
-
 const GridView = ({ team }) => {
   return (
     <section className="grid-wrapper">
@@ -10,7 +6,7 @@ const GridView = ({ team }) => {
           <div key={index} className="grid-portfolio-card">
             <div
               className="grid-profile-pic"
-              style={{ backgroundImage: `url(${member.image})` }}
+              style={{ backgroundimage: `url(${member.image})` }}
             ></div>
 
             <div className="grid-title-container">

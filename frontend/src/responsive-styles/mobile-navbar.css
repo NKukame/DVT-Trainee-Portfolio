@@ -52,6 +52,11 @@
   background-color: var(--dark-mode-blue);
   color: var(--white);
 }
+.user-modal {
+  position: absolute;
+  z-index: 600;
+  width: 100%;
+}
 @media (min-width: 500px) {
   .mobile-navbar {
     display: none;

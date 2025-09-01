@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import "./Form.css";
 import { SquarePen } from "lucide-react";
 import { use } from "react";
 
-function SubmitForm({ 
+function SubmitForm({
   basicInfo,
   skills,
   career,
@@ -23,10 +22,10 @@ function SubmitForm({
     .filter((idx) => stepData[idx] && stepData[idx].title !== "Submit")
     .map((idx) => stepData[idx]?.title);
 
-    // const simpleUser = user.map((u) => u.id);
-    // console.log(simpleUser);
-    const editUser = localStorage.getItem('userId').split(`"`)[1];
-    console.log(editUser);
+  // const simpleUser = user.map((u) => u.id);
+  // console.log(simpleUser);
+  const editUser = localStorage.getItem("userId").split(`"`)[1];
+  console.log(editUser);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -184,7 +183,7 @@ function SubmitForm({
                   skills.educationEntries.length > 0
                     ? skills.educationEntries
                         .filter(
-                          (entry) => entry.qualification || entry.institution,
+                          (entry) => entry.qualification || entry.institution
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
@@ -227,7 +226,7 @@ function SubmitForm({
                   skills.certificationEntries.length > 0
                     ? skills.certificationEntries
                         .filter(
-                          (entry) => entry.certificate || entry.institution,
+                          (entry) => entry.certificate || entry.institution
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
@@ -282,7 +281,7 @@ function SubmitForm({
                     ? career.careerEntries
                         .filter(
                           (entry) =>
-                            entry.role || entry.company || entry.duration,
+                            entry.role || entry.company || entry.duration
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
@@ -412,7 +411,7 @@ function SubmitForm({
                   {status?.assessmentStart && status?.assessmentEnd
                     ? `${status.assessmentStart.replace(
                         /-/g,
-                        "/",
+                        "/"
                       )} - ${status.assessmentEnd.replace(/-/g, "/")}`
                     : "-"}
                 </p>

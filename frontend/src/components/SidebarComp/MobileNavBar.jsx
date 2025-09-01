@@ -32,7 +32,6 @@ function MobileNavbar() {
           "Content-Type": "application/json",
         },
       });
-      console.log("our Api call", response);
       if (response.ok) {
         const userData = await response.json();
         console.log("our Api call", userData);
@@ -111,13 +110,15 @@ function MobileNavbar() {
         </div>
       </div>
 
-      {isProfileModalOpen && (
-        <ProfileModal
-          isOpen={isProfileModalOpen}
-          onClose={() => setIsProfileModalOpen(false)}
-          userInfo={userInfo}
-        />
-      )}
+      <div className="user-modal">
+        {isProfileModalOpen && (
+          <ProfileModal
+            isOpen={isProfileModalOpen}
+            onClose={() => setIsProfileModalOpen(false)}
+            userInfo={userInfo}
+          />
+        )}
+      </div>
     </>
   );
 }
