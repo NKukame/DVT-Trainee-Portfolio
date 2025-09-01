@@ -212,7 +212,7 @@ function Signup() {
           "rememberedCredentials",
           JSON.stringify({
             email: formData.email,
-            token: tokenData,
+            token: localStorage.getItem("token"),
           })
         );
       } else {
