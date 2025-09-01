@@ -22,26 +22,23 @@ function MobileNavbar() {
   const fetchCurrentUser = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      if (!token) {
+      const userId = JSON.parse(localStorage.getItem("userId"));
+      
+      if (!token || !userId) {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/api/me", {
+      const response = await fetch(`http://localhost:3000/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-      console.log("our Api call", response);
+      
       if (response.ok) {
         const userData = await response.json();
-        console.log("our Api call", userData);
-        const profilePictureUrl = userData.profilePicture
-          ? userData.profilePicture.startsWith("data:")
-            ? userData.profilePicture
-            : `http://localhost:3000${userData.profilePicture}`
-          : null;
-
+        console.log("User data:", userData);
+        
         setUserInfo({
           name: userData.name,
           email: userData.email,

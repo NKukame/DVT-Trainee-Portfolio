@@ -134,14 +134,39 @@ function Signup() {
 
         console.log("the user ", userRegistered);
         if (userRegistered.status === 201) {
-          setIsSignUp(false);
-          setFormData((prev) => ({
-            ...prev,
-            password: "",
-            confirmPassword: "",
-          }));
-          localStorage.setItem("user", JSON.stringify(user_id));
-          navigate("/profile-creation");
+          // Auto-login after successful registration
+          try {
+            const loginResponse = await axios.post(
+              "http://localhost:3000/login",
+              {
+                email: formData.email,
+                password: formData.password,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              },
+            );
+            
+            const tokenData = loginResponse.data.token;
+            const user_id = loginResponse.data.user;
+            localStorage.setItem("token", JSON.stringify(tokenData));
+            localStorage.setItem("userId", JSON.stringify(user_id));
+            
+            setLoading(false);
+            navigate("/profile-creation");
+          } catch (loginError) {
+            console.error("Auto-login failed:", loginError);
+            setLoading(false);
+            // If auto-login fails, just switch to login form
+            setIsSignUp(false);
+            setFormData((prev) => ({
+              ...prev,
+              password: "",
+              confirmPassword: "",
+            }));
+          }
         } else {
           setErrors({ email: "Registration failed" });
         }
@@ -350,7 +375,7 @@ function Signup() {
                       type="text"
                       name="email"
                       placeholder="Enter email"
-                      value={formData.email}
+                      value={formData.email || ""}
                       onChange={handleChange}
                       className={getInputClass("email") + " email-input"}
                     />
@@ -368,7 +393,7 @@ function Signup() {
                       type="password"
                       name="password"
                       placeholder="Password"
-                      value={formData.password}
+                      value={formData.password || ""}
                       onChange={handleChange}
                       className={getInputClass("password") + " password-input"}
                     />

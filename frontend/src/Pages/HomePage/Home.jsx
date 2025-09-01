@@ -1,14 +1,19 @@
-import Body from "../../components/BodyComp/Body";
-import MobileNavbar from "../../components/SidebarComp/MobileNavBar";
-import MobileDock from "../../components/SidebarComp/MobileNavDock";
-import SideBar from "../../components/SidebarComp/SideBar";
+import Body from '../../components/BodyComp/Body';
+import SideBar from '../../components/SidebarComp/SideBar';
+import { useEffect } from 'react';
 
-function Home() {
-  return (
-    <>
-      <Body />
-    </>
-  );
+function Home(){
+    useEffect(() => {
+          if (window.sessionStorage.getItem("searchPageReloaded")) {
+            window.sessionStorage.removeItem("searchPageReloaded", "true");
+          }
+        }, []);
+    return(
+        <>
+          <Body/>            
+        </>
+        
+    )
 }
 
 export default Home;

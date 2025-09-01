@@ -127,13 +127,13 @@ const App = () => {
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Login />} />
-              <Route path="/profile-creation" element={<ProfileCreation />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               
               {/* Protected routes */}
               <Route element={<ProtectedRoutes />}>
+                <Route path="/profile-creation" element={<ProfileCreation />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/about" element={<About />} />
+                <Route path="/about" element={<Portfolio />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/userportfolio" element={<UserPortfolio />} />

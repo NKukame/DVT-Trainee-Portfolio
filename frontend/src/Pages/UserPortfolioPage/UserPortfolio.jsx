@@ -38,14 +38,19 @@ function UserPortfolio(props) {
 
     fetchCurrentUserData();
   }, [location.state]);
+  
+  useEffect(() => {
+      if (window.sessionStorage.getItem("searchPageReloaded")) {
+        window.sessionStorage.removeItem("searchPageReloaded", "true");
+      }
+    }, []);
 
   const testEmployee = location.state || employeeData;
 
   if (!testEmployee) {
     return (
-      <div className="app-layout">
-        <SideBar />
-        <div className="layout-body" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div className="layout-body">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
           <div className="form-loader" style={{ width: '60px', height: '60px' }}></div>
         </div>
       </div>
