@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import prisma from "../lib/prisma-redis-middleware.js";
-import { clearCache } from "../lib/prisma-redis-middleware.js";
+import prisma, { clearCache } from "../lib/prisma-redis-middleware.js";
 import uploadImage from "../upload.js";
 export async function createProfileController(req, res) {
 
@@ -279,9 +278,7 @@ export async function createProfileController(req, res) {
         }
       }
     }
-
-    clearCache();
-
+    clearCache()
     return res
       .status(201)
       .json({ message: "Profile created", employeeId: employee.id });

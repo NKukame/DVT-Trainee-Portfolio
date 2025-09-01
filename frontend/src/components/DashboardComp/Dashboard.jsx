@@ -50,17 +50,19 @@ function Dashboard(props) {
                 <button className="manage-prfl">Edit Profile</button>
               </Link>
             )}
-            <Link to="/generate-cv" state={props.testEmployee}>
-              <button className="manage-prfl">Generate Resume</button>
-            </Link>
+            {id === tokenID && (
+              <Link to="/generate-cv" state={props.testEmployee}>
+                <button className="manage-prfl">Generate Resume</button>
+              </Link>
+            )}
             <div className="profile-details">
               <p>
                 <CalendarCheck size={15} className="dashboard-icon" />
                 {props.testEmployee.availability === null
                   ? "Not filled / N/A"
                   : props.testEmployee.availability
-                    ? "Available"
-                    : "Not Available"}
+                  ? "Available"
+                  : "Not Available"}
               </p>
               <p>
                 <MapPin size={15} className="dashboard-icon" />
