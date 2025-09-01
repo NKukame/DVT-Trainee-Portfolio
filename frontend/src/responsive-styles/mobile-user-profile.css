@@ -31,8 +31,10 @@
 
   .tab-head-container {
     position: sticky;
-    top: 11.1%;
+    top: 10vh;
+    z-index: 500;
     background: inherit;
+    justify-content: space-between;
   }
   .profile-overview-text {
     font-size: 1rem;
@@ -213,7 +215,7 @@
   }
 
   .mobile-user-exeperience {
-    padding-bottom: 10px;
+    align-items: baseline;
   }
   .user-caption {
     align-items: center;
@@ -233,8 +235,17 @@
   .user-role {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-items: center;
-    gap: 10px;
+  }
+  .skills-bar-section {
+    width: initial;
+    height: initial;
+  }
+  .skills-breakdown-section {
+    height: initial;
+    padding: 10px;
+  }
+  .education-conatiner {
+    margin-bottom: 10px;
   }
 }
