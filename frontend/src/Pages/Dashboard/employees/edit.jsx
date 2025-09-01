@@ -30,6 +30,8 @@ export const EditEmployee = () => {
     refineCore: { onFinish, query },
     reset,
     getValues,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm({
     refineCoreProps: {
@@ -76,6 +78,8 @@ export const EditEmployee = () => {
       client: "",
       techStack: [],
       softSkills: [],
+      techRatings: {},
+      softRatings: {},
       education: [{ id: "", institution: "", qualification: "" }],
       certificates: [{ id: "", name: "", institution: "" }],
       career: [{ id: "", role: "", company: "", duration: "" }],
@@ -212,6 +216,12 @@ export const EditEmployee = () => {
       client: record.availability?.client ?? "",
       techStack: (record.techStack || []).map((t) => t.techStackId),
       softSkills: (record.softSkills || []).map((s) => s.softSkillId),
+      techRatings: Object.fromEntries(
+        (record.techStack || []).map((t) => [t.techStackId, t.Techrating ?? ""])
+      ),
+      softRatings: Object.fromEntries(
+        (record.softSkills || []).map((s) => [s.softSkillId, s.skillsRating ?? ""])
+      ),
       education:
         (record.education || []).map((e) => ({
           id: e.id,
@@ -272,15 +282,27 @@ export const EditEmployee = () => {
     // base64 conversions
     const photoBase64 = values.photoUrl ? await fileToBase64(values.photoUrl) : undefined;
 
-    // tech/soft diffs
-    const existingTechIds = (record?.techStack || []).map((t) => t.techStackId);
-    const existingSoftIds = (record?.softSkills || []).map((s) => s.softSkillId);
+    // Unique selected IDs
     const uniqTech = Array.from(new Set(values.techStack || []));
     const uniqSoft = Array.from(new Set(values.softSkills || []));
-    const toAddTech = uniqTech.filter((id) => !existingTechIds.includes(id));
-    const toRemoveTech = existingTechIds.filter((id) => !uniqTech.includes(id));
-    const toAddSoft = uniqSoft.filter((id) => !existingSoftIds.includes(id));
-    const toRemoveSoft = existingSoftIds.filter((id) => !uniqSoft.includes(id));
+
+    // Build upsert payloads for tech & soft ratings
+    const techUpserts = uniqTech.map((id) => {
+      const r = values.techRatings?.[id];
+      return {
+        where: { employeeId_techStackId: { techStackId: id, employeeId } },
+        update: { Techrating: r ? r : null },
+        create: { techStackId: id, Techrating: r ? r : null },
+      };
+    });
+    const softUpserts = uniqSoft.map((id) => {
+      const r = values.softRatings?.[id];
+      return {
+        where: { employeeId_softSkillId: { softSkillId: id, employeeId } },
+        update: { skillsRating: r ? r : null },
+        create: { softSkillId: id, skillsRating: r ? r : null },
+      };
+    });
 
     // Helper to build delete/upsert blocks
     const buildRelationshipOperation = (entries, idsToDelete, mapFn) => {
@@ -439,20 +461,16 @@ export const EditEmployee = () => {
           : {}),
         ...(projectsUpsert.length ? { upsert: projectsUpsert } : {}),
       },
+      // Sync tech stack and soft skills (delete removed, upsert existing/new)
+      techStack: {
+        deleteMany: { techStackId: { notIn: uniqTech } },
+        ...(techUpserts.length ? { upsert: techUpserts } : {}),
+      },
+      softSkills: {
+        deleteMany: { softSkillId: { notIn: uniqSoft } },
+        ...(softUpserts.length ? { upsert: softUpserts } : {}),
+      },
     };
-
-    if (toAddTech.length || toRemoveTech.length) {
-      finalData.techStack = {
-        ...(toRemoveTech.length ? { deleteMany: { techStackId: { in: toRemoveTech } } } : {}),
-        ...(toAddTech.length ? { create: toAddTech.map((id) => ({ techStackId: id })) } : {}),
-      };
-    }
-    if (toAddSoft.length || toRemoveSoft.length) {
-      finalData.softSkills = {
-        ...(toRemoveSoft.length ? { deleteMany: { softSkillId: { in: toRemoveSoft } } } : {}),
-        ...(toAddSoft.length ? { create: toAddSoft.map((id) => ({ softSkillId: id })) } : {}),
-      };
-    }
 
     await onFinish(finalData);
   };
@@ -591,6 +609,24 @@ export const EditEmployee = () => {
               />
             )}
           />
+          {/* Ratings for selected tech stacks */}
+          <Grid container spacing={1} sx={{ mt: 1 }}>
+            {(watch('techStack') || []).map((id) => {
+              const option = (techAutocompleteProps?.options || []).find((o) => o.id === id);
+              return (
+                <Grid key={id} item xs={12} sm={4} md={3}>
+                  <TextField
+                    type="number"
+                    inputProps={{ min: 1, max: 5 }}
+                    label={`${option?.name || 'Tech'} rating (1-5)`}
+                    fullWidth
+                    value={watch(`techRatings.${id}`) ?? ''}
+                    onChange={(e) => setValue(`techRatings.${id}`, e.target.value)}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
 
         <Grid item xs={12}>
@@ -610,6 +646,24 @@ export const EditEmployee = () => {
               />
             )}
           />
+          {/* Ratings for selected soft skills */}
+          <Grid container spacing={1} sx={{ mt: 1 }}>
+            {(watch('softSkills') || []).map((id) => {
+              const option = (softAutocompleteProps?.options || []).find((o) => o.id === id);
+              return (
+                <Grid key={id} item xs={12} sm={4} md={3}>
+                  <TextField
+                    type="number"
+                    inputProps={{ min: 1, max: 5 }}
+                    label={`${option?.name || 'Skill'} rating (1-5)`}
+                    fullWidth
+                    value={watch(`softRatings.${id}`) ?? ''}
+                    onChange={(e) => setValue(`softRatings.${id}`, e.target.value)}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
 
         {/* Education */}

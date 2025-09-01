@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import "./Login.css";
-
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router";
 // import "./Login.css";

@@ -1,5 +1,4 @@
-import "../../styles.css";
-import "./Portfolio.css";
+
 import React, { useState, useEffect, useRef } from "react";
 import GridView from "../../components/GridViewComp/GridView";
 import { Link } from "react-router";
@@ -81,10 +80,9 @@ function Portfolio() {
 
   return (
     <>
-      <div className="app-layout">
-        <SideBar />
+      <div >
 
-        <div className="app-layout-body">
+        <div>
           <div className="portfolio-body">
             <section className="people-intro">
               <h1 className="theTitle">Smart People</h1>

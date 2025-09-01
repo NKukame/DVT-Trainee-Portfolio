@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Form.css";
 import { Camera } from "lucide-react";
 
 function BasicInfo({ data, onChange }) {
@@ -254,6 +253,15 @@ function BasicInfo({ data, onChange }) {
                   <option value="PROJECT_MANAGER">Project Manager</option>
                   <option value="TEAM_LEAD">Team Lead</option>
                   <option value="SENIOR_DEVELOPER">Senior Developer</option>
+                  <option value="FULLSTACK_DEVELOPER">Full Stack Developer</option>
+                  <option value="FRONTEND_DEVELOPER">Frontend Developer</option>
+                  <option value="BACKEND_DEVELOPER">Backend Developer</option>
+                  <option value="UX_UI_DESIGNER">UX/UI Designer</option>
+                  <option value="JUNIOR_DEVELOPER">Junior Developer</option>
+                  <option value="TESTER">Tester</option>
+                  <option value="PRODUCT_OWNER">Product Owner</option>
+                  <option value="SCRUM_MASTER">Scrum Master</option>
+                  <option value="DELIVERY_MANAGER">Delivery Manager</option>
                 </select>
               </div>
             </div>

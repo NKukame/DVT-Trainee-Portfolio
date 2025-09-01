@@ -37,6 +37,7 @@ export const CreateEmployee = () => {
     refineCore: { onFinish, query },
     reset,
     setValue,
+    watch,
     formState: { errors },
     saveButtonProps,
   } = useForm({
@@ -63,6 +64,8 @@ export const CreateEmployee = () => {
       client: "",
       techStack: [],
       softSkills: [],
+      techRatings: {},
+      softRatings: {},
       education: [{ institution: "", qualification: "" }],
       certificates: [{ name: "", institution: "" }],
       career: [{ role: "", company: "", duration: "" }],
@@ -154,7 +157,6 @@ export const CreateEmployee = () => {
       const projectsPayload = await Promise.all(
         (values.projects || []).map(async (p) => {
           const screenshot = p.image ? await fileToBase64(p.image) : null;
-          
 
           return {
             role: values.role,
@@ -211,15 +213,19 @@ export const CreateEmployee = () => {
         bio: values.bio,
         techStack: {
           create:
-            (values.techStack || []).map((t) => ({
-              techStackId: typeof t === "object" ? t.id ?? t : t,
-            })) || [],
+            (values.techStack || []).map((t) => {
+              const id = typeof t === "object" ? t.id ?? t : t;
+              const r = values.techRatings?.[id];
+              return { techStackId: id, Techrating: r ? r : null };
+            }) || [],
         },
         softSkills: {
           create:
-            (values.softSkills || []).map((s) => ({
-              softSkillId: typeof s === "object" ? s.id ?? s : s,
-            })) || [],
+            (values.softSkills || []).map((s) => {
+              const id = typeof s === "object" ? s.id ?? s : s;
+              const r = values.softRatings?.[id];
+              return { softSkillId: id, skillsRating: r ? r : null };
+            }) || [],
         },
         availability: {
           create: {
@@ -277,7 +283,7 @@ export const CreateEmployee = () => {
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      sx={{ flexDirection: "column", gap: 2 }}
     >
       <Typography variant="h5">Create Employee</Typography>
 
@@ -452,6 +458,24 @@ export const CreateEmployee = () => {
               />
             )}
           />
+          {/* Ratings for selected tech stacks */}
+          <Grid container spacing={1} sx={{ mt: 1 }}>
+            {(watch('techStack') || []).map((id) => {
+              const option = (techAutocompleteProps?.options || []).find((o) => o.id === id);
+              return (
+                <Grid key={id} item xs={12} sm={4} md={3}>
+                  <TextField
+                    type="number"
+                    inputProps={{ min: 1, max: 5 }}
+                    label={`${option?.name || 'Tech'} rating (1-5)`}
+                    fullWidth
+                    value={watch(`techRatings.${id}`) ?? ''}
+                    onChange={(e) => setValue(`techRatings.${id}`, e.target.value)}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
 
         {/* Soft Skills Autocomplete (multiple) */}
@@ -483,7 +507,26 @@ export const CreateEmployee = () => {
               />
             )}
           />
+          {/* Ratings for selected soft skills */}
+          <Grid container spacing={1} sx={{ mt: 1 }}>
+            {(watch('softSkills') || []).map((id) => {
+              const option = (softAutocompleteProps?.options || []).find((o) => o.id === id);
+              return (
+                <Grid key={id} item xs={12} sm={4} md={3}>
+                  <TextField
+                    type="number"
+                    inputProps={{ min: 1, max: 5 }}
+                    label={`${option?.name || 'Skill'} rating (1-5)`}
+                    fullWidth
+                    value={watch(`softRatings.${id}`) ?? ''}
+                    onChange={(e) => setValue(`softRatings.${id}`, e.target.value)}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
+
       </Grid>
 
       {/* Repeating field groups: Education */}
