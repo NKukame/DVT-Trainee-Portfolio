@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useRouteLoaderData } from "react-router";
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
 
 function ProfileModal({ isOpen, onClose, userInfo }) {

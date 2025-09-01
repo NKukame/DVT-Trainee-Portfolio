@@ -92,6 +92,7 @@ const MeController = async (req, res) => {
     res.json({
       ...user.employee,
       employee_id: user.employee.id,
+      name: user.employee.name + " " + user.employee.surname,
       user: user,
       avatar: user.employee.photoUrl,
       availability: user.employee.availability?.available,
