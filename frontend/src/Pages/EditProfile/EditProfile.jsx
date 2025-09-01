@@ -26,9 +26,6 @@ function EditProfile(prop) {
     department: location.state.department || "",
     title: location.state.title || "",
     name: location.state.name?.split(" ")[0] || "",
-    photoUrl:
-      location.state.avatar ||
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     surname: location.state.surname || "",
     email: location.state.email || "",
     phone: location.state.phone || "",
