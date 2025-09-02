@@ -22,6 +22,7 @@
 .first-page, .second-page{
     max-width: 793px;
     min-height: 1121px;
+    max-height: 1122px;
 }
 
 .generate-cv-content-container-header{
@@ -209,7 +210,7 @@
     align-items: center;
     justify-content: center;
     font-size: 23px;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     position: relative;
     background: transparent;
     z-index: 1;
@@ -228,7 +229,7 @@
 
 .generate-cv-stepper-box {
   border-radius: 12px;
-  padding: 12px;
+  padding: 6px;
   width: 450px;
 }
 
@@ -245,9 +246,9 @@
 .generate-cv-stepper-line {
   position: absolute;
   left: 19px;
-  top: 40px;
-  bottom: -20px;
-  width: 2px;
+  top: 35px;
+  bottom: -5px;
+  width: 3px;
   background-color: var(--cv-line-blue);
   z-index: 1;
 }
