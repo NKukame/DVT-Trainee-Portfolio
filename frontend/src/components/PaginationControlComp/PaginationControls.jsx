@@ -8,16 +8,16 @@ export default function Pagination(){
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
-      const currentPage = currentPage--
-      searchData(currentPage, query, params);
+      let page = currentPage-1;
+      searchData(page, query, params);
     }
   };
 
   const handleNext = () => {
     if (currentPage < total) {
       setCurrentPage((prev) => prev + 1);
-      const currentPage = currentPage++
-      searchData(currentPage, query, params);
+      let page = currentPage+1;
+      searchData(page, query, params);
     }
   };
 
