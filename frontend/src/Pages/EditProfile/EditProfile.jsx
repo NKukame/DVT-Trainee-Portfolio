@@ -412,7 +412,7 @@ function EditProfile(prop) {
                 <label className="form-label">Cellphone</label>
                 <input
                   type="text"
-                  name="cellphone"
+                  name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                 />
@@ -460,12 +460,82 @@ function EditProfile(prop) {
             <div className="edit-left-form-section">
               <div className="edit-form-group">
                 <label className="form-label">Location</label>
-                <input
+                {/* <input
                   type="text"
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                />
+                /> */}
+                <select
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Your Location
+                  </option>
+
+                  {/* South Africa */}
+                  <optgroup label="South Africa">
+                    <option value="Johannesburg">Johannesburg</option>
+                    <option value="Cape Town">Cape Town</option>
+                    <option value="Durban">Durban</option>
+                    <option value="Pretoria">Pretoria</option>
+                    <option value="Port Elizabeth">Port Elizabeth</option>
+                    <option value="Bloemfontein">Bloemfontein</option>
+                    <option value="Nelspruit">Nelspruit</option>
+                  </optgroup>
+
+                  {/* United Kingdom */}
+                  <optgroup label="United Kingdom">
+                    <option value="London">London</option>
+                    <option value="Manchester">Manchester</option>
+                    <option value="Birmingham">Birmingham</option>
+                    <option value="Liverpool">Liverpool</option>
+                    <option value="Leeds">Leeds</option>
+                    <option value="Glasgow">Glasgow</option>
+                    <option value="Edinburgh">Edinburgh</option>
+                  </optgroup>
+
+                  {/* Kenya */}
+                  <optgroup label="Kenya">
+                    <option value="Nairobi">Nairobi</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Nakuru">Nakuru</option>
+                    <option value="Eldoret">Eldoret</option>
+                  </optgroup>
+
+                  {/* Netherlands */}
+                  <optgroup label="Netherlands">
+                    <option value="Amsterdam">Amsterdam</option>
+                    <option value="Rotterdam">Rotterdam</option>
+                    <option value="The Hague">The Hague</option>
+                    <option value="Utrecht">Utrecht</option>
+                    <option value="Eindhoven">Eindhoven</option>
+                    <option value="Maastricht">Maastricht</option>
+                  </optgroup>
+
+                  {/* United Arab Emirates */}
+                  <optgroup label="United Arab Emirates">
+                    <option value="Dubai">Dubai</option>
+                    <option value="Abu Dhabi">Abu Dhabi</option>
+                    <option value="Sharjah">Sharjah</option>
+                    <option value="Ajman">Ajman</option>
+                    <option value="Fujairah">Fujairah</option>
+                    <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  </optgroup>
+
+                  {/* Ireland */}
+                  <optgroup label="Ireland">
+                    <option value="Dublin">Dublin</option>
+                    <option value="Cork">Cork</option>
+                    <option value="Galway">Galway</option>
+                    <option value="Limerick">Limerick</option>
+                    <option value="Waterford">Waterford</option>
+                  </optgroup>
+                </select>
               </div>
               <div className="edit-form-group">
                 <label className="form-label">Company</label>
