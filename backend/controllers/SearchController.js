@@ -187,7 +187,7 @@ export async function SearchEmployeeController(req, res) {
     location,
     role,
     techStack,
-    availability,
+    isAvailable,
     industry,
     field,
     order,
@@ -211,8 +211,8 @@ if (experience) {
   experience = JSON.parse(experience);
 }
 
-if (availability) {
-  availability = JSON.parse(availability);
+if (isAvailable) {
+  isAvailable = JSON.parse(isAvailable);
 }
 
   try {
@@ -225,7 +225,7 @@ if (availability) {
       techStack,
       industry,
       experience,
-      availability,
+      isAvailable,
       field,
       order,
       page,
@@ -307,6 +307,13 @@ if (availability) {
     }
 
     const orderBy = {};
+    console.log(isAvailable);
+
+    if (isAvailable) {
+      where.availability = {
+        available: isAvailable,
+      };
+    }
 
     if (field && order) {
       orderBy[field] = order;

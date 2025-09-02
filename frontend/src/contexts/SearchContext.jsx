@@ -37,7 +37,7 @@ export const SearchContextProvider = ({ children }) => {
     searchData();
   }, []);
 
-  const searchData = async (page = 1, query = "", params = {}) => {
+  const searchData = async (page = 1, query = "", params = {}, isAvailable = false) => {
       setIsLoading(true);
 
     try {
@@ -64,6 +64,7 @@ export const SearchContextProvider = ({ children }) => {
             location: JSON.stringify(params.location),
             industry: JSON.stringify(params.industry),
             experience: JSON.stringify(params.experience),
+            isAvailable: isAvailable,
           },
         },
       );
@@ -79,6 +80,7 @@ export const SearchContextProvider = ({ children }) => {
             role: JSON.stringify(params.role),
             location: JSON.stringify(params.location),
             industry: JSON.stringify(params.industry),
+            isAvailable: isAvailable,
           },
         },
       );
@@ -250,6 +252,8 @@ export const SearchContextProvider = ({ children }) => {
         total,
         projectsWithTechStackNames,
         searchData,
+        params,
+        query,
       }}
     >
       {children}
