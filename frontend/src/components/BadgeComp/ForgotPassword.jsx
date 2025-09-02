@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import dvtLogo from "../../assets/DVT_Iogin_logo.png";
-import { Mail, ArrowLeft } from "lucide-react";
+import { Mail, ArrowLeft, Lock } from "lucide-react";
 import "./ForgotPassword.css";
 import axios from "axios";
 import { useEffect } from "react";
@@ -68,6 +67,7 @@ function ForgotPassword() {
   const validatePassword = () => {
     let newErrors = {};
     let criteria = checkPasswordCriteria(newPassword);
+   
 
     if (!newPassword) {
       newErrors.password = "Password is required";
@@ -81,14 +81,15 @@ function ForgotPassword() {
 
     if (!confirmPassword) {
       newErrors.confirmPassword = "Confirm Password is required";
-    } else if (confirmPassword !== newPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
+    } else {
+      if (confirmPassword !== newPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
 
   const handlePasswordChange = (e) => {
     const password = e.target.value;
@@ -328,6 +329,8 @@ function ForgotPassword() {
                     onChange={handlePasswordChange}
                     className={errors.password ? "error-border" : ""}
                   />
+                  <Lock className="lock-icon-password" strokeWidth={1} size={"20px"}/>
+                  
                 </div>
                 {errors.password && <p className="error-message">{errors.password}</p>}
               </div>
@@ -342,6 +345,7 @@ function ForgotPassword() {
                     onChange={handleConfirmPasswordChange} 
                     className={errors.confirmPassword ? "error-border" : ""}
                   />
+                  <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"}/>
                 </div>
                 {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
               </div>
@@ -402,6 +406,21 @@ function ForgotPassword() {
         return null;
     }
   };
+//   const errorData = await response.json();
+//   setErrors({ password: errorData.error || "Failed to reset password" });
+//   return;
+// }
+// };l
+// // // Simulate updating the password in localStorage
+// // const storedUser = JSON.parse(localStorage.getItem("user"));
+// // if (storedUser && storedUser.email === email) {
+// //   storedUser.password = newPassword;
+// //         localStorage.setItem("user", JSON.stringify(storedUser));
+// //       }
+// //     }
+// //   };
+  
+  
 
   return (
     <div className="forgot-password-container">

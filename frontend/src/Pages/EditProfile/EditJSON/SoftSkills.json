@@ -1,0 +1,110 @@
+[{
+    
+      "category": "Communication",
+      "skills": [
+        {
+          "name": "Active Listening",
+          "description": "Fully concentrating, understanding, and responding thoughtfully during conversations."
+        },
+        {
+          "name": "Presentation Skills",
+          "description": "Effectively delivering information to an audience in a clear, engaging manner."
+        },
+        {
+          "name": "Written Communication",
+          "description": "Conveying ideas clearly through written formats such as emails or reports."
+        }
+      ]
+    },
+    {
+      "category": "Collaboration",
+      "skills": [
+        {
+          "name": "Teamwork",
+          "description": "Working effectively and respectfully with others to achieve a common goal."
+        },
+        {
+          "name": "Conflict Resolution",
+          "description": "Managing and resolving disagreements constructively."
+        },
+        {
+          "name": "Cross-functional Collaboration",
+          "description": "Working efficiently with colleagues from different departments."
+        },
+
+        {
+            "name": "Interpersonal Skills",
+            "description": "Building and maintaining positive relationships with colleagues."
+        }
+      ]
+    },
+    {
+      "category": "Leadership",
+      "skills": [
+        {
+          "name": "Emotional Intelligence",
+          "description": "Recognizing and managing one’s own emotions and understanding others’ emotions."
+        },
+        {
+          "name": "Motivating Others",
+          "description": "Inspiring and encouraging team members to perform at their best."
+        },
+        {
+          "name": "Delegation",
+          "description": "Assigning tasks effectively while ensuring accountability and growth."
+        }
+      ]
+    },
+    {
+      "category": "Adaptability",
+      "skills": [
+        {
+          "name": "Flexibility",
+          "description": "Adjusting to new conditions or unexpected challenges with ease."
+        },
+        {
+          "name": "Learning Agility",
+          "description": "Quickly learning from experience and applying it to new situations."
+        },
+
+        {
+            "name": "Resilience",
+            "description": "Bouncing back from setbacks and maintaining a positive attitude."
+        }
+      ]
+    },
+    {
+      "category": "Problem Solving",
+      "skills": [
+        {
+          "name": "Critical Thinking",
+          "description": "Analyzing information objectively to make reasoned judgments."
+        },
+        {
+          "name": "Decision Making",
+          "description": "Choosing the best course of action among multiple alternatives."
+        },
+        {
+          "name": "Creativity",
+          "description": "Generating innovative solutions to business problems."
+        },
+        {
+            "name": "Resourcefulness",
+            "description": "Finding quick and clever ways to overcome difficulties."
+        }
+      ]
+    },
+    {
+      "category": "Time Management",
+      "skills": [
+        {
+          "name": "Prioritization",
+          "description": "Identifying the most important tasks and focusing on them first."
+        },
+        {
+          "name": "Punctuality",
+          "description": "Meeting deadlines and being on time for meetings or deliverables."
+        }
+      ]
+    
+}]
