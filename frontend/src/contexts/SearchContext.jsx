@@ -14,6 +14,8 @@ export const SearchContextProvider = ({ children }) => {
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
   let [selectedFilter, setSelectedFilter] = useState([]);
+  let [query, setQuery] = useState("");
+  let [params, setParams] = useState({});
 
   const allLanguages = [
     ...new Set(searchResults.map((employee) => employee.skills).flat()),
@@ -32,7 +34,7 @@ export const SearchContextProvider = ({ children }) => {
     searchData();
   }, []);
 
-  const searchData = async (page = 1, query) => {
+  const searchData = async (page = 1, query = "", params = {}) => {
     console.log(page);
     setIsLoading(true);
 
@@ -55,6 +57,12 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
+            experience: params.experience,
+            techStack: JSON.stringify(params.techStack),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            experience: JSON.stringify(params.experience),
           },
         },
       );
@@ -65,6 +73,11 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
+            experience: params.experience,
+            techStack: params.techStack,
+            role: params.role,
+            location: params.location,
+            industry: params.industry,
           },
         },
       );
@@ -139,7 +152,8 @@ export const SearchContextProvider = ({ children }) => {
   };
 
   const handleInputChange = (query) => {
-    searchData(1, query);
+    setQuery(query);
+    searchData(1, query, params);
   };
 
   const handleFilterClick = (filter, category) => {
@@ -159,48 +173,44 @@ export const SearchContextProvider = ({ children }) => {
 
     setSelectedFilter(newSelectedFilter);
 
-    // Apply all filters at once
-    let updatedResults = searchResults.filter((employee) => {
-      return newSelectedFilter.every((f) => {
-        switch (f.category) {
-          case "Technologies":
-            if (employee.skills) {
-              return employee.skills
-                .map((x) => x.toLowerCase())
-                .includes(f.value.toLowerCase());
-            }
-            if (employee.technologies) {
-              return employee.technologies
-                .map((x) => x.toLowerCase())
-                .includes(f.value.toLowerCase());
-            }
-            return false;
+    // Build a query object from all selected filters
+    const filterParams = newSelectedFilter.reduce((acc, f) => {
+      switch (f.category) {
+        case "Technologies":
+          acc.techStack = [...(acc.techStack || []), f.value];
+          break;
+        case "Roles":
+          acc.role = [...(acc.role || []), f.value];
+          break;
+        case "Location":
+          acc.location = [...(acc.location || []), f.value];
+          break;
+        case "Industries":
 
-          case "Roles":
-            return (
-              employee.role &&
-              employee.role.toLowerCase() === f.value.toLowerCase()
-            );
+          acc.industry = [...(acc.industry || []), f.value];
+          acc.industries = [...(acc.industries || []), f.value];
+          break;
+        case "Experience":
+          
+          acc.experience = [...(acc.experience || []), f.value];
+          break;
+        default:
+          break;
+      }
+      return acc;
+    }, {});
 
-          case "Location":
-            return (
-              employee.location &&
-              employee.location.toLowerCase() === f.value.toLowerCase()
-            );
-
-          case "Experience":
-            return (
-              employee.years_active &&
-              employee.years_active.split(" ")[0] === f.value
-            );
-
-          default:
-            return true;
+    // Dedupe arrays in params
+    Object.keys(filterParams).forEach((key) => {
+      if (Array.isArray(filterParams[key])) {
+        filterParams[key] = Array.from(new Set(filterParams[key]));
         }
-      });
     });
 
-    setFilteredResults(updatedResults);
+    setParams(filterParams);
+
+    // Use server-side search with the composed params
+    searchData(1, query, filterParams);
   };
 
   const handleChange = (filter, newSelectedFilter) => {

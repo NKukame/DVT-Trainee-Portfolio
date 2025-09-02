@@ -29,11 +29,11 @@ function Filter() {
   const roleOptions = toDropdownOptions(allRoles);
 
   const expOptions = [
-    { value: "0-1", label: "0-1 Years" },
-    { value: "1-2", label: "1-2 Years" },
-    { value: "3-4", label: "3-4 Years" },
-    { value: "4-5", label: "4-5 Years" },
-    { value: "5+", label: "5+ Years" },
+    { value: "0-1 Years", label: "0-1 Years" },
+    { value: "1-2 Years", label: "1-2 Years" },
+    { value: "3-4 Years", label: "3-4 Years" },
+    { value: "4-5 Years", label: "4-5 Years" },
+    { value: "5+ Years", label: "5+ Years" },
   ];
 
   // All selected filters

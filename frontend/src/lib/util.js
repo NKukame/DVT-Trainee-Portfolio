@@ -1,7 +1,6 @@
 export function toDropdownOptions(list) {
     return list.map((item) => ({
-      value: item
-        .toLowerCase(),
+      value: item,
       label: item,
     }));
   }
