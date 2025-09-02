@@ -150,4 +150,9 @@
     font-weight: 700;
     font-size: larger;
   }
+
+  .profile-edit-icon{
+    display: flex;
+    gap: 10px;
+  }
 }
