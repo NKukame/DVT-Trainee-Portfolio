@@ -32,6 +32,14 @@ export async function SearchProjectController(req, res) {
     limit = 9,
   } = req.query; // Changed from req.params to req.query
 
+  if (techStack) {
+    techStack = JSON.parse(techStack);
+  }
+
+  if (industries) {
+    industries = JSON.parse(industries);
+  }
+
   try {
     const where = {};
     const cacheKey = await generateKey(
@@ -46,6 +54,8 @@ export async function SearchProjectController(req, res) {
       page,
       industries,
     );
+
+
 
     // const cached = await getCache(cacheKey);
     // if (cached) {

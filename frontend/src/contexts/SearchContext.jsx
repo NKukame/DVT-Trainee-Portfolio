@@ -57,7 +57,6 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
-            experience: params.experience,
             techStack: JSON.stringify(params.techStack),
             role: JSON.stringify(params.role),
             location: JSON.stringify(params.location),
@@ -73,11 +72,11 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
-            experience: params.experience,
-            techStack: params.techStack,
-            role: params.role,
-            location: params.location,
-            industry: params.industry,
+            techStack: JSON.stringify(params.techStack),
+            experience: JSON.stringify(params.experience),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
           },
         },
       );
