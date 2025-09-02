@@ -6,7 +6,7 @@ const GridView = ({ team }) => {
           <div key={index} className="grid-portfolio-card">
             <div
               className="grid-profile-pic"
-              style={{ backgroundimage: `url(${member.image})` }}
+              style={{ backgroundImage: `url(${member.image})` }}
             ></div>
 
             <div className="grid-title-container">

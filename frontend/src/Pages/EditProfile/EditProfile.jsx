@@ -1,10 +1,11 @@
 import { useLocation, useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
 // import "./EditProfile.css";
 import axios from "axios";
 import techStack from "./EditJSON/techstack.json"
+import softSkills from "./EditJSON/SoftSkills.json"
 
 /**
  * EditProfile is a React component that renders a form for editing user profile information.
@@ -15,18 +16,17 @@ import techStack from "./EditJSON/techstack.json"
 function EditProfile(prop) {
   const location = useLocation();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [formData, setFormData] = useState({
     id: location.state.id || location.state.employee_id,
     employee_id: location.state.id || location.state.employee_id,
+    photoUrl: location.state.avatar || "",
     department: location.state.department || "",
     title: location.state.title || "",
     name: location.state.name?.split(" ")[0] || "",
-    photoUrl:
-      location.state.avatar ||
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     surname: location.state.surname || "",
     email: location.state.email || "",
     phone: location.state.phone || "",
@@ -113,12 +113,13 @@ function EditProfile(prop) {
 
   const handleSoftSkillChange = (index, field, value) => {
     setFormData((prev) => {
-      const updatedSkills = [...prev.softSkills];
-      updatedSkills[index] = {
-        ...updatedSkills[index],
-        [field]: value,
-      };
-      return { ...prev, softSkills: updatedSkills };
+      const updatedSoftSkills = [...prev.softSkills];
+      if (field === "skillsRating") {
+        updatedSoftSkills[index].skillsRating = Number(value);
+      } else if (field === "softSkill") {
+        updatedSoftSkills[index].softSkill = value; 
+      }
+      return { ...prev, softSkills: updatedSoftSkills };
     });
   };
 
@@ -211,6 +212,37 @@ function EditProfile(prop) {
     }));
   };
 
+  const handleAddSoftSkill = () => {
+    setFormData((prev) => {
+      if (prev.softSkills.length >= 6) {
+        alert("You can only add up to 6 soft skills.");
+        return prev;
+      }
+      return {
+        ...prev,
+        softSkills: [
+          ...prev.softSkills,
+          { skillsRating: 1, softSkill: { name: "" } },
+        ],
+      };
+    });
+  };
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          photoUrl: reader.result, // base64 preview
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+
   /**
    * Handles the submission of the form by sending a PATCH request to the server
    * with the updated form data. If the request is successful, it sets the modal
@@ -291,6 +323,45 @@ function EditProfile(prop) {
       <div className="edit-profile-body">
         <div className="edit-profile-content-header">
           <h3 className="edit-profile-content-title">Edit Profile</h3>
+        </div>
+
+        <div className="edit-submit-section">
+          <div className="submit-form-header">
+            <h3>Profile Picture</h3>
+            <SquarePen className="submit-icon" color="#084677" size={17} />
+          </div>
+          <br />
+          <div className="edit-right-form-section">
+            <div className="profile-picture-form edit-profile-picture-form">
+              <img
+                src={formData.photoUrl}
+                alt="Profile Preview"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+            <div className="change-profile-pic-button-container">
+              <button
+                type="button"
+                className="change-profile-pic"
+                onClick={() => fileInputRef.current.click()}
+              >
+                Change Profile Picture
+              </button>
+
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleProfilePicChange}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="edit-submit-section">
@@ -653,22 +724,56 @@ function EditProfile(prop) {
                           : "Rating: 1"}
                       </span>
 
-                      <span
-                        className="badge-default"
-                        style={{
-                          marginRight: 8,
-                          width: "fit-content",
-                          height: "fit-content",
-                          display: "flex",
-                          marginBottom: 7,
-                        }}
-                      >
-                        {skill.softSkill?.name}
-                      </span>
+                      {skill.softSkill?.name ? (
+                        <span
+                          className="badge-default"
+                          style={{
+                            marginRight: 8,
+                            width: "fit-content",
+                            height: "fit-content",
+                            display: "flex",
+                            marginBottom: 7,
+                          }}
+                        >
+                          {skill.softSkill.name}
+                        </span>
+                      ) : (
+                        <select
+                          value={skill.softSkill?.name || ""}
+                          className="new-soft-skill-edit-select"
+                          onChange={(e) =>
+                            handleSoftSkillChange(idx, "softSkill", {
+                              name: e.target.value,
+                            })
+                          }
+                        >
+                          <option value="" disabled>
+                            Select Soft Skill
+                          </option>
+                          {softSkills.map((category, i) => (
+                            <optgroup key={i} label={category.category}>
+                              {category.skills.map((s, j) => (
+                                <option key={j} value={s.name}>
+                                  {s.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                          ))}
+                        </select>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
+              {formData.softSkills.length < 6 && (
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddSoftSkill}
+                >
+                  Add Soft Skill +
+                </button>
+              )}
             </div>
           </div>
         </div>
