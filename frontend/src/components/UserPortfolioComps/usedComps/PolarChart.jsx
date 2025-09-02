@@ -59,7 +59,7 @@ const PolarChart = (props) => {
     },
     plugins: {
       legend: {
-        position: isMobile ? "left" : "right",
+        position: "right",
         labels: {
           color: "rgba(102, 102, 102, 1)",
           font: {

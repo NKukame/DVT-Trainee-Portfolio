@@ -124,8 +124,9 @@
     flex-direction: column;
   }
 
-  .fomr-label {
+  .form-label {
     width: initial;
+    text-align: initial;
     font-size: initial;
   }
 
@@ -138,6 +139,7 @@
   .mobile-skills.submit-form-group {
     flex-direction: column;
     align-items: flex-start;
+    margin: 5px 0px;
   }
 
   .mobile-agreement {

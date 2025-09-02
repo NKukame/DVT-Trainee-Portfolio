@@ -6,7 +6,7 @@ export const SearchContext = createContext();
 
 export const SearchContextProvider = ({ children }) => {
   const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState(
-    [],
+    []
   );
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,15 +38,16 @@ export const SearchContextProvider = ({ children }) => {
 
     try {
       const token = localStorage.getItem("token");
-      
+
       if (!token) {
-        console.error('No token found');
+        console.error("No token found");
         setIsLoading(false);
         return;
       }
-      
-      axios.defaults.headers.common["authorization"] =
-        `Bearer ${JSON.parse(token)}`;
+
+      axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(
+        token
+      )}`;
       axios.defaults.headers.post["Content-Type"] = "application/json";
 
       const apiDataEmployee = await axios.get(
@@ -56,7 +57,7 @@ export const SearchContextProvider = ({ children }) => {
             page: page,
             query: query,
           },
-        },
+        }
       );
 
       const apiDataProject = await axios.get(
@@ -66,7 +67,7 @@ export const SearchContextProvider = ({ children }) => {
             page: page,
             query: query,
           },
-        },
+        }
       );
 
       const employeesWithTechStackNames = apiDataEmployee.data.employees.map(
@@ -74,14 +75,14 @@ export const SearchContextProvider = ({ children }) => {
           employee_id: emp.id,
           name: emp.name + " " + emp.surname,
           surname: emp.surname,
-                    title: emp.title,
-                    phone: emp.phone,
-                    company: emp.company,
+          title: emp.title,
+          phone: emp.phone,
+          company: emp.company,
           email: emp.email,
           github: emp.github,
           user: emp.user,
           linkedIn: emp.linkedIn,
-                    portfolio: emp.portfolio,
+          portfolio: emp.portfolio,
           testimonials: emp.testimonials || [],
           role: capitalizeFirstLetter(emp.role),
           softSkilled: emp.softSkills,
@@ -100,7 +101,7 @@ export const SearchContextProvider = ({ children }) => {
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
           techStack: emp.techStack,
           skills: emp.techStack.map((link) => link.techStack.name),
-        }),
+        })
       );
 
       const projectsWithTechStack = apiDataProject.data.projects.map(
@@ -115,20 +116,20 @@ export const SearchContextProvider = ({ children }) => {
           username: project.members?.map((link) => link.employee.name)[0],
           avatar: project.members?.map((link) => link.employee.photoUrl)[0],
           screenshot: project.screenshot,
-        }),
+        })
       );
 
       setProjectsWithTechStackNames(projectsWithTechStack);
       setTotalPages(apiDataEmployee.data.pageCount);
       setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
       setSearchResults(
-        employeesWithTechStackNames.concat(projectsWithTechStack),
+        employeesWithTechStackNames.concat(projectsWithTechStack)
       );
       setFilteredResults(
-        employeesWithTechStackNames.concat(projectsWithTechStack),
+        employeesWithTechStackNames.concat(projectsWithTechStack)
       );
     } catch (err) {
-      console.error('Search error:', err);
+      console.error("Search error:", err);
       if (err.response?.status === 401 || err.response?.status === 403) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
@@ -143,6 +144,7 @@ export const SearchContextProvider = ({ children }) => {
   };
 
   const handleFilterClick = (filter, category) => {
+    console.log(filter, +" " + category);
     let newSelectedFilter;
 
     if (
@@ -150,7 +152,7 @@ export const SearchContextProvider = ({ children }) => {
     ) {
       // Remove filter
       newSelectedFilter = selectedFilter.filter(
-        (item) => !(item.value === filter && item.category === category),
+        (item) => !(item.value === filter && item.category === category)
       );
     } else {
       // Add filter

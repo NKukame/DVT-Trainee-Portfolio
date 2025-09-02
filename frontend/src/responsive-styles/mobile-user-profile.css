@@ -248,4 +248,89 @@
   .education-conatiner {
     margin-bottom: 10px;
   }
+
+  .edit-profile-edit-btn {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .edit-profile-add-btn {
+    width: initial;
+    margin-left: 0;
+  }
+
+  .edit-form-group {
+    width: initial;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .edit-form-text-section {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .edit-right-form-section {
+    width: 100%;
+    flex-direction: column;
+  }
+  .edit-form-group input {
+    width: initial;
+  }
+  .form-label {
+    width: 100%;
+  }
+
+  .edit-profile-body {
+    margin: 5px auto;
+    width: 95%;
+  }
+
+  .soft-skill-item .range-slider,
+  .tech-stack-item .range-slider {
+    margin-top: 5px;
+    width: 100%;
+  }
+
+  .edit-form-group select {
+    width: initial;
+  }
+  .soft-skill-item,
+  .tech-stack-item {
+    gap: 2px;
+    flex-direction: column-reverse;
+  }
+
+  .edit-form-group textarea {
+    width: 100%;
+  }
+
+  .edit-form-group label {
+    width: 100%;
+  }
+
+  .edit-submit-section {
+    padding: 10px;
+  }
+
+  .edit-profile-edit-btn-container {
+    margin-block: 0;
+  }
+  .edit-right-form-section,
+  .edit-left-form-section,
+  .education-section,
+  .certificate-section {
+    width: 100%;
+  }
+
+  .modal-content {
+    padding: 1rem;
+    text-align: start;
+  }
+  .modal-content ul {
+    flex-wrap: wrap;
+  }
+
+  .modal-project-link {
+    width: 100%;
+  }
 }

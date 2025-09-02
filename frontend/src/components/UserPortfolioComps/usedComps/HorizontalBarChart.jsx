@@ -52,7 +52,7 @@ const HorizontalBarChart = (props) => {
   };
 
   const options = {
-    indexAxis: isMobile ? "x" : "y", // <- Makes it horizontal
+    indexAxis: "y", // <- Makes it horizontal
     responsive: true,
     plugins: {
       legend: {
