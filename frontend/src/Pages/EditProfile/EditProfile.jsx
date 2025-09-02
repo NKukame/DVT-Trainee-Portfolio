@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router";
 import { useState, useRef } from "react";
-import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
 // import "./EditProfile.css";
 import axios from "axios";
