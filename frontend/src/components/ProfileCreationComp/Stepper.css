@@ -3,7 +3,7 @@
     justify-items: center;
     align-items: center;
     width: 92vw;
-    height: fit-content;
+    height: 150px;
     background-color: var(--white);
     padding: 10px 5px;
     margin-left: 3.5%;
@@ -60,7 +60,7 @@
 }
 
 .steps p{
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .step-progress{
