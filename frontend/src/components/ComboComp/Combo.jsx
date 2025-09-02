@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./Combo.css";
 import { Check, ChevronDown } from "@untitled-ui/icons-react";
-
 
 export function Combobox({
   options = [],
@@ -15,15 +13,15 @@ export function Combobox({
   popoverStyle = {},
   renderOption,
   multiple = true,
-  handleFilterClick
+  handleFilterClick,
 }) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const popoverRef = useRef(null);
-  
+
   // Calculate filtered options based on search query
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchQuery.toLowerCase())
+    option.label.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   useEffect(() => {
@@ -32,7 +30,7 @@ export function Combobox({
         setOpen(false);
       }
     };
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -42,12 +40,12 @@ export function Combobox({
       // For multiple selection
       if (value.includes(optionValue)) {
         // Remove if already selected
-        onChange(value.filter(v => v !== optionValue));
-        handleFilterClick(optionValue.toLowerCase(), placeholder)
+        onChange(value.filter((v) => v !== optionValue));
+        handleFilterClick(optionValue, placeholder);
       } else {
         // Add to selection
         onChange([...value, optionValue]);
-        handleFilterClick(optionValue.toLowerCase(), placeholder)
+        handleFilterClick(optionValue, placeholder);
       }
     } else {
       // For single selection
@@ -57,7 +55,11 @@ export function Combobox({
   };
 
   return (
-    <div ref={popoverRef} className={`popoverContainer ${className}`} style={style}>
+    <div
+      ref={popoverRef}
+      className={`popoverContainer ${className}`}
+      style={style}
+    >
       <button
         className="button"
         onClick={() => setOpen((o) => !o)}
@@ -93,7 +95,9 @@ export function Combobox({
                     <div
                       key={option.value}
                       className={`commandItem ${
-                        value.includes(option.value) ? "commandItemSelected" : ""
+                        value.includes(option.value)
+                          ? "commandItemSelected"
+                          : ""
                       }`}
                       onClick={() => handleSelect(option.value)}
                     >

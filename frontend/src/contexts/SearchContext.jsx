@@ -6,7 +6,7 @@ export const SearchContext = createContext();
 
 export const SearchContextProvider = ({ children }) => {
   const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState(
-    [],
+    []
   );
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,32 +14,44 @@ export const SearchContextProvider = ({ children }) => {
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
   let [selectedFilter, setSelectedFilter] = useState([]);
+  let [query, setQuery] = useState("");
+  let [params, setParams] = useState({});
+  let [isLoaded, setIsLoaded] = useState(false);
+  let [dropDownOptions, setDropDownOptions] = useState([]);
 
   const allLanguages = [
-    ...new Set(searchResults.map((employee) => employee.skills).flat()),
+    ...new Set(dropDownOptions.map((employee) => employee.skills).flat()),
   ].filter((item) => item !== undefined);
   const allIndustries = [
-    ...new Set(searchResults.map((employee) => employee.industries).flat()),
+    ...new Set(dropDownOptions.map((employee) => employee.industries).flat()),
   ].filter((item) => item !== undefined);
   const allRoles = [
-    ...new Set(searchResults.map((employee) => employee.role)),
+    ...new Set(dropDownOptions.map((employee) => employee.role)),
   ].filter((item) => item !== undefined);
   const allLocations = [
-    ...new Set(searchResults.map((employee) => employee.location)),
+    ...new Set(dropDownOptions.map((employee) => employee.location)),
   ].filter((item) => item !== undefined);
 
   useEffect(() => {
+    setIsLoaded(true);
     searchData();
   }, []);
 
-  const searchData = async (page = 1, query) => {
-    console.log(page);
-    setIsLoading(true);
+  const searchData = async (page = 1, query = "", params = {}, isAvailable = false) => {
+      setIsLoading(true);
 
     try {
       const token = localStorage.getItem("token");
-      axios.defaults.headers.common["authorization"] =
-        `Bearer ${JSON.parse(token)}`;
+
+      if (!token) {
+        console.error("No token found");
+        setIsLoading(false);
+        return;
+      }
+
+      axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(
+        token
+      )}`;
       axios.defaults.headers.post["Content-Type"] = "application/json";
 
       const apiDataEmployee = await axios.get(
@@ -48,8 +60,14 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
+            techStack: JSON.stringify(params.techStack),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            experience: JSON.stringify(params.experience),
+            isAvailable: isAvailable,
           },
-        },
+        }
       );
 
       const apiDataProject = await axios.get(
@@ -58,8 +76,14 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
+            techStack: JSON.stringify(params.techStack),
+            experience: JSON.stringify(params.experience),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            isAvailable: isAvailable,
           },
-        },
+        }
       );
 
       const employeesWithTechStackNames = apiDataEmployee.data.employees.map(
@@ -67,14 +91,14 @@ export const SearchContextProvider = ({ children }) => {
           employee_id: emp.id,
           name: emp.name + " " + emp.surname,
           surname: emp.surname,
-                    title: emp.title,
-                    phone: emp.phone,
-                    company: emp.company,
+          title: emp.title,
+          phone: emp.phone,
+          company: emp.company,
           email: emp.email,
           github: emp.github,
           user: emp.user,
           linkedIn: emp.linkedIn,
-                    portfolio: emp.portfolio,
+          portfolio: emp.portfolio,
           testimonials: emp.testimonials || [],
           role: capitalizeFirstLetter(emp.role),
           softSkilled: emp.softSkills,
@@ -93,7 +117,7 @@ export const SearchContextProvider = ({ children }) => {
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
           techStack: emp.techStack,
           skills: emp.techStack.map((link) => link.techStack.name),
-        }),
+        })
       );
 
       const projectsWithTechStack = apiDataProject.data.projects.map(
@@ -108,30 +132,43 @@ export const SearchContextProvider = ({ children }) => {
           username: project.members?.map((link) => link.employee.name)[0],
           avatar: project.members?.map((link) => link.employee.photoUrl)[0],
           screenshot: project.screenshot,
-        }),
+        })
       );
 
       setProjectsWithTechStackNames(projectsWithTechStack);
       setTotalPages(apiDataEmployee.data.pageCount);
       setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
       setSearchResults(
-        employeesWithTechStackNames.concat(projectsWithTechStack),
+        employeesWithTechStackNames.concat(projectsWithTechStack)
       );
+      if (!isLoaded) {
+        setDropDownOptions(
+          employeesWithTechStackNames.concat(projectsWithTechStack),
+        );
+        setIsLoaded(true);
+      }
+
       setFilteredResults(
-        employeesWithTechStackNames.concat(projectsWithTechStack),
+        employeesWithTechStackNames.concat(projectsWithTechStack)
       );
     } catch (err) {
-      console.log(err);
+      console.error("Search error:", err);
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleInputChange = (query) => {
-    searchData(1, query);
+    setQuery(query);
+    searchData(1, query, params);
   };
 
   const handleFilterClick = (filter, category) => {
+    console.log(filter, +" " + category);
     let newSelectedFilter;
 
     if (
@@ -139,7 +176,7 @@ export const SearchContextProvider = ({ children }) => {
     ) {
       // Remove filter
       newSelectedFilter = selectedFilter.filter(
-        (item) => !(item.value === filter && item.category === category),
+        (item) => !(item.value === filter && item.category === category)
       );
     } else {
       // Add filter
@@ -148,48 +185,43 @@ export const SearchContextProvider = ({ children }) => {
 
     setSelectedFilter(newSelectedFilter);
 
-    // Apply all filters at once
-    let updatedResults = searchResults.filter((employee) => {
-      return newSelectedFilter.every((f) => {
-        switch (f.category) {
-          case "Technologies":
-            if (employee.skills) {
-              return employee.skills
-                .map((x) => x.toLowerCase())
-                .includes(f.value.toLowerCase());
-            }
-            if (employee.technologies) {
-              return employee.technologies
-                .map((x) => x.toLowerCase())
-                .includes(f.value.toLowerCase());
-            }
-            return false;
+    // Build a query object from all selected filters
+    const filterParams = newSelectedFilter.reduce((acc, f) => {
+      switch (f.category) {
+        case "Technologies":
+          acc.techStack = [...(acc.techStack || []), f.value];
+          break;
+        case "Roles":
+          acc.role = [...(acc.role || []), f.value];
+          break;
+        case "Location":
+          acc.location = [...(acc.location || []), f.value];
+          break;
+        case "Industries":
 
-          case "Roles":
-            return (
-              employee.role &&
-              employee.role.toLowerCase() === f.value.toLowerCase()
-            );
+          acc.industry = [...(acc.industry || []), f.value];
+          acc.industries = [...(acc.industries || []), f.value];
+          break;
+        case "Experience":
+          
+          acc.experience = [...(acc.experience || []), f.value];
+          break;
+        default:
+          break;
+      }
+      return acc;
+    }, {});
 
-          case "Location":
-            return (
-              employee.location &&
-              employee.location.toLowerCase() === f.value.toLowerCase()
-            );
-
-          case "Experience":
-            return (
-              employee.years_active &&
-              employee.years_active.split(" ")[0] === f.value
-            );
-
-          default:
-            return true;
+    // Dedupe arrays in params
+    Object.keys(filterParams).forEach((key) => {
+      if (Array.isArray(filterParams[key])) {
+        filterParams[key] = Array.from(new Set(filterParams[key]));
         }
-      });
     });
 
-    setFilteredResults(updatedResults);
+    setParams(filterParams);
+
+    searchData(1, query, filterParams);
   };
 
   const handleChange = (filter, newSelectedFilter) => {
@@ -222,6 +254,8 @@ export const SearchContextProvider = ({ children }) => {
         total,
         projectsWithTechStackNames,
         searchData,
+        params,
+        query,
       }}
     >
       {children}

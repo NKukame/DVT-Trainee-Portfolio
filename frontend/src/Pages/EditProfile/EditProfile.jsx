@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import SideBar from "../../components/SidebarComp/SideBar";
+import { useLocation, useNavigate } from "react-router";
+import { useState, useRef } from "react";
 import { SquarePen } from "lucide-react";
-import "./EditProfile.css";
+// import "./EditProfile.css";
 import axios from "axios";
 import techStack from "./EditJSON/techstack.json"
+import softSkills from "./EditJSON/SoftSkills.json"
 
 /**
  * EditProfile is a React component that renders a form for editing user profile information.
@@ -15,20 +15,23 @@ import techStack from "./EditJSON/techstack.json"
 function EditProfile(prop) {
   const location = useLocation();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [formData, setFormData] = useState({
     id: location.state.id || location.state.employee_id,
     employee_id: location.state.id || location.state.employee_id,
+    photoUrl: location.state.avatar || "",
     department: location.state.department || "",
     title: location.state.title || "",
     name: location.state.name?.split(" ")[0] || "",
-    photoUrl: location.state.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     surname: location.state.surname || "",
     email: location.state.email || "",
     phone: location.state.phone || "",
-    role: location.state.role || "",
+    role: location.state.role
+      ? location.state.role.toUpperCase().replace(" ", "_")
+      : "",
     company: location.state.company || "",
     bio: location.state.bio || "",
     location: location.state.location || "",
@@ -39,32 +42,37 @@ function EditProfile(prop) {
     availability: Array.isArray(location.state.availability)
       ? location.state.availability[0]
       : location.state.availability || "",
-    education: Array.isArray(location.state.education || location.state.emp_education)
-      ? (location.state.education || location.state.emp_education)
-      : (location.state.education || location.state.emp_education)
+    education: Array.isArray(
+      location.state.education || location.state.emp_education
+    )
+      ? location.state.education || location.state.emp_education
+      : location.state.education || location.state.emp_education
       ? [location.state.education || location.state.emp_education]
-      : [{ qualification: '', institution: '' }],
+      : [{ qualification: "", institution: "" }],
     certificates: Array.isArray(location.state.certificates)
       ? location.state.certificates
       : location.state.certificates
       ? [location.state.certificates]
-      : [{ name: '', institution: '' }],
-    softSkills: location.state.softSkilled || location.state.softSkills || [{ skillsRating: '', softSkill: { name: '' } }],
+      : [{ name: "", institution: "" }],
+    softSkills: location.state.softSkilled ||
+      location.state.softSkills || [
+        { skillsRating: "", softSkill: { name: "" } },
+      ],
     techStack: Array.isArray(location.state.techStack)
       ? location.state.techStack
       : location.state.techStack
       ? [location.state.techStack]
-      : [{ Techrating: '', techStack: { name: '' } }],
+      : [{ Techrating: "", techStack: { name: "" } }],
     testimonials: Array.isArray(location.state.testimonials)
       ? location.state.testimonials
       : location.state.testimonials
       ? [location.state.testimonials]
-      : [{ company: '', quote: '', reference: '' }],
+      : [{ company: "", quote: "", reference: "" }],
     career: Array.isArray(location.state.career)
       ? location.state.career
       : location.state.career
       ? [location.state.career]
-      : [{ role: '', company: '', duration: '' }],
+      : [{ role: "", company: "", duration: "" }],
     projects: Array.isArray(location.state.projects)
       ? location.state.projects.map((p) => p.project || p)
       : location.state.projects
@@ -104,12 +112,13 @@ function EditProfile(prop) {
 
   const handleSoftSkillChange = (index, field, value) => {
     setFormData((prev) => {
-      const updatedSkills = [...prev.softSkills];
-      updatedSkills[index] = {
-        ...updatedSkills[index],
-        [field]: value,
-      };
-      return { ...prev, softSkills: updatedSkills };
+      const updatedSoftSkills = [...prev.softSkills];
+      if (field === "skillsRating") {
+        updatedSoftSkills[index].skillsRating = Number(value);
+      } else if (field === "softSkill") {
+        updatedSoftSkills[index].softSkill = value; 
+      }
+      return { ...prev, softSkills: updatedSoftSkills };
     });
   };
 
@@ -202,6 +211,37 @@ function EditProfile(prop) {
     }));
   };
 
+  const handleAddSoftSkill = () => {
+    setFormData((prev) => {
+      if (prev.softSkills.length >= 6) {
+        alert("You can only add up to 6 soft skills.");
+        return prev;
+      }
+      return {
+        ...prev,
+        softSkills: [
+          ...prev.softSkills,
+          { skillsRating: 1, softSkill: { name: "" } },
+        ],
+      };
+    });
+  };
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          photoUrl: reader.result, // base64 preview
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+
   /**
    * Handles the submission of the form by sending a PATCH request to the server
    * with the updated form data. If the request is successful, it sets the modal
@@ -278,353 +318,363 @@ function EditProfile(prop) {
           </div>
         </div>
       )}
-      <div className="app-layout">
-        <SideBar />
 
-        <div className="edit-profile-body">
-          <div className="edit-profile-content-header">
-            <h3 className="edit-profile-content-title">Edit Profile</h3>
+      <div className="edit-profile-body">
+        <div className="edit-profile-content-header">
+          <h3 className="edit-profile-content-title">Edit Profile</h3>
+        </div>
+
+        <div className="edit-submit-section">
+          <div className="submit-form-header">
+            <h3>Profile Picture</h3>
+            <SquarePen className="submit-icon" color="#084677" size={17} />
           </div>
-
-          <div className="edit-submit-section">
-            <div className="submit-form-header">
-              <h3>Basic Information</h3>
-              <SquarePen className="submit-icon" color="#084677" size={17} />
+          <br />
+          <div className="edit-right-form-section">
+            <div className="profile-picture-form edit-profile-picture-form">
+              <img
+                src={formData.photoUrl}
+                alt="Profile Preview"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
             </div>
-            <br />
-            <div className="edit-form-text-section">
-              <div className="edit-right-form-section">
-                <div className="edit-form-group">
-                  <label className="form-label">Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Surname</label>
-                  <input
-                    type="text"
-                    name="surname"
-                    value={formData.surname}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Cellphone</label>
-                  <input
-                    type="text"
-                    name="cellphone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Role</label>
-                  <input
-                    type="text"
-                    name="role"
-                    value={formData.role}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Department</label>
-                  <input
-                    type="text"
-                    name="department"
-                    value={formData.department}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
+            <div className="change-profile-pic-button-container">
+              <button
+                type="button"
+                className="change-profile-pic"
+                onClick={() => fileInputRef.current.click()}
+              >
+                Change Profile Picture
+              </button>
 
-              <div className="edit-left-form-section">
-                <div className="edit-form-group">
-                  <label className="form-label">Location</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Company</label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Availability</label>
-                  <select
-                    id=""
-                    name="availability"
-                    value={formData.availability}
-                    onChange={handleChange}
-                  >
-                    <option value="" disabled>
-                      Select Your Status
-                    </option>
-                    <option value="true">Yes (Available)</option>
-                    <option value="false">No (Unavailable)</option>
-                  </select>
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Experience</label>
-                  <select
-                    name="experience"
-                    id=""
-                    value={formData.experience}
-                    onChange={handleChange}
-                  >
-                    <option value="" disabled>
-                      Years
-                    </option>
-                    <option value="0-1 Years">0-1 Years</option>
-                    <option value="1-2 Years">1-2 Years</option>
-                    <option value="3-4 Years">3-4 Years</option>
-                    <option value="4-5 Years">4-5 Years</option>
-                    <option value="5+ Years">5+ Years</option>
-                  </select>
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Bio</label>
-                  <textarea
-                    type="text"
-                    name="bio"
-                    value={formData.bio}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleProfilePicChange}
+              />
             </div>
           </div>
+        </div>
 
-          <div className="edit-submit-section">
-            <div className="submit-form-header">
-              <h3>Skills & Education</h3>
-              <SquarePen className="submit-icon" color="#084677" size={17} />
-            </div>
-            <br />
-            <div className="edit-form-text-section">
-              <div className="edit-right-form-section">
-                {formData.education.map((edu, idx) => (
-                  <div key={idx} className="education-section">
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Qualification {idx + 1}
-                      </label>
-                      <input
-                        type="text"
-                        value={edu.qualification || ""}
-                        onChange={(e) =>
-                          handleEducationChange(
-                            idx,
-                            "qualification",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Institution {idx + 1}
-                      </label>
-                      <input
-                        type="text"
-                        value={edu.institution || ""}
-                        onChange={(e) =>
-                          handleEducationChange(
-                            idx,
-                            "institution",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  className="edit-profile-add-btn"
-                  onClick={handleAddEducation}
-                >
-                  Add Education +
-                </button>
-
-                <div className="edit-form-group">
-                  <label className="form-label">Tech Stack</label>
-                  <div className="tech-stack-list">
-                    {formData.techStack.map((tech, idx) => (
-                      <div
-                        key={idx}
-                        className="tech-stack-item"
-                        style={{ marginBottom: "20px" }}
-                      >
-                        <input
-                          type="range"
-                          min={1}
-                          max={5}
-                          step={1}
-                          className="range-slider"
-                          value={tech.Techrating || 1}
-                          onChange={(e) =>
-                            handleTechStackChange(
-                              idx,
-                              "Techrating",
-                              e.target.value
-                            )
-                          }
-                        />
-                        <span style={{ marginLeft: "10px" }} className="tech-rating-edit-label">
-                          {tech.Techrating
-                            ? `Rating: ${tech.Techrating}`
-                            : "Rating: 1"}
-                        </span>
-                        {tech.techStack?.name ? (
-                          <span
-                            className="badge-default"
-                            style={{
-                              marginRight: 8,
-                              width: "fit-content",
-                              height: "fit-content",
-                              display: "flex",
-                              marginBottom: 7,
-                            }}
-                          >
-                            {tech.techStack.name}
-                          </span>
-                        ) : (
-                          <select
-                            value={tech.techStack?.name || ""}
-                            className="new-tech-stack-edit-select"
-                            onChange={(e) =>
-                              handleTechStackChange(idx, "techStack", {
-                                name: e.target.value,
-                              })
-                            }
-                          >
-                            <option value="" disabled>
-                              Select Tech Stack
-                            </option>
-                            {techStack.map((stack, i) => (
-                              <option key={i} value={stack.name}>
-                                {stack.name}
-                              </option>
-                            ))}
-                          </select>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  
-                </div>
-                <button
-                    type="button"
-                    className="edit-profile-add-btn"
-                    onClick={handleAddTechStack}
-                  >
-                    Add Tech Stack +
-                  </button>
+        <div className="edit-submit-section">
+          <div className="submit-form-header">
+            <h3>Basic Information</h3>
+            <SquarePen className="submit-icon" color="#084677" size={17} />
+          </div>
+          <br />
+          <div className="edit-form-text-section">
+            <div className="edit-right-form-section">
+              <div className="edit-form-group">
+                <label className="form-label">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                />
               </div>
+              <div className="edit-form-group">
+                <label className="form-label">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Surname</label>
+                <input
+                  type="text"
+                  name="surname"
+                  value={formData.surname}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Cellphone</label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Role</label>
+                <select
+                  name="role"
+                  id=""
+                  onChange={handleChange}
+                  value={formData.role}
+                >
+                  <option value="" disabled>
+                    Role
+                  </option>
+                  <option value="DEVELOPER">Developer</option>
+                  <option value="DESIGNER">Designer</option>
+                  <option value="PROJECT_MANAGER">Project Manager</option>
+                  <option value="TEAM_LEAD">Team Lead</option>
+                  <option value="SENIOR_DEVELOPER">Senior Developer</option>
+                  <option value="FULLSTACK_DEVELOPER">
+                    Full Stack Developer
+                  </option>
+                  <option value="FRONTEND_DEVELOPER">Frontend Developer</option>
+                  <option value="BACKEND_DEVELOPER">Backend Developer</option>
+                  <option value="UX_UI_DESIGNER">UX/UI Designer</option>
+                  <option value="JUNIOR_DEVELOPER">Junior Developer</option>
+                  <option value="TESTER">Tester</option>
+                  <option value="PRODUCT_OWNER">Product Owner</option>
+                  <option value="SCRUM_MASTER">Scrum Master</option>
+                  <option value="DELIVERY_MANAGER">Delivery Manager</option>
+                </select>
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Department</label>
+                <input
+                  type="text"
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
 
-              <div className="edit-left-form-section">
-                {formData.certificates.map((cert, idx) => (
-                  <div key={idx} className="certificate-section">
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Certificate {idx + 1}
-                      </label>
-                      <input
-                        type="text"
-                        value={cert.name || ""}
-                        onChange={(e) =>
-                          handleCertificateChange(idx, "name", e.target.value)
-                        }
-                      />
-                    </div>
+            <div className="edit-left-form-section">
+              <div className="edit-form-group">
+                <label className="form-label">Location</label>
+                {/* <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                /> */}
+                <select
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Your Location
+                  </option>
 
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Certificate Institution {idx + 1}
-                      </label>
+                  {/* South Africa */}
+                  <optgroup label="South Africa">
+                    <option value="Johannesburg">Johannesburg</option>
+                    <option value="Cape Town">Cape Town</option>
+                    <option value="Durban">Durban</option>
+                    <option value="Pretoria">Pretoria</option>
+                    <option value="Port Elizabeth">Port Elizabeth</option>
+                    <option value="Bloemfontein">Bloemfontein</option>
+                    <option value="Nelspruit">Nelspruit</option>
+                  </optgroup>
+
+                  {/* United Kingdom */}
+                  <optgroup label="United Kingdom">
+                    <option value="London">London</option>
+                    <option value="Manchester">Manchester</option>
+                    <option value="Birmingham">Birmingham</option>
+                    <option value="Liverpool">Liverpool</option>
+                    <option value="Leeds">Leeds</option>
+                    <option value="Glasgow">Glasgow</option>
+                    <option value="Edinburgh">Edinburgh</option>
+                  </optgroup>
+
+                  {/* Kenya */}
+                  <optgroup label="Kenya">
+                    <option value="Nairobi">Nairobi</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Nakuru">Nakuru</option>
+                    <option value="Eldoret">Eldoret</option>
+                  </optgroup>
+
+                  {/* Netherlands */}
+                  <optgroup label="Netherlands">
+                    <option value="Amsterdam">Amsterdam</option>
+                    <option value="Rotterdam">Rotterdam</option>
+                    <option value="The Hague">The Hague</option>
+                    <option value="Utrecht">Utrecht</option>
+                    <option value="Eindhoven">Eindhoven</option>
+                    <option value="Maastricht">Maastricht</option>
+                  </optgroup>
+
+                  {/* United Arab Emirates */}
+                  <optgroup label="United Arab Emirates">
+                    <option value="Dubai">Dubai</option>
+                    <option value="Abu Dhabi">Abu Dhabi</option>
+                    <option value="Sharjah">Sharjah</option>
+                    <option value="Ajman">Ajman</option>
+                    <option value="Fujairah">Fujairah</option>
+                    <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  </optgroup>
+
+                  {/* Ireland */}
+                  <optgroup label="Ireland">
+                    <option value="Dublin">Dublin</option>
+                    <option value="Cork">Cork</option>
+                    <option value="Galway">Galway</option>
+                    <option value="Limerick">Limerick</option>
+                    <option value="Waterford">Waterford</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Company</label>
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Availability</label>
+                <select
+                  id=""
+                  name="availability"
+                  value={formData.availability}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Your Status
+                  </option>
+                  <option value="true">Yes (Available)</option>
+                  <option value="false">No (Unavailable)</option>
+                </select>
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Experience</label>
+                <select
+                  name="experience"
+                  id=""
+                  value={formData.experience}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Years
+                  </option>
+                  <option value="0-1 Years">0-1 Years</option>
+                  <option value="1-2 Years">1-2 Years</option>
+                  <option value="3-4 Years">3-4 Years</option>
+                  <option value="4-5 Years">4-5 Years</option>
+                  <option value="5+ Years">5+ Years</option>
+                </select>
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Bio</label>
+                <textarea
+                  type="text"
+                  name="bio"
+                  value={formData.bio}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="edit-submit-section">
+          <div className="submit-form-header">
+            <h3>Skills & Education</h3>
+            <SquarePen className="submit-icon" color="#084677" size={17} />
+          </div>
+          <br />
+          <div className="edit-form-text-section">
+            <div className="edit-right-form-section">
+              {formData.education.map((edu, idx) => (
+                <div key={idx} className="education-section">
+                  <div className="edit-form-group">
+                    <label className="form-label">
+                      Qualification {idx + 1}
+                    </label>
+                    <input
+                      type="text"
+                      value={edu.qualification || ""}
+                      onChange={(e) =>
+                        handleEducationChange(
+                          idx,
+                          "qualification",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+
+                  <div className="edit-form-group">
+                    <label className="form-label">Institution {idx + 1}</label>
+                    <input
+                      type="text"
+                      value={edu.institution || ""}
+                      onChange={(e) =>
+                        handleEducationChange(
+                          idx,
+                          "institution",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="edit-profile-add-btn"
+                onClick={handleAddEducation}
+              >
+                Add Education +
+              </button>
+
+              <div className="edit-form-group">
+                <label className="form-label">Tech Stack</label>
+                <div className="tech-stack-list">
+                  {formData.techStack.map((tech, idx) => (
+                    <div
+                      key={idx}
+                      className="tech-stack-item"
+                      style={{ marginBottom: "20px" }}
+                    >
                       <input
-                        type="text"
-                        value={cert.institution || ""}
+                        type="range"
+                        min={1}
+                        max={5}
+                        step={1}
+                        className="range-slider"
+                        value={tech.Techrating || 1}
                         onChange={(e) =>
-                          handleCertificateChange(
+                          handleTechStackChange(
                             idx,
-                            "institution",
+                            "Techrating",
                             e.target.value
                           )
                         }
                       />
-                    </div>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  className="edit-profile-add-btn"
-                  onClick={handleAddCerificates}
-                >
-                  Add Certificates +
-                </button>
-
-                <div className="edit-form-group">
-                  <label className="form-label">Soft Skills</label>
-                  <div className="soft-skills-list">
-                    {formData.softSkills.map((skill, idx) => (
-                      <div
-                        key={idx}
-                        className="soft-skill-item"
-                        style={{ marginBottom: "20px" }}
+                      <span
+                        style={{ marginLeft: "10px" }}
+                        className="tech-rating-edit-label"
                       >
-                        <input
-                          type="range"
-                          min={1}
-                          max={5}
-                          step={1}
-                          className="range-slider"
-                          value={skill.skillsRating || 1}
-                          onChange={(e) =>
-                            handleSoftSkillChange(
-                              idx,
-                              "skillsRating",
-                              e.target.value
-                            )
-                          }
-                        />
-                        <span style={{ marginLeft: "10px" }} className="skills-rating-edit-label">
-                          {skill.skillsRating
-                            ? `Rating: ${skill.skillsRating}`
-                            : "Rating: 1"}
-                        </span>
-
+                        {tech.Techrating
+                          ? `Rating: ${tech.Techrating}`
+                          : "Rating: 1"}
+                      </span>
+                      {tech.techStack?.name ? (
                         <span
                           className="badge-default"
                           style={{
@@ -635,226 +685,365 @@ function EditProfile(prop) {
                             marginBottom: 7,
                           }}
                         >
-                          {skill.softSkill?.name}
+                          {tech.techStack.name}
                         </span>
-                      </div>
-                    ))}
-                  </div>
+                      ) : (
+                        <select
+                          value={tech.techStack?.name || ""}
+                          className="new-tech-stack-edit-select"
+                          onChange={(e) =>
+                            handleTechStackChange(idx, "techStack", {
+                              name: e.target.value,
+                            })
+                          }
+                        >
+                          <option value="" disabled>
+                            Select Tech Stack
+                          </option>
+                          {techStack.map((stack, i) => (
+                            <option key={i} value={stack.name}>
+                              {stack.name}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="edit-submit-section">
-            <div className="submit-form-header">
-              <h3>Testimonials & Links</h3>
-              <SquarePen className="submit-icon" color="#084677" size={17} />
-            </div>
-            <br />
-            <div className="edit-form-text-section">
-              <div className="edit-right-form-section">
-                <div className="edit-form-group">
-                  <label className="form-label">GitHub</label>
-                  <input
-                    type="text"
-                    name="github"
-                    value={formData.github}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">LinkedIn</label>
-                  <input
-                    type="text"
-                    name="linkedIn"
-                    value={formData.linkedIn}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="edit-form-group">
-                  <label className="form-label">Portfolio</label>
-                  <input
-                    type="text"
-                    name="portfolio"
-                    value={formData.portfolio}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              <div className="edit-left-form-section">
-                {formData.testimonials.map((testimonial, index) => (
-                  <div key={index} className="testimonial-edit-group">
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Testimonial Company {index + 1}
-                      </label>
-                      <input
-                        type="text"
-                        name="company"
-                        value={testimonial.company}
-                        onChange={(e) =>
-                          handleTestimonialChange(
-                            index,
-                            "company",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="edit-form-group">
-                      <label className="form-label">Testimonial Quote</label>
-                      <input
-                        type="text"
-                        name="quote"
-                        value={testimonial.quote}
-                        onChange={(e) =>
-                          handleTestimonialChange(
-                            index,
-                            "quote",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Testimonial Reference
-                      </label>
-                      <input
-                        type="text"
-                        name="reference"
-                        value={testimonial.reference}
-                        onChange={(e) =>
-                          handleTestimonialChange(
-                            index,
-                            "reference",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-
-                <button
-                  type="button"
-                  className="edit-profile-add-btn"
-                  onClick={handleAddTestimonial}
-                >
-                  Add Testimonial +
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="edit-submit-section">
-            <div className="submit-form-header">
-              <h3>Projects & Career Chronology</h3>
-              <SquarePen className="submit-icon" color="#084677" size={17} />
-            </div>
-            <br />
-            <div className="edit-form-text-section">
-              <div className="edit-right-form-section">
-                {formData.projects.map((project, idx) => (
-                  <div key={idx} className="project-edit-group">
-                    <div className="edit-form-group">
-                      <label className="form-label">
-                        Project Name {idx + 1}
-                      </label>
-                      <input
-                        type="text"
-                        value={project.name || ""}
-                        onChange={(e) =>
-                          handleProjectChange(idx, "name", e.target.value)
-                        }
-                      />
-                    </div>
-                    <div className="edit-form-group">
-                      <label className="form-label">Description</label>
-                      <textarea
-                        type="text"
-                        value={project.description || ""}
-                        onChange={(e) =>
-                          handleProjectChange(
-                            idx,
-                            "description",
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-                    <div className="edit-form-group">
-                      <label className="form-label">GitHub</label>
-                      <input
-                        type="text"
-                        value={project.github || ""}
-                        onChange={(e) =>
-                          handleProjectChange(idx, "github", e.target.value)
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="edit-left-form-section">
-                {formData.career.map((job, idx) => (
-                  <div key={idx} className="career-edit-group">
-                    <div className="edit-form-group">
-                      <label className="form-label">Role {idx + 1}</label>
-                      <input
-                        type="text"
-                        value={job.role || ""}
-                        onChange={(e) =>
-                          handleCareerChange(idx, "role", e.target.value)
-                        }
-                      />
-                    </div>
-                    <div className="edit-form-group">
-                      <label className="form-label">Company</label>
-                      <input
-                        type="text"
-                        value={job.company || ""}
-                        onChange={(e) =>
-                          handleCareerChange(idx, "company", e.target.value)
-                        }
-                      />
-                    </div>
-                    <div className="edit-form-group">
-                      <label className="form-label">Duration</label>
-                      <input
-                        type="text"
-                        value={job.duration || ""}
-                        onChange={(e) =>
-                          handleCareerChange(idx, "duration", e.target.value)
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  className="edit-profile-add-btn"
-                  onClick={handleAddCareerChronology}
-                >
-                  Add Chronology +
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="edit-profile-edit-btn-container">
-            {loading ? (
-              <div className="loader"></div>
-            ) : (
-              <button className="edit-profile-edit-btn" onClick={handleSubmit}>
-                Submit
+              <button
+                type="button"
+                className="edit-profile-add-btn"
+                onClick={handleAddTechStack}
+              >
+                Add Tech Stack +
               </button>
-            )}
+            </div>
+
+            <div className="edit-left-form-section">
+              {formData.certificates.map((cert, idx) => (
+                <div key={idx} className="certificate-section">
+                  <div className="edit-form-group">
+                    <label className="form-label">Certificate {idx + 1}</label>
+                    <input
+                      type="text"
+                      value={cert.name || ""}
+                      onChange={(e) =>
+                        handleCertificateChange(idx, "name", e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="edit-form-group">
+                    <label className="form-label">
+                      Certificate Institution {idx + 1}
+                    </label>
+                    <input
+                      type="text"
+                      value={cert.institution || ""}
+                      onChange={(e) =>
+                        handleCertificateChange(
+                          idx,
+                          "institution",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="edit-profile-add-btn"
+                onClick={handleAddCerificates}
+              >
+                Add Certificates +
+              </button>
+
+              <div className="edit-form-group">
+                <label className="form-label">Soft Skills</label>
+                <div className="soft-skills-list">
+                  {formData.softSkills.map((skill, idx) => (
+                    <div
+                      key={idx}
+                      className="soft-skill-item"
+                      style={{ marginBottom: "20px" }}
+                    >
+                      <input
+                        type="range"
+                        min={1}
+                        max={5}
+                        step={1}
+                        className="range-slider"
+                        value={skill.skillsRating || 1}
+                        onChange={(e) =>
+                          handleSoftSkillChange(
+                            idx,
+                            "skillsRating",
+                            e.target.value
+                          )
+                        }
+                      />
+                      <span
+                        style={{ marginLeft: "10px" }}
+                        className="skills-rating-edit-label"
+                      >
+                        {skill.skillsRating
+                          ? `Rating: ${skill.skillsRating}`
+                          : "Rating: 1"}
+                      </span>
+
+                      {skill.softSkill?.name ? (
+                        <span
+                          className="badge-default"
+                          style={{
+                            marginRight: 8,
+                            width: "fit-content",
+                            height: "fit-content",
+                            display: "flex",
+                            marginBottom: 7,
+                          }}
+                        >
+                          {skill.softSkill.name}
+                        </span>
+                      ) : (
+                        <select
+                          value={skill.softSkill?.name || ""}
+                          className="new-soft-skill-edit-select"
+                          onChange={(e) =>
+                            handleSoftSkillChange(idx, "softSkill", {
+                              name: e.target.value,
+                            })
+                          }
+                        >
+                          <option value="" disabled>
+                            Select Soft Skill
+                          </option>
+                          {softSkills.map((category, i) => (
+                            <optgroup key={i} label={category.category}>
+                              {category.skills.map((s, j) => (
+                                <option key={j} value={s.name}>
+                                  {s.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                          ))}
+                        </select>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {formData.softSkills.length < 6 && (
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddSoftSkill}
+                >
+                  Add Soft Skill +
+                </button>
+              )}
+            </div>
           </div>
+        </div>
+
+        <div className="edit-submit-section">
+          <div className="submit-form-header">
+            <h3>Testimonials & Links</h3>
+            <SquarePen className="submit-icon" color="#084677" size={17} />
+          </div>
+          <br />
+          <div className="edit-form-text-section">
+            <div className="edit-right-form-section">
+              <div className="edit-form-group">
+                <label className="form-label">GitHub</label>
+                <input
+                  type="text"
+                  name="github"
+                  value={formData.github}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">LinkedIn</label>
+                <input
+                  type="text"
+                  name="linkedIn"
+                  value={formData.linkedIn}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="edit-form-group">
+                <label className="form-label">Portfolio</label>
+                <input
+                  type="text"
+                  name="portfolio"
+                  value={formData.portfolio}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="edit-left-form-section">
+              {formData.testimonials.map((testimonial, index) => (
+                <div key={index} className="testimonial-edit-group">
+                  <div className="edit-form-group">
+                    <label className="form-label">
+                      Testimonial Company {index + 1}
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={testimonial.company}
+                      onChange={(e) =>
+                        handleTestimonialChange(
+                          index,
+                          "company",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+
+                  <div className="edit-form-group">
+                    <label className="form-label">Testimonial Quote</label>
+                    <input
+                      type="text"
+                      name="quote"
+                      value={testimonial.quote}
+                      onChange={(e) =>
+                        handleTestimonialChange(index, "quote", e.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="edit-form-group">
+                    <label className="form-label">Testimonial Reference</label>
+                    <input
+                      type="text"
+                      name="reference"
+                      value={testimonial.reference}
+                      onChange={(e) =>
+                        handleTestimonialChange(
+                          index,
+                          "reference",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+
+              <button
+                type="button"
+                className="edit-profile-add-btn"
+                onClick={handleAddTestimonial}
+              >
+                Add Testimonial +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="edit-submit-section">
+          <div className="submit-form-header">
+            <h3>Projects & Career Chronology</h3>
+            <SquarePen className="submit-icon" color="#084677" size={17} />
+          </div>
+          <br />
+          <div className="edit-form-text-section">
+            <div className="edit-right-form-section">
+              {formData.projects.map((project, idx) => (
+                <div key={idx} className="project-edit-group">
+                  <div className="edit-form-group">
+                    <label className="form-label">Project Name {idx + 1}</label>
+                    <input
+                      type="text"
+                      value={project.name || ""}
+                      onChange={(e) =>
+                        handleProjectChange(idx, "name", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="edit-form-group">
+                    <label className="form-label">Description</label>
+                    <textarea
+                      type="text"
+                      value={project.description || ""}
+                      onChange={(e) =>
+                        handleProjectChange(idx, "description", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="edit-form-group">
+                    <label className="form-label">GitHub</label>
+                    <input
+                      type="text"
+                      value={project.github || ""}
+                      onChange={(e) =>
+                        handleProjectChange(idx, "github", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="edit-left-form-section">
+              {formData.career.map((job, idx) => (
+                <div key={idx} className="career-edit-group">
+                  <div className="edit-form-group">
+                    <label className="form-label">Role {idx + 1}</label>
+                    <input
+                      type="text"
+                      value={job.role || ""}
+                      onChange={(e) =>
+                        handleCareerChange(idx, "role", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="edit-form-group">
+                    <label className="form-label">Company</label>
+                    <input
+                      type="text"
+                      value={job.company || ""}
+                      onChange={(e) =>
+                        handleCareerChange(idx, "company", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="edit-form-group">
+                    <label className="form-label">Duration</label>
+                    <input
+                      type="text"
+                      value={job.duration || ""}
+                      onChange={(e) =>
+                        handleCareerChange(idx, "duration", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="edit-profile-add-btn"
+                onClick={handleAddCareerChronology}
+              >
+                Add Chronology +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="edit-profile-edit-btn-container">
+          {loading ? (
+            <div className="loader"></div>
+          ) : (
+            <button className="edit-profile-edit-btn" onClick={handleSubmit}>
+              Submit
+            </button>
+          )}
         </div>
       </div>
     </>

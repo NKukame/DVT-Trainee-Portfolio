@@ -92,17 +92,35 @@ const MeController = async (req, res) => {
     res.json({
       ...user.employee,
       employee_id: user.employee.id,
+      name: user.employee.name + " " + user.employee.surname,
       user: user,
       avatar: user.employee.photoUrl,
       availability: user.employee.availability?.available,
       emp_education: user.employee.education,
       years_active: user.employee.experience,
-      experienced: user.employee.experience
+      experienced: user.employee.experience,
+      user_role: user.role,
+      role: capitalizeFirstLetter(user.employee.role)
     });
   } catch (error) {
     console.error('Error fetching current user:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+function capitalizeFirstLetter(str) {
+  if(str.includes("_")){
+    return str
+      .split("_")
+      .map(
+        word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+      )
+      .join(" ");
+  }else{
+    
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+}
 
 export default MeController;

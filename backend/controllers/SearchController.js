@@ -32,6 +32,14 @@ export async function SearchProjectController(req, res) {
     limit = 9,
   } = req.query; // Changed from req.params to req.query
 
+  if (techStack) {
+    techStack = JSON.parse(techStack);
+  }
+
+  if (industries) {
+    industries = JSON.parse(industries);
+  }
+
   try {
     const where = {};
     const cacheKey = await generateKey(
@@ -47,10 +55,12 @@ export async function SearchProjectController(req, res) {
       industries,
     );
 
-    const cached = await getCache(cacheKey);
-    if (cached) {
-      return res.status(200).send(cached);
-    }
+
+
+    // const cached = await getCache(cacheKey);
+    // if (cached) {
+    //   return res.status(200).send(cached);
+    // }
 
     if (query) {
       where.OR = [
@@ -173,15 +183,37 @@ export async function SearchProjectController(req, res) {
 export async function SearchEmployeeController(req, res) {
   let {
     query,
+    experience,
     location,
     role,
     techStack,
+    isAvailable,
     industry,
     field,
     order,
     page = 1,
     limit = 9,
   } = req.query; // Changed from req.params to req.query
+if (location) {
+  location = JSON.parse(location);
+}
+if (role) {
+  role = JSON.parse(role);
+}
+if (techStack) {
+  techStack = JSON.parse(techStack);
+}
+if (industry) {
+  industry = JSON.parse(industry);
+}
+
+if (experience) {
+  experience = JSON.parse(experience);
+}
+
+if (isAvailable) {
+  isAvailable = JSON.parse(isAvailable);
+}
 
   try {
     const where = {};
@@ -192,15 +224,19 @@ export async function SearchEmployeeController(req, res) {
       role,
       techStack,
       industry,
+      experience,
+      isAvailable,
       field,
       order,
       page,
       undefined,
     );
-    const cached = await getCache(cacheKey);
-    if (cached) {
-      return res.status(200).send(cached);
-    }
+    // const cached = await getCache(cacheKey);
+    // if (cached) {
+    //   return res.status(200).send(cached);
+    // }
+
+    
 
     if (query) {
       where.OR = [
@@ -219,20 +255,34 @@ export async function SearchEmployeeController(req, res) {
         in: location,
       };
     }
-
+    
+    if (experience?.length) {
+      if (typeof experience === "string") {
+        experience = [experience];
+      }
+      where.experience = {
+        in: experience,
+      };
+    }
+    
     if (role?.length) {
       if (typeof role === "string") {
         role = [role];
       }
+
+      role = role.map((role) => role.toUpperCase().split(" ").join("_"));
       where.role = {
         in: role,
       };
     }
 
     if (techStack?.length) {
+      
       if (typeof techStack === "string") {
         techStack = [techStack];
       }
+
+      
 
       where.techStack = {
         some: {
@@ -257,6 +307,13 @@ export async function SearchEmployeeController(req, res) {
     }
 
     const orderBy = {};
+    console.log(isAvailable);
+
+    if (isAvailable) {
+      where.availability = {
+        available: isAvailable,
+      };
+    }
 
     if (field && order) {
       orderBy[field] = order;
