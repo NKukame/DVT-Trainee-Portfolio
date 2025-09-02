@@ -16,27 +16,29 @@ export const SearchContextProvider = ({ children }) => {
   let [selectedFilter, setSelectedFilter] = useState([]);
   let [query, setQuery] = useState("");
   let [params, setParams] = useState({});
+  let [isLoaded, setIsLoaded] = useState(false);
+  let [dropDownOptions, setDropDownOptions] = useState([]);
 
   const allLanguages = [
-    ...new Set(searchResults.map((employee) => employee.skills).flat()),
+    ...new Set(dropDownOptions.map((employee) => employee.skills).flat()),
   ].filter((item) => item !== undefined);
   const allIndustries = [
-    ...new Set(searchResults.map((employee) => employee.industries).flat()),
+    ...new Set(dropDownOptions.map((employee) => employee.industries).flat()),
   ].filter((item) => item !== undefined);
   const allRoles = [
-    ...new Set(searchResults.map((employee) => employee.role)),
+    ...new Set(dropDownOptions.map((employee) => employee.role)),
   ].filter((item) => item !== undefined);
   const allLocations = [
-    ...new Set(searchResults.map((employee) => employee.location)),
+    ...new Set(dropDownOptions.map((employee) => employee.location)),
   ].filter((item) => item !== undefined);
 
   useEffect(() => {
+    setIsLoaded(true);
     searchData();
   }, []);
 
   const searchData = async (page = 1, query = "", params = {}) => {
-    console.log(page);
-    setIsLoading(true);
+      setIsLoading(true);
 
     try {
       const token = localStorage.getItem("token");
@@ -136,6 +138,13 @@ export const SearchContextProvider = ({ children }) => {
       setSearchResults(
         employeesWithTechStackNames.concat(projectsWithTechStack),
       );
+      if (!isLoaded) {
+        setDropDownOptions(
+          employeesWithTechStackNames.concat(projectsWithTechStack),
+        );
+        setIsLoaded(true);
+      }
+
       setFilteredResults(
         employeesWithTechStackNames.concat(projectsWithTechStack),
       );
@@ -208,7 +217,6 @@ export const SearchContextProvider = ({ children }) => {
 
     setParams(filterParams);
 
-    // Use server-side search with the composed params
     searchData(1, query, filterParams);
   };
 

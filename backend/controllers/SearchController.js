@@ -187,6 +187,7 @@ export async function SearchEmployeeController(req, res) {
     location,
     role,
     techStack,
+    availability,
     industry,
     field,
     order,
@@ -210,6 +211,10 @@ if (experience) {
   experience = JSON.parse(experience);
 }
 
+if (availability) {
+  availability = JSON.parse(availability);
+}
+
   try {
     const where = {};
     const cacheKey = await generateKey(
@@ -220,6 +225,7 @@ if (experience) {
       techStack,
       industry,
       experience,
+      availability,
       field,
       order,
       page,
@@ -250,7 +256,6 @@ if (experience) {
       };
     }
     
-    console.log(experience);
     if (experience?.length) {
       if (typeof experience === "string") {
         experience = [experience];
