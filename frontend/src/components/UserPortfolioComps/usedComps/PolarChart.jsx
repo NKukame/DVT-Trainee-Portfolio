@@ -1,38 +1,43 @@
 // PolarChart.jsx
-import React from 'react';
-import { PolarArea } from 'react-chartjs-2';
+import { useState, useEffect } from "react";
+import { PolarArea } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   RadialLinearScale,
   ArcElement,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { colors } from '@mui/material';
+} from "chart.js";
+import { colors } from "@mui/material";
 
 // Register components you’ll use
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const PolarChart = (props) => {
-  const darkMode = localStorage.getItem('darkMode') === 'enabled';
+  const darkMode = localStorage.getItem("darkMode") === "enabled";
   const softSkills = props.user?.softSkills || props.user?.softSkilled || [];
-  
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   const data = {
-    labels: softSkills.map(skill => `${skill?.softSkill?.name || 'Unknown'}`) ,
+    labels: softSkills.map((skill) => `${skill?.softSkill?.name || "Unknown"}`),
     datasets: [
       {
-        label: 'My Polar Dataset',
-        data: softSkills.map(rate => `${rate?.skillsRating || 0}`) ,
+        label: "My Polar Dataset",
+        data: softSkills.map((rate) => `${rate?.skillsRating || 0}`),
         backgroundColor: [
-          'rgba(0, 122, 255, 1)',    // Bright Blue (good in both modes)
-          'rgba(255, 99, 132, 1)',   // Soft Red for contrast
-          'rgba(147, 178, 199, 1)',   // Light Sky Blue
-          'rgba(75, 192, 192, 1)',   // Teal / Aqua
-          'rgba(255, 205, 86, 1)',   // Yellow for brightness in dark mode
-          'rgba(153, 102, 255, 1)',  // Purple (adds variation but still soft)
+          "rgba(0, 122, 255, 1)", // Bright Blue (good in both modes)
+          "rgba(255, 99, 132, 1)", // Soft Red for contrast
+          "rgba(147, 178, 199, 1)", // Light Sky Blue
+          "rgba(75, 192, 192, 1)", // Teal / Aqua
+          "rgba(255, 205, 86, 1)", // Yellow for brightness in dark mode
+          "rgba(153, 102, 255, 1)", // Purple (adds variation but still soft)
         ],
         borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.1)',
+        borderColor: "rgba(0, 0, 0, 0.1)",
       },
     ],
   };
@@ -41,10 +46,9 @@ const PolarChart = (props) => {
     responsive: true,
     scales: {
       r: {
-        grid:{
-          color: 'rgba(152, 152, 152, 0.7)',
+        grid: {
+          color: "rgba(152, 152, 152, 0.7)",
           lineWidth: 0.8,
-          
         },
         ticks: {
           beginAtZero: true,
@@ -55,14 +59,13 @@ const PolarChart = (props) => {
     },
     plugins: {
       legend: {
-        position: 'right',
+        position: "right",
         labels: {
-          color: 'rgba(102, 102, 102, 1)',
+          color: "rgba(102, 102, 102, 1)",
           font: {
-            size: 14,
-            weight: 'bold',
+            size: isMobile ? 12 : 14,
+            weight: "bold",
           },
-          
         },
       },
     },

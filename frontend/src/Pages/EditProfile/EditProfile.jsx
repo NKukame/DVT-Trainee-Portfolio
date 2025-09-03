@@ -1,8 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { useState, useRef } from "react";
-import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
-import "./EditProfile.css";
+// import "./EditProfile.css";
 import axios from "axios";
 import techStack from "./EditJSON/techstack.json"
 import softSkills from "./EditJSON/SoftSkills.json"

@@ -20,27 +20,23 @@ export const authProvider = {
     forgotPassword: async (params) => { throw new Error("Not implemented"); },
     updatePassword: async (params) => { throw new Error("Not implemented"); },
     getIdentity: async () => {
-      const token = JSON.parse(localStorage.getItem("token"));
-      const userId = JSON.parse(localStorage.getItem("userId"));
-      
-      if (!token || !userId) {
-        return null;
-      }
-
       try {
-        const response = await fetch(`http://localhost:3000/user/${userId}`, {
+        const token = JSON.parse(localStorage.getItem("token"));
+        if (!token) {
+          return;
+        }
+  
+        const response = await fetch("http://localhost:3000/api/me", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
-    
-        if (response.status < 200 || response.status > 299) {
-          return null;
+        if (response.ok) {
+          const userData = await response.json();
+          return userData;
         }
-    
-        const data = await response.json();
-        return data;
+        return null;
       } catch (error) {
         console.error('Error fetching user identity:', error);
         return null;

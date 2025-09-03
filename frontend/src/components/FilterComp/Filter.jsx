@@ -6,6 +6,7 @@ import {
   Award01,
   MarkerPin04,
   Award02,
+  Clock,
 } from "@untitled-ui/icons-react";
 import { Combobox } from "../ComboComp/Combo";
 import { Badge } from "../BadgeComp/Badge";
@@ -29,11 +30,11 @@ function Filter() {
   const roleOptions = toDropdownOptions(allRoles);
 
   const expOptions = [
-    { value: "0-1", label: "0-1 Years" },
-    { value: "1-2", label: "1-2 Years" },
-    { value: "3-4", label: "3-4 Years" },
-    { value: "4-5", label: "4-5 Years" },
-    { value: "5+", label: "5+ Years" },
+    { value: "0-1 Years", label: "0-1 Years" },
+    { value: "1-2 Years", label: "1-2 Years" },
+    { value: "3-4 Years", label: "3-4 Years" },
+    { value: "4-5 Years", label: "4-5 Years" },
+    { value: "5+ Years", label: "5+ Years" },
   ];
 
   // All selected filters
@@ -105,7 +106,7 @@ function Filter() {
     <section className="filter-container text-lg">
       <div className="filter-section">
         <div className="filter-dropdown mobile-availability">
-          <Award02 className="filter-section-icon" />
+          <Clock className="filter-section-icon" />
           <Combobox
             placeholder="Availability"
             options={[

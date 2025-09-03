@@ -1,15 +1,21 @@
-
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import GridView from "../../components/GridViewComp/GridView";
-import { Link } from "react-router";
 import UserProfile from "../UserPortfolioPage/UserPortfolio";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import SideBar from "../../components/SidebarComp/SideBar";
-import { AArrowDown } from "lucide-react";
-import { AArrowUp } from "lucide-react";
-import { Building01, CalendarCheck01, Laptop01, Mail01, MarkerPin01, MessageChatCircle, Phone, User02, User03, Users03 } from "@untitled-ui/icons-react";
+import {
+  Building01,
+  CalendarCheck01,
+  Laptop01,
+  Mail01,
+  MarkerPin01,
+  MessageChatCircle,
+  Phone,
+  User02,
+  Users03,
+} from "@untitled-ui/icons-react";
+import { Link } from "react-router";
 
 function Portfolio() {
   const [team, setTeam] = useState([]);
@@ -19,18 +25,6 @@ function Portfolio() {
   const [searchQuery, setSearchQuery] = useState(""); // New search state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    setIsActive(true);
-  };
-
-  const handleGridClick = () => {
-    setViewMode("grid-view");
-  };
-
-  const handleCardClick = () => {
-    setViewMode("card-view");
-  };
 
   useEffect(() => {
     fetch("/team-portfolio.json")
@@ -47,19 +41,6 @@ function Portfolio() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + team.length) % team.length);
   };
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value.toLowerCase());
-  };
-
-  const handleViewChange = (event) => {
-    setViewMode(event.target.value);
-  };
-
-  const toggleSort = () => {
-    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-  };
-
-  // Apply search filter first, then sort
   const filteredAndSortedTeam = team
     .filter((member) => member.name.toLowerCase().includes(searchQuery))
     .sort((a, b) => {
@@ -80,8 +61,7 @@ function Portfolio() {
 
   return (
     <>
-      <div >
-
+      <div>
         <div>
           <div className="portfolio-body">
             <section className="people-intro">
@@ -92,39 +72,11 @@ function Portfolio() {
               </p>
             </section>
 
-            {/* <div className="selection-banner">
-              <div className="people-view-container">
-                <div
-                  className={`people-view ${
-                    viewMode === "card-view" ? "active" : ""
-                  }`}
-                  onClick={handleCardClick}
-                >
-                  Card
-                </div>
-                <div
-                  className={`people-view ${
-                    viewMode === "grid-view" ? "active" : ""
-                  }`}
-                  onClick={handleGridClick}
-                >
-                  Grid
-                </div>
-              </div>
-
-              <div className="sort-button-container">
-                <label htmlFor="#">Sort</label>
-                <button className="sort-button" onClick={toggleSort}>
-                  {sortOrder === "asc" ? <AArrowDown /> : <AArrowUp />}
-                </button>
-              </div>
-            </div> */}
             <div className="about-us">
-
               <h1>
-                  {" "}
-                  About <span className="yellow-text"> Us </span>
-                </h1>
+                {" "}
+                About <span className="yellow-text"> Us </span>
+              </h1>
             </div>
             <div className="portfolio-view-container">
               {viewMode === "grid-view" ? (
@@ -253,45 +205,45 @@ function Portfolio() {
               )}
             </div>
             <section className=" team-info">
-                  <div className="team-info-text">
-                    <p>
-                      {" "}
-                      Meet our dynamic team, a blend of unique personalities and
-                      shared dedication. Our group includes loud and energetic
-                      voices like Sli and Remow, adding vibrancy to our discussions.
-                      We have the comedians—Phemelo, Njabulo, Gomo, Dylan, and
-                      Adrian—always keeping the atmosphere light and entertaining.{" "}
-                    </p>
-                    <p>
-                      {" "}
-                      <span className="yellow-text">
-                        {" "}
-                        Balancing this, the quiet and thoughtful Thabane, and Andile
-                        bring calm and reflection to the team. Everyone here is
-                        hardworking, pushing boundaries to achieve excellence.{" "}
-                      </span>
-                    </p>
-                    <p>
-                      {" "}
-                      Our friendly and bubbly spirit Pabs keep morale high, while
-                      the sharp intellect of Thabane, Njabulo, and Andile inspires
-                      us all. Phemelo, Remow, Gomo, Njabulo, and Andile are the
-                      pillars of responsibility, ensuring we stay on track, though
-                      Sli's occasional lateness reminds us we're human! Punctual
-                      star like Gomo leads by example.{" "}
-                    </p>
-                    <p>
-                      {" "}
-                      <span className="yellow-text">
-                        {" "}
-                        Our style icons—Phemelo, Gomo, Njabulo and Pabs—bring flair,
-                        while caffeine enthusiasts Njabulo, Sli, Adrian, and Thabane
-                        keep the team fueled. Together, we're a chilled and driven
-                        group, turning collaboration into success.
-                      </span>
-                    </p>
-                  </div>
-                </section>
+              <div className="team-info-text">
+                <p>
+                  {" "}
+                  Meet our dynamic team, a blend of unique personalities and
+                  shared dedication. Our group includes loud and energetic
+                  voices like Sli and Remow, adding vibrancy to our discussions.
+                  We have the comedians—Phemelo, Njabulo, Gomo, Dylan, and
+                  Adrian—always keeping the atmosphere light and entertaining.{" "}
+                </p>
+                <p>
+                  {" "}
+                  <span className="yellow-text">
+                    {" "}
+                    Balancing this, the quiet and thoughtful Thabane, and Andile
+                    bring calm and reflection to the team. Everyone here is
+                    hardworking, pushing boundaries to achieve excellence.{" "}
+                  </span>
+                </p>
+                <p>
+                  {" "}
+                  Our friendly and bubbly spirit Pabs keep morale high, while
+                  the sharp intellect of Thabane, Njabulo, and Andile inspires
+                  us all. Phemelo, Remow, Gomo, Njabulo, and Andile are the
+                  pillars of responsibility, ensuring we stay on track, though
+                  Sli's occasional lateness reminds us we're human! Punctual
+                  star like Gomo leads by example.{" "}
+                </p>
+                <p>
+                  {" "}
+                  <span className="yellow-text">
+                    {" "}
+                    Our style icons—Phemelo, Gomo, Njabulo and Pabs—bring flair,
+                    while caffeine enthusiasts Njabulo, Sli, Adrian, and Thabane
+                    keep the team fueled. Together, we're a chilled and driven
+                    group, turning collaboration into success.
+                  </span>
+                </p>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -347,7 +299,7 @@ function Portfolio() {
               </div>
 
               <div className="contact-item">
-              <Building01 />
+                <Building01 />
                 <div>
                   <p className="contact-me-company">Company:</p>
                   <p>{filteredAndSortedTeam[currentIndex].Company}</p>
@@ -379,7 +331,6 @@ function Portfolio() {
               </div>
             </section>
           </div>
-          
         </div>
       )}
     </>

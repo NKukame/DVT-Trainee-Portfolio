@@ -41,11 +41,11 @@ export function Combobox({
       if (value.includes(optionValue)) {
         // Remove if already selected
         onChange(value.filter((v) => v !== optionValue));
-        handleFilterClick(optionValue.toLowerCase(), placeholder);
+        handleFilterClick(optionValue, placeholder);
       } else {
         // Add to selection
         onChange([...value, optionValue]);
-        handleFilterClick(optionValue.toLowerCase(), placeholder);
+        handleFilterClick(optionValue, placeholder);
       }
     } else {
       // For single selection
