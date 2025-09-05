@@ -134,6 +134,7 @@ input[type="Password"] :focus {
     align-items: start;
     justify-content: start;
     width: 100%;
+   
 }
 
 .sign-in-h6{
@@ -208,8 +209,6 @@ h1 {
     width: max-content;
     margin: 10px;
 }
-
-
 
 
 .login-container.login-active .sign-up {
@@ -639,11 +638,14 @@ input.error-border {
 }
 
 .sign-up-form input[name="email"] {
-    padding-left: 40px;
+    padding-left: 30px;
 }
 
 .sign-up-form input[name="password"] {
-    padding-left: 40px;
+    padding-left: 30px;
+}
+.sign-up-form input[name="confirmPassword"] {
+    padding-left: 30px;
 }
 /* Form loader positioning */
     .form-loader {
@@ -660,7 +662,8 @@ input.error-border {
         align-self: center;
 
 
-    }    /* Mobile sign-up internal link styling */
+    }   
+     /* Mobile sign-up internal link styling */
     .sign-up {
         font-family: 'Hanken Grotesk' sans-serif;
         /* font-size: 12px; */
