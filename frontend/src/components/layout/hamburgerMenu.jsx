@@ -1,16 +1,14 @@
-import React from "react";
 import { useThemedLayoutContext } from "@refinedev/mui";
 import Menu from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import type { IconButtonProps } from "@mui/material/IconButton";
 
-const HamburgerIcon = (props: IconButtonProps) => (
+const HamburgerIcon = (props) => (
   <IconButton color="inherit" aria-label="open drawer" edge="start" {...props}>
     <Menu />
   </IconButton>
 );
 
-export const HamburgerMenu: React.FC = () => {
+export const HamburgerMenu = () => {
   const {
     siderCollapsed,
     setSiderCollapsed,

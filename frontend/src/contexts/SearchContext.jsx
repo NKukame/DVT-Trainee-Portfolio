@@ -11,6 +11,7 @@ export const SearchContextProvider = ({ children }) => {
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [total, setTotalPages] = useState(1);
+  let [isAvailable, setIsAvailable] = useState(false);
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
   let [selectedFilter, setSelectedFilter] = useState([]);
@@ -37,9 +38,10 @@ export const SearchContextProvider = ({ children }) => {
     searchData();
   }, []);
 
-  const searchData = async (page = 1, query = "", params = {}, isAvailable = false) => {
-      setIsLoading(true);
-
+  const searchData = async (page = 1, query = "", params = {}, isAvailable) => {
+    setIsAvailable(isAvailable);  
+    setIsLoading(true);
+      
     try {
       const token = localStorage.getItem("token");
 
@@ -164,7 +166,7 @@ export const SearchContextProvider = ({ children }) => {
 
   const handleInputChange = (query) => {
     setQuery(query);
-    searchData(1, query, params);
+    searchData(1, query, params, isAvailable);
   };
 
   const handleFilterClick = (filter, category) => {
@@ -221,7 +223,7 @@ export const SearchContextProvider = ({ children }) => {
 
     setParams(filterParams);
 
-    searchData(1, query, filterParams);
+    searchData(1, query, filterParams, isAvailable);
   };
 
   const handleChange = (filter, newSelectedFilter) => {
@@ -256,6 +258,7 @@ export const SearchContextProvider = ({ children }) => {
         searchData,
         params,
         query,
+        isAvailable,
       }}
     >
       {children}

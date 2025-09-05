@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
 import { RefineThemes } from "@refinedev/mui";
-import { ThemedLayoutV2, ThemedTitleV2 } from "@refinedev/mui";
+import { ThemedLayoutV2 } from "@refinedev/mui";
 
 import './styles.css'
 import Home from './Pages/HomePage/Home.jsx'
@@ -48,11 +48,14 @@ import { ShowSoftSkill } from './Pages/Dashboard/softSkills/show.jsx';
 import { CreateSoftSkill } from './Pages/Dashboard/softSkills/create.jsx';
 import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
 import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router";
 import { ThemedSiderV2 } from "./components/layout/sider.jsx";
+import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
 
 import { createTheme } from "@mui/material/styles";
+import { LineChartDown03, LineChartUp01 } from '@untitled-ui/icons-react';
 // make the primary color gray
 const overriddenLightTheme = createTheme({
   ...RefineThemes.Blue,
@@ -156,8 +159,8 @@ const App = () => {
                               return (
                                 <>
 
-                                <div style={{display: "flex", flexDirection: "column", padding: "1rem", visitedColor: "white"}}>
-                                  <Link to="/dashboard">Summary</Link>
+                                <div style={{display: "flex", flexDirection: "column", padding: "1rem"}}>
+                                  <Link to="/dashboard" style={{display: "flex", alignItems: "center", gap: "8px", textDecoration: "none", color: "inherit", fontSize: "14px"}}><LineChartUp01 fontSize="small" /> Summary</Link>
                                 </div>
                                   {items}
                                   {logout}

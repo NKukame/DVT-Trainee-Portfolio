@@ -22,7 +22,7 @@ import { getCache, setCache } from "../lib/prisma-redis-middleware.js";
  */
 
 export async function SearchProjectController(req, res) {
-  const {
+  let {
     query,
     industries,
     techStack,
@@ -201,6 +201,7 @@ if (role) {
   role = JSON.parse(role);
 }
 if (techStack) {
+  console.log(techStack);
   techStack = JSON.parse(techStack);
 }
 if (industry) {
@@ -306,8 +307,9 @@ if (isAvailable) {
       };
     }
 
+    // console.log(where);
     const orderBy = {};
-    console.log(isAvailable);
+
 
     if (isAvailable) {
       where.availability = {
