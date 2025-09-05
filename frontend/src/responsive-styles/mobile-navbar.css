@@ -1,0 +1,92 @@
+.mobile-navbar {
+  display: flex;
+  background-color: #d6d3d1;
+  color: var(--blue);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  padding: 10px;
+  position: sticky;
+  top: 0px;
+  height: 10vh;
+  z-index: 600;
+}
+.dark-mode .mobile-navbar {
+  background-color: var(--dark-mode-blue);
+  color: var(--white);
+}
+.mobile-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobilenav-dvtlogo {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.dock {
+  background-color: #d6d3d1;
+  color: var(--blue);
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 1px;
+  position: sticky;
+  bottom: 0;
+  height: 11vh;
+  z-index: 600;
+}
+.dark-mode .dock {
+  background-color: var(--dark-mode-blue);
+  color: var(--white);
+}
+
+.dock-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  color: var(--blue);
+}
+.dark-mode .dock-link {
+  background-color: var(--dark-mode-blue);
+  color: var(--white);
+}
+.user-modal {
+  position: absolute;
+  z-index: 600;
+  width: 100%;
+}
+@media (min-width: 500px) {
+  .mobile-navbar {
+    display: none;
+  }
+  .dock {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .sidebar-bottom {
+    margin: 0;
+  }
+
+  .homeBtn {
+    padding: 0;
+    display: block;
+  }
+
+  .profile-modal-content {
+    position: initial;
+    padding: 15px;
+    max-width: initial;
+    width: 100%;
+    border-radius: 0px;
+  }
+  .profile-modal-overlay {
+    position: initial;
+    display: block;
+  }
+}

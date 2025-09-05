@@ -14,10 +14,12 @@ function getRandomPastDate() {
 }
 
 export default function CVProject(props) {
-  let checkIn = props.user.projects;
+  let checkIn = props.user?.projects || [];
   const answer = []
-  for(let index = 0; index < 2; index++) {
-    answer.push(checkIn[index])
+  for(let index = 0; index < Math.min(2, checkIn.length); index++) {
+    if (checkIn[index]) {
+      answer.push(checkIn[index])
+    }
   }
   return (
     <>
@@ -51,8 +53,8 @@ export default function CVProject(props) {
               <h2>Tech Stack</h2>
               <ul>
                 {
-                  proj.project.techStack.map((tech, index) => (
-                    <li key={index} className="generate-cv-project-tech-stack-list">{tech.techStack.name}</li>))
+                  (proj.project?.techStack || []).map((tech, index) => (
+                    <li key={index} className="generate-cv-project-tech-stack-list">{tech?.techStack?.name || 'Unknown'}</li>))
                 }
               </ul>
             </aside>

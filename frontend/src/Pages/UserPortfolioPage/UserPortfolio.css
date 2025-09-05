@@ -9,7 +9,7 @@
   width: 100%;
   margin-block: 2rem;
   border-radius: 1.5rem;
-  margin-left: 10%;
+  margin-left: 25%;
 }
 
 /* .dark-mode .layout-body{
@@ -24,6 +24,8 @@
 .portfolio-layout{
     display: flex;
     flex-direction: row; 
+    margin-left: 10%;
+    margin-block: 2rem;
 }
   
   
@@ -131,7 +133,22 @@
     background-color: #a0aec0;
     border-radius: 16px;
 }
+
+/* Custom loader for UserPortfolio in dark mode */
+.dark-mode .layout-body .form-loader {
+  background: 
+    radial-gradient(farthest-side, #ffffff 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #ffffff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
+}
   
 
 
+.css-7ybkvk-MuiPaper-root-MuiAppBar-root{
+  background-color: var(--dark-blue);
+}
 
+.css-s1hpy6-MuiList-root{
+
+  background-color: var(--dark-gray);
+}

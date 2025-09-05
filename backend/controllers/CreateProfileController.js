@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import prisma from "../lib/prisma-redis-middleware.js";
+import prisma, { clearCache } from "../lib/prisma-redis-middleware.js";
 import uploadImage from "../upload.js";
 export async function createProfileController(req, res) {
 
@@ -25,8 +25,8 @@ export async function createProfileController(req, res) {
     "HR": "HR"
   };
   try {
-    const { basicInfo, skills, career, testimonials, links, status } = req.body;
-
+    const user_id = req.user &&  req.user.id 
+    const { basicInfo, skills, career, testimonials, links, status, editUser } = req.body;
     const employee = await prisma.employee.create({
       data: {
         photoUrl: (await uploadImage(basicInfo.profilePic?.image)) || null,
@@ -49,6 +49,17 @@ export async function createProfileController(req, res) {
         department: departmentMap[career.department] || "ENGINEERING",
       },
     });
+
+    await prisma.user.update({
+      where: {
+           id: editUser
+      }, 
+      data: {
+        employeeId: employee.id
+      }
+    })
+
+
 
     // Availability Table
     await prisma.availability.create({
@@ -267,7 +278,7 @@ export async function createProfileController(req, res) {
         }
       }
     }
-
+    clearCache()
     return res
       .status(201)
       .json({ message: "Profile created", employeeId: employee.id });
