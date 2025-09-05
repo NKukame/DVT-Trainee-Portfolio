@@ -188,7 +188,7 @@ h1 {
 }
 
 .sign-up p{
-    color: black;
+    /* color: black; */
     font-size: 12px;
     font-family: 'Hanken Grotesk' sans-serif;
     font-weight: 500;
@@ -200,6 +200,7 @@ h1 {
     align-items: center;
     justify-content: center;
     width: 200px;
+    height: 100%;
 }
 
 .sign-in-link{
@@ -922,6 +923,15 @@ input.error-border {
     .signup-error {
         font-size: 11px;
         margin: 2px 0;
+        color: #ff0a26;
+
+    }
+    .signup-error p{
+        color: #ff0a26;
+    }
+
+    .login-error p {
+        color: #ff0a26;
     }
 
     /* Remember me section */
@@ -1011,9 +1021,7 @@ input.error-border {
         cursor: pointer;
         display: block;
         box-sizing: border-box;
-        /* width: 100%; */
-        /* margin-top: 15px; */
-        /* margin-bottom: 10px; */
+    
     }
 
     .remember-me p {
