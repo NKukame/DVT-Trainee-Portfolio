@@ -1,15 +1,15 @@
-import React, { useContext,  useState } from 'react';
+import { useContext,  useState } from 'react';
 import { SearchContext } from '../../contexts/SearchContext';
 import { ChevronLeft, ChevronRight } from '@untitled-ui/icons-react';
 
 export default function Pagination(){
-  const {total, searchData, params, query} = useContext(SearchContext);
+  const {total, searchData, params, query, isAvailable} = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
       let page = currentPage-1;
-      searchData(page, query, params);
+      searchData(page, query, params, isAvailable);
     }
   };
 
@@ -17,13 +17,13 @@ export default function Pagination(){
     if (currentPage < total) {
       setCurrentPage((prev) => prev + 1);
       let page = currentPage+1;
-      searchData(page, query, params);
+      searchData(page, query, params, isAvailable);
     }
   };
 
   const handleClick = (value) => {
     setCurrentPage(value);
-    searchData(value, query, params);
+    searchData(value, query, params, isAvailable);
   };
 
   const getLeftPages = () => {
