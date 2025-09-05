@@ -1,0 +1,158 @@
+@media (max-width: 500px) {
+  .stepper-container {
+    width: 99vw;
+    margin: 0;
+    border-radius: 0px;
+  }
+  .step-text {
+    display: none;
+  }
+
+  .step-progress {
+    width: initial;
+    height: 10px;
+    position: initial;
+  }
+  .career-upload-modal {
+    width: initial;
+    margin: 2px;
+    height: 90%;
+  }
+  .steps {
+    height: initial;
+    padding: 0;
+    width: 100%;
+    position: initial;
+  }
+
+  .testimonial-modal textarea {
+    width: initial;
+  }
+
+  .testimonial-modal-success {
+    height: initial;
+    padding: 10px;
+  }
+
+  .profile-creation-body {
+    display: initial;
+  }
+  .profile-creation-header {
+    margin: 5px;
+    position: sticky;
+    top: 10vh;
+    margin: 0;
+    z-index: 300;
+  }
+
+  /*basic form styles*/
+  .top-form-container {
+    flex-direction: column;
+  }
+
+  .profile-creation-content {
+    width: initial;
+    margin: 10px 5px;
+  }
+
+  .footer-form-container textarea {
+    width: 100%;
+    min-height: 70px;
+  }
+
+  .basic-info-form input {
+    width: 100%;
+  }
+
+  .profile-creation-content-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-picture-form {
+    padding: 15px;
+  }
+  .skills-dual-input,
+  .career-project-top-section,
+  .career-project-bottom-section,
+  .career-modal-button-section {
+    flex-wrap: wrap;
+  }
+
+  .skills-dual-input {
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .skills-form {
+    flex-direction: column;
+  }
+  .tech-stack-form-group {
+    min-height: initial;
+    margin: 25px 0px;
+  }
+
+  .form-group {
+    margin: 10px 0px;
+    width: 100%;
+  }
+  .skills-dropdown {
+    position: initial;
+  }
+
+  .chosen-tech-stack {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .career-form-container .skills-dual-input input {
+    width: 100%;
+  }
+  .testimonials-form input {
+    width: 100%;
+  }
+  .status-form-container input {
+    width: 100%;
+  }
+  .links-form-group input {
+    width: 100%;
+  }
+  .profile-creation-content-forms-container {
+    display: block;
+  }
+
+  .submit-form-text-section {
+    flex-direction: column;
+  }
+
+  .form-label {
+    width: initial;
+    text-align: initial;
+    font-size: initial;
+  }
+
+  .submit-form-group.form-description {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .mobile-skills.submit-form-group {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px 0px;
+  }
+
+  .mobile-agreement {
+    font-size: medium;
+  }
+
+  .form-label.form-title-description {
+    font-weight: 700;
+    font-size: larger;
+  }
+
+  .profile-edit-icon{
+    display: flex;
+    gap: 10px;
+  }
+}

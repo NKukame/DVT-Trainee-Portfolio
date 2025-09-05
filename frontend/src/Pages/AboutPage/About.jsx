@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "../../styles.css";
-import "./About.css";
 import PeopleList from "../../components/PeopleListComp/PeopleList"; // Import the component
 import placeHolder from "../../assets/group-picture.jfif";
-import SideBar from "../../components/SidebarComp/SideBar";
 
 function About() {
   return (
     <>
-      <div className="app-layout">
-        <SideBar />
-        <div className="app-layout-body">
           <div className="about-body">
         <section className="people-intro">
               <h1 className="theTitle">Smart People</h1>
@@ -126,8 +120,6 @@ function About() {
               <PeopleList />
             </section> */}
           </div>
-        </div>
-      </div>
     </>
   );
 }

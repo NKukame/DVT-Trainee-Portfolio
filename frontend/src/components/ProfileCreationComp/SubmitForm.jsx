@@ -1,6 +1,5 @@
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
-import "./Form.css";
+import { useNavigate } from "react-router";
 import { SquarePen } from "lucide-react";
 import { use } from "react";
 
@@ -23,49 +22,46 @@ function SubmitForm({
     .filter((idx) => stepData[idx] && stepData[idx].title !== "Submit")
     .map((idx) => stepData[idx]?.title);
 
-    // const simpleUser = user.map((u) => u.id);
-    // console.log(simpleUser);
-    const editUser = localStorage.getItem('userId').split(`"`)[1];
-    console.log(editUser);
+  const editUser = JSON.parse(localStorage.getItem("userId"));
+  console.log(editUser);
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    setLoading(true);
-    
-    const response = await fetch("http://localhost:3000/create-profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        editUser,
-        basicInfo,
-        skills,
-        career,
-        testimonials,
-        links,
-        status,
-      }),
-    });
-    if (response.ok) {
-      setModalMessage("Profile submitted successfully!");
+    e.preventDefault();
+    try {
+      setLoading(true);
+
+      const response = await fetch("http://localhost:3000/create-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          editUser,
+          basicInfo,
+          skills,
+          career,
+          testimonials,
+          links,
+          status,
+        }),
+      });
+      if (response.ok) {
+        setModalMessage("Profile submitted successfully!");
+        setModalOpen(true);
+        setTimeout(() => {
+          setModalOpen(false);
+          navigate("/");
+        }, 2000);
+      } else {
+        const data = await response.json();
+        setModalMessage("Error: " + (data.error || "Failed to submit profile"));
+        setModalOpen(true);
+      }
+    } catch (error) {
+      setLoading(false);
+      setModalMessage("Network error: " + error.message);
       setModalOpen(true);
-      setTimeout(() => {
-        setModalOpen(false);
-        navigate("/"); 
-      }, 2000);
-    } else {
-      const data = await response.json();
-      setModalMessage("Error: " + (data.error || "Failed to submit profile"));
-      setModalOpen(true);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    setLoading(false);
-    setModalMessage("Network error: " + error.message);
-    setModalOpen(true);
-    
-  }finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <>
@@ -131,8 +127,10 @@ function SubmitForm({
                 <p className="form-value">{basicInfo?.phone || "-"}</p>
               </div>
 
-              <div className="submit-form-group">
-                <label className="form-label">Introduction</label>
+              <div className="form-description submit-form-group">
+                <label className="form-label form-title-description">
+                  Introduction
+                </label>
                 <p className="form-value">
                   {basicInfo?.introductionDescription || "-"}
                 </p>
@@ -178,7 +176,7 @@ function SubmitForm({
 
           <div className="submit-form-text-section">
             <div className="submit-right-form-section">
-              <div className="submit-form-group">
+              <div className="mobile-skills submit-form-group">
                 <label className="form-label">Education</label>
                 <div className="form-value">
                   {skills?.educationEntries &&
@@ -196,7 +194,7 @@ function SubmitForm({
                 </div>
               </div>
 
-              <div className="submit-form-group">
+              <div className="mobile-skills submit-form-group">
                 <label className="form-label">Tech Stack</label>
                 <div className="form-value">
                   {skills?.selectedTechnologies &&
@@ -221,7 +219,7 @@ function SubmitForm({
             </div>
 
             <div className="submit-left-form-section">
-              <div className="submit-form-group">
+              <div className="mobile-skills submit-form-group">
                 <label className="form-label">Certifications</label>
                 <div className="form-value">
                   {skills?.certificationEntries &&
@@ -232,14 +230,15 @@ function SubmitForm({
                         )
                         .map((entry, idx) => (
                           <div key={idx}>
-                            {entry.certificate} - {entry.certificatesInstitution}
+                            {entry.certificate} -{" "}
+                            {entry.certificatesInstitution}
                           </div>
                         ))
                     : "-"}
                 </div>
               </div>
 
-              <div className="submit-form-group">
+              <div className="mobile-skills submit-form-group">
                 <label className="form-label">Soft Skills</label>
                 <div className="form-value">
                   {skills?.selectedSoftSkills &&
@@ -431,7 +430,7 @@ function SubmitForm({
               name="confirm-submit"
               required
             />
-            <label htmlFor="confirm-submit">
+            <label htmlFor="confirm-submit" className="mobile-agreement">
               I hereby accept the terms & conditions of the DVT Employee Portal
             </label>
           </div>
@@ -443,7 +442,7 @@ function SubmitForm({
               name="confirm-submit"
               required
             />
-            <label htmlFor="confirm-submit">
+            <label htmlFor="confirm-submit" className="mobile-agreement">
               I hereby accept the terms & conditions of the DVT Information
               Sharing Policy
             </label>

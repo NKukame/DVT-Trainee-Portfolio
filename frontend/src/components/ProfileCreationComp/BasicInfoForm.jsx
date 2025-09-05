@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Form.css";
 import { Camera } from "lucide-react";
 
 function BasicInfo({ data, onChange }) {
@@ -254,6 +253,15 @@ function BasicInfo({ data, onChange }) {
                   <option value="PROJECT_MANAGER">Project Manager</option>
                   <option value="TEAM_LEAD">Team Lead</option>
                   <option value="SENIOR_DEVELOPER">Senior Developer</option>
+                  <option value="FULLSTACK_DEVELOPER">Full Stack Developer</option>
+                  <option value="FRONTEND_DEVELOPER">Frontend Developer</option>
+                  <option value="BACKEND_DEVELOPER">Backend Developer</option>
+                  <option value="UX_UI_DESIGNER">UX/UI Designer</option>
+                  <option value="JUNIOR_DEVELOPER">Junior Developer</option>
+                  <option value="TESTER">Tester</option>
+                  <option value="PRODUCT_OWNER">Product Owner</option>
+                  <option value="SCRUM_MASTER">Scrum Master</option>
+                  <option value="DELIVERY_MANAGER">Delivery Manager</option>
                 </select>
               </div>
             </div>
@@ -262,7 +270,7 @@ function BasicInfo({ data, onChange }) {
               <label htmlFor="location">
                 Location<span className="required-asterisk">*</span>
               </label>
-              <input
+              {/* <input
                 type="text"
                 id="location"
                 name="location"
@@ -270,7 +278,78 @@ function BasicInfo({ data, onChange }) {
                 placeholder="Location"
                 onChange={handleChange}
                 value={data.location || ""}
-              />
+              /> */}
+              <select
+                  id="location"
+                  name="location"
+                  required
+                  value={data.location || ""}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Your Location
+                  </option>
+
+                  {/* South Africa */}
+                  <optgroup label="South Africa">
+                    <option value="Johannesburg">Johannesburg</option>
+                    <option value="Cape Town">Cape Town</option>
+                    <option value="Durban">Durban</option>
+                    <option value="Pretoria">Pretoria</option>
+                    <option value="Port Elizabeth">Port Elizabeth</option>
+                    <option value="Bloemfontein">Bloemfontein</option>
+                    <option value="Nelspruit">Nelspruit</option>
+                  </optgroup>
+
+                  {/* United Kingdom */}
+                  <optgroup label="United Kingdom">
+                    <option value="London">London</option>
+                    <option value="Manchester">Manchester</option>
+                    <option value="Birmingham">Birmingham</option>
+                    <option value="Liverpool">Liverpool</option>
+                    <option value="Leeds">Leeds</option>
+                    <option value="Glasgow">Glasgow</option>
+                    <option value="Edinburgh">Edinburgh</option>
+                  </optgroup>
+
+                  {/* Kenya */}
+                  <optgroup label="Kenya">
+                    <option value="Nairobi">Nairobi</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Kisumu">Kisumu</option>
+                    <option value="Nakuru">Nakuru</option>
+                    <option value="Eldoret">Eldoret</option>
+                  </optgroup>
+
+                  {/* Netherlands */}
+                  <optgroup label="Netherlands">
+                    <option value="Amsterdam">Amsterdam</option>
+                    <option value="Rotterdam">Rotterdam</option>
+                    <option value="The Hague">The Hague</option>
+                    <option value="Utrecht">Utrecht</option>
+                    <option value="Eindhoven">Eindhoven</option>
+                    <option value="Maastricht">Maastricht</option>
+                  </optgroup>
+
+                  {/* United Arab Emirates */}
+                  <optgroup label="United Arab Emirates">
+                    <option value="Dubai">Dubai</option>
+                    <option value="Abu Dhabi">Abu Dhabi</option>
+                    <option value="Sharjah">Sharjah</option>
+                    <option value="Ajman">Ajman</option>
+                    <option value="Fujairah">Fujairah</option>
+                    <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  </optgroup>
+
+                  {/* Ireland */}
+                  <optgroup label="Ireland">
+                    <option value="Dublin">Dublin</option>
+                    <option value="Cork">Cork</option>
+                    <option value="Galway">Galway</option>
+                    <option value="Limerick">Limerick</option>
+                    <option value="Waterford">Waterford</option>
+                  </optgroup>
+                </select>
             </div>
           </div>
         </div>
