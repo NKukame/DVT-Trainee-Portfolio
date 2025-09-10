@@ -338,6 +338,7 @@ if (isAvailable) {
           user: {
             select: {
               id: true,
+              role: true,
             },
           },
           email: true,
