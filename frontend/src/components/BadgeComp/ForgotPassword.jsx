@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import { Mail, ArrowLeft, Lock } from "lucide-react";
 import "./ForgotPassword.css";
 import axios from "axios";
-import { useEffect } from "react";
+import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -20,14 +19,14 @@ function ForgotPassword() {
     length: false,
     special: false
   });
-  
+
+
   useEffect(() => {
     console.log(queryParams.get("token"));
     if (queryParams.get("token")) {
       setStep(3); 
     }
   }, [queryParams]);
-
 
   const checkPasswordCriteria = (password) => {
     const criteria = {
@@ -68,11 +67,8 @@ function ForgotPassword() {
     let newErrors = {};
     let criteria = checkPasswordCriteria(newPassword);
    
-
     if (!newPassword) {
       newErrors.password = "Password is required";
-    // } else if (!criteria.length && !criteria.special) {
-    //   newErrors.password = "Password must be at least 8 characters and contain a special character";
     } else if (!criteria.length) {
       newErrors.password = "Password must be at least 8 characters";
     } else if (!criteria.special) {
@@ -95,7 +91,6 @@ function ForgotPassword() {
     const password = e.target.value;
     setNewPassword(password);
     const criteria = checkPasswordCriteria(password);
-
     
     if (errors.password && password.length > 0 && (criteria.length && criteria.special)) {
       setErrors(prev => ({
@@ -105,11 +100,9 @@ function ForgotPassword() {
     }
   };
 
-  
   const handleConfirmPasswordChange = (e) => {
     const confirmPwd = e.target.value;
     setConfirmPassword(confirmPwd);
-
 
     if (errors.confirmPassword && confirmPwd === newPassword) {
       setErrors(prev => ({
@@ -124,7 +117,6 @@ function ForgotPassword() {
     if (!validateEmail()) return;
 
     try {
-      
       console.log("=== EMAIL SUBMIT DEBUG ===");
       console.log("Raw email input:", `"${email}"`);
       console.log("Email length:", email.length);
@@ -186,7 +178,6 @@ function ForgotPassword() {
     }
 
     try {
-      
       const response = await axios.post("http://localhost:3000/reset-password", {
         token: token,
         newPassword: newPassword
@@ -200,7 +191,6 @@ function ForgotPassword() {
         console.log("Password updated successfully:", response.data);
         setStep(4);
         
-       
         setNewPassword("");
         setConfirmPassword("");
         setPasswordCriteria({ length: false, special: false });
@@ -214,7 +204,6 @@ function ForgotPassword() {
       console.error("Error resetting password:", error);
       
       if (error.response) {
-       
         const errorMessage = error.response.data?.error || error.response.data?.message || "Failed to reset password";
         
         if (error.response.status === 400) {
@@ -225,17 +214,14 @@ function ForgotPassword() {
           setErrors({ general: errorMessage });
         }
       } else if (error.request) {
-      
         setErrors({ general: "Network error. Please check your connection and try again." });
       } else {
-       
         setErrors({ general: "An unexpected error occurred. Please try again." });
       }
     }
   };
 
   const resendEmail = async () => {
-   
     try {
       const response = await axios.post("http://localhost:3000/forgot-password", 
         { email: email.trim().toLowerCase() },
@@ -406,21 +392,6 @@ function ForgotPassword() {
         return null;
     }
   };
-//   const errorData = await response.json();
-//   setErrors({ password: errorData.error || "Failed to reset password" });
-//   return;
-// }
-// };l
-// // // Simulate updating the password in localStorage
-// // const storedUser = JSON.parse(localStorage.getItem("user"));
-// // if (storedUser && storedUser.email === email) {
-// //   storedUser.password = newPassword;
-// //         localStorage.setItem("user", JSON.stringify(storedUser));
-// //       }
-// //     }
-// //   };
-  
-  
 
   return (
     <div className="forgot-password-container">
