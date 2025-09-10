@@ -2,9 +2,10 @@ import { useLocation, useNavigate } from "react-router";
 import { useState, useRef } from "react";
 import SideBar from "../../components/SidebarComp/SideBar";
 import { SquarePen } from "lucide-react";
-import "./EditProfile.css";
+// import "./EditProfile.css";
 import axios from "axios";
 import techStack from "./EditJSON/techstack.json"
+import softSkills from "./EditJSON/SoftSkills.json"
 
 /**
  * EditProfile is a React component that renders a form for editing user profile information.
@@ -112,12 +113,13 @@ function EditProfile(prop) {
 
   const handleSoftSkillChange = (index, field, value) => {
     setFormData((prev) => {
-      const updatedSkills = [...prev.softSkills];
-      updatedSkills[index] = {
-        ...updatedSkills[index],
-        [field]: value,
-      };
-      return { ...prev, softSkills: updatedSkills };
+      const updatedSoftSkills = [...prev.softSkills];
+      if (field === "skillsRating") {
+        updatedSoftSkills[index].skillsRating = Number(value);
+      } else if (field === "softSkill") {
+        updatedSoftSkills[index].softSkill = value; 
+      }
+      return { ...prev, softSkills: updatedSoftSkills };
     });
   };
 
@@ -208,6 +210,22 @@ function EditProfile(prop) {
         { Techrating: 1, techStack: { name: "" } },
       ],
     }));
+  };
+
+  const handleAddSoftSkill = () => {
+    setFormData((prev) => {
+      if (prev.softSkills.length >= 6) {
+        alert("You can only add up to 6 soft skills.");
+        return prev;
+      }
+      return {
+        ...prev,
+        softSkills: [
+          ...prev.softSkills,
+          { skillsRating: 1, softSkill: { name: "" } },
+        ],
+      };
+    });
   };
 
   const handleProfilePicChange = (e) => {
@@ -706,22 +724,56 @@ function EditProfile(prop) {
                           : "Rating: 1"}
                       </span>
 
-                      <span
-                        className="badge-default"
-                        style={{
-                          marginRight: 8,
-                          width: "fit-content",
-                          height: "fit-content",
-                          display: "flex",
-                          marginBottom: 7,
-                        }}
-                      >
-                        {skill.softSkill?.name}
-                      </span>
+                      {skill.softSkill?.name ? (
+                        <span
+                          className="badge-default"
+                          style={{
+                            marginRight: 8,
+                            width: "fit-content",
+                            height: "fit-content",
+                            display: "flex",
+                            marginBottom: 7,
+                          }}
+                        >
+                          {skill.softSkill.name}
+                        </span>
+                      ) : (
+                        <select
+                          value={skill.softSkill?.name || ""}
+                          className="new-soft-skill-edit-select"
+                          onChange={(e) =>
+                            handleSoftSkillChange(idx, "softSkill", {
+                              name: e.target.value,
+                            })
+                          }
+                        >
+                          <option value="" disabled>
+                            Select Soft Skill
+                          </option>
+                          {softSkills.map((category, i) => (
+                            <optgroup key={i} label={category.category}>
+                              {category.skills.map((s, j) => (
+                                <option key={j} value={s.name}>
+                                  {s.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                          ))}
+                        </select>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
+              {formData.softSkills.length < 6 && (
+                <button
+                  type="button"
+                  className="edit-profile-add-btn"
+                  onClick={handleAddSoftSkill}
+                >
+                  Add Soft Skill +
+                </button>
+              )}
             </div>
           </div>
         </div>
