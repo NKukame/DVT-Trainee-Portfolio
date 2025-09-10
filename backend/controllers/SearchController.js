@@ -150,8 +150,8 @@ export async function SearchProjectController(req, res) {
       return res.status(404).send({ message: "Projects not found" });
     }
     await setCache(cacheKey, { projects, total }, 30 * 60);
-
-    return res.send({ projects, total });
+    const pageCount = Math.ceil(total / limit);
+    return res.send({ projects, total, pageCount });
   } catch (error) {
     console.error("Search projects error:", error);
     return res.status(500).json({ error: "Failed to search projects" });

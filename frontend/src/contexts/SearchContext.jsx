@@ -11,6 +11,7 @@ export const SearchContextProvider = ({ children }) => {
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [total, setTotalPages] = useState(1);
+  const [totalProjects, setTotalProjects] = useState(1);
   let [isAvailable, setIsAvailable] = useState(false);
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
@@ -138,6 +139,7 @@ export const SearchContextProvider = ({ children }) => {
       );
 
       setProjectsWithTechStackNames(projectsWithTechStack);
+      setTotalProjects(apiDataProject.data.pageCount);
       setTotalPages(apiDataEmployee.data.pageCount);
       setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
       setSearchResults(
@@ -259,6 +261,7 @@ export const SearchContextProvider = ({ children }) => {
         params,
         query,
         isAvailable,
+        totalProjects,
       }}
     >
       {children}
