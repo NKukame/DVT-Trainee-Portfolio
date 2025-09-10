@@ -70,7 +70,7 @@ function SideBar() {
 
         <div className="sidebar-container-content max-sm:hidden">
           <div className="sidebar-nav-link">
-            <Link to="/home">
+            <Link to="/home" title="Home">
               <div className="homeBtn">
                 <svg
                   width="25px"
@@ -87,7 +87,7 @@ function SideBar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="home-txt">Home</p>
+                <span className="home-txt">Home</span>
               </div>
             </Link>
           </div>
@@ -117,7 +117,7 @@ function SideBar() {
           </div> */}
 
           <div className="sidebar-nav-link">
-            <Link to="/about">
+            <Link to="/about" title="About">
               <div className="homeBtn">
                 <svg
                   width="25px"
@@ -134,13 +134,13 @@ function SideBar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="home-txt">About</p>
+                <span className="home-txt">About</span>
               </div>
             </Link>
           </div>
 
           <div className="sidebar-nav-link">
-            <Link to="/search">
+            <Link to="/search" title="Search">
               <div className="homeBtn">
                 <svg
                   width="25px"
@@ -157,7 +157,7 @@ function SideBar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="home-txt">Search</p>
+                <span className="home-txt">Search</span>
               </div>
             </Link>
           </div>
