@@ -19,7 +19,7 @@ function UserPortfolio(props) {
       if (!location.state) {
         try {
           const token = JSON.parse(localStorage.getItem("token"));
-          const response = await fetch("http://localhost:3000/api/me", {
+          const response = await fetch("http://192.168.1.65:3000/api/me", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
