@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import axios from "axios";
 import { capitalizeFirstLetter } from "../lib/util";
+import { useList } from "@refinedev/core";
 
 export const SearchContext = createContext();
 
@@ -21,18 +22,80 @@ export const SearchContextProvider = ({ children }) => {
   let [isLoaded, setIsLoaded] = useState(false);
   let [dropDownOptions, setDropDownOptions] = useState([]);
 
-  const allLanguages = [
-    ...new Set(dropDownOptions.map((employee) => employee.skills).flat()),
-  ].filter((item) => item !== undefined);
-  const allIndustries = [
-    ...new Set(dropDownOptions.map((employee) => employee.industries).flat()),
-  ].filter((item) => item !== undefined);
-  const allRoles = [
-    ...new Set(dropDownOptions.map((employee) => employee.role)),
-  ].filter((item) => item !== undefined);
-  const allLocations = [
-    ...new Set(dropDownOptions.map((employee) => employee.location)),
-  ].filter((item) => item !== undefined);
+
+  let allLanguages = [];
+  const { data: techStackQuery } = useList({
+    resource: "techStack",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (techStackQuery) {
+      const techStackQueryData = techStackQuery.data ?? [];
+      const techStackQueryDataNames = techStackQueryData.map((techStack) => techStack.name);
+      allLanguages = techStackQueryDataNames;
+    }
+  } catch (error) {
+    console.error("Error fetching techStackQuery:", error);
+  }
+
+  let allIndustries = [];
+  const { data: industriesQuery } = useList({
+    resource: "industry",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (industriesQuery) {
+      const industriesQueryData = industriesQuery.data ?? [];
+      const industriesQueryDataNames = industriesQueryData.map((industry) => industry.name);
+      allIndustries = industriesQueryDataNames;
+    }
+  } catch (error) {
+    console.error("Error fetching industriesQuery:", error);
+  }
+ 
+  let allRoles = [];
+  const { data: rolesQuery } = useList({
+    resource: "employee",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (rolesQuery) {
+      const rolesQueryData = rolesQuery.data ?? [];
+      const rolesQueryDataNames = rolesQueryData.map((role) => role.role);
+      allRoles = [
+        ...new Set((rolesQueryDataNames.map((role) =>  (role.toLowerCase().split("_").map(capitalizeFirstLetter).join(" "))))),
+      ].filter((item) => item !== undefined);
+    }
+  } catch (error) {
+    console.error("Error fetching rolesQuery:", error);
+  }
+  let allLocations = [];
+  const { data: locationsQuery } = useList({
+    resource: "employee",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (locationsQuery) {
+      const locationsQueryData = locationsQuery.data ?? [];
+      const locationsQueryDataNames = locationsQueryData.map((location) => location.location);
+      allLocations = [
+        ...new Set(locationsQueryDataNames),
+      ].filter((item) => item !== undefined);
+    }
+  } catch (error) {
+    console.error("Error fetching locationsQuery:", error);
+  }
+
+
+
 
   useEffect(() => {
     setIsLoaded(true);
@@ -172,7 +235,6 @@ export const SearchContextProvider = ({ children }) => {
   };
 
   const handleFilterClick = (filter, category) => {
-    console.log(filter, +" " + category);
     let newSelectedFilter;
 
     if (

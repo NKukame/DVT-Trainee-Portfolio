@@ -201,7 +201,6 @@ if (role) {
   role = JSON.parse(role);
 }
 if (techStack) {
-  console.log(techStack);
   techStack = JSON.parse(techStack);
 }
 if (industry) {
@@ -307,7 +306,7 @@ if (isAvailable) {
       };
     }
 
-    // console.log(where);
+    
     const orderBy = {};
 
 
@@ -472,7 +471,6 @@ if (isAvailable) {
       return res.send({ employees, total, pageCount });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error: "Failed to search employees" });
   }
 }

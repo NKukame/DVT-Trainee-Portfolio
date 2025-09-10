@@ -77,7 +77,6 @@ const App = () => {
     <ThemeProvider theme={overriddenLightTheme} >
       <CssBaseline />
       <GlobalStyles />
-      <SearchContextProvider>
         <DarkModeProvider>
           <RefineSnackbarProvider>
           <Refine 
@@ -127,7 +126,8 @@ const App = () => {
                 meta: { label: "SoftSkills" },
               },
             ]}
-          >
+            >
+              <SearchContextProvider>
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Login />} />
@@ -202,10 +202,10 @@ const App = () => {
                 </Route>
               </Route>
             </Routes>
+            </SearchContextProvider>
           </Refine>
           </RefineSnackbarProvider>
         </DarkModeProvider>
-      </SearchContextProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
