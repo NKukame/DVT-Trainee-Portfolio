@@ -9,6 +9,7 @@ import { rateLimit } from 'express-rate-limit';
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from 'url';
+import os from 'os';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -69,7 +70,23 @@ app.get('/test-prisma-cache', async (req, res) => {
   res.send(users);
 });
 
-app.listen(port, () => {
+const getNetworkAddress = () => {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      // Skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+      if ('IPv4' !== iface.family || iface.internal !== false) {
+        continue;
+      }
+      return iface.address;
+    }
+  }
+  return null;
+};
+const host = '0.0.0.0'; // Use '0.0.0.0' to bind to all available IP addresses
+
+app.listen(port, host,() => {
+  console.log(getNetworkAddress())
   console.log(`Server running at http://localhost:${port}`);
   console.log(`AdminJS started on http://localhost:${port}${admin.options.rootPath}`)
   console.log(`OpenAPI started on http://localhost:${port}/docs`)
