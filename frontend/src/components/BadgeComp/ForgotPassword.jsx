@@ -129,7 +129,7 @@ function ForgotPassword() {
       const payload = { email: email.trim().toLowerCase() };
       console.log("Payload being sent:", JSON.stringify(payload, null, 2));
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/forgot-password", 
+      const response = await axios.post("http://192.168.1.65:3000/forgot-password", 
         payload,
         {
           headers: {
@@ -178,7 +178,7 @@ function ForgotPassword() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/reset-password", {
+      const response = await axios.post("http://192.168.1.65:3000/reset-password", {
         token: token,
         newPassword: newPassword
       }, {
@@ -223,7 +223,7 @@ function ForgotPassword() {
 
   const resendEmail = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/forgot-password", 
+      const response = await axios.post("http://192.168.1.65:3000/forgot-password", 
         { email: email.trim().toLowerCase() },
         {
           headers: {

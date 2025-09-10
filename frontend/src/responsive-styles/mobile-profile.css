@@ -1,6 +1,7 @@
 @media (max-width: 500px) {
   .stepper-container {
     width: 99vw;
+    height: initial;
     margin: 0;
     border-radius: 0px;
   }

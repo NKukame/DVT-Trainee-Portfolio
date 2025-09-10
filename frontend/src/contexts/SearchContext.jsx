@@ -51,7 +51,7 @@ export const SearchContextProvider = ({ children }) => {
       axios.defaults.headers.post["Content-Type"] = "application/json";
 
       const apiDataEmployee = await axios.get(
-        `http://localhost:3000/search/employee`,
+        `http://192.168.1.65:3000/search/employee`,
         {
           params: {
             page: page,
@@ -61,7 +61,7 @@ export const SearchContextProvider = ({ children }) => {
       );
 
       const apiDataProject = await axios.get(
-        `http://localhost:3000/search/project`,
+        `http://192.168.1.65:3000/search/project`,
         {
           params: {
             page: page,
