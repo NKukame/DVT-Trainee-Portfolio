@@ -115,7 +115,7 @@ function Signup() {
       }
       try {
         const userRegistered = await axios.post(
-          "http://192.168.1.65:3000/register",
+          "http://192.168.1.83:3000/register",
           {
             email: formData.email,
             password: formData.password,
@@ -132,7 +132,7 @@ function Signup() {
         if (userRegistered.status === 201) {
           try {
             const loginResponse = await axios.post(
-              "http://192.168.1.65:3000/login",
+              "http://192.168.1.83:3000/login",
               {
                 email: formData.email,
                 password: formData.password,
@@ -187,7 +187,7 @@ function Signup() {
 
     try {
       const token = await axios.post(
-        "http://192.168.1.65:3000/login",
+        "http://192.168.1.83:3000/login",
         {
           email: formData.email,
           password: formData.password,
