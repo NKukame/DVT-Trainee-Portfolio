@@ -13,16 +13,17 @@ function UserPortfolio(props) {
   const [employeeData, setEmployeeData] = useState(null);
   const location = useLocation();
 
-  async function fetchCurrentUserData() {
-    // if (!location.state) {
-      try {
-        const token = JSON.parse(localStorage.getItem("token"));
-        const response = await fetch("http://localhost:3000/api/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+  useEffect(() => {
+    const fetchCurrentUserData = async () => {
+      if (!location.state) {
+        try {
+          const token = JSON.parse(localStorage.getItem("token"));
+          const response = await fetch("http://localhost:3000/api/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          });
 
         if (response.ok) {
           const userData = await response.json();

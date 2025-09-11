@@ -36,10 +36,10 @@ function MobileNavbar() {
       if (response.ok) {
         const userData = await response.json();
         console.log("our Api call", userData);
-        const profilePictureUrl = userData.profilePicture
-          ? userData.profilePicture.startsWith("data:")
-            ? userData.profilePicture
-            : `http://localhost:3000${userData.profilePicture}`
+        const profilePictureUrl = userData.profilePicture 
+          ? (userData.profilePicture.startsWith('data:') 
+              ? userData.profilePicture 
+              : `http://localhost:3000${userData.profilePicture}`)
           : null;
 
         setUserInfo({
