@@ -281,13 +281,7 @@ function Bookmarks() {
           emp_education: emp.education,
           certificates: emp.certificates,
           career: emp.career,
-          projects: emp.projects ? emp.projects.map(project => ({
-            project: {
-              ...project,
-              screenshot: project.screenshot || null,
-              createdAt: project.createdAt || new Date().toISOString()
-            }
-          })) : [],
+          projects: emp.projects,
           avatar: emp.photoUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
           techStack: emp.techStack || [],
           skills: emp.techStack ? emp.techStack.map(link => link.techStack.name) : [],
