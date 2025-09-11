@@ -26,7 +26,7 @@ const fetchCurrentUser = async () => {
         return;
       }
 
-      const response = await fetch("http://192.168.1.83:3000/api/me", {
+      const response = await fetch("http://localhost:3000/api/me", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const fetchCurrentUser = async () => {
         const profilePictureUrl = userData.profilePicture 
           ? (userData.profilePicture.startsWith('data:') 
               ? userData.profilePicture 
-              : `http://192.168.1.83:3000${userData.profilePicture}`)
+              : `http://localhost:3000${userData.profilePicture}`)
           : null;
 
         setUserInfo({
