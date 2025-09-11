@@ -44,8 +44,8 @@ async function sendEmail(transporter, mailOptions) {
 
 // Enhanced reset email function with provider selection
 async function sendResetEmail(to, token, provider = 'gmail') {
-  const resetLink = `http://192.168.1.83:5173/forgot-password?token=${token}`;
-  
+  const resetLink = `http://localhost:5173/forgot-password?token=${token}`;
+
   const mailOptions = {
     from: provider === 'gmail' 
       ? (process.env.GMAIL_USER || process.env.EMAIL_USER)
@@ -63,8 +63,8 @@ async function sendResetEmail(to, token, provider = 'gmail') {
 
 // Send to Gmail specifically
 async function sendResetEmailGmail(to, token) {
-  const resetLink = `http://192.168.1.83:5173/forgot-password?token=${token}`;
-  
+  const resetLink = `http://localhost:5173/forgot-password?token=${token}`;
+
   const gmailOptions = {
     from: process.env.GMAIL_USER || process.env.EMAIL_USER,
     to,
@@ -77,7 +77,7 @@ async function sendResetEmailGmail(to, token) {
 
 // Send to Outlook specifically  
 async function sendResetEmailOutlook(to, token) {
-  const resetLink = `http://192.168.1.83:5173/forgot-password?token=${token}`;
+  const resetLink = `http://localhost:5173/forgot-password?token=${token}`;
   
   const outlookOptions = {
     from: process.env.OUTLOOK_USER,
