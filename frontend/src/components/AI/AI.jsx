@@ -103,7 +103,7 @@ function AI() {
                         <div className='message-container'>
                             {messages.map((message, index) => (
                                 <div key={index} className={`message ${message.sender}`}>
-                                    {message.text}
+                                    <div className="message-content">{message.text}</div>
                                     <div className="timestamp">{message.timestamp}</div>
                                 </div>
                                 

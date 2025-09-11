@@ -50,7 +50,9 @@ import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
 import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
 import { Link } from "react-router";
 import { ThemedSiderV2 } from "./components/layout/sider.jsx";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+const queryClient = new QueryClient();
 
 import { createTheme } from "@mui/material/styles";
 // make the primary color gray
@@ -70,6 +72,7 @@ const overriddenLightTheme = createTheme({
 });
 const App = () => {
   return (
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
     <ThemeProvider theme={overriddenLightTheme} >
       <CssBaseline />
@@ -205,6 +208,7 @@ const App = () => {
       </SearchContextProvider>
       </ThemeProvider>
     </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
