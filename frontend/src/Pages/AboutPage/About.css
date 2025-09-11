@@ -1,4 +1,4 @@
-.about-body{
+.about-body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
 }
 
 
-.team-pictures{
+.team-pictures {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,18 +15,18 @@
     height: 100%;
 }
 
-.team-pictures h1{
+.team-pictures h1 {
     font-size: 55px;
     /* border-bottom: 2px solid var(--yellow); */
     color: var(--dark-blue);
     margin-top: 5%;
 }
 
-.dark-mode .team-pictures h1{
+.dark-mode .team-pictures h1 {
     color: var(--dark-mode-title-white);
 }
 
-.big-picture{
+.big-picture {
     width: 90%;
     height: 400px;
     border-radius: 20px;
@@ -34,54 +34,55 @@
     margin: 25px;
 }
 
-.small-picture{
+.small-picture {
     width: 480px;
     height: 300px;
     border-radius: 20px;
     margin: 15px;
 }
 
-.team-pictures h2{
+.team-pictures h2 {
     font-size: 45px;
     /* border-bottom: 2px solid var(--yellow); */
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.meet-the-team{
+.meet-the-team {
     display: flex;
     margin-right: calc(20% - 50px);
     margin-top: 3%;
     width: 50%;
 }
 
-.meet-the-team:nth-of-type(2n):not(:first-of-type){
+.meet-the-team:nth-of-type(2n):not(:first-of-type) {
     flex-direction: row-reverse;
     margin-left: calc(40% - 50px);
     text-align: right;
 }
 
-.team-members p{
+.team-members p {
     display: flex;
     flex-direction: column;
     margin-top: 13%;
 }
 
-.team-members{
-    gap: 2px;  
+.team-members {
+    gap: 2px;
 }
 
-.team-members h3{
+.team-members h3 {
     font-size: 35px;
     border-top: 2px solid var(--white);
     margin-top: 10px;
 }
 
-.team-members p:nth-of-type(2n):not(:first-of-type){
+.team-members p:nth-of-type(2n):not(:first-of-type) {
     color: var(--yellow);
 }
 
-.team-info .team-info-text, .about-us {
+.team-info .team-info-text,
+.about-us {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,22 +91,29 @@
     margin-top: 2%;
 
 }
-.team-info-text h1, .about-us h1{
+
+.team-info-text h1,
+.about-us h1 {
     font-size: 55px;
     /* border-bottom: 2px solid var(--yellow); */
     margin-bottom: 4.5%;
     color: var(--dark-blue);
 }
 
-.dark-mode .team-info-text h1, .dark-mode .about-us h1{
+.dark-mode .team-info-text h1,
+.dark-mode .about-us h1 {
     color: var(--dark-mode-title-white);
 }
-.team-info-text{
+
+.team-info-text {
     margin-bottom: 5%;
 }
-.team-info-text p{
+
+.team-info-text p {
     font-size: 27px;
-    text-wrap: wrap;
+    overflow-wrap: break-word;
+    /* word-wrap: break-word;
+    text-wrap: wrap; */
     text-align: center;
     margin-inline: 10%;
     line-height: 1.2;
@@ -113,56 +121,63 @@
     color: var(--dark-blue);
 }
 
-.dark-mode .team-info-text p{
+.dark-mode .team-info-text p {
     color: var(--dark-mode-paragragh-white);
 }
 
-.about-us h1{
+.about-us h1 {
     text-align: center;
     margin-bottom: 2%;
 }
 
-.about-us, .people-info{
+.about-us,
+.people-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-@media (max-width:580px){
-    .small-picture{
+@media (max-width:580px) {
+    .small-picture {
         width: 250px;
         height: 150px;
-    }   
+    }
 }
-@media (max-width: 1000px){
-    
-    .big-picture{
+
+@media (max-width: 1000px) {
+
+    .big-picture {
         width: 500px;
         height: auto;
         transition: .5s ease-in-out;
     }
-    .small-picture{
+
+    .small-picture {
         width: 350px;
         height: 200px;
     }
-    .team-members p{
+
+    .team-members p {
         display: none;
     }
-    .meet-the-team{
+
+    .meet-the-team {
         flex-direction: column;
         align-items: center;
         margin: -10px 0px 20px 0px;
     }
-    .team-members h3{
+
+    .team-members h3 {
         font-size: 30px;
         margin: -10px 0px 20px 0px;
     }
-    .meet-the-team:nth-of-type(2n):not(:first-of-type){
+
+    .meet-the-team:nth-of-type(2n):not(:first-of-type) {
         flex-direction: column;
         margin: -10px 0px 20px 0px;
-         
-        .team-members h3{
+
+        .team-members h3 {
             margin: -10px 0px 20px 0px;
         }
     }

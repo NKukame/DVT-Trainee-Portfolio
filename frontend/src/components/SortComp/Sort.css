@@ -54,8 +54,8 @@
 
 .sort-container .toggle-wrapper .toggle-label.active {
   background: var(--button-blue) !important;
-  background-clip: text !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
   font-weight: 600;

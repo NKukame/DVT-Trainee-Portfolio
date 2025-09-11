@@ -39,6 +39,11 @@
 @import "./responsive-styles/mobile-user-profile.css";
 @import "./responsive-styles/mobile-navbar.css";
 
+html {
+    -webkit-text-size-adjust: 100%;
+    /* text-size-adjust: 100%; */
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
