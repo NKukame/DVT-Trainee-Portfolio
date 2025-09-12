@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:3000/api/v2';
 export const dataProvider = {
     getList: async function (params) {
         const queryArgs = {};
-
+        console.log(params);
         // filtering
         if (params.filters && params.filters.length > 0) {
             const filters = params.filters.map((filter) =>

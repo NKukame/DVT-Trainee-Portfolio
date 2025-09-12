@@ -113,7 +113,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.message.bot {
+.message.assistant {
   align-self: flex-start;
   background: #f1f1f1;
   color: #333;
