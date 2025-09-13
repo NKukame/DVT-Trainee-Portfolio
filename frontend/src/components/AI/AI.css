@@ -201,3 +201,45 @@
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+
+.message-content {
+  position: relative;
+}
+
+.streaming-cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  color: #007bff;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.message.assistant .streaming-cursor {
+  margin-left: 2px;
+}
+
+.chat-messanger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.message-container {
+  max-height: 400px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+
+.chat-messanger {
+  transition: all 0.2s ease;
+}

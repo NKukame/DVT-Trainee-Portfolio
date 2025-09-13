@@ -497,89 +497,107 @@ async function create_employee_profile(profileData) {
   }
 }
 
-// src/lib/ai-tools.ts
-// ... (keep your imports, tools array, and tool execution functions the same)
-
 export async function chatWithAI(conversationHistory) {
   try {
-    // Ensure messages are in OpenAI format (role and content)
+    // Ensure messages are in OpenAI format
     const formattedMessages = conversationHistory.map(msg => ({
-      role: msg.role,  // Assumes your messages have 'role' as 'user' or 'assistant'
+      role: msg.role,
       content: msg.content,
     }));
 
-    // First API call with tools
+    // First, try with tools to see if any are needed
     const response = await client.chat.completions.create({
       model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
-      messages: formattedMessages,  // Fixed: 'messages' (plural)
+      messages: formattedMessages,
       tools,
       tool_choice: "auto",
     });
 
-    console.log(response);  // For debugging
+    console.log("Initial response:", response);
 
     const message = response.choices[0].message;
-    if (!message.tool_calls || message.tool_calls.length === 0) {
-      // No tools needed; return the response directly
-      return message.content;
+    
+    // If tools are called, handle them (non-streaming)
+    if (message.tool_calls && message.tool_calls.length > 0) {
+      return await handleToolCalls(message, formattedMessages);
     }
 
-    // Handle tool calls
-    const toolResults = [];
-    for (const toolCall of message.tool_calls) {
-      const { name, arguments: args } = toolCall.function;
-      const parsedArgs = JSON.parse(args);
-      
-      let result;
-      switch (name) {
-        case 'find_employee_by_name':
-          result = await find_employee_by_name(parsedArgs.searchTerm);
-          break;
-        case 'get_employee_profile':
-          result = await get_employee_profile(parsedArgs.employeeId);
-          break;
-        case 'search_employees_by_skills':
-          result = await search_employees_by_skills(parsedArgs.techSkill, parsedArgs.role, parsedArgs.department);
-          break;
-        case 'get_project_details':
-          result = await get_project_details(parsedArgs.projectId, parsedArgs.projectName);
-          break;
-        case 'get_available_employees':
-          result = await get_available_employees(parsedArgs.role, parsedArgs.techSkill);
-          break;
-        case 'create_employee_profile':
-          result = await create_employee_profile(parsedArgs);
-          break;
-        default:
-          result = JSON.stringify({
-            success: false,
-            error: `Unknown function: ${name}`
-          });
-      }
-      
-      toolResults.push({
-        tool_call_id: toolCall.id,
-        role: "tool",
-        name: name,  // Optional, but helps with debugging
-        content: result,
-      });
-    }
-
-    // Second API call with full history + assistant's tool calls + tool results
-    const finalResponse = await client.chat.completions.create({
-      model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
-      messages: [
-        ...formattedMessages,  // Full history
-        message,  // Assistant's message with tool calls
-        ...toolResults,  // Tool results
-      ],
-      stream: true,
-    });
-
-    console.log(finalResponse);
-    return finalResponse.choices[0].message.content;
+    // If no tools needed, return streaming response
+    return await getStreamingResponse(formattedMessages);
+    
   } catch (error) {
     console.error("AI Chat Error:", error);
-    throw error;  // Let the component handle it (as in your original code)
+    throw error;
   }
+}
+
+async function handleToolCalls(message, formattedMessages) {
+  const toolResults = [];
+  
+  for (const toolCall of message.tool_calls) {
+    const { name, arguments: args } = toolCall.function;
+    const parsedArgs = JSON.parse(args);
+    
+    let result;
+    switch (name) {
+      case 'find_employee_by_name':
+        result = await find_employee_by_name(parsedArgs.searchTerm);
+        break;
+      case 'get_employee_profile':
+        result = await get_employee_profile(parsedArgs.employeeId);
+        break;
+      case 'search_employees_by_skills':
+        result = await search_employees_by_skills(parsedArgs.techSkill, parsedArgs.role, parsedArgs.department);
+        break;
+      case 'get_project_details':
+        result = await get_project_details(parsedArgs.projectId, parsedArgs.projectName);
+        break;
+      case 'get_available_employees':
+        result = await get_available_employees(parsedArgs.role, parsedArgs.techSkill);
+        break;
+      case 'create_employee_profile':
+        result = await create_employee_profile(parsedArgs);
+        break;
+      default:
+        result = JSON.stringify({
+          success: false,
+          error: `Unknown function: ${name}`
+        });
+    }
+    
+    toolResults.push({
+      tool_call_id: toolCall.id,
+      role: "tool",
+      name: name,
+      content: result,
+    });
+  }
+
+  // Get final response with tool results (non-streaming for tool responses)
+  const finalResponse = await client.chat.completions.create({
+    model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
+    messages: [
+      ...formattedMessages,
+      message,
+      ...toolResults,
+    ],
+  });
+
+  return {
+    type: 'complete',
+    content: finalResponse.choices[0].message.content
+  };
+}
+
+async function getStreamingResponse(formattedMessages) {
+  const stream = await client.chat.completions.create({
+    model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
+    messages: formattedMessages,
+    stream: true,
+  });
+
+  return {
+    type: 'stream',
+    stream: stream
+  };
 }
