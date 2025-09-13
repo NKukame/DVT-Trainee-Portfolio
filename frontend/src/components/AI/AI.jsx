@@ -44,7 +44,7 @@ function AI() {
   
     try {
       // Pass the complete conversation history including the current message
-      const streamResult = await chatWithAI(userInput);
+      const streamResult = await chatWithAI(conversationHistory);
   
       // Start with an empty bot message for streaming
       setMessages((prev) => [...prev, { content: streamResult, role: 'assistant', timestamp: now, isStreaming: true }]);

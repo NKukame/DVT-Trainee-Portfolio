@@ -109,39 +109,84 @@ const tools = [
 // Tool execution functions
 async function find_employee_by_name(searchTerm) {
   try {
-    const filters = [
-      { field: "name", operator: "contains", value: searchTerm },
-      { field: "surname", operator: "contains", value: searchTerm },
-      { field: "email", operator: "contains", value: searchTerm }
-    ];
+    const terms = searchTerm.trim().split(/\s+/);
 
-    // Try multiple searches
-    const results = [];
-    for (const filter of filters) {
-      const result = await dataProvider.getList({
+    let results = [];
+
+    // 1. If full name (at least 2 parts), search for both name and surname combos.
+    if (terms.length > 1) {
+      // Try to find exact matches (both name and surname)
+      const exactResult = await dataProvider.getList({
         resource: "employee",
-        // filters: [filter],
-        pagination: { current: 1, pageSize: 10 },
+        filters: [
+          { field: "name", operator: "eq", value: terms[0] },
+          { field: "surname", operator: "eq", value: terms.slice(1).join(" ") }
+        ],
+        pagination: { current: 1, pageSize: 10 }
       });
-      results.push(...result.data);
-    }
 
-    // Remove duplicates by ID
-    const uniqueEmployees = results.filter((emp, index, self) => 
-      index === self.findIndex(e => e.id === emp.id)
-    );
+      // If there's at least one exact match, use just those
+      if (exactResult.data.length > 0) {
+        results = exactResult.data;
+      } else {
+        // Otherwise, find partials across all fields (as before)
+        const filters = [
+          { field: "name", operator: "containss", value: terms[0] },
+          { field: "surname", operator: "containss", value: terms[terms.length-1] },
+          { field: "name", operator: "containss", value: terms[terms.length-1] },
+          { field: "surname", operator: "containss", value: terms[0] },
+          { field: "name", operator: "containss", value: searchTerm },
+          { field: "surname", operator: "containss", value: searchTerm },
+          { field: "email", operator: "containss", value: searchTerm }
+        ];
+
+        for (const filter of filters) {
+          const result = await dataProvider.getList({
+            resource: "employee",
+            filters: [filter],
+            pagination: { current: 1, pageSize: 10 }
+          });
+          results.push(...result.data);
+        }
+        // De-duplicate
+        results = results.filter(
+          (emp, index, self) =>
+            index === self.findIndex((e) => e.id === emp.id)
+        );
+      }
+    } else {
+      // Single-word search, as before
+      const filters = [
+        { field: "name", operator: "containss", value: searchTerm },
+        { field: "surname", operator: "containss", value: searchTerm },
+        { field: "email", operator: "containss", value: searchTerm }
+      ];
+      for (const filter of filters) {
+        const result = await dataProvider.getList({
+          resource: "employee",
+          filters: [filter],
+          pagination: { current: 1, pageSize: 10 }
+        });
+        results.push(...result.data);
+      }
+      // De-duplicate
+      results = results.filter(
+        (emp, index, self) =>
+          index === self.findIndex((e) => e.id === emp.id)
+      );
+    }
 
     return JSON.stringify({
       success: true,
-      employees: uniqueEmployees.map(emp => ({
+      employees: results.map(emp => ({
         id: emp.id,
-        name: `${emp.title} ${emp.name} ${emp.surname}`,
+        name: `${emp.title} ${emp.name} ${emp.surname}`.trim(),
         email: emp.email,
         role: emp.role,
         department: emp.department,
         company: emp.company
       })),
-      count: uniqueEmployees.length
+      count: results.length
     });
   } catch (error) {
     return JSON.stringify({
@@ -452,75 +497,89 @@ async function create_employee_profile(profileData) {
   }
 }
 
-export async function chatWithAI(message) {
+// src/lib/ai-tools.ts
+// ... (keep your imports, tools array, and tool execution functions the same)
+
+export async function chatWithAI(conversationHistory) {
   try {
+    // Ensure messages are in OpenAI format (role and content)
+    const formattedMessages = conversationHistory.map(msg => ({
+      role: msg.role,  // Assumes your messages have 'role' as 'user' or 'assistant'
+      content: msg.content,
+    }));
+
+    // First API call with tools
     const response = await client.chat.completions.create({
       model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
-      messages: [{ role: "user", content: message }],
+      messages: formattedMessages,  // Fixed: 'messages' (plural)
       tools,
       tool_choice: "auto",
     });
 
-    console.log(response);
-    const toolCalls = response.choices[0].message.tool_calls;
-    if (toolCalls) {
-      const toolResults = [];
+    console.log(response);  // For debugging
+
+    const message = response.choices[0].message;
+    if (!message.tool_calls || message.tool_calls.length === 0) {
+      // No tools needed; return the response directly
+      return message.content;
+    }
+
+    // Handle tool calls
+    const toolResults = [];
+    for (const toolCall of message.tool_calls) {
+      const { name, arguments: args } = toolCall.function;
+      const parsedArgs = JSON.parse(args);
       
-      for (const toolCall of toolCalls) {
-        const { name, arguments: args } = toolCall.function;
-        const parsedArgs = JSON.parse(args);
-        
-        let result;
-        switch (name) {
-          case 'find_employee_by_name':
-            result = await find_employee_by_name(parsedArgs.searchTerm);
-            break;
-          case 'get_employee_profile':
-            result = await get_employee_profile(parsedArgs.employeeId);
-            break;
-          case 'search_employees_by_skills':
-            result = await search_employees_by_skills(parsedArgs.techSkill, parsedArgs.role, parsedArgs.department);
-            break;
-          case 'get_project_details':
-            result = await get_project_details(parsedArgs.projectId, parsedArgs.projectName);
-            break;
-          case 'get_available_employees':
-            result = await get_available_employees(parsedArgs.role, parsedArgs.techSkill);
-            break;
-          case 'create_employee_profile':
-            result = await create_employee_profile(parsedArgs);
-            break;
-          default:
-            result = JSON.stringify({
-              success: false,
-              error: `Unknown function: ${name}`
-            });
-        }
-        
-        toolResults.push({
-          tool_call_id: toolCall.id,
-          role: "tool",
-          content: result,
-        });
+      let result;
+      switch (name) {
+        case 'find_employee_by_name':
+          result = await find_employee_by_name(parsedArgs.searchTerm);
+          break;
+        case 'get_employee_profile':
+          result = await get_employee_profile(parsedArgs.employeeId);
+          break;
+        case 'search_employees_by_skills':
+          result = await search_employees_by_skills(parsedArgs.techSkill, parsedArgs.role, parsedArgs.department);
+          break;
+        case 'get_project_details':
+          result = await get_project_details(parsedArgs.projectId, parsedArgs.projectName);
+          break;
+        case 'get_available_employees':
+          result = await get_available_employees(parsedArgs.role, parsedArgs.techSkill);
+          break;
+        case 'create_employee_profile':
+          result = await create_employee_profile(parsedArgs);
+          break;
+        default:
+          result = JSON.stringify({
+            success: false,
+            error: `Unknown function: ${name}`
+          });
       }
       
-      const finalResponse = await client.chat.completions.create({
-        model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
-        messages: [
-          { role: "user", content: message },
-          response.choices[0].message,
-          ...toolResults,
-        ],
+      toolResults.push({
+        tool_call_id: toolCall.id,
+        role: "tool",
+        name: name,  // Optional, but helps with debugging
+        content: result,
       });
-
-      console.log(finalResponse);
-      
-      return finalResponse.choices[0].message.content;
     }
-    
-    return response.choices[0].message.content;
+
+    // Second API call with full history + assistant's tool calls + tool results
+    const finalResponse = await client.chat.completions.create({
+      model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
+      messages: [
+        ...formattedMessages,  // Full history
+        message,  // Assistant's message with tool calls
+        ...toolResults,  // Tool results
+      ],
+      stream: true,
+    });
+
+    console.log(finalResponse);
+    return finalResponse.choices[0].message.content;
   } catch (error) {
     console.error("AI Chat Error:", error);
-    return `Sorry, I encountered an error: ${error instanceof Error ? error.message : "Unknown error"}`;
+    throw error;  // Let the component handle it (as in your original code)
   }
 }
