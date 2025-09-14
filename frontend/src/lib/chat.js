@@ -123,7 +123,7 @@ async function fetchAllPages({
   return all;
 }
 
-async function loadEmployeeDeep(
+async function loadEmployeesDeep(
   force = false,
   pageSize = DEFAULT_PAGE_SIZE,
 ) {
@@ -194,7 +194,7 @@ function searchEmployeesInCache(
   return { total, results: sliced };
 }
 
-async function loadProjectAndRelations(
+async function loadProjectsAndRelations(
   {
     force = false,
     pageSize = DEFAULT_PAGE_SIZE,
@@ -237,4 +237,251 @@ function assembleProjectDetails(project){
   industries,
   members,
  };
+}
+
+async function tool_findEmployeeByName(searchTerm) {
+  await loadEmployeesDeep();
+  const { results } = searchEmployeesInCache({
+    searchTerm,
+    limit: 50,
+    offset: 0,
+  });
+  return {
+    success: true,
+    employees: results.map((emp) => ({
+      id: emp.id,
+      name: `${emp.title ?? ""} ${emp.name ?? ""} ${emp.surname ?? ""}`.trim(),
+      email: emp.email,
+      role: emp.role,
+      department: emp.department,
+      company: emp.company,
+      education: emp.education,
+      certificates: emp.certificates,
+      career: emp.career,
+      testimonials: emp.testimonials,
+      availability: emp.availability,
+      techStack: emp.techStack,
+      softSkills: emp.softSkills,
+      projects: emp.projects,
+    })),
+    count: results.length,
+  };
+}
+
+async function tool_searchEmployeesBySkills(
+  techSkill,
+  role,
+  department
+) {
+  await loadEmployeesDeep();
+  const { results, total } = searchEmployeesInCache({
+    techSkill,
+    role,
+    department,
+    limit: 100,
+    offset: 0,
+  });
+  return {
+    success: true,
+    employees: results.map((emp) => ({
+      id: emp.id,
+      name: `${emp.title ?? ""} ${emp.name ?? ""} ${emp.surname ?? ""}`.trim(),
+      email: emp.email,
+      role: emp.role,
+      department: emp.department,
+      company: emp.company,
+      experience: emp.experience,
+    })),
+    count: total,
+    searchCriteria: { techSkill, role, department },
+  };
+}
+
+async function tool_getProjectDetails(
+  projectId,
+  projectName
+) {
+  await loadProjectsAndRelations();
+
+  let project = null;
+  if (projectId) {
+    project = cache.projectsById.get(projectId) ?? null;
+  } else if (projectName) {
+    const pn = normalizeStr(projectName);
+    project = cache.projects.find((p) => normalizeStr(p?.name) === pn) ?? null;
+  } else {
+    throw new Error("Either projectId or projectName is required");
+  }
+
+  if (!project) {
+    return { success: false, error: "Project not found" };
+  }
+
+  const full = assembleProjectDetails(project);
+  return { success: true, project: full };
+}
+
+async function tool_getAvailableEmployees(role, techSkill) {
+  await loadEmployeesDeep();
+  const { results, total } = searchEmployeesInCache({
+    role,
+    techSkill,
+    available: true,
+    limit: 100,
+    offset: 0,
+  });
+  return {
+    success: true,
+    employees: results.map((emp) => ({
+      id: emp.id,
+      name: `${emp.title ?? ""} ${emp.name ?? ""} ${emp.surname ?? ""}`.trim(),
+      email: emp.email,
+      role: emp.role,
+      department: emp.department,
+      company: emp.company,
+      experience: emp.experience,
+      github: emp.github,
+      linkedIn: emp.linkedIn,
+    })),
+    count: total,
+    searchCriteria: { role, techSkill },
+  };
+}
+
+async function tool_createEmployeeProfile(profileData) {
+  const employee = await dataProvider.create({
+    resource: "employee",
+    variables: profileData,
+  });
+
+  await dataProvider.create({
+    resource: "availability",
+    variables: {
+      employeeId: employee.data.id,
+      available: true,
+      client: "DVT",
+    },
+  });
+  // Optimistic cache update
+  try {
+    const createdFull = await dataProvider.getOne({
+      resource: "employee",
+      id: employee.data.id,
+      meta: { include: EMPLOYEE_INCLUDE_DEEP },
+    });
+    const updated = cache.employees
+      .filter((e) => e.id !== employee.data.id)
+      .concat(createdFull.data);
+    buildEmployeeIndexes(updated);
+  } catch {
+    const minimal = {
+      ...employee.data,
+      availability: { available: true, client: "DVT" },
+    };
+    const updated = cache.employees
+      .filter((e) => e.id !== employee.data.id)
+      .concat(minimal);
+    buildEmployeeIndexes(updated);
+  }
+
+  return {
+    success: true,
+    employee: employee.data,
+    message: `Employee profile created for ${profileData.name} ${profileData.surname}`,
+  };
+}
+
+async function tool_primeCache(params) {
+  const scopes =
+    params?.scopes && params.scopes.length
+      ? params.scopes
+      : ["employees", "projects"];
+  if (scopes.includes("employees")) {
+    await loadEmployeesDeep({
+      force: Boolean(params?.force),
+      pageSize: params?.pageSize || DEFAULT_PAGE_SIZE,
+    });
+  }
+  if (scopes.includes("projects")) {
+    await loadProjectsAndRelations({
+      force: Boolean(params?.force),
+      pageSize: params?.pageSize || DEFAULT_PAGE_SIZE,
+    });
+  }
+  return {
+    success: true,
+    primed: scopes,
+    employeesCached: cache.employees.length,
+    projectsCached: cache.projects.length,
+  };
+}
+
+async function tool_refreshCache(params) {
+  const scopes =
+    params?.scopes && params.scopes.length
+      ? params.scopes
+      : ["employees", "projects"];
+  if (scopes.includes("employees")) {
+    await loadEmployeesDeep({ force: Boolean(params?.force) });
+  }
+  if (scopes.includes("projects")) {
+    await loadProjectsAndRelations({ force: Boolean(params?.force) });
+  }
+  return {
+    success: true,
+    refreshed: scopes,
+    employeesCached: cache.employees.length,
+    projectsCached: cache.projects.length,
+  };
+}
+
+async function t_searchEmployees(params) {
+  await loadEmployeesDeep();
+  const { results, total } = searchEmployeesInCache(params || {});
+  return {
+    success: true,
+    employees: results.map((emp) => ({
+      id: emp.id,
+      name: `${emp.title ?? ""} ${emp.name ?? ""} ${emp.surname ?? ""}`.trim(),
+      email: emp.email,
+      role: emp.role,
+      department: emp.department,
+      company: emp.company,
+      availability: emp.availability,
+      techStack: emp.techStack,
+    })),
+    count: total,
+    criteria: params || {},
+  };
+}
+
+async function t_getEmployeeProfileCached(employeeId) {
+  await loadEmployeesDeep();
+  const emp = cache.employeesById.get(employeeId);
+  if (!emp) {
+    return { success: false, error: "Employee not found in cache" };
+  }
+  return { success: true, employee: emp };
+}
+
+async function t_listSkills(params) {
+  await loadEmployeesDeep();
+  const query = normalizeStr(params?.query);
+  const limit = params?.limit ?? 50;
+  const withCounts = params?.withCounts ?? true;
+
+  const entries = [];
+  for (const [skill, ids] of cache.skillIndex) {
+    if (query && !skill.includes(query)) continue;
+    entries.push({ skill, count: ids.size });
+  }
+  entries.sort((a, b) => b.count - a.count || a.skill.localeCompare(b.skill));
+  const top = entries.slice(0, limit);
+
+  return {
+    success: true,
+    skills: top.map((e) =>
+      withCounts ? { name: e.skill, count: e.count } : { name: e.skill }
+    ),
+  };
 }
