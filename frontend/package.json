@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ai-sdk/deepinfra": "^1.0.15",
+    "@ai-sdk/openai": "^2.0.30",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^6.1.6",
