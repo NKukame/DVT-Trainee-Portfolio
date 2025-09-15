@@ -125,7 +125,7 @@ function AI() {
 
     try {
       for await (const chunk of stream) {
-        const delta = chunk.choices[0]?.delta?.content || '';
+        const delta = chunk;
         if (delta) {
           streamedContent += delta;
           
