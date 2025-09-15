@@ -1,20 +1,18 @@
 import {
-  Activity,
   Award,
-  Calendar,
   CalendarCheck,
   MapPin,
-  Pin,
-  PinIcon,
 } from "lucide-react";
 
 import { Link } from "react-router";
 import Github from "../../assets/icons8-github-100.png";
 import LinkedIn from "../../assets/icons8-linkedin-100.png";
 import Email from "../../assets/icons8-email-100.png";
-import { Edit05 } from "@untitled-ui/icons-react";
+import { Edit05, Wallet01 } from "@untitled-ui/icons-react";
+import { usePDF } from "react-to-pdf";
 
 export function MobileDashboard({ user, tokenID, id }) {
+  const { toPDF, targetRef } = usePDF({filename: `${user.testEmployee.name}-CV.pdf`});
   return (
     <>
       <div className="mobile-dashboard-container">
@@ -30,9 +28,12 @@ export function MobileDashboard({ user, tokenID, id }) {
         <div className="mobile-name-availability">
           <p className="profile-name">{user.testEmployee.name}</p>
           <div className="profile-edit-icon">
-            <Link to="/edit-profile" state={user.testEmployee}>
-              <button className="profile-edit-btn"><Edit05/></button>
-            </Link>
+
+            {id === tokenID && (
+              <Link to="/edit-profile" state={user.testEmployee}>
+                <button className="profile-edit-btn"><Edit05/></button>
+              </Link>
+            )}
             
           </div>
           

@@ -48,8 +48,9 @@ import { ShowSoftSkill } from './Pages/Dashboard/softSkills/show.jsx';
 import { CreateSoftSkill } from './Pages/Dashboard/softSkills/create.jsx';
 import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
 import Bookmarks from './Pages/BookmarksPage/Bookmarks.jsx';
-import { ThemedSiderV2, RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
+import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
 import { Link } from "react-router";
+import { ThemedSiderV2 } from "./components/layout/sider.jsx";
 
 
 import { createTheme } from "@mui/material/styles";
@@ -89,7 +90,7 @@ const App = () => {
                 show: "/dashboard/employee/:id",
                 edit: "/dashboard/employee/:id/edit",
                 create: "/dashboard/employee/create",
-                meta: { label: "Employee" },
+                meta: { label: "Employees" },
               },
               {
                 name: "user",
@@ -97,7 +98,7 @@ const App = () => {
                 show: "/dashboard/user/:id",
                 edit: "/dashboard/user/:id/edit",
                 create: "/dashboard/user/create",
-                meta: { label: "User" },
+                meta: { label: "Users" },
               },
               {
                 name: "project",
@@ -105,7 +106,7 @@ const App = () => {
                 show: "/dashboard/project/:id",
                 edit: "/dashboard/project/:id/edit",
                 create: "/dashboard/project/create",
-                meta: { label: "Project" },
+                meta: { label: "Projects" },
               },
               {
                 name: "techStack",
@@ -113,7 +114,7 @@ const App = () => {
                 show: "/dashboard/techStack/:id",
                 edit: "/dashboard/techStack/:id/edit",
                 create: "/dashboard/techStack/create",
-                meta: { label: "TechStack" },
+                meta: { label: "TechStacks" },
               },
               {
                 name: "softSkill",
@@ -121,7 +122,7 @@ const App = () => {
                 show: "/dashboard/softSkill/:id",
                 edit: "/dashboard/softSkill/:id/edit",
                 create: "/dashboard/softSkill/create",
-                meta: { label: "SoftSkill" },
+                meta: { label: "SoftSkills" },
               },
             ]}
           >
@@ -136,7 +137,7 @@ const App = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/about" element={<Portfolio />} />
                 <Route path="/search" element={<Search />} />
-                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/portfolio" element={<About />} />
                 <Route path="/userportfolio" element={<UserPortfolio />} />
                 <Route path="/generate-cv" element={<GenerateCV />} />
                 <Route path="/edit-profile" element={<EditProfile />} />

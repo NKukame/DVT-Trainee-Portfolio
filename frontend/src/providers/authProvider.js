@@ -118,13 +118,11 @@ export const authProvider = {
             "Content-Type": "application/json",
           },
         });
-    
-        if (response.status < 200 || response.status > 299) {
-          return null;
+        if (response.ok) {
+          const userData = await response.json();
+          return userData;
         }
-    
-        const data = await response.json();
-        return data;
+        return null;
       } catch (error) {
         console.error('Error fetching user identity:', error);
         return null;

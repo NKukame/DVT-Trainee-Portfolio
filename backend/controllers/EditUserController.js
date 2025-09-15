@@ -15,6 +15,7 @@ export default async function EditUserController(req, res) {
       photoUrl,
       department,
       bio,
+      phone,
       experience,
       availability,
       linkedIn,
@@ -49,6 +50,7 @@ export default async function EditUserController(req, res) {
         name: `${name}`,
         surname: `${surname}`,
         photoUrl: uploadedPhotoUrl,
+        phone: `${phone}`,
         department: `${department}`,
         bio: `${bio}`,
         experience: `${experience}`,
@@ -184,29 +186,36 @@ export default async function EditUserController(req, res) {
             },
           });
         }
-        // Optionally, handle the case where techStackId is still missing
-        // else {
-        //   // log or skip
-        // }
       }
     }
 
-    if (req.body.softSkilled && Array.isArray(req.body.softSkilled)) {
-      for (const skill of req.body.softSkilled) {
+    if (req.body.softSkills && Array.isArray(req.body.softSkills)) {
+      for (const skill of req.body.softSkills) {
+        // find or create the softSkill by name
+        let softSkill = await prisma.softSkill.findFirst({
+          where: { name: skill.softSkill.name },
+        });
+
+        if (!softSkill) {
+          softSkill = await prisma.softSkill.create({
+            data: { name: skill.softSkill.name },
+          });
+        }
+
         await prisma.employeeSoftSkill.upsert({
           where: {
             employeeId_softSkillId: {
               employeeId: id,
-              softSkillId: skill.softSkillId,
+              softSkillId: softSkill.id,
             },
           },
           update: {
-            skillsRating: skill.skillsRating,
+            skillsRating: String(skill.skillsRating),
           },
           create: {
             employeeId: id,
-            softSkillId: skill.softSkillId,
-            skillsRating: skill.skillsRating,
+            softSkillId: softSkill.id,
+            skillsRating: String(skill.skillsRating),
           },
         });
       }

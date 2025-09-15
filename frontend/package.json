@@ -7,7 +7,9 @@
     "dev": "refine dev",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "refine start",
+    "refine": "refine"
   },
   "dependencies": {
 

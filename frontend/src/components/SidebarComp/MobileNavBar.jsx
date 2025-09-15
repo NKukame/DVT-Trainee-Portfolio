@@ -19,31 +19,34 @@ function MobileNavbar() {
     fetchCurrentUser();
   }, []);
 
-  const fetchCurrentUser = async () => {
+const fetchCurrentUser = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      const userId = JSON.parse(localStorage.getItem("userId"));
-      
-      if (!token || !userId) {
+      if (!token) {
         return;
       }
 
-      const response = await fetch(`http://localhost:3000/user/${userId}`, {
+      const response = await fetch("http://localhost:3000/api/me", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-      
+      // console.log("our Api call", response);
       if (response.ok) {
         const userData = await response.json();
-        console.log("User data:", userData);
-        
+        console.log("our Api call", userData);
+        const profilePictureUrl = userData.profilePicture 
+          ? (userData.profilePicture.startsWith('data:') 
+              ? userData.profilePicture 
+              : `http://localhost:3000${userData.profilePicture}`)
+          : null;
+
         setUserInfo({
           name: userData.name,
           email: userData.email,
           profilePicture: userData.avatar,
-          role: userData.role,
+          role: userData.user_role,
         });
       } else if (response.status === 401) {
         localStorage.removeItem("token");
@@ -53,7 +56,7 @@ function MobileNavbar() {
       console.error("Error fetching current user:", error);
     }
   };
-
+  
   return (
     <>
       <div className="mobile-navbar">
@@ -108,13 +111,15 @@ function MobileNavbar() {
         </div>
       </div>
 
-      {isProfileModalOpen && (
-        <ProfileModal
-          isOpen={isProfileModalOpen}
-          onClose={() => setIsProfileModalOpen(false)}
-          userInfo={userInfo}
-        />
-      )}
+      <div className="user-modal">
+        {isProfileModalOpen && (
+          <ProfileModal
+            isOpen={isProfileModalOpen}
+            onClose={() => setIsProfileModalOpen(false)}
+            userInfo={userInfo}
+          />
+        )}
+      </div>
     </>
   );
 }
