@@ -730,29 +730,6 @@ export async function chatWithAI(conversationHistory) {
     system: systemPrompt,
   });
 
-  console.log(result);
-  // let toolCall;
-  // let toolResult;
-  // if(result.steps.length <= 2) {
-  //   toolCall = result.steps[result.steps.length - 1].content;
-  //   toolResult = toolCall[toolCall.length - 1].output;
-  // } else {
-  //   toolCall = result.steps[result.steps.length - 2].content;
-  //   toolResult = toolCall[toolCall.length - 1];
-  // }
-
-  // console.log(toolResult);
-  // console.log(toolCall);
-
-  // const toolResponse =  {
-  //   tool_call_id: toolResult.toolCallId, 
-  //   role: 'assistant', 
-  //   content: JSON.stringify(toolResult.output),
-  // };
-
-  // console.log(toolResponse);
-
-  // const finalResponse = getStreamingResponse(messages, toolResponse);
   return {
     type: 'stream',
     stream: result.textStream
@@ -760,23 +737,3 @@ export async function chatWithAI(conversationHistory) {
 }
 
 
-
-async function getStreamingResponse(formattedMessages, toolResult) {
-
-  // const toolMessages = convertToModelMessages([toolResult]);
-  console.log(toolResult);
-  const stream = streamText({
-    model: deepinfra("openai/gpt-oss-120b"),
-    system: systemPrompt,
-    messages: [
-      ...formattedMessages,
-      toolResult,
-    ],
-    stream: true,
-  });
-
-  return {
-    type: 'stream',
-    stream: stream.textStream
-  };
-}
