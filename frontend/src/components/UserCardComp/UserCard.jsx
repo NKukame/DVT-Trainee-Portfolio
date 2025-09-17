@@ -133,8 +133,8 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
       <div className="flex-row">
         <div className='flex-row align-items-center gap-10-px flex-1'>
           <Avatar alt={user.name} src={user.avatar || ''} sx={{ width: 52, height: 52 }} />
-          <div>
-            <p className='font-size-20-px text-black'>{user.name || 'Unknown User'}</p>
+          <div style={{maxWidth: '200px'}}>
+            <p className='font-size-20-px text-black whitespace-nowrap'>{user.name || 'Unknown User'}</p>
             <p className='font-size-12-px font-waight-400'>{user.role || 'No role specified'}</p>
           </div>
         </div>
@@ -169,6 +169,7 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
               </div>
             }
             <div className="card-actions">
+              <Mail01 onClick={()=> setOpen((isOpen)=> !isOpen)}/>
               <button
                 className={`bookmark-btn ${isBookmarked ? 'bookmarked' : ''}`}
                 onClick={addBookmark}
@@ -189,7 +190,6 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
                   </svg>
                 )}
               </button>
-              <Mail01 onClick={()=> setOpen((isOpen)=> !isOpen)}/>
             </div>
           </div>
       </div>

@@ -149,6 +149,7 @@ body.dark-mode {
 /* UserCard Bookmark Styles */
 .card-actions {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
 }
@@ -164,7 +165,7 @@ body.dark-mode {
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
-  color: #666;
+  color: var(--black);
 }
 
 .bookmark-btn:hover {
