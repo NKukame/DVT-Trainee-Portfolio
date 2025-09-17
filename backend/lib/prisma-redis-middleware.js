@@ -16,7 +16,7 @@ export async function generateKey(
   field,
   order,
   page,
-  industries,
+  industries
 ) {
   const key = [
     type,
@@ -35,20 +35,20 @@ export async function generateKey(
   return key;
 }
 
-
 /**
  * Delete all Redis keys matching a pattern
- * 
+ *
  * @param {string} pattern - The Redis key pattern to match (e.g. "searchProject:*")
  */
 export async function clearCache(pattern = "*") {
   try {
-  
     const keys = await redis.keys(pattern);
 
     if (keys.length > 0) {
       await redis.del(...keys);
-      console.log(`🧹 Cleared ${keys.length} keys matching pattern: ${pattern}`);
+      console.log(
+        `🧹 Cleared ${keys.length} keys matching pattern: ${pattern}`
+      );
     } else {
       console.log(`ℹ️ No keys found for pattern: ${pattern}`);
     }
@@ -74,7 +74,7 @@ export default prisma;
 //   try {
 //     // Get all keys matching the pattern
 //     const keys = await redis.keys(pattern);
- 
+
 //     if (keys.length > 0) {
 //       // Delete all keys
 //       await redis.del(...keys);
@@ -86,4 +86,3 @@ export default prisma;
 //     console.error("Error clearing cache:", err);
 //   }
 // }
-
