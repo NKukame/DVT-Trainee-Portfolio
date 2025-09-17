@@ -32,6 +32,7 @@ function SearchBar() {
       <input
         type="text"
         placeholder="Find people or projects"
+        title="Search"
         value={query}
         onChange={handleChange}
       />
