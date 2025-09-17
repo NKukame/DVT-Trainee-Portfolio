@@ -16,6 +16,13 @@
   margin: 0;
 }
 
+.collection-description {
+  color: #666;
+  font-size: 14px;
+  margin: 5px 0 0 0;
+  font-style: italic;
+}
+
 .back-btn {
   background: #f0f0f0;
   border: none;

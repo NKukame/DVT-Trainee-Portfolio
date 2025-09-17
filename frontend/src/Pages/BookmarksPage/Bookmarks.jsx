@@ -325,9 +325,14 @@ function Bookmarks() {
   return (
     <div className="bookmarks-page">
       <div className="bookmarks-header">
-        <h1>
-          {selectedCollection ? selectedCollection.name : "My Bookmarks"}
-        </h1>
+        <div>
+          <h1>
+            {selectedCollection ? selectedCollection.name : "My Bookmarks"}
+          </h1>
+          {selectedCollection && selectedCollection.description && (
+            <p className="collection-description">{selectedCollection.description}</p>
+          )}
+        </div>
         <div className="header-actions">
           {selectedCollection && (
             <>
