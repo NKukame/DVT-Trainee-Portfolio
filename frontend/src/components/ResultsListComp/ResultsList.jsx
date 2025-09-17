@@ -4,6 +4,7 @@ import { UserSkeletonLoader } from "../SearchResultsComp/SearchResults";
 import { SearchContext } from "../../contexts/SearchContext";
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import SubmarinePeriscope from "../../assets/Submarine periscope.gif"
 
 export default function ResultsList({ results, isEmployeeSearch }) {
   const { isLoading } = useContext(SearchContext);
@@ -32,10 +33,14 @@ export default function ResultsList({ results, isEmployeeSearch }) {
 
   if (results.length === 0 && !isLoading) {
     return (
-      <h1 className="font-size-20-px no-results">
-        No results found. We couldn't find any matching project or person in our
-        database.
-      </h1>
+      <div className="no-results">
+        <h1 className="font-size-20-px">
+          No results found. We couldn't find any matching project or person in our
+          database.
+        </h1>
+
+        <img src={SubmarinePeriscope} alt="" className="no-results-image"/>
+      </div>
     );
   }
   if (isLoading) {
