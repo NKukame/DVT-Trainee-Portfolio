@@ -28,64 +28,14 @@ function Bookmarks() {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       
-      // Get bookmarked employee IDs
-      const bookmarksResponse = await axios.get("http://localhost:3000/bookmarks", {
+      // Use the bookmark endpoint directly which returns all bookmarks without pagination
+      const response = await axios.get("http://localhost:3000/bookmarks", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       
-      const bookmarkedIds = (bookmarksResponse.data.bookmarks || []).map(b => b.employee_id);
-      
-      if (bookmarkedIds.length === 0) {
-        setBookmarks([]);
-        return;
-      }
-      
-      // Use the exact same API call as search page
-      const apiDataEmployee = await axios.get(
-        `http://localhost:3000/search/employee`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      
-      // Use the exact same transformation as search page
-      const employeesWithTechStackNames = apiDataEmployee.data.employees
-        .filter(emp => bookmarkedIds.includes(emp.id))
-        .map((emp) => ({
-          employee_id: emp.id,
-          name: emp.name + " " + emp.surname,
-          surname: emp.surname,
-          title: emp.title,
-          phone: emp.phone,
-          company: emp.company,
-          email: emp.email,
-          github: emp.github,
-          user: emp.user,
-          linkedIn: emp.linkedIn,
-          portfolio: emp.portfolio,
-          testimonials: emp.testimonials || [],
-          role: capitalizeFirstLetter(emp.role),
-          softSkilled: emp.softSkills,
-          years_active: emp.experience ? emp.experience : "0-1 Years",
-          experienced: emp.experience,
-          department: emp.department,
-          bio: emp.bio,
-          availability: emp.availability.available,
-          location: emp.location.split(",")[0],
-          emp_education: emp.education,
-          certificates: emp.certificates,
-          career: emp.career,
-          projects: emp.projects,
-          avatar: emp.photoUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-          techStack: emp.techStack,
-          skills: emp.techStack.map((link) => link.techStack.name),
-        }));
-      
-      setBookmarks(employeesWithTechStackNames);
+      setBookmarks(response.data.bookmarks || []);
     } catch (error) {
       console.error("Error fetching bookmarks:", error);
       setBookmarks([]);
@@ -369,22 +319,25 @@ function Bookmarks() {
       <div className="bookmarks-controls">
         <div className="collections-section">
           <h3>Collections</h3>
-          <div className="collections-list">
-            <button
-              className={`collection-item ${!selectedCollection ? 'active' : ''}`}
-              onClick={() => setSelectedCollection(null)}
+          <div className="collections-dropdown-container">
+            <select 
+              className="collections-dropdown"
+              value={selectedCollection?.id || 'all'}
+              onChange={(e) => {
+                if (e.target.value === 'all') {
+                  setSelectedCollection(null);
+                } else {
+                  viewCollection(e.target.value);
+                }
+              }}
             >
-              All Bookmarks ({bookmarks.length})
-            </button>
-            {collections.map((collection) => (
-              <button
-                key={collection.id}
-                className={`collection-item ${selectedCollection?.id === collection.id ? 'active' : ''}`}
-                onClick={() => viewCollection(collection.id)}
-              >
-                {collection.name} ({collection.bookmarks?.length || 0})
-              </button>
-            ))}
+              <option value="all">All Bookmarks ({bookmarks.length})</option>
+              {collections.map((collection) => (
+                <option key={collection.id} value={collection.id}>
+                  {collection.name} ({collection.bookmarks?.length || 0})
+                </option>
+              ))}
+            </select>
             <button
               className="create-collection-btn"
               onClick={() => setShowCreateCollection(true)}
