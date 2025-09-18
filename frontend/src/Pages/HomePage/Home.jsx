@@ -1,5 +1,4 @@
 import Body from "../../components/BodyComp/Body";
-import SideBar from "../../components/SidebarComp/SideBar";
 import { useEffect } from "react";
 
 function Home() {

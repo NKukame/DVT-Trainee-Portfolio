@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
 import { RefineThemes } from "@refinedev/mui";
-import { ThemedLayoutV2, ThemedTitleV2 } from "@refinedev/mui";
+import { ThemedLayoutV2 } from "@refinedev/mui";
 
 import './styles.css'
 import Home from './Pages/HomePage/Home.jsx'
@@ -47,11 +47,15 @@ import { ListSoftSkill } from './Pages/Dashboard/softSkills/list.jsx';
 import { ShowSoftSkill } from './Pages/Dashboard/softSkills/show.jsx';
 import { CreateSoftSkill } from './Pages/Dashboard/softSkills/create.jsx';
 import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
-import { ThemedSiderV2, RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
+import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router";
+import { ThemedSiderV2 } from "./components/layout/sider.jsx";
+import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
 
 import { createTheme } from "@mui/material/styles";
+import { LineChartDown03, LineChartUp01 } from '@untitled-ui/icons-react';
 // make the primary color gray
 const overriddenLightTheme = createTheme({
   ...RefineThemes.Blue,
@@ -73,7 +77,6 @@ const App = () => {
     <ThemeProvider theme={overriddenLightTheme} >
       <CssBaseline />
       <GlobalStyles />
-      <SearchContextProvider>
         <DarkModeProvider>
           <RefineSnackbarProvider>
           <Refine 
@@ -88,7 +91,7 @@ const App = () => {
                 show: "/dashboard/employee/:id",
                 edit: "/dashboard/employee/:id/edit",
                 create: "/dashboard/employee/create",
-                meta: { label: "Employee" },
+                meta: { label: "Employees" },
               },
               {
                 name: "user",
@@ -96,7 +99,7 @@ const App = () => {
                 show: "/dashboard/user/:id",
                 edit: "/dashboard/user/:id/edit",
                 create: "/dashboard/user/create",
-                meta: { label: "User" },
+                meta: { label: "Users" },
               },
               {
                 name: "project",
@@ -104,7 +107,7 @@ const App = () => {
                 show: "/dashboard/project/:id",
                 edit: "/dashboard/project/:id/edit",
                 create: "/dashboard/project/create",
-                meta: { label: "Project" },
+                meta: { label: "Projects" },
               },
               {
                 name: "techStack",
@@ -112,7 +115,7 @@ const App = () => {
                 show: "/dashboard/techStack/:id",
                 edit: "/dashboard/techStack/:id/edit",
                 create: "/dashboard/techStack/create",
-                meta: { label: "TechStack" },
+                meta: { label: "TechStacks" },
               },
               {
                 name: "softSkill",
@@ -120,10 +123,11 @@ const App = () => {
                 show: "/dashboard/softSkill/:id",
                 edit: "/dashboard/softSkill/:id/edit",
                 create: "/dashboard/softSkill/create",
-                meta: { label: "SoftSkill" },
+                meta: { label: "SoftSkills" },
               },
             ]}
-          >
+            >
+              <SearchContextProvider>
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Login />} />
@@ -135,7 +139,7 @@ const App = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/about" element={<Portfolio />} />
                 <Route path="/search" element={<Search />} />
-                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/portfolio" element={<About />} />
                 <Route path="/userportfolio" element={<UserPortfolio />} />
                 <Route path="/generate-cv" element={<GenerateCV />} />
                 <Route path="/edit-profile" element={<EditProfile />} />
@@ -155,8 +159,8 @@ const App = () => {
                               return (
                                 <>
 
-                                <div style={{display: "flex", flexDirection: "column", padding: "1rem", visitedColor: "white"}}>
-                                  <Link to="/dashboard">Summary</Link>
+                                <div style={{display: "flex", flexDirection: "column", padding: "1rem"}}>
+                                  <Link to="/dashboard" style={{display: "flex", alignItems: "center", gap: "8px", textDecoration: "none", color: "inherit", fontSize: "14px"}}><LineChartUp01 fontSize="small" /> Summary</Link>
                                 </div>
                                   {items}
                                   {logout}
@@ -198,10 +202,10 @@ const App = () => {
                 </Route>
               </Route>
             </Routes>
+            </SearchContextProvider>
           </Refine>
           </RefineSnackbarProvider>
         </DarkModeProvider>
-      </SearchContextProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

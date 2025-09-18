@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import axios from "axios";
 import { capitalizeFirstLetter } from "../lib/util";
+import { useList } from "@refinedev/core";
 
 export const SearchContext = createContext();
 
@@ -11,31 +12,100 @@ export const SearchContextProvider = ({ children }) => {
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [total, setTotalPages] = useState(1);
+  const [totalProjects, setTotalProjects] = useState(1);
+  let [isAvailable, setIsAvailable] = useState(false);
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
   let [selectedFilter, setSelectedFilter] = useState([]);
+  let [query, setQuery] = useState("");
+  let [params, setParams] = useState({});
+  let [isLoaded, setIsLoaded] = useState(false);
+  let [dropDownOptions, setDropDownOptions] = useState([]);
 
-  const allLanguages = [
-    ...new Set(searchResults.map((employee) => employee.skills).flat()),
-  ].filter((item) => item !== undefined);
-  const allIndustries = [
-    ...new Set(searchResults.map((employee) => employee.industries).flat()),
-  ].filter((item) => item !== undefined);
-  const allRoles = [
-    ...new Set(searchResults.map((employee) => employee.role)),
-  ].filter((item) => item !== undefined);
-  const allLocations = [
-    ...new Set(searchResults.map((employee) => employee.location)),
-  ].filter((item) => item !== undefined);
+
+  let allLanguages = [];
+  const { data: techStackQuery } = useList({
+    resource: "techStack",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (techStackQuery) {
+      const techStackQueryData = techStackQuery.data ?? [];
+      const techStackQueryDataNames = techStackQueryData.map((techStack) => techStack.name);
+      allLanguages = techStackQueryDataNames;
+    }
+  } catch (error) {
+    console.error("Error fetching techStackQuery:", error);
+  }
+
+  let allIndustries = [];
+  const { data: industriesQuery } = useList({
+    resource: "industry",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (industriesQuery) {
+      const industriesQueryData = industriesQuery.data ?? [];
+      const industriesQueryDataNames = industriesQueryData.map((industry) => industry.name);
+      allIndustries = industriesQueryDataNames;
+    }
+  } catch (error) {
+    console.error("Error fetching industriesQuery:", error);
+  }
+ 
+  let allRoles = [];
+  const { data: rolesQuery } = useList({
+    resource: "employee",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (rolesQuery) {
+      const rolesQueryData = rolesQuery.data ?? [];
+      const rolesQueryDataNames = rolesQueryData.map((role) => role.role);
+      allRoles = [
+        ...new Set((rolesQueryDataNames.map((role) =>  (role.toLowerCase().split("_").map(capitalizeFirstLetter).join(" "))))),
+      ].filter((item) => item !== undefined);
+    }
+  } catch (error) {
+    console.error("Error fetching rolesQuery:", error);
+  }
+  let allLocations = [];
+  const { data: locationsQuery } = useList({
+    resource: "employee",
+    pagination: {
+      pageSize: 1000
+    },
+  });
+  try {
+    if (locationsQuery) {
+      const locationsQueryData = locationsQuery.data ?? [];
+      const locationsQueryDataNames = locationsQueryData.map((location) => location.location);
+      allLocations = [
+        ...new Set(locationsQueryDataNames),
+      ].filter((item) => item !== undefined);
+    }
+  } catch (error) {
+    console.error("Error fetching locationsQuery:", error);
+  }
+
+
+
 
   useEffect(() => {
+    setIsLoaded(true);
     searchData();
   }, []);
 
-  const searchData = async (page = 1, query) => {
-    console.log(page);
+  const searchData = async (page = 1, query = "", params = {}, isAvailable) => {
+    setIsAvailable(isAvailable);  
     setIsLoading(true);
-
+      
     try {
       const token = localStorage.getItem("token");
 
@@ -56,6 +126,12 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
+            techStack: JSON.stringify(params.techStack),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            experience: JSON.stringify(params.experience),
+            isAvailable: isAvailable,
           },
         }
       );
@@ -66,6 +142,12 @@ export const SearchContextProvider = ({ children }) => {
           params: {
             page: page,
             query: query,
+            techStack: JSON.stringify(params.techStack),
+            experience: JSON.stringify(params.experience),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            isAvailable: isAvailable,
           },
         }
       );
@@ -120,11 +202,19 @@ export const SearchContextProvider = ({ children }) => {
       );
 
       setProjectsWithTechStackNames(projectsWithTechStack);
+      setTotalProjects(apiDataProject.data.pageCount);
       setTotalPages(apiDataEmployee.data.pageCount);
       setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
       setSearchResults(
         employeesWithTechStackNames.concat(projectsWithTechStack)
       );
+      if (!isLoaded) {
+        setDropDownOptions(
+          employeesWithTechStackNames.concat(projectsWithTechStack),
+        );
+        setIsLoaded(true);
+      }
+
       setFilteredResults(
         employeesWithTechStackNames.concat(projectsWithTechStack)
       );
@@ -140,11 +230,11 @@ export const SearchContextProvider = ({ children }) => {
   };
 
   const handleInputChange = (query) => {
-    searchData(1, query);
+    setQuery(query);
+    searchData(1, query, params, isAvailable);
   };
 
   const handleFilterClick = (filter, category) => {
-    console.log(filter, +" " + category);
     let newSelectedFilter;
 
     if (
@@ -161,48 +251,43 @@ export const SearchContextProvider = ({ children }) => {
 
     setSelectedFilter(newSelectedFilter);
 
-    // Apply all filters at once
-    let updatedResults = searchResults.filter((employee) => {
-      return newSelectedFilter.every((f) => {
-        switch (f.category) {
-          case "Technologies":
-            if (employee.skills) {
-              return employee.skills
-                .map((x) => x.toLowerCase())
-                .includes(f.value.toLowerCase());
-            }
-            if (employee.technologies) {
-              return employee.technologies
-                .map((x) => x.toLowerCase())
-                .includes(f.value.toLowerCase());
-            }
-            return false;
+    // Build a query object from all selected filters
+    const filterParams = newSelectedFilter.reduce((acc, f) => {
+      switch (f.category) {
+        case "Technologies":
+          acc.techStack = [...(acc.techStack || []), f.value];
+          break;
+        case "Roles":
+          acc.role = [...(acc.role || []), f.value];
+          break;
+        case "Location":
+          acc.location = [...(acc.location || []), f.value];
+          break;
+        case "Industries":
 
-          case "Roles":
-            return (
-              employee.role &&
-              employee.role.toLowerCase() === f.value.toLowerCase()
-            );
+          acc.industry = [...(acc.industry || []), f.value];
+          acc.industries = [...(acc.industries || []), f.value];
+          break;
+        case "Experience":
+          
+          acc.experience = [...(acc.experience || []), f.value];
+          break;
+        default:
+          break;
+      }
+      return acc;
+    }, {});
 
-          case "Location":
-            return (
-              employee.location &&
-              employee.location.toLowerCase() === f.value.toLowerCase()
-            );
-
-          case "Experience":
-            return (
-              employee.years_active &&
-              employee.years_active.split(" ")[0] === f.value
-            );
-
-          default:
-            return true;
+    // Dedupe arrays in params
+    Object.keys(filterParams).forEach((key) => {
+      if (Array.isArray(filterParams[key])) {
+        filterParams[key] = Array.from(new Set(filterParams[key]));
         }
-      });
     });
 
-    setFilteredResults(updatedResults);
+    setParams(filterParams);
+
+    searchData(1, query, filterParams, isAvailable);
   };
 
   const handleChange = (filter, newSelectedFilter) => {
@@ -235,6 +320,10 @@ export const SearchContextProvider = ({ children }) => {
         total,
         projectsWithTechStackNames,
         searchData,
+        params,
+        query,
+        isAvailable,
+        totalProjects,
       }}
     >
       {children}

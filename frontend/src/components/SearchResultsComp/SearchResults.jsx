@@ -8,7 +8,7 @@ import ResultsList from '../ResultsListComp/ResultsList';
 
 export default function SearchResults() {
   const location = useLocation();
-  const { filteredResults, total } = useContext(SearchContext);
+  const { filteredResults, total, totalProjects } = useContext(SearchContext);
   const queryParams = new URLSearchParams(location.search);
   const isProject = queryParams.get("isProject") === "true";
   const [isEmployeeSearch, setIsEmployeeSearch] = useState(!isProject);
@@ -35,15 +35,7 @@ export default function SearchResults() {
       >
         <ResultsList results={results} isEmployeeSearch={isEmployeeSearch} />
       </section>
-      <PaginationControls
-        totalPages={total}
-        setResults={setResults}
-        apiEndpoint={
-          isEmployeeSearch
-            ? "http://localhost:3000/search/employee"
-            : "http://localhost:3000/search/project"
-        }
-      />
+      <PaginationControls isEmployeeSearch={isEmployeeSearch}/>
     </article>
   );
 }
@@ -52,7 +44,7 @@ export function UserSkeletonLoader() {
   const listLoader = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <section className="grid-3-cols gap-24-px">
+    <section className="grid-3-cols gap-24-px results-responsive">
       {listLoader.map((items) => {
         return (
           <div key={items} className="card-skeleton shadow">
