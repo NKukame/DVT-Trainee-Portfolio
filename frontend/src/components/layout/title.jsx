@@ -8,9 +8,9 @@ import {
 import MuiLink from "@mui/material/Link";
 import SvgIcon from "@mui/material/SvgIcon";
 import Typography from "@mui/material/Typography";
-import type { RefineLayoutThemedTitleProps } from "@refinedev/mui";
 
-export const ThemedTitleV2: React.FC<RefineLayoutThemedTitleProps> = ({
+
+export const ThemedTitleV2 = ({
   collapsed,
   wrapperStyles,
   icon: iconFromProps,
@@ -30,7 +30,7 @@ export const ThemedTitleV2: React.FC<RefineLayoutThemedTitleProps> = ({
 
   return (
     <MuiLink
-      to="/"
+      to="/home"
       component={ActiveLink}
       underline="none"
       sx={{
