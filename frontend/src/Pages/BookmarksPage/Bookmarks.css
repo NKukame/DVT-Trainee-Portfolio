@@ -15,12 +15,19 @@
   color: #333;
   margin: 0;
 }
+.dark-mode .bookmarks-header h1 {
+  color: white;
+}
 
 .collection-description {
   color: #666;
   font-size: 14px;
   margin: 5px 0 0 0;
   font-style: italic;
+}
+
+.dark-mode .collection-description {
+  color: white;
 }
 
 .back-btn {
@@ -43,6 +50,9 @@
 .collections-section h3 {
   margin-bottom: 15px;
   color: #333;
+}
+.dark-mode .collections-section h3 {
+  color: white;
 }
 
 .collections-dropdown-container {
@@ -352,23 +362,33 @@
 }
 
 .add-to-collection-btn {
-  background: rgba(40, 167, 69, 0.9);
+  margin-top: 5px;
+  background: #28a745;
   color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .add-to-collection-btn:hover {
-  background: #28a745;
-  transform: scale(1.1);
+  background: #218838;
 }
 
 .remove-from-collection-btn {
-  background: rgba(255, 193, 7, 0.9);
+  margin-top: 8px;
+  background: #b78900;
   color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .remove-from-collection-btn:hover {
-  background: #ffc107;
-  transform: scale(1.1);
+  background: #987618;
 }
 
 .add-to-collection-modal {

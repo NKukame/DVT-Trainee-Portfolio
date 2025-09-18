@@ -155,9 +155,9 @@ body.dark-mode {
 }
 
 .bookmark-btn {
-  background: rgba(255, 255, 255, 0.9);
+  background: transparent;
   border: none;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   width: 32px;
   height: 32px;
   display: flex;
@@ -167,9 +167,12 @@ body.dark-mode {
   transition: all 0.2s;
   color: var(--black);
 }
+.dark-mode .bookmark-btn{
+  color: var(--white);
+}
 
 .bookmark-btn:hover {
-  background: white;
+  /* background: white; */
   transform: scale(1.05);
 }
 
@@ -180,12 +183,12 @@ body.dark-mode {
 
 .bookmark-btn.bookmarked {
   color: #ffc107;
-  background: rgba(255, 255, 255, 0.95);
+  background: transparent;
 }
 
 .bookmark-btn.bookmarked:hover {
   color: #e0a800;
-  background: white;
+  /* background: white; */
 }
 
 .bookmark-btn:disabled {
