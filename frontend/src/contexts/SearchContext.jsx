@@ -1,8 +1,7 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { capitalizeFirstLetter } from "../lib/util";
-import { useList } from "@refinedev/core";
 
 export const SearchContext = createContext();
 
@@ -13,10 +12,16 @@ export const SearchContextProvider = ({ children }) => {
   const [data, setdata] = useState([]);
   const [total, setTotalPages] = useState(1);
   const [totalProjects, setTotalProjects] = useState(1);
-  let [isAvailable, setIsAvailable] = useState(false);
-  let [searchResults, setSearchResults] = useState(data);
-  let [filteredResults, setFilteredResults] = useState(data);
-  let [selectedFilter, setSelectedFilter] = useState([]);
+  const [isAvailable, setIsAvailable] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState([]);
+
+  // Missing state variables
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [query, setQuery] = useState("");
+  const [params, setParams] = useState({});
+  const [dropDownOptions, setDropDownOptions] = useState([]);
 
   const queryClient = useQueryClient();
 
@@ -102,62 +107,64 @@ export const SearchContextProvider = ({ children }) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["search", { page: 1, query: "" }],
+    queryKey: ["search", { page: 1, query }],
     queryFn: fetchSearchData,
     staleTime: 1000 * 60 * 5, // 5 min cache
-    cacheTime: 1000 * 60 * 30, // 30 min unused cache
+    gcTime: 1000 * 60 * 30, // Fixed: changed from cacheTime to gcTime
   });
 
-  // Update states when data changes
-  if (searchDataResponse) {
-    const { employeesWithTechStackNames, projectsWithTechStack, totalPages } =
-      searchDataResponse;
+  // Fixed: Move state updates to useEffect to prevent infinite re-renders
+  useEffect(() => {
+    if (searchDataResponse && data.length === 0) {
+      const { employeesWithTechStackNames, projectsWithTechStack, totalPages } =
+        searchDataResponse;
 
-    if (data.length === 0) {
+      const combinedData = employeesWithTechStackNames.concat(
+        projectsWithTechStack
+      );
+
       setProjectsWithTechStackNames(projectsWithTechStack);
       setTotalPages(totalPages);
-      setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
-      setSearchResults(
-        employeesWithTechStackNames.concat(projectsWithTechStack)
-      );
+      setdata(combinedData);
+      setSearchResults(combinedData);
+      setFilteredResults(combinedData);
+
       if (!isLoaded) {
-        setDropDownOptions(
-          employeesWithTechStackNames.concat(projectsWithTechStack)
-        );
+        setDropDownOptions(combinedData);
         setIsLoaded(true);
       }
-
-      setFilteredResults(
-        employeesWithTechStackNames.concat(projectsWithTechStack)
-      );
     }
-  }
+  }, [searchDataResponse, data.length, isLoaded]);
 
+  // Derived values
   const allLanguages = [
     ...new Set(searchResults.map((employee) => employee.skills).flat()),
   ].filter((item) => item !== undefined);
+
   const allIndustries = [
     ...new Set(searchResults.map((employee) => employee.industries).flat()),
   ].filter((item) => item !== undefined);
+
   const allRoles = [
     ...new Set(searchResults.map((employee) => employee.role)),
   ].filter((item) => item !== undefined);
+
   const allLocations = [
     ...new Set(searchResults.map((employee) => employee.location)),
   ].filter((item) => item !== undefined);
 
   // searchData trigger via React Query refetch
-  const searchData = (page = 1, query) => {
+  const searchData = (page = 1, searchQuery = query) => {
     queryClient.invalidateQueries(["search"]);
     queryClient.prefetchQuery({
-      queryKey: ["search", { page, query }],
+      queryKey: ["search", { page, query: searchQuery }],
       queryFn: fetchSearchData,
     });
   };
 
-  const handleInputChange = (query) => {
-    setQuery(query);
-    searchData(1, query, params, isAvailable);
+  const handleInputChange = (searchQuery) => {
+    setQuery(searchQuery);
+    searchData(1, searchQuery);
   };
 
   const handleFilterClick = (filter, category) => {
@@ -209,6 +216,14 @@ export const SearchContextProvider = ({ children }) => {
               employee.years_active.split(" ")[0] === f.value
             );
 
+          case "Industries":
+            if (employee.industries) {
+              return employee.industries
+                .map((x) => x.toLowerCase())
+                .includes(f.value.toLowerCase());
+            }
+            return false;
+
           default:
             return true;
         }
@@ -216,6 +231,27 @@ export const SearchContextProvider = ({ children }) => {
     });
 
     setFilteredResults(updatedResults);
+
+    // Create filter params for API call
+    const filterParams = {
+      technologies: newSelectedFilter
+        .filter((f) => f.category === "Technologies")
+        .map((f) => f.value),
+      roles: newSelectedFilter
+        .filter((f) => f.category === "Roles")
+        .map((f) => f.value),
+      locations: newSelectedFilter
+        .filter((f) => f.category === "Location")
+        .map((f) => f.value),
+      experience: newSelectedFilter
+        .filter((f) => f.category === "Experience")
+        .map((f) => f.value),
+      industries: newSelectedFilter
+        .filter((f) => f.category === "Industries")
+        .map((f) => f.value),
+    };
+
+    setParams(filterParams);
   };
 
   const handleChange = (filter, newSelectedFilter) => {
@@ -248,6 +284,8 @@ export const SearchContextProvider = ({ children }) => {
         projectsWithTechStackNames,
         searchData,
         error,
+        query,
+        dropDownOptions,
       }}
     >
       {children}
