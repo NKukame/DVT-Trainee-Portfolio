@@ -50,6 +50,7 @@ import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
 import { ThemedSiderV2, RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
 import { Link } from "react-router";
 
+import{QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import { createTheme } from "@mui/material/styles";
 // make the primary color gray
@@ -211,4 +212,16 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
   </StrictMode>
+
+)
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </StrictMode>
+
 )

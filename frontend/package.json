@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy" : "",
+  "proxy": "",
   "scripts": {
     "dev": "refine dev --host",
     "build": "vite build",
@@ -11,7 +11,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^6.1.6",
@@ -20,11 +19,11 @@
     "@mui/x-data-grid": "^7.23.5",
     "@refinedev/cli": "^2.16.47",
     "@refinedev/core": "^4.57.11",
-    "@refinedev/mui": "^6.2.2",
     "@refinedev/inferencer": "^5.1.1",
-    "@refinedev/react-router": "^1.0.1",
+    "@refinedev/mui": "^6.2.2",
     "@refinedev/react-hook-form": "^4.10.2",
-    "react-hook-form": "^7.57.0",
+    "@refinedev/react-router": "^1.0.1",
+    "@tanstack/react-query": "^5.89.0",
     "@tippyjs/react": "^4.2.6",
     "@untitled-ui/icons-react": "^0.1.4",
     "axios": "^1.9.0",
@@ -33,11 +32,11 @@
     "emailjs-com": "^3.2.0",
     "js": "^0.1.0",
     "lucide-react": "^0.475.0",
-    
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.57.0",
     "react-router": "^7.8.2",
     "react-slick": "^0.30.3",
     "react-to-pdf": "^2.0.1",

@@ -572,18 +572,7 @@ export async function warmEssentialCache() {
     { type: "projects", page: 1, limit: 9 },
     { type: "employees", page: 1, limit: 9 },
 
-    // Popular tech searches (customize based on your data)
-    { type: "projects", techStack: ["React"], page: 1, limit: 9 },
-    { type: "projects", techStack: ["JavaScript"], page: 1, limit: 9 },
-    { type: "projects", techStack: ["Node.js"], page: 1, limit: 9 },
-    { type: "projects", techStack: ["Python"], page: 1, limit: 9 },
 
-    // Popular employee searches
-    { type: "employees", techStack: ["React"], page: 1, limit: 9 },
-    { type: "employees", techStack: ["JavaScript"], page: 1, limit: 9 },
-    { type: "employees", role: ["Software Engineer"], page: 1, limit: 9 },
-    { type: "employees", role: ["Frontend Developer"], page: 1, limit: 9 },
-    { type: "employees", location: ["Remote"], page: 1, limit: 9 },
 
     // Second pages (users browse further)
     { type: "projects", page: 2, limit: 9 },
