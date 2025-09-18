@@ -23,12 +23,12 @@ export const SearchContextProvider = ({ children }) => {
   const [params, setParams] = useState({});
   const [dropDownOptions, setDropDownOptions] = useState([]);
 
+  
   const queryClient = useQueryClient();
-
   // React Query fetcher
   const fetchSearchData = async ({ queryKey }) => {
     const [_key, { page, query }] = queryKey;
-
+    
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
