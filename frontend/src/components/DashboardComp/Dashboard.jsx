@@ -107,11 +107,11 @@ function Dashboard(props) {
                 <button className="manage-prfl">Edit Profile</button>
               </Link>
             )}
-            {id === tokenID && (
+            { (role === "ADMIN") || (id === tokenID) ? (
               <Link to="/generate-cv" state={props.testEmployee}>
                 <button className="manage-prfl">Generate Resume</button>
               </Link>
-            )}
+            ): ""}
             <div className="profile-details">
               <p>
                 <CalendarCheck size={15} className="dashboard-icon" />
