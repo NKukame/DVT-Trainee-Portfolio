@@ -44,7 +44,7 @@ async function sendEmail(transporter, mailOptions) {
 
 // Enhanced reset email function with provider selection
 async function sendResetEmail(to, token, provider = 'gmail') {
-  const resetLink = `http://localhost:5173/forgot-password?token=${token}`;
+  const resetLink = `http://192.168.1.65:5173/forgot-password?token=${token}`;
   
   const mailOptions = {
     from: provider === 'gmail' 

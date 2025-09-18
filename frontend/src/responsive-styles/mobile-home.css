@@ -2,12 +2,12 @@
 .explore-more-work {
   display: none;
 }
-.team-pic{
+.team-pic {
   display: none;
 }
 
 @media (max-width: 500px) {
-  .team-pic{
+  .team-pic {
     display: block;
   }
   .app-layout {
@@ -23,7 +23,7 @@
     max-width: initial;
   }
 
-  .team{
+  .team {
     width: 100%;
   }
 
@@ -184,7 +184,18 @@
     display: none;
   }
 
-  .mobile-home{
+  .mobile-home {
     display: none;
+  }
+
+  .bookmarks-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bookmarks-header div h1 {
+    text-align: start;
+  }
+  .collections-dropdown-container{
+    flex-wrap: wrap;
   }
 }
