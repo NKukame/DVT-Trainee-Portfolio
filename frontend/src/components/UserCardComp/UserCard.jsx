@@ -47,7 +47,7 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
     // Get current user ID - handle different storage formats
     let currentUserId;
     try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const storedUser = JSON.parse(localStorage.getItem("userId"));
       if (typeof storedUser === 'string') {
         // If it's just a string, it's the user ID
         currentUserId = storedUser;
