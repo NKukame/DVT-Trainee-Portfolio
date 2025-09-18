@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useRouteLoaderData } from "react-router";
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
+import axios from "axios";
 
 function ProfileModal({ isOpen, onClose, userInfo }) {
   const { darkMode, setDarkMode } = useDarkMode();
   const navigate = useNavigate();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarkLoading, setBookmarkLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -20,6 +23,52 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
   const handleRole = () => {
     navigate('/dashboard');
     onClose();
+  };
+
+  useEffect(() => {
+    if (userInfo?.employee_id) {
+      checkBookmarkStatus();
+    }
+  }, [userInfo?.employee_id]);
+
+  const checkBookmarkStatus = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      const response = await axios.get(
+        `http://localhost:3000/api/v2/bookmarks/check/${userInfo.employee_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsBookmarked(response.data.bookmarked);
+    } catch (error) {
+      console.error("Error checking bookmark status:", error);
+    }
+  };
+
+  const toggleBookmark = async () => {
+    if (!userInfo?.employee_id) return;
+    
+    setBookmarkLoading(true);
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      const response = await axios.post(
+        "http://localhost:3000/api/v2/bookmarks/toggle",
+        { employeeId: userInfo.employee_id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsBookmarked(response.data.bookmarked);
+    } catch (error) {
+      console.error("Error toggling bookmark:", error);
+    } finally {
+      setBookmarkLoading(false);
+    }
   };
 
   console.log(userInfo);
@@ -71,6 +120,25 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
               />
             </svg>
             View Profile
+          </button>
+
+          <button
+            className="profile-modal-btn view-profile-btn"
+            onClick={() => {
+              navigate('/bookmarks');
+              onClose();
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            My Bookmarks
           </button>
           {/* show dashboard button based on role */}
           {userInfo?.role === "ADMIN" && (
