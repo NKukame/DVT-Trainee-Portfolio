@@ -47,6 +47,7 @@ import { ListSoftSkill } from './Pages/Dashboard/softSkills/list.jsx';
 import { ShowSoftSkill } from './Pages/Dashboard/softSkills/show.jsx';
 import { CreateSoftSkill } from './Pages/Dashboard/softSkills/create.jsx';
 import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
+import Bookmarks from './Pages/BookmarksPage/Bookmarks.jsx';
 import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router";
@@ -146,6 +147,7 @@ const App = () => {
                 <Route path="/userportfolio" element={<UserPortfolio />} />
                 <Route path="/generate-cv" element={<GenerateCV />} />
                 <Route path="/edit-profile" element={<EditProfile />} />
+                <Route path="/bookmarks" element={<Bookmarks />} />
                 
                 {/* Dashboard routes */}
                 <Route
