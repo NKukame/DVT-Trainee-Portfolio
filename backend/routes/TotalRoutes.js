@@ -12,6 +12,8 @@ import EditUserController from '../controllers/EditUserController.js';
 import MeController from '../controllers/MeController.js';
 import { UpdateUserController } from '../controllers/UpdateUserController.js';
 import { resetPassword } from '../controllers/ForgotPasswordController.js';
+import { getUserBookmarks, toggleBookmark, checkBookmark } from '../controllers/BookmarkController.js';
+import { getUserCollections, createCollection, getCollectionById, addBookmarkToCollection, removeBookmarkFromCollection, deleteCollection } from '../controllers/CollectionController.js';
 
 
 const totalRoutes = express.Router();
@@ -690,6 +692,19 @@ totalRoutes.get('/search/employee', SearchEmployeeController);
  *         description: Server error
  */
 totalRoutes.get('/search/project', authenticateToken, SearchProjectController);
+
+// Bookmark routes
+totalRoutes.get('/bookmarks', authenticateToken, getUserBookmarks);
+totalRoutes.post('/bookmarks/toggle', authenticateToken, toggleBookmark);
+totalRoutes.get('/bookmarks/check/:employeeId', authenticateToken, checkBookmark);
+
+// Collection routes
+totalRoutes.get('/collections', authenticateToken, getUserCollections);
+totalRoutes.post('/collections', authenticateToken, createCollection);
+totalRoutes.get('/collections/:collectionId', authenticateToken, getCollectionById);
+totalRoutes.post('/collections/add-bookmark', authenticateToken, addBookmarkToCollection);
+totalRoutes.delete('/collections/remove-bookmark', authenticateToken, removeBookmarkFromCollection);
+totalRoutes.delete('/collections/:collectionId', authenticateToken, deleteCollection);
 
 
 

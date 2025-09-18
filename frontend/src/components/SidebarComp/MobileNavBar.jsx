@@ -19,7 +19,7 @@ function MobileNavbar() {
     fetchCurrentUser();
   }, []);
 
-const fetchCurrentUser = async () => {
+  const fetchCurrentUser = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       if (!token) {
@@ -56,7 +56,7 @@ const fetchCurrentUser = async () => {
       console.error("Error fetching current user:", error);
     }
   };
-  
+
   return (
     <>
       <div className="mobile-navbar">
@@ -75,7 +75,7 @@ const fetchCurrentUser = async () => {
             <div className="sidebar-nav-link">
               <div
                 className="homeBtn"
-                onClick={() => setIsProfileModalOpen(true)}
+                onClick={() => setIsProfileModalOpen((prev) => !prev)}
               >
                 {userInfo.profilePicture ? (
                   <img

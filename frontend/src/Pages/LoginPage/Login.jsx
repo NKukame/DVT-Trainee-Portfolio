@@ -117,6 +117,7 @@ function Signup() {
       try {
         const userRegistered = await axios.post(
           "http://localhost:3000/register",
+          "http://localhost:3000/register",
           {
             email: formData.email,
             password: formData.password,
@@ -133,6 +134,7 @@ function Signup() {
         if (userRegistered.status === 201) {
           try {
             const loginResponse = await axios.post(
+              "http://localhost:3000/login",
               "http://localhost:3000/login",
               {
                 email: formData.email,
@@ -201,6 +203,8 @@ function Signup() {
       );
 
       const user_id = token.data.user;
+      const user_role = token.data.role;
+      
       localStorage.setItem("token", JSON.stringify(token.data.token));
       localStorage.setItem("userId", JSON.stringify(token.data.user));
 

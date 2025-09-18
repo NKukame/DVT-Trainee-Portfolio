@@ -2,10 +2,16 @@
 
 const API_URL = 'http://localhost:3000/api/v2';
 
+// Helper to get auth headers
+const getAuthHeaders = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
 export const dataProvider = {
     getList: async function (params) {
         const queryArgs = {};
-
+        console.log(params);
         // filtering
         if (params.filters && params.filters.length > 0) {
             const filters = params.filters.map((filter) =>
@@ -101,7 +107,12 @@ function makeQuery(resource, endpoint, args) {
 }
 
 async function fetchData(resource, endpoint, args) {
-    const resp = await fetch(makeQuery(resource, endpoint, args));
+    const resp = await fetch(makeQuery(resource, endpoint, args), {
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        }
+    });
     if (!resp.ok) {
         throw new Error(`Failed to fetch ${resource}: ${resp.statusText}`);
     }
@@ -109,17 +120,17 @@ async function fetchData(resource, endpoint, args) {
 }
 
 async function mutateData(resource, endpoint, method, args) {
-    // Debug: log employee update payloads for verification during testing
     try {
         if (resource === 'employee' && endpoint === 'update') {
-            // Avoid logging extremely large payloads blindly; stringify with limited spacing
-            // Note: This will include base64 images if present.
             console.debug('[dataProvider] employee.update payload =>', JSON.stringify(args, null, 2));
         }
     } catch (_) { /* noop */ }
     const resp = await fetch(makeQuery(resource, endpoint), {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
         body: JSON.stringify(args),
     });
 
@@ -132,6 +143,10 @@ async function mutateData(resource, endpoint, method, args) {
 async function deleteData(resource, endpoint, args) {
     const resp = await fetch(makeQuery(resource, endpoint, args), {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        }
     });
     if (!resp.ok) {
         throw new Error(`Failed to fetch ${resource}: ${resp.statusText}`);

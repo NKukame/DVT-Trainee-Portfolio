@@ -47,10 +47,12 @@ import { ListSoftSkill } from './Pages/Dashboard/softSkills/list.jsx';
 import { ShowSoftSkill } from './Pages/Dashboard/softSkills/show.jsx';
 import { CreateSoftSkill } from './Pages/Dashboard/softSkills/create.jsx';
 import { EditSoftSkill } from './Pages/Dashboard/softSkills/edit.jsx';
+import Bookmarks from './Pages/BookmarksPage/Bookmarks.jsx';
 import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router";
 import { ThemedSiderV2 } from "./components/layout/sider.jsx";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
 import{QueryClient, QueryClientProvider} from "@tanstack/react-query";
@@ -74,6 +76,7 @@ const overriddenLightTheme = createTheme({
 });
 const App = () => {
   return (
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
     <ThemeProvider theme={overriddenLightTheme} >
       <CssBaseline />
@@ -144,6 +147,7 @@ const App = () => {
                 <Route path="/userportfolio" element={<UserPortfolio />} />
                 <Route path="/generate-cv" element={<GenerateCV />} />
                 <Route path="/edit-profile" element={<EditProfile />} />
+                <Route path="/bookmarks" element={<Bookmarks />} />
                 
                 {/* Dashboard routes */}
                 <Route
@@ -209,6 +213,7 @@ const App = () => {
         </DarkModeProvider>
       </ThemeProvider>
     </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 

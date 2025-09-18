@@ -37,14 +37,37 @@ export const SearchContextProvider = ({ children }) => {
     )}`;
     axios.defaults.headers.post["Content-Type"] = "application/json";
 
-    const [apiDataEmployee, apiDataProject] = await Promise.all([
-      axios.get(`http://localhost:3000/search/employee`, {
-        params: { page, query },
-      }),
-      axios.get(`http://localhost:3000/search/project`, {
-        params: { page, query },
-      }),
-    ]);
+      const apiDataEmployee = await axios.get(
+        `http://localhost:3000/search/employee`,
+        {
+          params: {
+            page: page,
+            query: query,
+            techStack: JSON.stringify(params.techStack),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            experience: JSON.stringify(params.experience),
+            isAvailable: isAvailable,
+          },
+        }
+      );
+
+      const apiDataProject = await axios.get(
+        `http://localhost:3000/search/project`,
+        {
+          params: {
+            page: page,
+            query: query,
+            techStack: JSON.stringify(params.techStack),
+            experience: JSON.stringify(params.experience),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            isAvailable: isAvailable,
+          },
+        }
+      );
 
     const employeesWithTechStackNames = apiDataEmployee.data.employees.map(
       (emp) => ({
@@ -130,7 +153,9 @@ export const SearchContextProvider = ({ children }) => {
       setFilteredResults(combinedData);
 
       if (!isLoaded) {
-        setDropDownOptions(combinedData);
+        setDropDownOptions(
+          employeesWithTechStackNames.concat(projectsWithTechStack)
+        );
         setIsLoaded(true);
       }
     }
