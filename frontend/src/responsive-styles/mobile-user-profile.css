@@ -333,4 +333,8 @@
   .modal-project-link {
     width: 100%;
   }
+
+  .change-profile-pic{
+    width: initial;
+  }
 }
