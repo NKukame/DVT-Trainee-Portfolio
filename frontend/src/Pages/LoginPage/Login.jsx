@@ -200,6 +200,7 @@ function Signup() {
         }
       );
 
+      const user_id = token.data.user;
       localStorage.setItem("token", JSON.stringify(token.data.token));
       localStorage.setItem("userId", JSON.stringify(token.data.user));
 

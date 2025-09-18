@@ -8,7 +8,9 @@
     "dev": "refine dev --host",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "refine start",
+    "refine": "refine"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",

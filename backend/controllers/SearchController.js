@@ -123,9 +123,11 @@ export async function executeProjectSearch(searchParams) {
 export async function executeEmployeeSearch(searchParams) {
   const {
     query,
+    experience,
     location,
     role,
     techStack,
+    isAvailable,
     industry,
     field,
     order,
@@ -485,7 +487,6 @@ export async function SearchEmployeeController(req, res) {
       pageCount: result.pageCount,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error: "Failed to search employees" });
   }
 }

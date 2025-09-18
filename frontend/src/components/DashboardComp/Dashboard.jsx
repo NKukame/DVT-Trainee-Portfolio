@@ -21,6 +21,8 @@ import {
 import { MobileDashboard } from "./MobileDashboard";
 
 function Dashboard(props) {
+  console.log(props);
+  
   const id = props.testEmployee.user.id;
   const tokenID = localStorage.getItem("userId").split('"')[1];
 

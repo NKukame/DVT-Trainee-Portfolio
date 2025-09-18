@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { capitalizeFirstLetter } from "../lib/util";
+import { useList } from "@refinedev/core";
 
 export const SearchContext = createContext();
 
@@ -11,6 +12,8 @@ export const SearchContextProvider = ({ children }) => {
   );
   const [data, setdata] = useState([]);
   const [total, setTotalPages] = useState(1);
+  const [totalProjects, setTotalProjects] = useState(1);
+  let [isAvailable, setIsAvailable] = useState(false);
   let [searchResults, setSearchResults] = useState(data);
   let [filteredResults, setFilteredResults] = useState(data);
   let [selectedFilter, setSelectedFilter] = useState([]);
@@ -117,6 +120,13 @@ export const SearchContextProvider = ({ children }) => {
       setSearchResults(
         employeesWithTechStackNames.concat(projectsWithTechStack)
       );
+      if (!isLoaded) {
+        setDropDownOptions(
+          employeesWithTechStackNames.concat(projectsWithTechStack),
+        );
+        setIsLoaded(true);
+      }
+
       setFilteredResults(
         employeesWithTechStackNames.concat(projectsWithTechStack)
       );
@@ -146,7 +156,8 @@ export const SearchContextProvider = ({ children }) => {
   };
 
   const handleInputChange = (query) => {
-    searchData(1, query);
+    setQuery(query);
+    searchData(1, query, params, isAvailable);
   };
 
   const handleFilterClick = (filter, category) => {
@@ -201,10 +212,11 @@ export const SearchContextProvider = ({ children }) => {
           default:
             return true;
         }
-      });
     });
 
-    setFilteredResults(updatedResults);
+    setParams(filterParams);
+
+    searchData(1, query, filterParams, isAvailable);
   };
 
   const handleChange = (filter, newSelectedFilter) => {
