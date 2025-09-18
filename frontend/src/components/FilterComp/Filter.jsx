@@ -17,6 +17,7 @@ function Filter() {
   const [locationSelected, setLocationSelected] = useState([]);
   const [rolesSelected, setRolesSelected] = useState([]);
   const [technologiesSelected, setTechnologiesSelected] = useState([]);
+  const [availability,setAvailability] = useState([]);
   const [experienceSelected, setExperienceSelected] = useState([]);
   const [shouldShowTags, setShouldShowTags] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
@@ -112,9 +113,9 @@ function Filter() {
             options={[
               { label: "All" },
               { label: "Available" },
-              { label: "On-client" },
             ]}
             value={"All"}
+            onChange={setAvailability}
             multiple={false}
             handleFilterClick={handleFilterClick}
           />

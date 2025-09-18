@@ -19,14 +19,14 @@ function MobileNavbar() {
     fetchCurrentUser();
   }, []);
 
-const fetchCurrentUser = async () => {
+  const fetchCurrentUser = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       if (!token) {
         return;
       }
 
-      const response = await fetch("http://192.168.1.65:3000/api/me", {
+      const response = await fetch("http://localhost:3000/api/me", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -36,10 +36,10 @@ const fetchCurrentUser = async () => {
       if (response.ok) {
         const userData = await response.json();
         console.log("our Api call", userData);
-        const profilePictureUrl = userData.profilePicture 
-          ? (userData.profilePicture.startsWith('data:') 
-              ? userData.profilePicture 
-              : `http://192.168.1.65:3000${userData.profilePicture}`)
+        const profilePictureUrl = userData.profilePicture
+          ? userData.profilePicture.startsWith("data:")
+            ? userData.profilePicture
+            : `http://localhost:3000${userData.profilePicture}`
           : null;
 
         setUserInfo({
@@ -56,7 +56,7 @@ const fetchCurrentUser = async () => {
       console.error("Error fetching current user:", error);
     }
   };
-  
+
   return (
     <>
       <div className="mobile-navbar">
@@ -75,7 +75,7 @@ const fetchCurrentUser = async () => {
             <div className="sidebar-nav-link">
               <div
                 className="homeBtn"
-                onClick={() => setIsProfileModalOpen(true)}
+                onClick={() => setIsProfileModalOpen((prev) => !prev)}
               >
                 {userInfo.profilePicture ? (
                   <img

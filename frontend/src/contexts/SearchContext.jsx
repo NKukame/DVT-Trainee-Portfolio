@@ -22,18 +22,19 @@ export const SearchContextProvider = ({ children }) => {
   let [isLoaded, setIsLoaded] = useState(false);
   let [dropDownOptions, setDropDownOptions] = useState([]);
 
-
   let allLanguages = [];
   const { data: techStackQuery } = useList({
     resource: "techStack",
     pagination: {
-      pageSize: 1000
+      pageSize: 1000,
     },
   });
   try {
     if (techStackQuery) {
       const techStackQueryData = techStackQuery.data ?? [];
-      const techStackQueryDataNames = techStackQueryData.map((techStack) => techStack.name);
+      const techStackQueryDataNames = techStackQueryData.map(
+        (techStack) => techStack.name
+      );
       allLanguages = techStackQueryDataNames;
     }
   } catch (error) {
@@ -44,24 +45,26 @@ export const SearchContextProvider = ({ children }) => {
   const { data: industriesQuery } = useList({
     resource: "industry",
     pagination: {
-      pageSize: 1000
+      pageSize: 1000,
     },
   });
   try {
     if (industriesQuery) {
       const industriesQueryData = industriesQuery.data ?? [];
-      const industriesQueryDataNames = industriesQueryData.map((industry) => industry.name);
+      const industriesQueryDataNames = industriesQueryData.map(
+        (industry) => industry.name
+      );
       allIndustries = industriesQueryDataNames;
     }
   } catch (error) {
     console.error("Error fetching industriesQuery:", error);
   }
- 
+
   let allRoles = [];
   const { data: rolesQuery } = useList({
     resource: "employee",
     pagination: {
-      pageSize: 1000
+      pageSize: 1000,
     },
   });
   try {
@@ -69,7 +72,11 @@ export const SearchContextProvider = ({ children }) => {
       const rolesQueryData = rolesQuery.data ?? [];
       const rolesQueryDataNames = rolesQueryData.map((role) => role.role);
       allRoles = [
-        ...new Set((rolesQueryDataNames.map((role) =>  (role.toLowerCase().split("_").map(capitalizeFirstLetter).join(" "))))),
+        ...new Set(
+          rolesQueryDataNames.map((role) =>
+            role.toLowerCase().split("_").map(capitalizeFirstLetter).join(" ")
+          )
+        ),
       ].filter((item) => item !== undefined);
     }
   } catch (error) {
@@ -79,23 +86,22 @@ export const SearchContextProvider = ({ children }) => {
   const { data: locationsQuery } = useList({
     resource: "employee",
     pagination: {
-      pageSize: 1000
+      pageSize: 1000,
     },
   });
   try {
     if (locationsQuery) {
       const locationsQueryData = locationsQuery.data ?? [];
-      const locationsQueryDataNames = locationsQueryData.map((location) => location.location);
-      allLocations = [
-        ...new Set(locationsQueryDataNames),
-      ].filter((item) => item !== undefined);
+      const locationsQueryDataNames = locationsQueryData.map(
+        (location) => location.location
+      );
+      allLocations = [...new Set(locationsQueryDataNames)].filter(
+        (item) => item !== undefined
+      );
     }
   } catch (error) {
     console.error("Error fetching locationsQuery:", error);
   }
-
-
-
 
   useEffect(() => {
     setIsLoaded(true);
@@ -103,9 +109,9 @@ export const SearchContextProvider = ({ children }) => {
   }, []);
 
   const searchData = async (page = 1, query = "", params = {}, isAvailable) => {
-    setIsAvailable(isAvailable);  
+    setIsAvailable(isAvailable);
     setIsLoading(true);
-      
+
     try {
       const token = localStorage.getItem("token");
 
@@ -121,7 +127,7 @@ export const SearchContextProvider = ({ children }) => {
       axios.defaults.headers.post["Content-Type"] = "application/json";
 
       const apiDataEmployee = await axios.get(
-        `http://192.168.1.65:3000/search/employee`,
+        `http://localhost:3000/search/employee`,
         {
           params: {
             page: page,
@@ -137,7 +143,7 @@ export const SearchContextProvider = ({ children }) => {
       );
 
       const apiDataProject = await axios.get(
-        `http://192.168.1.65:3000/search/project`,
+        `http://localhost:3000/search/project`,
         {
           params: {
             page: page,
@@ -210,7 +216,7 @@ export const SearchContextProvider = ({ children }) => {
       );
       if (!isLoaded) {
         setDropDownOptions(
-          employeesWithTechStackNames.concat(projectsWithTechStack),
+          employeesWithTechStackNames.concat(projectsWithTechStack)
         );
         setIsLoaded(true);
       }
@@ -253,6 +259,7 @@ export const SearchContextProvider = ({ children }) => {
 
     // Build a query object from all selected filters
     const filterParams = newSelectedFilter.reduce((acc, f) => {
+      console.log(f);
       switch (f.category) {
         case "Technologies":
           acc.techStack = [...(acc.techStack || []), f.value];
@@ -264,12 +271,10 @@ export const SearchContextProvider = ({ children }) => {
           acc.location = [...(acc.location || []), f.value];
           break;
         case "Industries":
-
           acc.industry = [...(acc.industry || []), f.value];
           acc.industries = [...(acc.industries || []), f.value];
           break;
         case "Experience":
-          
           acc.experience = [...(acc.experience || []), f.value];
           break;
         default:
@@ -282,7 +287,7 @@ export const SearchContextProvider = ({ children }) => {
     Object.keys(filterParams).forEach((key) => {
       if (Array.isArray(filterParams[key])) {
         filterParams[key] = Array.from(new Set(filterParams[key]));
-        }
+      }
     });
 
     setParams(filterParams);

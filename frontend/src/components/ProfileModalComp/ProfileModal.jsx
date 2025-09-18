@@ -55,7 +55,11 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
         <div className="profile-modal-actions">
           <button
             className="profile-modal-btn view-profile-btn"
-            onClick={handleViewProfile}
+            onClick={()=>{
+              handleViewProfile()
+              onClose()
+              }
+              }
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path
@@ -72,7 +76,10 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
           {userInfo?.role === "ADMIN" && (
             <button
               className="profile-modal-btn view-profile-btn"
-              onClick={handleRole}
+              onClick={()=>{
+                handleRole()
+                onClose();
+              }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path
