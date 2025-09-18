@@ -405,6 +405,9 @@
   color: rgba(255, 0, 0, 0.493);
   text-align: center;
 }
+.no-results-image {
+  width: 200px;
+}
 
 .card-skeleton {
   width: 328px;

@@ -8,7 +8,7 @@ import ResultsList from '../ResultsListComp/ResultsList';
 
 export default function SearchResults() {
   const location = useLocation();
-  const { filteredResults, total } = useContext(SearchContext);
+  const { filteredResults, total, totalProjects } = useContext(SearchContext);
   const queryParams = new URLSearchParams(location.search);
   const isProject = queryParams.get("isProject") === "true";
   const [isEmployeeSearch, setIsEmployeeSearch] = useState(!isProject);
@@ -35,15 +35,7 @@ export default function SearchResults() {
       >
         <ResultsList results={results} isEmployeeSearch={isEmployeeSearch} />
       </section>
-      <PaginationControls
-        totalPages={total}
-        setResults={setResults}
-        apiEndpoint={
-          isEmployeeSearch
-            ? "http://localhost:3000/search/employee"
-            : "http://localhost:3000/search/project"
-        }
-      />
+      <PaginationControls isEmployeeSearch={isEmployeeSearch}/>
     </article>
   );
 }
