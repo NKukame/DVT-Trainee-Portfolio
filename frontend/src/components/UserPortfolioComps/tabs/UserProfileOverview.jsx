@@ -73,7 +73,6 @@ function UserProfileOverview(props) {
   // Modal Code
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-  const [allTestimonial, setAllTestimonial] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = (project) => {

@@ -52,7 +52,8 @@ const user_id =  user.id
     res.status(200).json({
       message: "Login successful",
       token: accessToken,
-      user: user_id
+      user: user_id,
+      role: user.role
     });
   } catch (err) {
     console.error(err);

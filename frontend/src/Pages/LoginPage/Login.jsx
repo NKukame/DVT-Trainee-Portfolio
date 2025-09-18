@@ -200,8 +200,11 @@ function Signup() {
       );
 
       const user_id = token.data.user;
+      const user_role = token.data.role;
+      
       localStorage.setItem("token", JSON.stringify(token.data.token));
       localStorage.setItem("userId", JSON.stringify(user_id));
+      localStorage.setItem("role", JSON.stringify(user_role));
 
       if (rememberMe) {
         localStorage.setItem(
