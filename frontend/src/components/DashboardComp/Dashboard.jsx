@@ -71,14 +71,9 @@ function Dashboard(props) {
   
   const id = profileEmployeeId;
   const tokenID = currentUserEmployeeId;
+  const role = localStorage.getItem("role").split('"')[1];
 
-  console.log("on the dash",props.testEmployee);
-  console.log("User object:", props.testEmployee.user);
-  console.log("Profile employee ID:", profileEmployeeId);
-  console.log("Current user employee ID:", currentUserEmployeeId);
-  console.log("Profile ID:", id);
-  console.log("Token ID:", tokenID);
-  console.log("IDs match:", id === tokenID);
+
   
   return (
     <>
