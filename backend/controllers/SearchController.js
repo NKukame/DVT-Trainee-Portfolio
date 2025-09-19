@@ -1,4 +1,3 @@
-// searchController.js - REPLACE YOUR ENTIRE FILE WITH THIS
 import prisma, { generateKey, redis } from "../lib/prisma-redis-middleware.js";
 import { getCache, setCache } from "../lib/prisma-redis-middleware.js";
 
@@ -491,13 +490,6 @@ export async function SearchEmployeeController(req, res) {
   }
 }
 
-// ================================
-// CACHE WARMING FUNCTIONS
-// ================================
-
-/**
- * Efficient Cache Warming - Reuses the same functions as controllers
- */
 export async function warmCache(searchQueries = []) {
   console.log("🔥 Starting cache warming...");
 
