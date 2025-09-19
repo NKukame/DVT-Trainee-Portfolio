@@ -55,7 +55,7 @@ import { ThemedSiderV2 } from "./components/layout/sider.jsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
-import{QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
 
 import { createTheme } from "@mui/material/styles";
 import { LineChartDown03, LineChartUp01 } from '@untitled-ui/icons-react';
