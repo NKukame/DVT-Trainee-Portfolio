@@ -9,8 +9,7 @@ function SideBar() {
     email: "",
     profilePicture: null,
     role: "",
-    profilePicture: null,
-    role: "",
+  
   });
 
   useEffect(() => {
