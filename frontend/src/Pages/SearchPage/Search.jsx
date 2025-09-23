@@ -1,6 +1,7 @@
 import Filter from "../../components/FilterComp/Filter";
 import SearchResults from "../../components/SearchResultsComp/SearchResults";
 import SearchBar from "../../components/SearchBarComp/SearchBar";
+import AI from "../../components/AI/AI";
 import { SearchContextProvider } from "../../contexts/SearchContext";
 import { useEffect } from "react";
 function Search() {
@@ -19,6 +20,7 @@ function Search() {
         <Filter />
       </div>
       <SearchResults />
+      <AI />
     </section>
   );
 }

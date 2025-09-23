@@ -73,7 +73,6 @@ function UserProfileOverview(props) {
   // Modal Code
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-  const [allTestimonial, setAllTestimonial] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = (project) => {
@@ -84,7 +83,6 @@ function UserProfileOverview(props) {
     setSelectedTestimonial(t);
     setIsModalOpen(true);
   };
-  
 
   const closeModal = () => {
     setSelectedProject(null);
@@ -97,10 +95,14 @@ function UserProfileOverview(props) {
         <h1 className="profile-overview-title">Hello World!</h1>
         <p className="profile-overview-text">{props.testEmployee.bio}</p>
         <section className="testimonial-overview-section">
-           {props.testEmployee.testimonials.length > 3 ? (
+          {props.testEmployee.testimonials.length > 3 ? (
             <div className="testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
-                <div key={i} className="testimonial-item" onClick={() => openTestModal(t)}>
+                <div
+                  key={i}
+                  className="testimonial-item"
+                  onClick={() => openTestModal(t)}
+                >
                   <p className="testimonial-text">{t.quote}</p>
                   <p className="testimonial-name">{t.reference}</p>
                   <p className="testimonial-company">{t.company}</p>
@@ -110,7 +112,11 @@ function UserProfileOverview(props) {
           ) : (
             <div className="static-testimonial-content">
               {props.testEmployee.testimonials.map((t, i) => (
-                <div key={i} className="testimonial-item" onClick={() => openTestModal(t)}>
+                <div
+                  key={i}
+                  className="testimonial-item"
+                  onClick={() => openTestModal(t)}
+                >
                   <p className="testimonial-text line-clamp">{t.quote}</p>
                   <p className="testimonial-name">{t.reference}</p>
                   <p className="testimonial-company">{t.company}</p>
@@ -133,8 +139,9 @@ function UserProfileOverview(props) {
                   <img
                     className="overview-video-item-image"
                     src={
-                      project.project.screenshot ? project.project.screenshot:
-                      "https://cdn.pixabay.com/photo/2024/07/20/17/12/warning-8908707_1280.png"
+                      project.project.screenshot
+                        ? project.project.screenshot
+                        : "https://cdn.pixabay.com/photo/2024/07/20/17/12/warning-8908707_1280.png"
                     }
                     alt=" Project Screenshot"
                   />
@@ -142,7 +149,9 @@ function UserProfileOverview(props) {
                   <div className="video-item-text">
                     <div className="video-item-text-inner">
                       <h3>{project.project.name}</h3>
-                      <p className="line-clamp">{project.project.description}</p>
+                      <p className="line-clamp">
+                        {project.project.description}
+                      </p>
                     </div>
                     <div
                       className="video-see-more"
@@ -159,16 +168,15 @@ function UserProfileOverview(props) {
         {isModalOpen && selectedProject && (
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-
               <div className="modal-header">
                 <h2>{selectedProject.name}</h2>{" "}
                 <div className="modal-owner-container">
                   <img
                     src={selectedProject.avatar}
-                    alt={selectedProject.name || t.reference}
+                    alt={selectedProject.name}
                     className="modal-owner-img"
                   />
-                  <p className="modal-owner">{selectedProject.owner || t.reference}</p>
+                  <p className="modal-owner">{selectedProject.owner}</p>
                 </div>
               </div>
 
@@ -183,7 +191,7 @@ function UserProfileOverview(props) {
 
               <p className="modal-description ">
                 <strong>Description:</strong> <br />
-                {selectedProject.description || t.quote}
+                {selectedProject.description}
               </p>
 
               <h4 className="modal-technologies">Technologies Used:</h4>
@@ -205,7 +213,6 @@ function UserProfileOverview(props) {
         {isModalOpen && selectedTestimonial && (
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-
               <div className="center-me">
                 <h2>{selectedTestimonial.reference}</h2>{" "}
               </div>
@@ -217,8 +224,6 @@ function UserProfileOverview(props) {
             </div>
           </div>
         )}
-        
-        
       </section>
     </>
   );

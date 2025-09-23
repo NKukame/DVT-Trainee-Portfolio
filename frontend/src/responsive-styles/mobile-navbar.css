@@ -34,7 +34,6 @@
   padding: 10px 1px;
   position: sticky;
   bottom: 0;
-  /* height: 11vh; */
   z-index: 600;
 }
 .dark-mode .dock {

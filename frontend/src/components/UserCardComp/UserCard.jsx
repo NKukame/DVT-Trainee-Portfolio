@@ -1,32 +1,49 @@
-import {Avatar, Tooltip } from "@mui/material";
+import { Avatar, Tooltip } from "@mui/material";
 import { Link } from "react-router";
-import Badges from '../BadgeComp/Badges';
-import { Award02 , GitBranch01, Mail01, MarkerPin01 } from "@untitled-ui/icons-react";
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; 
+import Badges from "../BadgeComp/Badges";
+import {
+  Award02,
+  GitBranch01,
+  Mail01,
+  MarkerPin01,
+} from "@untitled-ui/icons-react";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import github from '../../assets/Github.png';
-import slack from '../../assets/Slack.png';
-import linkedIn from '../../assets/Linkedin.png';
-import email from '../../assets/email-Icon.png';
+import github from "../../assets/Github.png";
+import slack from "../../assets/Slack.png";
+import linkedIn from "../../assets/Linkedin.png";
+import email from "../../assets/email-Icon.png";
 import { useNavigate } from "react-router";
 import UserPortfolio from "../../Pages/UserPortfolioPage/UserPortfolio";
-export function UserCard({  user, showDetails = true, isBookmarked = false, onBookmarkToggle }) {
+export function UserCard({
+  user,
+  showDetails = true,
+  isBookmarked = false,
+  onBookmarkToggle,
+}) {
   const [open, setOpen] = useState(false);
   const [bookmarkLoading, setBookmarkLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
 
   // Early return if user is not properly defined
   if (!user || !user.name) {
-    console.warn('UserCard received invalid user data:', user);
+    console.warn("UserCard received invalid user data:", user);
     return (
       <div className="card-user flex-col gap-16-px shadow flex-row-between">
         <div className="flex-row">
-          <div className='flex-row align-items-center gap-10-px flex-1'>
+          <div className="flex-row align-items-center gap-10-px flex-1">
             <Avatar sx={{ width: 52, height: 52 }} />
             <div>
-              <p className='font-size-20-px text-black'>Unknown User</p>
-              <p className='font-size-12-px font-waight-400'>No role specified</p>
+              <p className="font-size-20-px text-black">Unknown User</p>
+              <p className="font-size-12-px font-waight-400">
+                No role specified
+              </p>
             </div>
           </div>
         </div>
@@ -35,20 +52,25 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
     );
   }
 
+  const showAlert = (type, message) => {
+    setAlert({ show: true, type, message });
+    setTimeout(() => setAlert({ ...alert, show: false }), 2500);
+  };
+
   const addBookmark = async () => {
     const userId = user.id || user.employee_id || user.employeeId;
     if (!userId) {
       console.error("No user ID found", user);
       return;
     }
-    
+
     setBookmarkLoading(true);
-    
+
     // Get current user ID - handle different storage formats
     let currentUserId;
     try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (typeof storedUser === 'string') {
+      const storedUser = JSON.parse(localStorage.getItem("userId"));
+      if (typeof storedUser === "string") {
         // If it's just a string, it's the user ID
         currentUserId = storedUser;
       } else if (storedUser?.user?.id) {
@@ -62,32 +84,35 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
       // If JSON.parse fails, try getting it directly as string
       currentUserId = localStorage.getItem("user");
     }
-    
+
     console.log("Current user ID:", currentUserId);
-    
+
     if (!currentUserId) {
-      alert("User not found. Please log in again.");
+      showAlert("error", "User not found. Please log in again.");
       setBookmarkLoading(false);
       return;
     }
-    
+
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      
+
       const response = await axios.post(
         "http://localhost:3000/bookmarks/toggle",
         {
-          employeeId: userId
+          employeeId: userId,
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
         }
       );
       console.log("Bookmark response:", response.data);
-      alert(response.data.message || "Profile bookmarked successfully!");
+      showAlert(
+        "success",
+        response.data.message || "Profile bookmarked successfully!"
+      );
       if (onBookmarkToggle) onBookmarkToggle();
     } catch (error) {
       console.error("Error adding bookmark:", error);
@@ -95,15 +120,15 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
       console.error("Error details:", error.response?.data);
       console.error("Error status:", error.response?.status);
       console.error("Request payload was:", {
-        employeeId: userId
+        employeeId: userId,
       });
       console.error("User ID:", userId);
-      
+
       // Show the actual error message with better extraction
       const errorData = error.response?.data;
-      let errorMsg = 'Unknown error';
-      
-      if (typeof errorData === 'string') {
+      let errorMsg = "Unknown error";
+
+      if (typeof errorData === "string") {
         errorMsg = errorData;
       } else if (errorData?.message) {
         errorMsg = errorData.message;
@@ -115,63 +140,135 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
       } else {
         errorMsg = error.message;
       }
-      
+
       console.error("Extracted error message:", errorMsg);
-      
-      if (error.response?.status === 409 || (typeof errorMsg === 'string' && errorMsg.includes('unique'))) {
-        alert("Profile is already bookmarked!");
+
+      if (
+        error.response?.status === 409 ||
+        (typeof errorMsg === "string" && errorMsg.includes("unique"))
+      ) {
+        showAlert("error", "Profile is already bookmarked!");
       } else {
-        alert(`Failed to bookmark profile: ${errorMsg}`);
+        showAlert("error", `Failed to bookmark profile: ${errorMsg}`);
       }
     } finally {
       setBookmarkLoading(false);
     }
   };
- 
+
   return (
-    <div className="card-user flex-col gap-16-px shadow flex-row-between">
-      <div className="flex-row">
-        <div className='flex-row align-items-center gap-10-px flex-1'>
-          <Avatar alt={user.name} src={user.avatar || ''} sx={{ width: 52, height: 52 }} />
-          <div style={{maxWidth: '200px'}}>
-            <p className='font-size-20-px text-black whitespace-nowrap'>{user.name || 'Unknown User'}</p>
-            <p className='font-size-12-px font-waight-400'>{user.role || 'No role specified'}</p>
-          </div>
+    <>
+      {alert.show && (
+        <div
+          className={`custom-alert ${
+            alert.type === "success" ? "alert-success" : "alert-error"
+          }`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "12px 18px",
+            borderRadius: "8px",
+            fontSize: "15px",
+            margin: "10px 0",
+            border: "1px solid",
+            background: alert.type === "success" ? "#e6f9ed" : "#fbeaea",
+            color: alert.type === "success" ? "#15803d" : "#b91c1c",
+            borderColor: alert.type === "success" ? "#bbf7d0" : "#fecaca",
+            position: "fixed",
+            top: "2%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            minWidth: "320px",
+            justifyContent: "center",
+          }}
+          role="alert"
+        >
+          {alert.type === "success" ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="#15803d"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="#b91c1c"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          )}
+          <span>{alert.message}</span>
         </div>
+      )}
+
+      <div className="card-user flex-col gap-16-px shadow flex-row-between">
+        <div className="flex-row">
+          <div className="flex-row align-items-center gap-10-px flex-1">
+            <Avatar
+              alt={user.name}
+              src={user.avatar || ""}
+              sx={{ width: 52, height: 52 }}
+            />
+            <div style={{ maxWidth: "200px" }}>
+              <p className="font-size-20-px text-black whitespace-nowrap">
+                {user.name || "Unknown User"}
+              </p>
+              <p className="font-size-12-px font-waight-400">
+                {user.role || "No role specified"}
+              </p>
+            </div>
+          </div>
           <div className="socials-container">
-            {
-              open &&
+            {open && (
               <div className="socials-section shadow">
-                {
-                  user.github &&
+                {user.github && (
                   <Link to={user.github}>
                     <img src={github} alt="github" />
                   </Link>
-                }
-                {
-                  user.linkedin &&
+                )}
+                {user.linkedin && (
                   <Link to={user.linkedin}>
                     <img src={linkedIn} alt="LinkedIn" />
                   </Link>
-                }
-                {
-                  user.email &&
+                )}
+                {user.email && (
                   <Link to={user.email}>
                     <img src={email} alt="email" />
                   </Link>
-                }
-                {
-                  user.slack &&
+                )}
+                {user.slack && (
                   <Link to={user.social_links.slack}>
                     <img src={slack} alt="slack" />
                   </Link>
-                }
+                )}
               </div>
-            }
+            )}
             <div className="card-actions">
-              <Mail01 onClick={()=> setOpen((isOpen)=> !isOpen)}/>
+              <Mail01 onClick={() => setOpen((isOpen) => !isOpen)} />
               <button
-                className={`bookmark-btn ${isBookmarked ? 'bookmarked' : ''}`}
+                className={`bookmark-btn ${isBookmarked ? "bookmarked" : ""}`}
                 onClick={addBookmark}
                 disabled={bookmarkLoading}
                 title={isBookmarked ? "Remove bookmark" : "Add bookmark"}
@@ -192,13 +289,19 @@ export function UserCard({  user, showDetails = true, isBookmarked = false, onBo
               </button>
             </div>
           </div>
+        </div>
+        {showDetails && <UserDetails user={user} />}
+        <Link
+          className="text-color-white font-size-14-px link-style border-radius-4-px py-4-px"
+          to={"/userportfolio"}
+          state={user}
+        >
+          View Profile
+        </Link>
       </div>
-      {showDetails && <UserDetails user={user} />}
-      <Link className="text-color-white font-size-14-px link-style border-radius-4-px py-4-px" to={'/userportfolio'} state={user}>View Profile</Link>
-    </div>
+    </>
   );
 }
-
 
 function UserDetails({ user }) {
   return (
@@ -207,21 +310,23 @@ function UserDetails({ user }) {
         <div className="flex-row align-items-center gap-4-px">
           <MarkerPin01 width={13} height={17} />
           <p className="text-gray font-size-12-px whitespace-nowrap">
-            {user.location || 'Location not specified'}
+            {user.location || "Location not specified"}
           </p>
         </div>
         <div className="flex-row align-items-center gap-4-px">
           <Award02 strokeWidth={"90px"} width={13} height={17} />
-          <p className="text-gray font-size-12-px whitespace-nowrap">{user.years_active || 'N/A'}</p>
+          <p className="text-gray font-size-12-px whitespace-nowrap">
+            {user.years_active || "N/A"}
+          </p>
         </div>
         <div className="flex-row align-items-center gap-10-px">
           <span
             className={`availability ${
-              user.availability  ? "available" : "with-client"
+              user.availability ? "available" : "with-client"
             }`}
           ></span>
           <p className="font-size-12-px text-gray">
-            {user.availability  ? "Available" : "On Client"}
+            {user.availability ? "Available" : "On Client"}
           </p>
         </div>
       </div>
