@@ -265,8 +265,8 @@ export const ThemedSiderV2 = ({
       >
         <ListItemButton
           component={ActiveLink}
-          to="/"
-          selected={selectedKey === "/"}
+          to="/home"
+          selected={selectedKey === "/home"}
           onClick={() => {
             setMobileSiderOpen(false);
           }}
@@ -274,7 +274,7 @@ export const ThemedSiderV2 = ({
             pl: 2,
             py: 1,
             justifyContent: "center",
-            color: selectedKey === "/" ? "primary.main" : "text.primary",
+            color: selectedKey === "/home" ? "primary.main" : "text.primary",
           }}
         >
           <ListItemIcon
@@ -376,11 +376,16 @@ export const ThemedSiderV2 = ({
   };
 
   const drawer = (
+    // make the last element sticky
     <List
       disablePadding
       sx={{
         flexGrow: 1,
         paddingTop: "16px",
+        backgroundColor: "#fff",
+        position: "sticky",
+        bottom: 0,
+        zIndex: 1102,
       }}
     >
       {renderSider()}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
 import ProfileImage from "../../assets/icons8-profile-picture-100.png";
 import Calender from "../../assets/icons8-calendar-100.png";
@@ -21,12 +21,59 @@ import {
 import { MobileDashboard } from "./MobileDashboard";
 
 function Dashboard(props) {
-  console.log(props);
+  const profileEmployeeId = props.testEmployee.employee_id || props.testEmployee.id;
   
-  const id = props.testEmployee.user.id;
-  const tokenID = localStorage.getItem("userId").split('"')[1];
+  // Get current user ID from localStorage
+  let currentUserId;
+  try {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (typeof storedUser === 'string') {
+      currentUserId = storedUser;
+    } else if (storedUser?.user?.id) {
+      currentUserId = storedUser.user.id;
+    } else if (storedUser?.id) {
+      currentUserId = storedUser.id;
+    }
+  } catch (error) {
+    currentUserId = localStorage.getItem("user");
+  }
+  
+  // Fallback to userId if user doesn't exist
+  if (!currentUserId) {
+    const userIdFromStorage = localStorage.getItem("userId");
+    currentUserId = userIdFromStorage ? userIdFromStorage.replace(/"/g, '') : null;
+  }
+  
+  // Get current user's employee ID by calling /api/me
+  const [currentUserEmployeeId, setCurrentUserEmployeeId] = useState(null);
+  
+  useEffect(() => {
+    const fetchCurrentUserEmployee = async () => {
+      try {
+        const token = JSON.parse(localStorage.getItem("token"));
+        const response = await fetch("http://localhost:3000/api/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setCurrentUserEmployeeId(userData.employee_id || userData.id);
+        }
+      } catch (error) {
+        console.error("Error fetching current user employee ID:", error);
+      }
+    };
+    
+    fetchCurrentUserEmployee();
+  }, []);
+  
+  const id = profileEmployeeId;
+  const tokenID = currentUserEmployeeId;
+  const role = localStorage.getItem("role").split('"')[1];
 
-  console.log("on the dash",props.testEmployee);
+
   
   return (
     <>
@@ -55,11 +102,11 @@ function Dashboard(props) {
                 <button className="manage-prfl">Edit Profile</button>
               </Link>
             )}
-            {id === tokenID && (
+            { (role === "ADMIN") || (id === tokenID) ? (
               <Link to="/generate-cv" state={props.testEmployee}>
                 <button className="manage-prfl">Generate Resume</button>
               </Link>
-            )}
+            ): ""}
             <div className="profile-details">
               <p>
                 <CalendarCheck size={15} className="dashboard-icon" />

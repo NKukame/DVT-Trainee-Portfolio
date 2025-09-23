@@ -94,6 +94,10 @@
     color: var(--white);
 }
 
+.dark-mode .edit-form-group select option{
+    background-color: var(--dark-cerulean);
+    color: var(--white);
+}
 
 .edit-form-group input {
     font-family: inherit;

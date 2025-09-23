@@ -373,12 +373,20 @@ function EditProfile(prop) {
             <div className="edit-right-form-section">
               <div className="edit-form-group">
                 <label className="form-label">Title</label>
-                <input
-                  type="text"
+                <select
                   name="title"
+                  id="title"
                   value={formData.title}
                   onChange={handleChange}
-                />
+                >
+                  <option value="" disabled>
+                    Title
+                  </option>
+                  <option value="MR">Mr</option>
+                  <option value="MRS">Mrs</option>
+                  <option value="MS">Ms</option>
+                  <option value="DR">Dr</option>
+                </select>
               </div>
               <div className="edit-form-group">
                 <label className="form-label">Name</label>
@@ -447,24 +455,33 @@ function EditProfile(prop) {
               </div>
               <div className="edit-form-group">
                 <label className="form-label">Department</label>
-                <input
+                {/* <input
                   type="text"
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
-                />
+                /> */}
+                <select
+                  name="department"
+                  id="title"
+                  value={formData.department}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Department
+                  </option>
+                  <option value="ENGINEERING">Engineering</option>
+                  <option value="DESIGN">Design</option>
+                  <option value="MARKETING">Marketing</option>
+                  <option value="SALES">Sales</option>
+                  <option value="HR">HR</option>
+                </select>
               </div>
             </div>
 
             <div className="edit-left-form-section">
               <div className="edit-form-group">
                 <label className="form-label">Location</label>
-                {/* <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                /> */}
                 <select
                   id="location"
                   name="location"
