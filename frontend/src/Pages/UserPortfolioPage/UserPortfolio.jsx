@@ -1,6 +1,6 @@
 import Dashboard from "../../components/DashboardComp/Dashboard";
 import ProjectCard from "../../components/ProjectsComp/Projects";
-import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard"; 
+import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard";
 import TabHead from "../../components/UserPortfolioComps/tabs/TabHead";
 import { useState, useEffect } from "react";
 import UserProfileOverview from "../../components/UserPortfolioComps/tabs/UserProfileOverview";
@@ -25,57 +25,64 @@ function UserPortfolio(props) {
             },
           });
 
-        if (response.ok) {
-          const userData = await response.json();
-          setEmployeeData(userData);
+          if (response.ok) {
+            const userData = await response.json();
+            setEmployeeData(userData);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
       }
-    // }
-  };
-  useEffect(() => {
+    };
 
     fetchCurrentUserData();
-  }, []);
-  
+  }, [location.state]);
+
   useEffect(() => {
-      if (window.sessionStorage.getItem("searchPageReloaded")) {
-        window.sessionStorage.removeItem("searchPageReloaded", "true");
-      }
-    }, []);
+    if (window.sessionStorage.getItem("searchPageReloaded")) {
+      window.sessionStorage.removeItem("searchPageReloaded");
+    }
+  }, []);
 
   const testEmployee = location.state || employeeData;
 
   if (!testEmployee) {
     return (
       <div className="layout-body">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <div className="form-loader" style={{ width: '60px', height: '60px' }}></div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <div
+            className="form-loader"
+            style={{ width: "60px", height: "60px" }}
+          ></div>
         </div>
       </div>
     );
   }
 
   return (
-    <>
-      <div className="portfolio-layout">
-        <Dashboard testEmployee={testEmployee} />
-        <div className="project-container">
-          <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="portfolio-layout">
+      <Dashboard testEmployee={testEmployee} />
+      <div className="project-container">
+        <TabHead activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          {activeTab === "overview" && (
-            <UserProfileOverview testEmployee={testEmployee} />
-          )}
-          {activeTab === "projects" && (
-            <UserProfileProjects testEmployee={testEmployee} />
-          )}
-          {activeTab === "skills" && (
-            <UserProfileSkillBreakdown testEmployee={testEmployee} />
-          )}
-        </div>
+        {activeTab === "overview" && (
+          <UserProfileOverview testEmployee={testEmployee} />
+        )}
+        {activeTab === "projects" && (
+          <UserProfileProjects testEmployee={testEmployee} />
+        )}
+        {activeTab === "skills" && (
+          <UserProfileSkillBreakdown testEmployee={testEmployee} />
+        )}
       </div>
-    </>
+    </div>
   );
 }
 
