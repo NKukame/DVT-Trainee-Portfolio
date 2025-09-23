@@ -26,7 +26,7 @@ function Dashboard(props) {
   // Get current user ID from localStorage
   let currentUserId;
   try {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = JSON.parse(localStorage.getItem("userId"));
     if (typeof storedUser === 'string') {
       currentUserId = storedUser;
     } else if (storedUser?.user?.id) {
@@ -48,7 +48,7 @@ function Dashboard(props) {
   const [currentUserEmployeeId, setCurrentUserEmployeeId] = useState(null);
   
   useEffect(() => {
-    const fetchCurrentUserEmployee = async () => {
+    const fetchCurrentUserEmployee = async () => { 
       try {
         const token = JSON.parse(localStorage.getItem("token"));
         const response = await fetch("http://localhost:3000/api/me", {

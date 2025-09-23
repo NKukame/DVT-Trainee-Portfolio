@@ -9,8 +9,6 @@ function SideBar() {
     email: "",
     profilePicture: null,
     role: "",
-    profilePicture: null,
-    role: "",
   });
 
   useEffect(() => {
@@ -26,7 +24,7 @@ function SideBar() {
 
       const response = await fetch("http://localhost:3000/api/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
