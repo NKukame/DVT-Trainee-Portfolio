@@ -33,6 +33,15 @@ enum EmployeeRole {
   PROJECT_MANAGER
   TEAM_LEAD
   SENIOR_DEVELOPER
+  FULLSTACK_DEVELOPER
+  FRONTEND_DEVELOPER
+  BACKEND_DEVELOPER
+  UX_UI_DESIGNER
+  JUNIOR_DEVELOPER
+  TESTER
+  PRODUCT_OWNER
+  SCRUM_MASTER
+  DELIVERY_MANAGER
 }
 
 enum TechCategory {
@@ -87,6 +96,8 @@ model User {
   role          UserRole  @default(USER)
   employeeId    String?   @unique
   employee      Employee? @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  bookmarks     Bookmark[]
+  collections   Collection[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -120,6 +131,7 @@ model Employee {
   testimonials Testimonial[]
   user         User?
   projects     ProjectMember[]
+  bookmarks    Bookmark[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -288,5 +300,42 @@ model Career{
   employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 
   @@allow('all', true)
+}
+
+model Bookmark {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employeeId String?
+  employee   Employee? @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  collectionBookmarks CollectionBookmark[]
+
+  @@allow('all', true)
+  @@unique([userId, employeeId])
+}
+
+model Collection {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookmarks   CollectionBookmark[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@allow('all', true)
+}
+
+model CollectionBookmark {
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  bookmarkId   String
+  bookmark     Bookmark   @relation(fields: [bookmarkId], references: [id], onDelete: Cascade)
+  addedAt      DateTime   @default(now())
+
+  @@allow('all', true)
+  @@id([collectionId, bookmarkId])
 }
 

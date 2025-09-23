@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useNavigate, useRouteLoaderData } from "react-router";
 import { useDarkMode } from "../DarkModeComp/DarkModeProvider";
+import axios from "axios";
 
 function ProfileModal({ isOpen, onClose, userInfo }) {
   const { darkMode, setDarkMode } = useDarkMode();
   const navigate = useNavigate();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarkLoading, setBookmarkLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -20,6 +23,52 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
   const handleRole = () => {
     navigate('/dashboard');
     onClose();
+  };
+
+  useEffect(() => {
+    if (userInfo?.employee_id) {
+      checkBookmarkStatus();
+    }
+  }, [userInfo?.employee_id]);
+
+  const checkBookmarkStatus = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      const response = await axios.get(
+        `http://localhost:3000/api/v2/bookmarks/check/${userInfo.employee_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsBookmarked(response.data.bookmarked);
+    } catch (error) {
+      console.error("Error checking bookmark status:", error);
+    }
+  };
+
+  const toggleBookmark = async () => {
+    if (!userInfo?.employee_id) return;
+    
+    setBookmarkLoading(true);
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      const response = await axios.post(
+        "http://localhost:3000/api/v2/bookmarks/toggle",
+        { employeeId: userInfo.employee_id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsBookmarked(response.data.bookmarked);
+    } catch (error) {
+      console.error("Error toggling bookmark:", error);
+    } finally {
+      setBookmarkLoading(false);
+    }
   };
 
   console.log(userInfo);
@@ -55,7 +104,11 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
         <div className="profile-modal-actions">
           <button
             className="profile-modal-btn view-profile-btn"
-            onClick={handleViewProfile}
+            onClick={()=>{
+              handleViewProfile()
+              onClose()
+              }
+              }
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path
@@ -68,15 +121,37 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
             </svg>
             View Profile
           </button>
+
+          <button
+            className="profile-modal-btn view-profile-btn"
+            onClick={() => {
+              navigate('/bookmarks');
+              onClose();
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            My Bookmarks
+          </button>
           {/* show dashboard button based on role */}
           {userInfo?.role === "ADMIN" && (
             <button
               className="profile-modal-btn view-profile-btn"
-              onClick={handleRole}
+              onClick={()=>{
+                handleRole()
+                onClose();
+              }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path
-                d="M8 21V7C8 6.07003 8 5.60504 8.10222 5.22354C8.37962 4.18827 9.18827 3.37962 10.2235 3.10222C10.605 3 11.07 3 12 3C12.93 3 13.395 3 13.7765 3.10222C14.8117 3.37962 15.6204 4.18827 15.8978 5.22354C16 5.60504 16 6.07003 16 7V21M5.2 21H18.8C19.9201 21 20.4802 21 20.908 20.782C21.2843 20.5903 21.5903 20.2843 21.782 19.908C22 19.4802 22 18.9201 22 17.8V10.2C22 9.07989 22 8.51984 21.782 8.09202C21.5903 7.71569 21.2843 7.40973 20.908 7.21799C20.4802 7 19.9201 7 18.8 7H5.2C4.07989 7 3.51984 7 3.09202 7.21799C2.71569 7.40973 2.40973 7.71569 2.21799 8.09202C2 8.51984 2 9.07989 2 10.2V17.8C2 18.9201 2 19.4802 2.21799 19.908C2.40973 20.2843 2.71569 20.5903 3.09202 20.782C3.51984 21 4.0799 21 5.2 21Z"
+                d="M12 16V21M12 16L18 21M12 16L6 21M21 3V11.2C21 12.8802 21 13.7202 20.673 14.362C20.3854 14.9265 19.9265 15.3854 19.362 15.673C18.7202 16 17.8802 16 16.2 16H7.8C6.11984 16 5.27976 16 4.63803 15.673C4.07354 15.3854 3.6146 14.9265 3.32698 14.362C3 13.7202 3 12.8802 3 11.2V3M8 9V12M12 7V12M16 11V12M22 3H2"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"

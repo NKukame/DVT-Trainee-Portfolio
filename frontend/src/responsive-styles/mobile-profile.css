@@ -1,6 +1,7 @@
 @media (max-width: 500px) {
   .stepper-container {
     width: 99vw;
+    height: initial;
     margin: 0;
     border-radius: 0px;
   }
@@ -13,11 +14,25 @@
     height: 10px;
     position: initial;
   }
+  .career-upload-modal {
+    width: initial;
+    margin: 2px;
+    height: 90%;
+  }
   .steps {
     height: initial;
     padding: 0;
     width: 100%;
     position: initial;
+  }
+
+  .testimonial-modal textarea {
+    width: initial;
+  }
+
+  .testimonial-modal-success {
+    height: initial;
+    padding: 10px;
   }
 
   .profile-creation-body {
@@ -26,7 +41,8 @@
   .profile-creation-header {
     margin: 5px;
     position: sticky;
-    top: 11.1%;
+    top: 10vh;
+    margin: 0;
     z-index: 300;
   }
 
@@ -109,8 +125,9 @@
     flex-direction: column;
   }
 
-  .fomr-label {
+  .form-label {
     width: initial;
+    text-align: initial;
     font-size: initial;
   }
 
@@ -123,6 +140,7 @@
   .mobile-skills.submit-form-group {
     flex-direction: column;
     align-items: flex-start;
+    margin: 5px 0px;
   }
 
   .mobile-agreement {
@@ -132,5 +150,10 @@
   .form-label.form-title-description {
     font-weight: 700;
     font-size: larger;
+  }
+
+  .profile-edit-icon{
+    display: flex;
+    gap: 10px;
   }
 }

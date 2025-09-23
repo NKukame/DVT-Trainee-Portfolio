@@ -1,7 +1,6 @@
 import Dashboard from "../../components/DashboardComp/Dashboard";
 import ProjectCard from "../../components/ProjectsComp/Projects";
-import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard";
-import SideBar from "../../components/SidebarComp/SideBar";
+import TestimonialCard from "../../components/TestimonialCardComp/TestimonialCard"; 
 import TabHead from "../../components/UserPortfolioComps/tabs/TabHead";
 import { useState, useEffect } from "react";
 import UserProfileOverview from "../../components/UserPortfolioComps/tabs/UserProfileOverview";
@@ -14,38 +13,43 @@ function UserPortfolio(props) {
   const [employeeData, setEmployeeData] = useState(null);
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchCurrentUserData = async () => {
-      if (!location.state) {
-        try {
-          const token = JSON.parse(localStorage.getItem("token"));
-          const response = await fetch("http://localhost:3000/api/me", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          });
+  async function fetchCurrentUserData() {
+    // if (!location.state) {
+      try {
+        const token = JSON.parse(localStorage.getItem("token"));
+        const response = await fetch("http://localhost:3000/api/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
 
-          if (response.ok) {
-            const userData = await response.json();
-            setEmployeeData(userData);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
+        if (response.ok) {
+          const userData = await response.json();
+          setEmployeeData(userData);
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
-    };
+    // }
+  };
+  useEffect(() => {
 
     fetchCurrentUserData();
-  }, [location.state]);
+  }, []);
+  
+  useEffect(() => {
+      if (window.sessionStorage.getItem("searchPageReloaded")) {
+        window.sessionStorage.removeItem("searchPageReloaded", "true");
+      }
+    }, []);
 
   const testEmployee = location.state || employeeData;
 
   if (!testEmployee) {
     return (
-      <div className="app-layout">
-        <SideBar />
-        <div className="layout-body" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div className="layout-body">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
           <div className="form-loader" style={{ width: '60px', height: '60px' }}></div>
         </div>
       </div>

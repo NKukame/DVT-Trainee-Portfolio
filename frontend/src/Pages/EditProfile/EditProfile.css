@@ -12,6 +12,35 @@
     margin-bottom: 10px;
 }
 
+.edit-profile-picture-form{
+    margin-left: 40px;
+}
+
+.change-profile-pic{
+    margin-top: 10px;
+    background-color: var(--dark-mode-blue);
+    color: var(--white);
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    width: 30%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.change-profile-pic:hover{
+    background-color: var(--light-blue);
+}
+
+.change-profile-pic-button-container{
+    margin-left: 20px;
+}
+
+.dark-mode .edit-profile-body{
+    background-color: var(--dark-cerulean);
+}
+
 .edit-profile-content-title{
     padding-left: 10px;
 }
@@ -55,6 +84,21 @@
     gap: 20px;
 }
 
+.dark-mode .edit-form-group input,
+.dark-mode .edit-form-group select,
+.dark-mode .edit-form-group textarea,
+.dark-mode .tech-stack-list .badge-default,
+.dark-mode .soft-skills-list .badge-default,
+.dark-mode .skills-rating-edit-label,
+.dark-mode .tech-rating-edit-label{
+    color: var(--white);
+}
+
+.dark-mode .edit-form-group select option{
+    background-color: var(--dark-cerulean);
+    color: var(--white);
+}
+
 .edit-form-group input {
     font-family: inherit;
   font-size: 14px;
@@ -75,7 +119,7 @@
 
 .edit-form-group label{
     color: var(--dark-mode-blue);
-    width: 19%;
+    width: 20%;
 }
 
 .edit-form-group select{
@@ -148,7 +192,8 @@
 }
 
 .soft-skill-item .range-slider, .tech-stack-item .range-slider{
-    width: 200px;
+    margin-top: 5px;
+    width: 180px;
 }
 
 input[type="range"]:focus,
@@ -168,11 +213,15 @@ input[type="range"]:focus,
   font-size: 14px;
   margin-bottom: 10px;
   width: 25%;
-  margin-left: 25%;
+  margin-left: 35%;
   transition: background 0.3s, color 0.3s;
 }
 
 .edit-profile-add-btn:hover {
   background: var(--dark-mode-blue);
   color: white;
+}
+
+.tech-stack-list .new-tech-stack-edit-select, .soft-skills-list .new-soft-skill-edit-select{
+    width: 150px;
 }

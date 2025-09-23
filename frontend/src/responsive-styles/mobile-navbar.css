@@ -8,7 +8,8 @@
   padding: 10px;
   position: sticky;
   top: 0px;
-  z-index: 100;
+  height: 10vh;
+  z-index: 600;
 }
 .dark-mode .mobile-navbar {
   background-color: var(--dark-mode-blue);
@@ -33,7 +34,7 @@
   padding: 10px 1px;
   position: sticky;
   bottom: 0;
-  z-index: 100;
+  z-index: 600;
 }
 .dark-mode .dock {
   background-color: var(--dark-mode-blue);
@@ -51,6 +52,11 @@
 .dark-mode .dock-link {
   background-color: var(--dark-mode-blue);
   color: var(--white);
+}
+.user-modal {
+  position: absolute;
+  z-index: 600;
+  width: 100%;
 }
 @media (min-width: 500px) {
   .mobile-navbar {

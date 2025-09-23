@@ -32,7 +32,7 @@ function MobileNavbar() {
           "Content-Type": "application/json",
         },
       });
-      console.log("our Api call", response);
+      // console.log("our Api call", response);
       if (response.ok) {
         const userData = await response.json();
         console.log("our Api call", userData);
@@ -46,7 +46,7 @@ function MobileNavbar() {
           name: userData.name,
           email: userData.email,
           profilePicture: userData.avatar,
-          role: userData.role,
+          role: userData.user_role,
         });
       } else if (response.status === 401) {
         localStorage.removeItem("token");
@@ -75,7 +75,7 @@ function MobileNavbar() {
             <div className="sidebar-nav-link">
               <div
                 className="homeBtn"
-                onClick={() => setIsProfileModalOpen(true)}
+                onClick={() => setIsProfileModalOpen((prev) => !prev)}
               >
                 {userInfo.profilePicture ? (
                   <img
@@ -111,13 +111,15 @@ function MobileNavbar() {
         </div>
       </div>
 
-      {isProfileModalOpen && (
-        <ProfileModal
-          isOpen={isProfileModalOpen}
-          onClose={() => setIsProfileModalOpen(false)}
-          userInfo={userInfo}
-        />
-      )}
+      <div className="user-modal">
+        {isProfileModalOpen && (
+          <ProfileModal
+            isOpen={isProfileModalOpen}
+            onClose={() => setIsProfileModalOpen(false)}
+            userInfo={userInfo}
+          />
+        )}
+      </div>
     </>
   );
 }
