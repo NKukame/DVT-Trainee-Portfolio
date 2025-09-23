@@ -1,18 +1,15 @@
-import "./Body.css";
 import projects from "../../modal-resources/projects-modal.json";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import React, { useState, useEffect, useRef } from "react";
-
-
+import axios from "axios";
+import teamPortfolio from "../../../public/team-portfolio.json";
+import hometeam from "../../assets/Group-Image.jfif";
 function Body() {
   const [team, setTeam] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/team-portfolio.json")
-      .then((response) => response.json())
-      .then((data) => setTeam(data))
-      .catch((error) => console.error("Error loading team data:", error));
+    setTeam(teamPortfolio);
   }, []);
 
   const trackRef = useRef(null);
@@ -105,16 +102,21 @@ function Body() {
   return (
     <div className="container">
       <div className="content">
-        <h1 id="theTitle">Meet our newest cadets</h1>
+        <h1 id="theTitle" className="max-sm:text-sm">
+          Meet our newest cadets
+        </h1>
         <h2>
           Welcome our class of 2025 and get ready to be blown away! This group
           of fresh talent is expertly trained and ready to invigorate your team
         </h2>
       </div>
 
-      <div className="home-carousel-wrapper">
+      <div className="team-pic">
+        <img src={hometeam} alt="" className="team"/>
+      </div>
+      <div className="home-carousel-wrapper mobile-home">
         <div className="home-carousel">
-          {team.concat(team).map((person, index) => (
+          {team.map((person, index) => (
             <div key={index} className="home-carousel-item">
               <img
                 src={person.image}
@@ -123,14 +125,19 @@ function Body() {
               />
               <div className="home-carousel-item-text">
                 <h3>{person.name}</h3>
-                <p>{person.description}</p>
+                <p>{person.bio}</p>
                 <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list-white flex-wrap m-10px">
                   {(Array.isArray(person.techStack)
                     ? person.techStack
                     : []
                   ).map((tech, index) => (
                     <li key={index}>
-                      <p className="badge-default" style={{ paddingInline: "5px" }}>{tech}</p>
+                      <p
+                        className="badge-default"
+                        style={{ paddingInline: "5px" }}
+                      >
+                        {tech}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -148,10 +155,12 @@ function Body() {
             team.
           </p>
 
+          <div className="meet-the-team" onClick={() => navigate("/about")}>
+            Learn more about the team
+          </div>
           <button className="cta-button" onClick={() => navigate("/about")}>
             <img src="./IconCTA.png" alt="" /> &nbsp; The Team
           </button>
-
         </div>
       </div>
 
@@ -195,7 +204,16 @@ function Body() {
             skills to tackle complex challenges and generate impactful results
             across multiple domains.
           </p>
-          <button className="cta-button video-cta-button"  onClick={() => navigate("/search?isProject=true")}>
+          <div
+            className="explore-more-work"
+            onClick={() => navigate("/search?isProject=true")}
+          >
+            Explore more projects
+          </div>
+          <button
+            className="cta-button video-cta-button"
+            onClick={() => navigate("/search?isProject=true")}
+          >
             <img src="./IconCTA.png" alt="" /> &nbsp; The Work
           </button>
         </div>
@@ -203,39 +221,48 @@ function Body() {
       {isModalOpen && selectedProject && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
+            {/* <button className="modal-close" onClick={closeModal}>
               X
-            </button>
+            </button> */}
 
-            <h2>{selectedProject.title}</h2>
+            <div className="modal-header">
+              <h2>{selectedProject.title}</h2>{" "}
+              <div className="modal-owner-container">
+                <img
+                  src={selectedProject.ownerImage}
+                  alt={selectedProject.owner}
+                  className="modal-owner-img"
+                />
+                <p className="modal-owner">{selectedProject.owner}</p>
+              </div>
+            </div>
 
             {selectedProject.video && (
               <video
                 src={selectedProject.video}
                 controls
                 width="100%"
-                style={{ borderRadius: "15px", marginTop: "1rem" }}
+                style={{ borderRadius: "5px" }}
               />
             )}
 
-            <p className="modal-owner">
-              <strong>Owner:</strong> {selectedProject.owner}
-            </p>
-
-            <p className="modal-project-link"><a href={selectedProject.link}>Click Here For The Link</a></p>
-
             <p className="modal-description">
-              <strong>Description:</strong> <br />{selectedProject.description}
+              <strong>Description:</strong> <br />
+              {selectedProject.description}
             </p>
 
             <h4 className="modal-technologies">Technologies Used:</h4>
             <ul className="flex-row gap-10-px align-items-center font-size-12-px badge-list">
               {selectedProject.technologies.map((tech, index) => (
-                (<li key={index}><p className='badge-default'>{tech}</p></li>)
+                <li key={index}>
+                  <p className="badge-default">{tech}</p>
+                </li>
               ))}
             </ul>
 
-
+            <button className="modal-project-link">
+              <a href={selectedProject.link}>Repository</a>
+            </button>
           </div>
         </div>
       )}

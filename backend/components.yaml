@@ -1,0 +1,64 @@
+schemas:
+  TechStack:
+    type: object
+    properties:
+      id:   { type: string, format: uuid }
+      name: { type: string }
+    required: [id, name]
+
+  SoftSkill:
+    type: object
+    properties:
+      id:   { type: string, format: uuid }
+      name: { type: string }
+    required: [id, name]
+
+  ProjectIndustry:
+    type: object
+    properties:
+      id:   { type: string, format: uuid }
+      name: { type: string }
+    required: [id, name]
+
+  Employee:
+    type: object
+    properties:
+      id:         { type: string, format: uuid }
+      title:      { type: string }
+      name:       { type: string }
+      surname:    { type: string }
+      bio:        { type: string }
+      role:       { type: string }
+      department: { type: string }
+      company:    { type: string }
+      email:      { type: string, format: email }
+      techStack:
+        type: array
+        items: { $ref: '#/components/schemas/TechStack' }
+      softSkills:
+        type: array
+        items: { $ref: '#/components/schemas/SoftSkill' }
+      createdAt:  { type: string, format: date-time }
+      updatedAt:  { type: string, format: date-time }
+    required:
+      [id, title, name, surname, bio, role,
+        department, company, email, createdAt, updatedAt]
+
+  Project:
+    type: object
+    properties:
+      id:          { type: string, format: uuid }
+      name:        { type: string }
+      description: { type: string }
+      industries:
+        type: array
+        items: { $ref: '#/components/schemas/ProjectIndustry' }
+      techStack:
+        type: array
+        items: { $ref: '#/components/schemas/TechStack' }
+      github:      { type: string, format: uri, nullable: true }
+      demo:        { type: string, format: uri, nullable: true }
+      screenshot:  { type: string, format: uri, nullable: true }
+      createdAt:   { type: string, format: date-time }
+      updatedAt:   { type: string, format: date-time }
+    required: [id, name, description, createdAt, updatedAt]

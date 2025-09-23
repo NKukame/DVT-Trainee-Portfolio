@@ -1,51 +1,66 @@
-.sort-container{
+
+/* Custom MUI Switch styling */
+.MuiSwitch-track {
+  transition: all 0.5s ease !important;
+
+}
+ */
+
+.MuiSwitch-thumb {
+  transition: all 0.5s ease !important;
+}
+
+
+.MuiSwitch-switchBase {
+  transition: all 0.5s ease !important;
+}
+
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  background: linear-gradient(180deg, #0895FF, #37D5FF) !important;
+  opacity: 1 !important;
+}
+
+.MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb {
+  background: white !important;
+}
+
+.MuiSwitch-switchBase:not(.Mui-checked) + .MuiSwitch-track {
+  transition: all 0.5s ease !important;
+}
+
+/* Custom toggle layout with labels on both sides */
+.sort-container {
   display: flex;
-  color: #000000;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
-
-
-.select-wrapper {
-  position: relative;
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.select-control {
-  appearance: none;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px 12px;
+.toggle-label {
   font-size: 14px;
-  cursor: pointer;
-  width: 280px;
+  font-weight: 500;
+  color: var(--userText-grayText);
+  transition: color 0.3s ease;
 }
 
-.dark-mode .select-control {
-  background-color: #052B4C;
-  color: #fff;
-  border: 1px solid #4b5563;
+.dark-mode .toggle-label {
+  color: var(--dark-mode-paragragh-white);
 }
 
-.select-control:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+.sort-container .toggle-wrapper .toggle-label.active {
+  background: var(--button-blue) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  font-weight: 600;
 }
 
-.select-wrapper::after {
-  content: '';
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #666;
-  pointer-events: none;
+.dark-mode .sort-container .toggle-wrapper .toggle-label.active {
+  background-color: #37D5FF !important;
 }
-
-

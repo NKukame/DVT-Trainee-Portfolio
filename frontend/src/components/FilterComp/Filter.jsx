@@ -1,103 +1,192 @@
-import "./Filter.css"
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { useState } from "react";
-import { generatePastelColor } from "../../lib/color";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import { SearchContext, useSearch } from "../../contexts/SearchContext";
-import { useContext } from "react";
-import {Combobox} from "../ComboComp/Combo";
-// import { Award, Building, Code, User } from "lucide-react";
+import React, { useEffect, useState, useContext } from "react";
+import {
+  Building05,
+  User01,
+  Code02,
+  Award01,
+  MarkerPin04,
+  Award02,
+  Clock,
+} from "@untitled-ui/icons-react";
+import { Combobox } from "../ComboComp/Combo";
 import { Badge } from "../BadgeComp/Badge";
-import { Award01, Building05, Code02, User01 } from "@untitled-ui/icons-react";
-import Badges from "../BadgeComp/Badges";
+import { SearchContext } from "../../contexts/SearchContext";
+import { toDropdownOptions } from "../../lib/util";
 
+function Filter() {
+  const [locationSelected, setLocationSelected] = useState([]);
+  const [rolesSelected, setRolesSelected] = useState([]);
+  const [technologiesSelected, setTechnologiesSelected] = useState([]);
+  const [availability,setAvailability] = useState([]);
+  const [experienceSelected, setExperienceSelected] = useState([]);
+  const [shouldShowTags, setShouldShowTags] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
-function Filter(){
-    const {selectedFilter,handleFilterClick,filteredResults, fn, handleChange ,value, setValue, allLanguages, allLocations, allRoles} = useContext(SearchContext)
-    // console.log(useContext(SearchContext));
-    
-    return(
-        <section className="filter-container">
-            <div className="filter-section">
-                <div className="filter-dropdown">
-                    {/* <p className="filter-section-title">Roles</p> */}
-                    {/* <Building size={32}    /> */}
-                    <Building05/>
-                    <Combobox placeholder="Industries" options={["Sports", "Finance", "Retail"]}/>
-                </div>
-                <div className="filter-dropdown">
-                    {/* <p className="filter-section-title">Experience (years)</p> */}
-                    {/* <User  size={32} /> */}
-                    <User01/>
-                    <Combobox placeholder="Roles" options={["Intern", "Junior", "Intermediate", "Senior", "Lead"]}/>
-                </div>
-                <div className="filter-dropdown">
-                    {/* <p className="filter-section-title">Technologies</p> */}
-                    {/* <Code size={32} />
-                     */}
-                    <Code02/>
-                    <Combobox placeholder="Technologies" options={["Docker", "iOS", "Android"]}/>
-                </div>
-                <div className="filter-dropdown">
-                    {/* <p className="filter-section-title">Location</p> */
-                    }
-                    
-                    {/* <Award size={32}  /> */}
-                    <Award01/>
-                    <Combobox placeholder="Experience" options={["0-2 Years", "2-5 Years", "6-10 Years"]}/>
-                </div>
-            </div>
-            <div className="filter-tag-container">
-                <div className="tag-container">
-                    <Badges badgeList={["HTML", "Javascript", "Docker", "Node"]} sliceList={false}  />
-                    {/* <Badge onClose={true}>React</Badge>
-                    <Badge >Javascript</Badge>
-                    <Badge onClose={true}>Tailwind</Badge>
-                    <Badge onClose={true}>Docker</Badge> */}
-                </div>
-            </div>
-        </section>
-    );
+  const { allLanguages, allRoles, handleFilterClick, allLocations } =
+    useContext(SearchContext);
+  // Options for each dropdown
+  const locationOptions = toDropdownOptions(allLocations);
+
+  const techOptions = toDropdownOptions(allLanguages);
+  const roleOptions = toDropdownOptions(allRoles);
+
+  const expOptions = [
+    { value: "0-1 Years", label: "0-1 Years" },
+    { value: "1-2 Years", label: "1-2 Years" },
+    { value: "3-4 Years", label: "3-4 Years" },
+    { value: "4-5 Years", label: "4-5 Years" },
+    { value: "5+ Years", label: "5+ Years" },
+  ];
+
+  // All selected filters
+  const allSelectedFilters = [
+    ...locationSelected.map((value) => ({
+      type: "location",
+      value,
+      label: locationOptions.find((opt) => opt.value === value)?.label,
+    })),
+    ...rolesSelected.map((value) => ({
+      type: "role",
+      value,
+      label: roleOptions.find((opt) => opt.value === value)?.label,
+    })),
+    ...technologiesSelected.map((value) => ({
+      type: "technology",
+      value,
+      label: techOptions.find((opt) => opt.value === value)?.label,
+    })),
+    ...experienceSelected.map((value) => ({
+      type: "experience",
+      value,
+      label: expOptions.find((opt) => opt.value === value)?.label,
+    })),
+  ];
+
+  // Handle removing a filter tag
+  const handleRemoveFilter = (type, value) => {
+    switch (type) {
+      case "location":
+        handleFilterClick(value, "Location");
+        setLocationSelected((prev) => prev.filter((v) => v !== value));
+        break;
+      case "role":
+        handleFilterClick(value, "Roles");
+        setRolesSelected((prev) => prev.filter((v) => v !== value));
+        break;
+      case "technology":
+        handleFilterClick(value, "Technologies");
+        setTechnologiesSelected((prev) => prev.filter((v) => v !== value));
+        break;
+      case "experience":
+        setExperienceSelected((prev) => prev.filter((v) => v !== value));
+        handleFilterClick(value, "Experience");
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (allSelectedFilters.length > 0) {
+      setShouldShowTags(true);
+      setIsExiting(false);
+    } else {
+      // Start exit animation
+      setIsExiting(true);
+
+      // Wait for animation to complete before hiding
+      const timer = setTimeout(() => {
+        setShouldShowTags(false);
+      }, 100); // Match this to your animation duration
+
+      return () => clearTimeout(timer);
+    }
+  }, [allSelectedFilters.length]);
+
+  return (
+    <section className="filter-container text-lg">
+      <div className="filter-section">
+        <div className="filter-dropdown mobile-availability">
+          <Clock className="filter-section-icon" />
+          <Combobox
+            placeholder="Availability"
+            options={[
+              { label: "All" },
+              { label: "Available" },
+            ]}
+            value={"All"}
+            onChange={setAvailability}
+            multiple={false}
+            handleFilterClick={handleFilterClick}
+          />
+        </div>
+        <div className="filter-dropdown">
+          <MarkerPin04 className="filter-section-icon" />
+
+          <Combobox
+            placeholder="Location"
+            options={locationOptions}
+            value={locationSelected}
+            onChange={setLocationSelected}
+            multiple={true}
+            handleFilterClick={handleFilterClick}
+          />
+        </div>
+        <div className="filter-dropdown">
+          <User01 className="filter-section-icon" />
+          <Combobox
+            placeholder="Roles"
+            options={roleOptions}
+            value={rolesSelected}
+            onChange={setRolesSelected}
+            multiple={true}
+            handleFilterClick={handleFilterClick}
+          />
+        </div>
+        <div className="filter-dropdown">
+          <Code02 className="filter-section-icon" />
+          <Combobox
+            placeholder="Technologies"
+            className=""
+            options={techOptions}
+            value={technologiesSelected}
+            onChange={setTechnologiesSelected}
+            multiple={true}
+            handleFilterClick={handleFilterClick}
+          />
+        </div>
+        <div className="filter-dropdown">
+          <Award01 className="filter-section-icon" />
+          <Combobox
+            placeholder="Experience"
+            options={expOptions}
+            value={experienceSelected}
+            onChange={setExperienceSelected}
+            multiple={true}
+            handleFilterClick={handleFilterClick}
+          />
+        </div>
+      </div>
+
+      {shouldShowTags && (
+        // <div className="empty-tags-message">No filters selected</div>
+        <div
+          className={`filter-tag-container ${isExiting ? "filter-tag-container-exit" : ""}`}
+        >
+          <div className="tag-container">
+            {allSelectedFilters.map((filter, index) => (
+              <Badge
+                key={`${filter.type}-${filter.value}`}
+                onClose={() => handleRemoveFilter(filter.type, filter.value)}
+              >
+                {filter.label}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }
-
-
-
-export function FilterItem({name, onToggle, isSelected, category}){
-    const [isHover, setIsHover] = useState(false)
-
-    const handleMouseEnter = () => {
-        setIsHover(true)
-    }
-
-    const handleMouseLeave = () => {
-        setIsHover(false)
-    }
-
-    const itemStyle = {
-        borderColor: isSelected
-      ? generatePastelColor(name)
-      : isHover
-      ? generatePastelColor(name)
-      : "rgba(255, 255, 255, 0.315)",
-        cursor: "pointer",
-        transition: "border-width .05s ease-in-out",
-        borderWidth: isSelected ? "2px": isHover ? "1px" : "1px"
-    }
-
-    return(
-        // <div className={`filter-content ${isSelected ? "selected" : ""}`}>
-        //     <span className="filter-content-circle" style={{backgroundColor: generatePastelColor(name)}}></span>
-        //     <p className="filter-content-name" onClick={() => onToggle(name)}>{name}</p>
-        // </div>
-
-        <li onClick={() => onToggle(name, category)}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="badge" style={itemStyle} ><p>{name}</p></li>
-    )
-}
-
-
 
 export default Filter;

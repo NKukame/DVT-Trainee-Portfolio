@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Smart Inventory System",
+    "description": "A web-based platform for managing inventory in real-time across multiple warehouses.",
+    "industries": ["Logistics", "Retail"],
+    "techStack": ["React", "Node.js", "PostgreSQL"],
+    "github": "https://github.com/org/smart-inventory",
+    "demo": "https://smartinventory.example.com",
+    "screenshot": "./assets/inventory-screenshot.png",
+    "members": [
+      {
+        "name": "Paballo",
+        "surname": "Thobei",
+        "role": "DEVELOPER"
+      },
+      {
+        "name": "Gomolemo Motlhamme",
+        "role": "DEVELOPER"
+      }
+    ]
+  },
+  {
+    "name": "AI Resume Parser",
+    "description": "An AI-powered tool for parsing resumes and matching candidates to jobs.",
+    "industries": ["Recruitment", "Technology"],
+    "techStack": ["Python", "FastAPI", "MongoDB"],
+    "github": "https://github.com/org/ai-resume-parser",
+    "demo": "https://resumeparser.example.com",
+    "screenshot": "./assets/resume-parser-screenshot.png",
+    "members": [
+      {
+        "name": "Phemelo",
+        "surname": "Makwatse",
+        "role": "DEVELOPER"
+      },
+      {
+        "name": "Njabulo",
+        "surname": "Kukame",
+        "role": "DEVELOPER"
+      }
+    ]
+  },
+
+    {
+        "name": "E-Commerce Platform",
+        "description": "A full-stack e-commerce application with user authentication, product management, and payment integration.",
+        "industries": ["Retail", "E-Commerce"],
+        "techStack": ["Angular", "Spring Boot", "MySQL"],
+        "github": "https://github.com/org/e-commerce-platform",
+        "demo": "https://ecommerce.example.com",
+        "screenshot": "./assets/ecommerce-screenshot.png",
+        "members": [
+          {
+            "name": "Thabane",
+            "surname": "Ngobe",
+            "role": "DEVELOPER"
+          },
+          {
+            "name": "Andile",
+            "surname": "Mhlongo",
+            "role": "DEVELOPER"
+          },
+          {
+            "name": "Remoneilwe",
+            "surname": "Rammekwa",
+            "role": "DEVELOPER"
+          }
+        ]
+    },
+
+    {
+        "name": "Social Media Analytics Tool",
+        "description": "A tool for analyzing social media trends and user engagement metrics.",
+        "industries": ["Marketing", "Technology"],
+        "techStack": ["Vue.js", "Django", "PostgreSQL"],
+        "github": "https://github.com/org/social-media-analytics",
+        "demo": "https://socialmediaanalytics.example.com",
+        "screenshot": "./assets/social-media-analytics-screenshot.png",
+        "members": [
+          {
+            "name": "Adrian",
+            "surname": "Majavu",
+            "role": "DEVELOPER"
+          },
+          {
+            "name": "Dylan",
+            "surname": "Fernandes",
+            "role": "DESIGNER"
+          }
+        ]
+    }
+]

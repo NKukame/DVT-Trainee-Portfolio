@@ -36,3 +36,7 @@
 - `npx prisma db seed` - Run a seed to populate the development database with data.
 - `npx prisma generate` to generate the Prisma client
 - `npx prisma studio` to see the database interface UI 
+
+### Swagger API Endpoints Documentation 
+- `npm run start` run server then follow step 2
+- `http://localhost:3000/api-docs` - To view API Endpoints via Swagger (in your browser)

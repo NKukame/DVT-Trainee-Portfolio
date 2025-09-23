@@ -1,97 +1,337 @@
-import {useState, useContext, createContext, Children} from 'react'
-import {employees, projects} from '../MockSearch.json';
+import { useState, createContext, useEffect } from "react";
+import axios from "axios";
+import { capitalizeFirstLetter } from "../lib/util";
+import { useList } from "@refinedev/core";
 
-export const SearchContext = createContext()
+export const SearchContext = createContext();
 
-const data = employees.concat(projects)
+export const SearchContextProvider = ({ children }) => {
+  const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState(
+    []
+  );
+  const [data, setdata] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [total, setTotalPages] = useState(1);
+  const [totalProjects, setTotalProjects] = useState(1);
+  let [isAvailable, setIsAvailable] = useState(false);
+  let [searchResults, setSearchResults] = useState(data);
+  let [filteredResults, setFilteredResults] = useState(data);
+  let [selectedFilter, setSelectedFilter] = useState([]);
+  let [query, setQuery] = useState("");
+  let [params, setParams] = useState({});
+  let [isLoaded, setIsLoaded] = useState(false);
+  let [dropDownOptions, setDropDownOptions] = useState([]);
 
-export const SearchContextProvider = ({children}) => {
-    
-    let [searchResults, setSearchResults] = useState(data)
-    let [filteredResults, setFilteredResults] = useState(data)
-    const [value, setValue] = useState([0, 10]);
-    let [selectedFilter, setSelectedFilter] = useState([]);
-    
-    const allLanguages = [...new Set(searchResults.map((employee) => employee.skills).flat())].filter(item => item !== undefined);
-    const allRoles = [...new Set(searchResults.map((employee) => employee.role))].filter(item => item !== undefined);
-    const allLocations = [...new Set(searchResults.map((employee) => employee.location))].filter(item => item !== undefined)
-
-    const handleInputChange = (query) => {
-        const filteredResults = data.filter((result) => {
-            return result.name.toLowerCase().includes(query.toLowerCase())
-        });
-        
-        const results= filteredResults
-        setSearchResults(results)
-        setFilteredResults(results)
+  let allLanguages = [];
+  const { data: techStackQuery } = useList({
+    resource: "techStack",
+    pagination: {
+      pageSize: 1000,
+    },
+  });
+  try {
+    if (techStackQuery) {
+      const techStackQueryData = techStackQuery.data ?? [];
+      const techStackQueryDataNames = techStackQueryData.map(
+        (techStack) => techStack.name
+      );
+      allLanguages = techStackQueryDataNames;
     }
+  } catch (error) {
+    console.error("Error fetching techStackQuery:", error);
+  }
 
-    const handleFilterClick = (filter, category) => {
-        let newSelectedFilter;
-        let updatedResults = searchResults;
-        if(selectedFilter.includes(filter)){
-            // Remove filter
-            newSelectedFilter = selectedFilter.filter((item) => item !== filter);
-        }else{
-            // Add filter
-            newSelectedFilter =  [...selectedFilter, filter];
-        }
-        setSelectedFilter(newSelectedFilter);
-        
-        if(category.includes("language")){
-            updatedResults = searchResults.filter((employee) => {
-                if(newSelectedFilter.length === 0) return true;
-                if(employee.skills){
-    
-                    return newSelectedFilter.every((filter) => employee.skills.includes(filter));
-                }
-            });
-        }
-        if(category.includes("role")){
-            updatedResults = searchResults.filter((employee) => {
-                // If no roles selected, show all results
-                if (newSelectedFilter.length === 0) return true;
-                // Show employee if their role matches any of the selected filters
-                return newSelectedFilter.some(f => employee.role === f);
-            });
-        }
-
-        if (category === "location") {
-            updatedResults = searchResults.filter((employee) => {
-                if (newSelectedFilter.length === 0) return true;
-                return newSelectedFilter.some(f => employee.location === f);
-            });
-        }
-        
-        setFilteredResults(updatedResults);
+  let allIndustries = [];
+  const { data: industriesQuery } = useList({
+    resource: "industry",
+    pagination: {
+      pageSize: 1000,
+    },
+  });
+  try {
+    if (industriesQuery) {
+      const industriesQueryData = industriesQuery.data ?? [];
+      const industriesQueryDataNames = industriesQueryData.map(
+        (industry) => industry.name
+      );
+      allIndustries = industriesQueryDataNames;
     }
+  } catch (error) {
+    console.error("Error fetching industriesQuery:", error);
+  }
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+  let allRoles = [];
+  const { data: rolesQuery } = useList({
+    resource: "employee",
+    pagination: {
+      pageSize: 1000,
+    },
+  });
+  try {
+    if (rolesQuery) {
+      const rolesQueryData = rolesQuery.data ?? [];
+      const rolesQueryDataNames = rolesQueryData.map((role) => role.role);
+      allRoles = [
+        ...new Set(
+          rolesQueryDataNames.map((role) =>
+            role.toLowerCase().split("_").map(capitalizeFirstLetter).join(" ")
+          )
+        ),
+      ].filter((item) => item !== undefined);
+    }
+  } catch (error) {
+    console.error("Error fetching rolesQuery:", error);
+  }
+  let allLocations = [];
+  const { data: locationsQuery } = useList({
+    resource: "employee",
+    pagination: {
+      pageSize: 1000,
+    },
+  });
+  try {
+    if (locationsQuery) {
+      const locationsQueryData = locationsQuery.data ?? [];
+      const locationsQueryDataNames = locationsQueryData.map(
+        (location) => location.location
+      );
+      allLocations = [...new Set(locationsQueryDataNames)].filter(
+        (item) => item !== undefined
+      );
+    }
+  } catch (error) {
+    console.error("Error fetching locationsQuery:", error);
+  }
 
-        const filteredResults = searchResults.filter((employee) => {
-            if(!employee.years_active){
-                return false
-            }
-            
-            if(employee.years_active>value[0] &&  employee.years_active<value[1]){
-                return true
-            }
-            return false           
+  useEffect(() => {
+    setIsLoaded(true);
+    searchData();
+  }, []);
+
+  const searchData = async (page = 1, query = "", params = {}, isAvailable) => {
+    setIsAvailable(isAvailable);
+    setIsLoading(true);
+
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No token found");
+        setIsLoading(false);
+        return;
+      }
+
+      axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(
+        token
+      )}`;
+      axios.defaults.headers.post["Content-Type"] = "application/json";
+
+      const apiDataEmployee = await axios.get(
+        `http://localhost:3000/search/employee`,
+        {
+          params: {
+            page: page,
+            query: query,
+            techStack: JSON.stringify(params.techStack),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            experience: JSON.stringify(params.experience),
+            isAvailable: isAvailable,
+          },
+        }
+      );
+
+      const apiDataProject = await axios.get(
+        `http://localhost:3000/search/project`,
+        {
+          params: {
+            page: page,
+            query: query,
+            techStack: JSON.stringify(params.techStack),
+            experience: JSON.stringify(params.experience),
+            role: JSON.stringify(params.role),
+            location: JSON.stringify(params.location),
+            industry: JSON.stringify(params.industry),
+            isAvailable: isAvailable,
+          },
+        }
+      );
+
+      const employeesWithTechStackNames = apiDataEmployee.data.employees.map(
+        (emp) => ({
+          employee_id: emp.id,
+          name: emp.name + " " + emp.surname,
+          surname: emp.surname,
+          title: emp.title,
+          phone: emp.phone,
+          company: emp.company,
+          email: emp.email,
+          github: emp.github,
+          user: emp.user,
+          linkedIn: emp.linkedIn,
+          portfolio: emp.portfolio,
+          testimonials: emp.testimonials || [],
+          role: capitalizeFirstLetter(emp.role),
+          softSkilled: emp.softSkills,
+          years_active: emp.experience ? emp.experience : "0-1 Years",
+          experienced: emp.experience,
+          department: capitalizeFirstLetter(emp.department),
+          bio: emp.bio,
+          availability: emp.availability.available,
+          location: emp.location.split(",")[0],
+          emp_education: emp.education,
+          certificates: emp.certificates,
+          career: emp.career,
+          projects: emp.projects,
+          avatar:
+            emp.photoUrl ||
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+          techStack: emp.techStack,
+          skills: emp.techStack.map((link) => link.techStack.name),
         })
+      );
 
-        setFilteredResults(filteredResults);
-    };
+      const projectsWithTechStack = apiDataProject.data.projects.map(
+        (project) => ({
+          project_id: project.id,
+          name: project.name,
+          description: project.description,
+          created_on: project.createdAt,
 
+          technologies: project.techStack.map((link) => link.techStack.name),
+          industries: project.industries.map((link) => link.industry.name),
+          username: project.members?.map((link) => link.employee.name)[0],
+          avatar: project.members?.map((link) => link.employee.photoUrl)[0],
+          screenshot: project.screenshot,
+        })
+      );
 
-    return (
-        <SearchContext.Provider value={{selectedFilter, handleFilterClick, handleInputChange, filteredResults, setSearchResults, handleChange,value, allLanguages, allLocations, allRoles}}>
-            {children}
-        </SearchContext.Provider>
-    )
-}
+      setProjectsWithTechStackNames(projectsWithTechStack);
+      setTotalProjects(apiDataProject.data.pageCount);
+      setTotalPages(apiDataEmployee.data.pageCount);
+      setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
+      setSearchResults(
+        employeesWithTechStackNames.concat(projectsWithTechStack)
+      );
+      if (!isLoaded) {
+        setDropDownOptions(
+          employeesWithTechStackNames.concat(projectsWithTechStack)
+        );
+        setIsLoaded(true);
+      }
 
-export function useSearch(){
-    const {selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange,value} = useContext(SearchContext)
-    return [selectedFilter, handleFilterClick,handleInputChange,filteredResults, setSearchResults, handleChange,value]
-}
+      setFilteredResults(
+        employeesWithTechStackNames.concat(projectsWithTechStack)
+      );
+    } catch (err) {
+      console.error("Search error:", err);
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (query) => {
+    setQuery(query);
+    searchData(1, query, params, isAvailable);
+  };
+
+  const handleFilterClick = (filter, category) => {
+    let newSelectedFilter;
+
+    if (
+      selectedFilter.some((f) => f.value === filter && f.category === category)
+    ) {
+      // Remove filter
+      newSelectedFilter = selectedFilter.filter(
+        (item) => !(item.value === filter && item.category === category)
+      );
+    } else {
+      // Add filter
+      newSelectedFilter = [...selectedFilter, { value: filter, category }];
+    }
+
+    setSelectedFilter(newSelectedFilter);
+
+    // Build a query object from all selected filters
+    const filterParams = newSelectedFilter.reduce((acc, f) => {
+      console.log(f);
+      switch (f.category) {
+        case "Technologies":
+          acc.techStack = [...(acc.techStack || []), f.value];
+          break;
+        case "Roles":
+          acc.role = [...(acc.role || []), f.value];
+          break;
+        case "Location":
+          acc.location = [...(acc.location || []), f.value];
+          break;
+        case "Industries":
+          acc.industry = [...(acc.industry || []), f.value];
+          acc.industries = [...(acc.industries || []), f.value];
+          break;
+        case "Experience":
+          acc.experience = [...(acc.experience || []), f.value];
+          break;
+        default:
+          break;
+      }
+      return acc;
+    }, {});
+
+    // Dedupe arrays in params
+    Object.keys(filterParams).forEach((key) => {
+      if (Array.isArray(filterParams[key])) {
+        filterParams[key] = Array.from(new Set(filterParams[key]));
+      }
+    });
+
+    setParams(filterParams);
+
+    searchData(1, query, filterParams, isAvailable);
+  };
+
+  const handleChange = (filter, newSelectedFilter) => {
+    const filteredResults = searchResults.filter((employee) => {
+      console.log(employee);
+      if (newSelectedFilter.length === 0) return true;
+      if (employee.years_active) {
+        return employee.years_active.split(" ")[0] === filter;
+      }
+      return false;
+    });
+
+    return [...filteredResults];
+  };
+
+  return (
+    <SearchContext.Provider
+      value={{
+        selectedFilter,
+        handleFilterClick,
+        handleInputChange,
+        filteredResults,
+        setSearchResults,
+        handleChange,
+        allLanguages,
+        allLocations,
+        allRoles,
+        allIndustries,
+        isLoading,
+        total,
+        projectsWithTechStackNames,
+        searchData,
+        params,
+        query,
+        isAvailable,
+        totalProjects,
+      }}
+    >
+      {children}
+    </SearchContext.Provider>
+  );
+};

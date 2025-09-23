@@ -1,0 +1,87 @@
+.skills-breakdown-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 870px;
+  overflow-y: scroll;
+  padding-right: 20px;
+}
+.skills-header {
+  display: flex;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 20px;
+}
+
+.dark-mode .skills-header {
+  color: var(--dark-mode-alt-white);
+}
+
+.skills-education-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--black);
+  padding-right: 40px;
+  padding-bottom: 20px;
+  min-height: 10rem;
+}
+
+.dark-mode .skills-education-item {
+  color: var(--dark-mode-alt-white);
+}
+
+.skills-education-item li {
+  list-style: none;
+}
+.skills-education-item-title {
+  font-size: 0.8rem;
+  margin-block: 2rem 1rem;
+}
+.skills-circle-section {
+  display: flex;
+  flex-direction: column;
+}
+.skills-circle {
+    margin-block: -50px;
+  width: 500px;
+  height: 500px;
+}
+
+.skills-bar-section {
+  width: 900px;
+  height: 400px;
+}
+.skills-bar-graph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.skills-education-header {
+  color: var(--navy-blue);
+  font-size: 2rem;
+}
+
+.dark-mode .skills-education-header {
+  color: var(--dark-mode-alt-white);
+}
+.skills-circle-header {
+  margin-top: 20px;
+  color: var(--navy-blue);
+  font-size: 2rem;
+}
+
+.dark-mode .skills-circle-header {
+  color: var(--dark-mode-alt-white);
+}
+
+.skills-bar-header {
+  margin-top: 20px;
+  color: var(--navy-blue);
+  font-size: 2rem;
+}
+
+.dark-mode .skills-bar-header {
+  color: var(--dark-mode-alt-white);
+}

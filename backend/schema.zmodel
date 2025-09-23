@@ -1,0 +1,341 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+plugin openapi {
+  provider = "@zenstackhq/openapi"
+  output   = "./openapi.json"      
+  title    = "DVT Trainee Portfolio API"
+  version  = "1.0.0"
+  flavor   = "rpc"                 
+  prefix   = "/api/v2"
+  description = "DVT Trainee Portfolio API"
+  omitInputDetails = true
+  securitySchemes = {
+    bearer: { type: "http", scheme: "bearer", bearerFormat: "JWT" }
+  }
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  CLIENT
+}
+
+enum EmployeeRole {
+  DEVELOPER
+  DESIGNER
+  PROJECT_MANAGER
+  TEAM_LEAD
+  SENIOR_DEVELOPER
+  FULLSTACK_DEVELOPER
+  FRONTEND_DEVELOPER
+  BACKEND_DEVELOPER
+  UX_UI_DESIGNER
+  JUNIOR_DEVELOPER
+  TESTER
+  PRODUCT_OWNER
+  SCRUM_MASTER
+  DELIVERY_MANAGER
+}
+
+enum TechCategory {
+  BACKEND
+  FRONTEND
+  DESIGN
+  MOBILE
+}
+
+enum SoftSkillsCategory{
+  COMMUNICATION
+  COLLABORATION
+  LEADERSHIP
+  ADAPTABILITY
+  PROBLEM_SOLVING
+  TIME_MANAGEMENT
+  
+}
+
+
+enum Department {
+  ENGINEERING
+  DESIGN
+  MARKETING
+  SALES
+  HR
+}
+
+enum UserTitle{
+  MR
+  MRS
+  MS
+  DR
+}
+
+enum Industries{
+  RETAIL
+  BANKING
+  INSURANCE
+  EDUCATION
+  MINING
+  MECS
+}
+
+
+
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  role          UserRole  @default(USER)
+  employeeId    String?   @unique
+  employee      Employee? @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  bookmarks     Bookmark[]
+  collections   Collection[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@allow('all', true)
+}
+
+model Employee {
+  id           String        @id @default(uuid())
+  title        UserTitle
+  name         String
+  surname      String
+  birthday     DateTime?
+  photoUrl     String?
+  bio          String
+  role         EmployeeRole
+  education    Education[]
+  certificates Certificate[]
+  career       Career[]
+  department   Department
+  company      String
+  location     String?
+  email        String
+  phone        String?
+  github       String?
+  linkedIn     String?
+  experience    String?
+  portfolio    String?
+  availability Availability?    
+  techStack    EmployeeTechStack[]
+  softSkills   EmployeeSoftSkill[]
+  testimonials Testimonial[]
+  user         User?
+  projects     ProjectMember[]
+  bookmarks    Bookmark[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@allow('all', true)
+  @@index([email])
+  @@index([department])
+  @@index([role])
+  @@index([company])
+}
+
+model Project {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String
+  industries  ProjectIndustry[]
+  techStack   ProjectTechStack[]
+  github      String?
+  demo        String?
+  screenshot  String?
+  members     ProjectMember[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@allow('all', true)
+  @@index([name])
+  @@index([createdAt])
+}
+
+model ProjectMember {
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  role       EmployeeRole?
+  joinedAt   DateTime @default(now())
+
+  @@allow('all', true)
+  @@id([projectId, employeeId])
+}
+
+model Testimonial {
+  id         String   @id @default(uuid())
+  clients    String?
+  company    String
+  quote      String
+  reference  String
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@allow('all', true)
+}
+
+model Availability {
+  id           String   @id @default(uuid())
+  employeeId   String
+  employee     Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  available    Boolean  @default(true)
+  client       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@allow('all', true)
+  @@unique([employeeId])
+}
+
+model TechStack {
+  id   String @id @default(uuid())
+  name String @unique
+  category TechCategory
+  employees EmployeeTechStack[]
+  projects  ProjectTechStack[]
+
+  @@allow('all', true)
+}
+
+model SoftSkill {
+  id   String @id @default(uuid())
+  name String @unique
+  employees EmployeeSoftSkill[]
+
+  @@allow('all', true)
+}
+
+model EmployeeTechStack {
+  
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  techStackId String
+  techStack  TechStack @relation(fields: [techStackId], references: [id], onDelete: Cascade)
+  Techrating    String?
+
+  @@allow('all', true)
+  @@id([employeeId, techStackId])
+}
+
+model EmployeeSoftSkill {
+  
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  softSkillId String
+  skillsRating  String?
+  softSkill  SoftSkill @relation(fields: [softSkillId], references: [id], onDelete: Cascade)
+  
+  @@allow('all', true)
+  @@id([employeeId, softSkillId])
+}
+
+model Industry {
+  id       String           @id @default(uuid())
+  name     String           @unique
+  projects ProjectIndustry[]
+
+  @@allow('all', true)
+}
+
+model ProjectIndustry {
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  industryId  String
+  industry    Industry @relation(fields: [industryId], references: [id], onDelete: Cascade)
+  
+  @@allow('all', true)
+  @@id([projectId, industryId])
+}
+
+model ProjectTechStack {
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  techStackId String
+  techStack   TechStack @relation(fields: [techStackId], references: [id], onDelete: Cascade)
+  
+  @@allow('all', true)
+  @@id([projectId, techStackId])
+}
+
+
+model Education {
+
+  id       String           @id @default(uuid())
+  institution     String        
+  qualification String
+  employeeId String    
+  employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@allow('all', true)
+}
+
+model Certificate {
+  id       String           @id @default(uuid())
+  name          String
+  institution   String
+  employeeId    String
+  employee      Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@allow('all', true)
+}
+
+model Career{
+  id       String           @id @default(uuid())
+  role     String
+  company  String
+  duration String?
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@allow('all', true)
+}
+
+model Bookmark {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  employeeId String?
+  employee   Employee? @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  collectionBookmarks CollectionBookmark[]
+
+  @@allow('all', true)
+  @@unique([userId, employeeId])
+}
+
+model Collection {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookmarks   CollectionBookmark[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@allow('all', true)
+}
+
+model CollectionBookmark {
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  bookmarkId   String
+  bookmark     Bookmark   @relation(fields: [bookmarkId], references: [id], onDelete: Cascade)
+  addedAt      DateTime   @default(now())
+
+  @@allow('all', true)
+  @@id([collectionId, bookmarkId])
+}
+

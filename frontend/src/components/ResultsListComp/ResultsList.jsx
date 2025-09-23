@@ -1,29 +1,78 @@
 import { UserCard } from "../UserCardComp/UserCard";
-import ProjectCard from '../ProjectCardComp/ProjectCard';
+import ProjectCard from "../ProjectCardComp/ProjectCard";
+import { UserSkeletonLoader } from "../SearchResultsComp/SearchResults";
+import { SearchContext } from "../../contexts/SearchContext";
+import { useContext, useState, useEffect } from "react";
+import axios from "axios";
+import SubmarinePeriscope from "../../assets/Submarine periscope.gif"
 
 export default function ResultsList({ results, isEmployeeSearch }) {
-  
-  if (results.length === 0) {
-    return <h1 className="font-size-20-px">Results not Found</h1>;
+  const { isLoading } = useContext(SearchContext);
+  const [bookmarkedIds, setBookmarkedIds] = useState(new Set());
+
+  useEffect(() => {
+    fetchBookmarks();
+  }, []);
+
+  const fetchBookmarks = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      const response = await axios.get("http://localhost:3000/bookmarks", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const bookmarkedEmployeeIds = new Set(
+        response.data.bookmarks.map(bookmark => bookmark.employee_id)
+      );
+      setBookmarkedIds(bookmarkedEmployeeIds);
+    } catch (error) {
+      console.error("Error fetching bookmarks:", error);
+    }
+  };
+
+  if (results.length === 0 && !isLoading) {
+    return (
+      <div className="no-results">
+        <h1 className="font-size-20-px">
+          No results found. We couldn't find any matching project or person in our
+          database.
+        </h1>
+
+        <img src={SubmarinePeriscope} alt="" className="no-results-image"/>
+      </div>
+    );
+  }
+  if (isLoading) {
+    return <UserSkeletonLoader key={results.employee_id} />;
   }
 
   return (
     <>
       {isEmployeeSearch && (
-        <section className="grid-3-cols gap-24-px">
+        <section className="grid-3-cols gap-24-px min-sm:grid-cols-1 results-responsive">
           {results.map((user, i) => {
             const timeStamp = new Date().getTime();
-            return(<UserCard key={`${Math.random()+timeStamp}-${user.employee_id}`} user={user} />
-          )})}
+            return (
+              <UserCard 
+                key={`${user.employee_id}`} 
+                user={user} 
+                isBookmarked={bookmarkedIds.has(user.employee_id)}
+                onBookmarkToggle={fetchBookmarks}
+              />
+            );
+          })}
         </section>
       )}
 
       {!isEmployeeSearch && (
-        <section className="grid-3-cols gap-24-px">
+        <section className="grid-3-cols gap-24-px results-responsive">
           {results.map((project, i) => {
             const timeStamp = new Date().getTime();
-            return( <ProjectCard key={`${Math.random()+timeStamp}-${project.project_id}`} result={project} />
-          )})}
+            return (
+              <ProjectCard key={`${project.project_id}`} result={project} />
+            );
+          })}
         </section>
       )}
     </>

@@ -16,13 +16,10 @@ import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-
+import prisma from "../lib/prisma-redis-middleware.js";
 config({ path: "../.env" });
 
 
-const prisma = new PrismaClient();
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
 
 export default async function login(req, res) {
   const { email, password } = req.body;
@@ -47,17 +44,20 @@ export default async function login(req, res) {
 
     const accessToken = jwt.sign(
       { id: user.id, email: user.email },
+      
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "24h" }
     );
-
+const user_id =  user.id
     res.status(200).json({
       message: "Login successful",
       token: accessToken,
-      // user: { id: user.id, email: user.email },
+      user: user_id,
+      role: user.role
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Login failed", detail: err.message });
   }
 }
+
