@@ -55,6 +55,7 @@ import { ThemedSiderV2 } from "./components/layout/sider.jsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
+
 const queryClient = new QueryClient();
 
 import { createTheme } from "@mui/material/styles";
@@ -75,6 +76,9 @@ const overriddenLightTheme = createTheme({
   },
 });
 const App = () => {
+
+
+
   return (
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
