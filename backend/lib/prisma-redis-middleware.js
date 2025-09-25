@@ -1,10 +1,25 @@
 import Redis from "ioredis";
 import { PrismaClient } from "@prisma/client";
+import 'dotenv'
 
 const redis = new Redis({
+  username: process.env.REDIS_USERNAME,
+  password: process.env.REDIS_PASSWORD,
   host: process.env.REDIS_HOST || "localhost",
   port: process.env.REDIS_PORT || 6379,
+  
 });
+
+console.log(redis);
+
+// const client = createClient({
+//     username: 'default',
+//     password: 'eOTGmAXiSwkFWOwA0G0uPWYLusN2sOKm',
+//     socket: {
+//         host: 'redis-14307.c341.af-south-1-1.ec2.redns.redis-cloud.com',
+//         port: 14307
+//     }
+// });
 
 export async function generateKey(
   type,

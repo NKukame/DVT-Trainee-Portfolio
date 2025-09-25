@@ -23,7 +23,7 @@ export const SearchContextProvider = ({ children }) => {
   let [dropDownOptions, setDropDownOptions] = useState([]);
 
   let allLanguages = [];
-  const { data: techStackQuery } = useList({
+  const { result: techStackQuery } = useList({
     resource: "techStack",
     pagination: {
       pageSize: 1000,
@@ -42,12 +42,13 @@ export const SearchContextProvider = ({ children }) => {
   }
 
   let allIndustries = [];
-  const { data: industriesQuery } = useList({
+  const { result: industriesQuery } = useList({
     resource: "industry",
     pagination: {
       pageSize: 1000,
     },
   });
+  console.log("industries",industriesQuery);
   try {
     if (industriesQuery) {
       const industriesQueryData = industriesQuery.data ?? [];
@@ -61,7 +62,7 @@ export const SearchContextProvider = ({ children }) => {
   }
 
   let allRoles = [];
-  const { data: rolesQuery } = useList({
+  const { result: rolesQuery } = useList({
     resource: "employee",
     pagination: {
       pageSize: 1000,
@@ -83,7 +84,7 @@ export const SearchContextProvider = ({ children }) => {
     console.error("Error fetching rolesQuery:", error);
   }
   let allLocations = [];
-  const { data: locationsQuery } = useList({
+  const { result: locationsQuery } = useList({
     resource: "employee",
     pagination: {
       pageSize: 1000,
