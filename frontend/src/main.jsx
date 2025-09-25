@@ -5,7 +5,7 @@ import { Refine, Authenticated } from "@refinedev/core";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
-import { RefineThemes, ThemedSider, ThemedTitle } from "@refinedev/mui";
+import { RefineThemes, ThemedLayout, ThemedSider, ThemedTitle } from "@refinedev/mui";
 
 import './styles.css'
 import Home from './Pages/HomePage/Home.jsx'
@@ -51,7 +51,7 @@ import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mu
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router";
 // import { ThemedSiderV2 } from "./components/layout/sider.jsx";
-Themed
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
