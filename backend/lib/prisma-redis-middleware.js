@@ -10,7 +10,6 @@ const redis = new Redis({
   
 });
 
-console.log(redis);
 
 // const client = createClient({
 //     username: 'default',
