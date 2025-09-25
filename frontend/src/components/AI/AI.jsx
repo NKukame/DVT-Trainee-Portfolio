@@ -23,10 +23,9 @@ function AI() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Focus textarea when panel opens
+
   useEffect(() => {
     if (isPanelVisible && textareaRef.current) {
-      // Small delay to ensure the panel is fully rendered
       setTimeout(() => {
         textareaRef.current?.focus();
       }, 100);
@@ -82,7 +81,6 @@ function AI() {
       if (result.type === 'stream') {
         await handleStreamingResponse(result.stream, now);
       } else {
-        // Non-streaming response (tool calls)
         setMessages((prev) => [...prev, { 
           content: result.content, 
           role: 'assistant', 

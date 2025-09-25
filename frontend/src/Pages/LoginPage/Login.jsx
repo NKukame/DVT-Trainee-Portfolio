@@ -2,7 +2,7 @@ import dvtLogo from "../../assets/DVT_Iogin_logo.png";
 import OffRememberMeIcon from "../../assets/OffRemeber-me-icon.png";
 import OnRememberMeIcon from "../../assets/OnRemember-me-icon.png";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router"; 
+import { Link, useNavigate } from "react-router";
 import "./Login.css";
 import { Eye, EyeClosed, Mail, Lock } from "lucide-react";
 import axios from "axios";
@@ -202,9 +202,9 @@ function Signup() {
 
       const user_id = token.data.user;
       const user_role = token.data.role;
-      
+
       localStorage.setItem("token", JSON.stringify(token.data.token));
-      localStorage.setItem("userId", JSON.stringify(token.data.user));
+      localStorage.setItem("userId", JSON.stringify(user_id)); // FIXED: Added user_id
 
       if (rememberMe) {
         localStorage.setItem(
@@ -393,7 +393,6 @@ function Signup() {
                       <button type="submit">Sign In</button>
                     )}
                     <div className="sign-in-link">
-                      
                       <p className="signInBlack">Don't have an account?</p>
                       <section
                         className="signUpButtonFirst "
@@ -427,7 +426,7 @@ function Signup() {
                     <input
                       type="email"
                       name="email"
-                      placeholder= "Enter email address"
+                      placeholder="Enter email address"
                       value={formData.email}
                       onChange={handleChange}
                       className={getInputClass("email")}

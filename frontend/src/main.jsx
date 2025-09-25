@@ -59,7 +59,8 @@ import { ThemedTitleV2 } from "./components/layout/title.jsx";
 
 import { createTheme } from "@mui/material/styles";
 import { LineChartDown03, LineChartUp01 } from '@untitled-ui/icons-react';
-// make the primary color gray
+
+const queryClient = new QueryClient();
 const overriddenLightTheme = createTheme({
   ...RefineThemes.Blue,
   palette: {
@@ -224,7 +225,6 @@ createRoot(document.getElementById('root')).render(
 
 )
 
-const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

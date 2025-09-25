@@ -8,11 +8,9 @@ const deepinfra = createDeepInfra({
   apiKey: import.meta.env.VITE_DEEPINFRA_API_KEY,
 });
 
-// ---------------------------
-// Cache and include settings
-// ---------------------------
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
-const DEFAULT_PAGE_SIZE = 200; // tune to API limits
+
+const CACHE_TTL_MS = 5 * 60 * 1000; 
+const DEFAULT_PAGE_SIZE = 200; 
 
 const EMPLOYEE_INCLUDE_DEEP = {
   education: true,
@@ -50,9 +48,6 @@ const cache = {
   lastProjectsLoadedAt: 0,
 };
 
-// ---------------------------
-// Helper functions
-// ---------------------------
 
 function now() {
   return Date.now();
@@ -115,7 +110,7 @@ async function fetchAllPages(
 ) {
   let current = 1;
   const all = [];
-  // eslint-disable-next-line no-constant-condition
+
   while (true) {
     const res = await dataProvider.getList({
       resource,

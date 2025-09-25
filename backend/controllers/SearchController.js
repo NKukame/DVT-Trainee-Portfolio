@@ -332,17 +332,10 @@ export async function executeEmployeeSearch(searchParams) {
   };
 }
 
-// ================================
-// CACHED SEARCH SERVICES (WRAPPER FUNCTIONS)
-// ================================
-
-/**
- * Cached Project Search - Used by controller AND cache warming
- */
 export async function cachedProjectSearch(searchParams, cacheTTL = 30 * 60) {
   const { query, industries, techStack, field, order, page = 1 } = searchParams;
 
-  // Use your existing generateKey function
+ 
   const cacheKey = await generateKey(
     "projects",
     query,
@@ -356,7 +349,6 @@ export async function cachedProjectSearch(searchParams, cacheTTL = 30 * 60) {
     industries
   );
 
-  // Check cache using your existing function
   const cached = await getCache(cacheKey);
   if (cached) {
     console.log(`🎯 Cache HIT: ${cacheKey}`);
@@ -375,9 +367,7 @@ export async function cachedProjectSearch(searchParams, cacheTTL = 30 * 60) {
   return { data: result, cacheHit: false, cacheKey };
 }
 
-/**
- * Cached Employee Search - Used by controller AND cache warming
- */
+
 export async function cachedEmployeeSearch(searchParams, cacheTTL = 30 * 60) {
   const {
     query,
@@ -420,36 +410,28 @@ export async function cachedEmployeeSearch(searchParams, cacheTTL = 30 * 60) {
   return { data: result, cacheHit: false, cacheKey };
 }
 
-// ================================
-// YOUR EXISTING CONTROLLERS (IMPROVED BUT SAME API)
-// ================================
 
-/**
- * Search for projects - SAME API, IMPROVED PERFORMANCE
- * Maintains your exact same response format and error handling
- */
 export async function SearchProjectController(req, res) {
   try {
-    // Add cache headers for client-side caching
+
     res.set("Cache-Control", "public, max-age=300, stale-while-revalidate=600");
 
-    // Use the cached search service
+    
     const {
       data: result,
       cacheHit,
       cacheKey,
     } = await cachedProjectSearch(req.query);
 
-    // Add debugging headers
+  
     res.set("X-Cache", cacheHit ? "HIT" : "MISS");
     res.set("X-Cache-Key", cacheKey);
 
-    // Your exact same error handling
+
     if (!result.projects) {
       return res.status(404).send({ message: "Projects not found" });
     }
 
-    // Your exact same response format
     return res.send({ projects: result.projects, total: result.total });
   } catch (error) {
     console.error("Search projects error:", error);
@@ -457,10 +439,6 @@ export async function SearchProjectController(req, res) {
   }
 }
 
-/**
- * Search for employees - SAME API, IMPROVED PERFORMANCE
- * Maintains your exact same response format and error handling
- */
 export async function SearchEmployeeController(req, res) {
   try {
     res.set("Cache-Control", "public, max-age=300, stale-while-revalidate=600");
@@ -474,12 +452,12 @@ export async function SearchEmployeeController(req, res) {
     res.set("X-Cache", cacheHit ? "HIT" : "MISS");
     res.set("X-Cache-Key", cacheKey);
 
-    // Your exact same error handling
+
     if (!result.employees) {
       return res.status(404).send({ message: "Employees not found" });
     }
 
-    // Your exact same response format
+   
     return res.send({
       employees: result.employees,
       total: result.total,
@@ -505,7 +483,7 @@ export async function warmCache(searchQueries = []) {
       if (searchQuery.type === "projects") {
         const { data, cacheHit, cacheKey } = await cachedProjectSearch(
           searchQuery,
-          60 * 60 // 1 hour TTL for warmed cache
+          60 * 60 
         );
         result = {
           type: "projects",
@@ -516,7 +494,7 @@ export async function warmCache(searchQueries = []) {
       } else if (searchQuery.type === "employees") {
         const { data, cacheHit, cacheKey } = await cachedEmployeeSearch(
           searchQuery,
-          60 * 60 // 1 hour TTL for warmed cache
+          60 * 60 
         );
         result = {
           type: "employees",
@@ -556,18 +534,14 @@ export async function warmCache(searchQueries = []) {
   };
 }
 
-/**
- * Essential Cache Warming - Most important searches
- */
+
 export async function warmEssentialCache() {
   const essentialSearches = [
-    // Homepage loads - MOST CRITICAL
+    
     { type: "projects", page: 1, limit: 9 },
     { type: "employees", page: 1, limit: 9 },
 
 
-
-    // Second pages (users browse further)
     { type: "projects", page: 2, limit: 9 },
     { type: "employees", page: 2, limit: 9 },
   ];
@@ -575,13 +549,11 @@ export async function warmEssentialCache() {
   return await warmCache(essentialSearches);
 }
 
-/**
- * Smart Cache Warming - Time-based patterns
- */
+
 export async function smartCacheWarming() {
   const hour = new Date().getHours();
 
-  // Morning rush (8-10 AM)
+  
   if (hour >= 8 && hour <= 10) {
     console.log("🌅 Morning cache warming...");
     const morningSearches = [
@@ -594,14 +566,13 @@ export async function smartCacheWarming() {
     return await warmCache(morningSearches);
   }
 
-  // Business hours (10 AM - 6 PM)
+  
   if (hour >= 10 && hour <= 18) {
     console.log("☀️ Business hours cache warming...");
     return await warmEssentialCache();
   }
 
-  // Evening/night - light warming
-  console.log("🌙 Evening cache warming...");
+ console.log("🌙 Evening cache warming...");
   const lightSearches = [
     { type: "projects", page: 1, limit: 9 },
     { type: "employees", page: 1, limit: 9 },

@@ -109,8 +109,8 @@ export const SearchContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["search", { page: 1, query }],
     queryFn: fetchSearchData,
-    staleTime: 1000 * 60 * 5, // 5 min cache
-    gcTime: 1000 * 60 * 30, // Fixed: changed from cacheTime to gcTime
+    staleTime: 1000 * 60 * 5, 
+    gcTime: 1000 * 60 * 30, 
   });
 
   // Fixed: Move state updates to useEffect to prevent infinite re-renders
