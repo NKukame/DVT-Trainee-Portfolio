@@ -135,7 +135,7 @@ const App = () => {
               },
             ]}
             >
-              <SearchContextProvider>
+              
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Login />} />
@@ -211,7 +211,7 @@ const App = () => {
                 </Route>
               </Route>
             </Routes>
-            </SearchContextProvider>
+
           </Refine>
           </RefineSnackbarProvider>
         </DarkModeProvider>

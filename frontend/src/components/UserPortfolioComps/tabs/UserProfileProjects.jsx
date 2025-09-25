@@ -2,8 +2,9 @@ import ClientCarousel from "../usedComps/ClientCarousel";
 import { useState, useEffect, useContext } from "react";
 import { use } from "react";
 import { SearchContext } from "../../../contexts/SearchContext";
+import { useSearchStore} from "../../../lib/SearchStore.js";
 function UserProfileProjects(props) {
-  const { projectsWithTechStackNames } = useContext(SearchContext);
+  const { projectsWithTechStackNames } = useSearchStore((state) => state);
   const [empProject, setEmpProject] = useState([]);
 
   useEffect(() => {

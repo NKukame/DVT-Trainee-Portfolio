@@ -2,13 +2,16 @@ import { useState, createContext, useEffect } from "react";
 import axios from "axios";
 import { capitalizeFirstLetter } from "../lib/util";
 import { useList } from "@refinedev/core";
+import { getAllProjects, getAllEmployees } from "../lib/ApiCalls";
+import { useSearchStore } from "../lib/SearchStore.js";
 
 export const SearchContext = createContext();
 
 export const SearchContextProvider = ({ children }) => {
-  const [projectsWithTechStackNames, setProjectsWithTechStackNames] = useState(
-    []
-  );
+
+  // const { SearchProjects } = useSearchStore((state) => state);
+  const projectsWithTechStackNames =  useSearchStore((state) => state.projectsWithTechStackNames);
+  const setProjectsWithTechStackNames =  useSearchStore((state) => state.setProjectsWithTechStackNames);
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [total, setTotalPages] = useState(1);
@@ -113,103 +116,14 @@ export const SearchContextProvider = ({ children }) => {
     setIsLoading(true);
 
     try {
-      const token = localStorage.getItem("token");
 
-      if (!token) {
-        console.error("No token found");
-        setIsLoading(false);
-        return;
-      }
+      const {employeesWithTechStackNames, TotalPages} = await getAllEmployees(page, query, params, isAvailable);
+      const {projectsWithTechStack, TotalProjects} = await getAllProjects(page, query, params, isAvailable);
+      // SearchProjects(page, query, params, isAvailable);
 
-      axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(
-        token
-      )}`;
-      axios.defaults.headers.post["Content-Type"] = "application/json";
-
-      const apiDataEmployee = await axios.get(
-        `http://localhost:3000/search/employee`,
-        {
-          params: {
-            page: page,
-            query: query,
-            techStack: JSON.stringify(params.techStack),
-            role: JSON.stringify(params.role),
-            location: JSON.stringify(params.location),
-            industry: JSON.stringify(params.industry),
-            experience: JSON.stringify(params.experience),
-            isAvailable: isAvailable,
-          },
-        }
-      );
-
-      const apiDataProject = await axios.get(
-        `http://localhost:3000/search/project`,
-        {
-          params: {
-            page: page,
-            query: query,
-            techStack: JSON.stringify(params.techStack),
-            experience: JSON.stringify(params.experience),
-            role: JSON.stringify(params.role),
-            location: JSON.stringify(params.location),
-            industry: JSON.stringify(params.industry),
-            isAvailable: isAvailable,
-          },
-        }
-      );
-
-      const employeesWithTechStackNames = apiDataEmployee.data.employees.map(
-        (emp) => ({
-          employee_id: emp.id,
-          name: emp.name + " " + emp.surname,
-          surname: emp.surname,
-          title: emp.title,
-          phone: emp.phone,
-          company: emp.company,
-          email: emp.email,
-          github: emp.github,
-          user: emp.user,
-          linkedIn: emp.linkedIn,
-          portfolio: emp.portfolio,
-          testimonials: emp.testimonials || [],
-          role: capitalizeFirstLetter(emp.role),
-          softSkilled: emp.softSkills,
-          years_active: emp.experience ? emp.experience : "0-1 Years",
-          experienced: emp.experience,
-          department: capitalizeFirstLetter(emp.department),
-          bio: emp.bio,
-          availability: emp.availability.available,
-          location: emp.location.split(",")[0],
-          emp_education: emp.education,
-          certificates: emp.certificates,
-          career: emp.career,
-          projects: emp.projects,
-          avatar:
-            emp.photoUrl ||
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-          techStack: emp.techStack,
-          skills: emp.techStack.map((link) => link.techStack.name),
-        })
-      );
-
-      const projectsWithTechStack = apiDataProject.data.projects.map(
-        (project) => ({
-          project_id: project.id,
-          name: project.name,
-          description: project.description,
-          created_on: project.createdAt,
-
-          technologies: project.techStack.map((link) => link.techStack.name),
-          industries: project.industries.map((link) => link.industry.name),
-          username: project.members?.map((link) => link.employee.name)[0],
-          avatar: project.members?.map((link) => link.employee.photoUrl)[0],
-          screenshot: project.screenshot,
-        })
-      );
-
-      setProjectsWithTechStackNames(projectsWithTechStack);
-      setTotalProjects(apiDataProject.data.pageCount);
-      setTotalPages(apiDataEmployee.data.pageCount);
+      await setProjectsWithTechStackNames(page, query, params, isAvailable);
+      setTotalProjects(TotalProjects);
+      setTotalPages(TotalPages);
       setdata(employeesWithTechStackNames.concat(projectsWithTechStack));
       setSearchResults(
         employeesWithTechStackNames.concat(projectsWithTechStack)

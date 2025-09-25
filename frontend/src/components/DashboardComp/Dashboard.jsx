@@ -20,7 +20,10 @@ import {
 } from "lucide-react";
 import { MobileDashboard } from "./MobileDashboard";
 
+import { useUserStore } from "../../lib/useUser.js";
+
 function Dashboard(props) {
+  const userData = useUserStore((state) => state.user);
   const profileEmployeeId = props.testEmployee.employee_id || props.testEmployee.id;
   
   // Get current user ID from localStorage
@@ -48,25 +51,7 @@ function Dashboard(props) {
   const [currentUserEmployeeId, setCurrentUserEmployeeId] = useState(null);
   
   useEffect(() => {
-    const fetchCurrentUserEmployee = async () => {
-      try {
-        const token = JSON.parse(localStorage.getItem("token"));
-        const response = await fetch("http://localhost:3000/api/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          setCurrentUserEmployeeId(userData.employee_id || userData.id);
-        }
-      } catch (error) {
-        console.error("Error fetching current user employee ID:", error);
-      }
-    };
-    
-    fetchCurrentUserEmployee();
+    setCurrentUserEmployeeId(userData.testEmployee.employee_id || userData.testEmployee.id);
   }, []);
   
   const id = profileEmployeeId;

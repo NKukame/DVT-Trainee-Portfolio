@@ -3,6 +3,9 @@ import { create } from 'zustand';
 
 export const useUserStore = create((set) => ({
     user: {
+        testEmployee: {
+
+        },
         name: "",
         email: "",
         profilePicture: null,
@@ -30,6 +33,7 @@ export const useUserStore = create((set) => ({
             console.log(data);
             set({
                 user: {
+                    testEmployee: data,
                     name: data.name,
                     email: data.email,
                     profilePicture: data.photoUrl,

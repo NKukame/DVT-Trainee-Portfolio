@@ -7,36 +7,13 @@ import UserProfileOverview from "../../components/UserPortfolioComps/tabs/UserPr
 import UserProfileProjects from "../../components/UserPortfolioComps/tabs/UserProfileProjects";
 import UserProfileSkillBreakdown from "../../components/UserPortfolioComps/tabs/UserprofileSkillBreakdown";
 import { useLocation } from "react-router";
+import { useUserStore } from "../../lib/useUser.js";
 
 function UserPortfolio(props) {
   const [activeTab, setActiveTab] = useState("overview");
   const [employeeData, setEmployeeData] = useState(null);
+  const user = useUserStore((state) => state.user);
   const location = useLocation();
-
-  async function fetchCurrentUserData() {
-    // if (!location.state) {
-      try {
-        const token = JSON.parse(localStorage.getItem("token"));
-        const response = await fetch("http://localhost:3000/api/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const userData = await response.json();
-          setEmployeeData(userData);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    // }
-  };
-  useEffect(() => {
-
-    fetchCurrentUserData();
-  }, []);
   
   useEffect(() => {
       if (window.sessionStorage.getItem("searchPageReloaded")) {
@@ -44,7 +21,7 @@ function UserPortfolio(props) {
       }
     }, []);
 
-  const testEmployee = location.state || employeeData;
+  const testEmployee = location.state || user.testEmployee;
 
   if (!testEmployee) {
     return (
