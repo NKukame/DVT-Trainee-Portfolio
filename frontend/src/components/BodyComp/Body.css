@@ -295,6 +295,7 @@
 }
 
 .video-cta-button{
+  white-space: nowrap;
   text-wrap: nowrap;
 }
 

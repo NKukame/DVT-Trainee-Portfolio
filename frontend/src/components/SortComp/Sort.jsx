@@ -29,7 +29,7 @@ export function SelectScrollable({ isPeopleSearch }) {
         <span className={`toggle-label ${!isAvailable ? "active" : ""}`}>
           All
         </span>
-        <Switch checked={isAvailable} onChange={handleToggle} color="primary" />
+        <Switch checked={isAvailable} onChange={handleToggle} color="primary" title="Toggle Availability Filter"/>
         <span className={`toggle-label ${isAvailable ? "active" : ""}`}>
           Available
         </span>
