@@ -21,7 +21,7 @@ export const useUserStore = create((set) => ({
             console.log("Fetching user...");
             const token = JSON.parse(localStorage.getItem("token"));
             console.log("Token:", token);
-            const res = await fetch("http://localhost:3000/api/me", {
+            const res = await fetch(`${import.meta.env.VITE_API_LINK}/api/me`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",

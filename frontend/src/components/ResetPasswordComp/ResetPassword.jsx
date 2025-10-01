@@ -89,7 +89,7 @@ function ResetPassword() {
     setErrors({});
  
     try {
-      const response = await fetch('http://localhost:3000/forgot-password', {
+      const response = await fetch(`${import.meta.env.VITE_API_LINK}/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ function ResetPassword() {
     setErrors({});
  
     try {
-      const response = await fetch('http://localhost:3000/reset-password', {
+      const response = await fetch(`${import.meta.env.VITE_API_LINK}/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

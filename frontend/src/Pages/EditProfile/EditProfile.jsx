@@ -269,7 +269,7 @@ function EditProfile(prop) {
       };
 
       const response = await axios.patch(
-        `http://localhost:3000/profile`,
+        `${import.meta.env.VITE_API_LINK}/profile`,
         payload
       );
 

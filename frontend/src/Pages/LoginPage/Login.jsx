@@ -118,7 +118,7 @@ function Signup() {
       }
       try {
         const userRegistered = await axios.post(
-          "http://localhost:3000/register",
+          `${import.meta.env.VITE_API_LINK}/register`,
           {
             email: formData.email,
             password: formData.password,
@@ -135,7 +135,7 @@ function Signup() {
         if (userRegistered.status === 201) {
           try {
             const loginResponse = await axios.post(
-              "http://localhost:3000/login",
+              `${import.meta.env.VITE_API_LINK}/login`,
               {
                 email: formData.email,
                 password: formData.password,
@@ -191,7 +191,7 @@ function Signup() {
 
     try {
       const token = await axios.post(
-        "http://localhost:3000/login",
+        `${import.meta.env.VITE_API_LINK}/login`,
         {
           email: formData.email,
           password: formData.password,

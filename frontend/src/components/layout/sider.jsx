@@ -3,10 +3,10 @@ import {
   CanAccess,
   useIsExistAuthentication,
   useLogout,
-  useTitle,
+  // useTitle,
   useTranslate,
-  useRouterContext,
-  useRouterType,
+  // useRouterContext,
+  // useRouterType,
   useLink,
   useMenu,
   useRefineContext,
@@ -41,7 +41,7 @@ import { Briefcase01, Code01, Scan, User01, User02, User03, Users02 } from "@unt
 
 
 export const ThemedSiderV2 = ({
-  Title: TitleFromProps,
+  // Title: TitleFromProps,
   render,
   meta,
   activeItemDisabled = false,
@@ -59,16 +59,16 @@ export const ThemedSiderV2 = ({
   };
 
   const t = useTranslate();
-  const routerType = useRouterType();
+  // const routerType = useRouterType();
   const Link = useLink();
-  const { Link: LegacyLink } = useRouterContext();
-  const ActiveLink = routerType === "legacy" ? LegacyLink : Link;
+  // const { Link: LegacyLink } = useRouterContext();
+  // const ActiveLink = routerType === "legacy" ? LegacyLink : Link;
   const { hasDashboard } = useRefineContext();
   const translate = useTranslate();
 
   const { menuItems, selectedKey, defaultOpenKeys } = useMenu({ meta });
   const isExistAuthentication = useIsExistAuthentication();
-  const TitleFromContext = useTitle();
+  // const TitleFromContext = useTitle();
   const authProvider = useActiveAuthProvider();
   const { warnWhen, setWarnWhen } = useWarnAboutChange();
   const { mutate: mutateLogout } = useLogout({
@@ -90,7 +90,7 @@ export const ThemedSiderV2 = ({
     });
   }, [defaultOpenKeys]);
 
-  const RenderToTitle = TitleFromProps ?? TitleFromContext ?? DefaultTitle;
+  // const RenderToTitle = TitleFromProps ?? TitleFromContext ?? DefaultTitle;
 
   const handleClick = (key) => {
     setOpen({ ...open, [key]: !open[key] });
@@ -216,7 +216,7 @@ export const ThemedSiderV2 = ({
             arrow
           >
             <ListItemButton
-              component={ActiveLink}
+              // component={ActiveLink}
               to={route}
               selected={isSelected}
               style={linkStyle}
@@ -264,7 +264,7 @@ export const ThemedSiderV2 = ({
         arrow
       >
         <ListItemButton
-          component={ActiveLink}
+          // component={ActiveLink}
           to="/home"
           selected={selectedKey === "/home"}
           onClick={() => {
@@ -477,7 +477,7 @@ export const ThemedSiderV2 = ({
                 `1px solid ${theme.palette.action.focus}`,
             }}
           >
-            <RenderToTitle collapsed={siderCollapsed} />
+            {/* <RenderToTitle collapsed={siderCollapsed} /> */}
             {!siderCollapsed && (
               <IconButton size="small" onClick={() => setSiderCollapsed(true)}>
                 {<ChevronLeft />}

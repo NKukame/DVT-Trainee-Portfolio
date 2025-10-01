@@ -5,8 +5,7 @@ import { Refine, Authenticated } from "@refinedev/core";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
-import { RefineThemes } from "@refinedev/mui";
-import { ThemedLayoutV2 } from "@refinedev/mui";
+import { RefineThemes, ThemedLayout, ThemedSider, ThemedTitle } from "@refinedev/mui";
 
 import './styles.css'
 import Home from './Pages/HomePage/Home.jsx'
@@ -51,9 +50,11 @@ import Bookmarks from './Pages/BookmarksPage/Bookmarks.jsx';
 import {  RefineSnackbarProvider, useNotificationProvider, } from "@refinedev/mui";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router";
-import { ThemedSiderV2 } from "./components/layout/sider.jsx";
+// import { ThemedSiderV2 } from "./components/layout/sider.jsx";
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ThemedTitleV2 } from "./components/layout/title.jsx";
+// import { ThemedTitleV2 } from "./components/layout/title.jsx";
+
 
 
 const queryClient = new QueryClient();
@@ -160,11 +161,11 @@ const App = () => {
                   path="/dashboard"
                   element={
                     <Authenticated key="authenticated-routes" fallback={<h1>Unauthorized</h1>}>
-                       <ThemedLayoutV2
+                       <ThemedLayout
                         Sider={() => (
-                          <ThemedSiderV2
+                          <ThemedSider
                           Title={(props) => (
-                           <ThemedTitleV2 icon={false} text="DVT  Portfolio"  />
+                           <ThemedTitle icon={false} text="DVT  Portfolio"  />
                           )}
                             render={({ items, logout }) => {
                               return (
@@ -184,7 +185,7 @@ const App = () => {
 
                        >
                         <Outlet />
-                      </ThemedLayoutV2>
+                      </ThemedLayout>
                     </Authenticated>
                   }
                 >
