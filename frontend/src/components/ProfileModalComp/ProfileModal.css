@@ -13,7 +13,8 @@
   z-index: 1000;
 }
 
-.profile-modal-content {position: fixed;
+.profile-modal-content {
+  position: fixed;
   background: linear-gradient(0deg, #f9fafbfd 0%, #d4d4d4 100%);
   border-radius: 12px;
   padding: 24px;
@@ -22,7 +23,7 @@
   max-width: 90vw;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--userText-GrayText);
-   /* top: 0;
+  /* top: 0;
   left: 0; */
   right: 1110px;
   bottom: 24px;
@@ -47,7 +48,7 @@
   font-weight: 600;
 }
 
-.dark-mode .profile-modal-user-info h3  {
+.dark-mode .profile-modal-user-info h3 {
   color: var(--white);
 }
 
@@ -176,8 +177,9 @@
 
 /* Custom loader for ProfileModal in dark mode */
 .dark-mode .profile-modal-user-info .form-loader {
-  background: 
+  background:
     radial-gradient(farthest-side, #ffffff 94%, #0000) top/8px 8px no-repeat,
     conic-gradient(#0000 30%, #ffffff);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
 }

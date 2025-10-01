@@ -619,6 +619,7 @@ input.error-border {
       no-repeat,
     conic-gradient(#0000 30%, #04223d);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
   animation: l13 1s infinite linear;
 }
 
@@ -780,7 +781,7 @@ input.error-border {
   .login-container form {
     padding: 20px;
     height: 100%;
-    min-height: auto;
+    min-height: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -820,6 +821,7 @@ input.error-border {
     z-index: 10;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
     margin: 0 20px;
     padding: 10px;

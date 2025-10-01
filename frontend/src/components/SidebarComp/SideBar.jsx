@@ -2,56 +2,12 @@ import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import dvtLogo from "../../assets/dvt_logo.jpg";
 import ProfileModal from "../ProfileModalComp/ProfileModal.jsx";
+import {useUserStore} from "../../lib/useUser.js";
 function SideBar() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    email: "",
-    profilePicture: null,
-    role: "",
-  });
+  const userInfo = useUserStore((state) => state.user);
 
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
-
-  const fetchCurrentUser = async () => {
-    try {
-      const token = JSON.parse(localStorage.getItem("token"));
-      if (!token) {
-        return;
-      }
-
-      const response = await fetch("http://localhost:3000/api/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      // console.log("our Api call", response);
-      if (response.ok) {
-        const userData = await response.json();
-        console.log("our Api call", userData);
-        const profilePictureUrl = userData.profilePicture 
-          ? (userData.profilePicture.startsWith('data:') 
-              ? userData.profilePicture 
-              : `http://localhost:3000${userData.profilePicture}`)
-          : null;
-
-        setUserInfo({
-          name: userData.name,
-          email: userData.email,
-          profilePicture: userData.avatar,
-          role: userData.user_role,
-        });
-      } else if (response.status === 401) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-      }
-    } catch (error) {
-      console.error("Error fetching current user:", error);
-    }
-  };
+  console.log("User Info in Sidebar:", userInfo);
 
   return (
     <>
@@ -68,7 +24,7 @@ function SideBar() {
 
         <div className="sidebar-container-content max-sm:hidden">
           <div className="sidebar-nav-link">
-            <Link to="/home">
+            <Link to="/home" title="Home">
               <div className="homeBtn">
                 <svg
                   width="25px"
@@ -85,7 +41,7 @@ function SideBar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="home-txt">Home</p>
+                <span className="home-txt">Home</span>
               </div>
             </Link>
           </div>
@@ -115,7 +71,7 @@ function SideBar() {
           </div> */}
 
           <div className="sidebar-nav-link">
-            <Link to="/about">
+            <Link to="/about" title="About">
               <div className="homeBtn">
                 <svg
                   width="25px"
@@ -132,13 +88,13 @@ function SideBar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="home-txt">About</p>
+                <span className="home-txt">About</span>
               </div>
             </Link>
           </div>
 
           <div className="sidebar-nav-link">
-            <Link to="/search">
+            <Link to="/search" title="Search">
               <div className="homeBtn">
                 <svg
                   width="25px"
@@ -155,7 +111,7 @@ function SideBar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="home-txt">Search</p>
+                <span className="home-txt">Search</span>
               </div>
             </Link>
           </div>
