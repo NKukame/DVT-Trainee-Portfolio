@@ -19,7 +19,7 @@ export async function getAllEmployees(page, query, params, isAvailable) {
     axios.defaults.headers.post["Content-Type"] = "application/json";
 
     const apiDataEmployee = await axios.get(
-        `http://localhost:3000/search/employee`,
+        `${import.meta.env.VITE_API_LINK}/search/employee`,
         {
             params: {
                 page: page,
@@ -84,7 +84,7 @@ export async function getAllProjects(page, query, params, isAvailable) {
     )}`;
     axios.defaults.headers.post["Content-Type"] = "application/json";
     const apiDataProject = await axios.get(
-        `http://localhost:3000/search/project`,
+        `${import.meta.env.VITE_API_LINK}/search/project`,
         {
             params: {
                 page: page,

@@ -17,7 +17,7 @@ export default function ResultsList({ results, isEmployeeSearch }) {
   const fetchBookmarks = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      const response = await axios.get("http://localhost:3000/bookmarks", {
+      const response = await axios.get(`${import.meta.env.VITE_API_LINK}/bookmarks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

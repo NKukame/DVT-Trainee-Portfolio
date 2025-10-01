@@ -35,7 +35,7 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
-        `http://localhost:3000/api/v2/bookmarks/check/${userInfo.employee_id}`,
+        `${import.meta.env.VITE_API_LINK}/api/v2/bookmarks/check/${userInfo.employee_id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.post(
-        "http://localhost:3000/api/v2/bookmarks/toggle",
+        `${import.meta.env.VITE_API_LINK}/api/v2/bookmarks/toggle`,
         { employeeId: userInfo.employee_id },
         {
           headers: {

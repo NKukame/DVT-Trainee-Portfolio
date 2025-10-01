@@ -29,7 +29,7 @@ function Bookmarks() {
       const token = JSON.parse(localStorage.getItem("token"));
       
       // Use the bookmark endpoint directly which returns all bookmarks without pagination
-      const response = await axios.get("http://localhost:3000/bookmarks", {
+      const response = await axios.get(`${import.meta.env.VITE_API_LINK}/bookmarks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,7 +47,7 @@ function Bookmarks() {
   const fetchCollections = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      const response = await axios.get("http://localhost:3000/collections", {
+      const response = await axios.get(`${import.meta.env.VITE_API_LINK}/collections`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +66,7 @@ function Bookmarks() {
       const token = JSON.parse(localStorage.getItem("token"));
       console.log("Creating collection with name:", newCollectionName);
       const response = await axios.post(
-        "http://localhost:3000/collections",
+        `${import.meta.env.VITE_API_LINK}/collections`,
         {
           name: newCollectionName,
           description: newCollectionDescription,
@@ -94,7 +94,7 @@ function Bookmarks() {
 
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      await axios.delete(`http://localhost:3000/collections/${collectionId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_LINK}/collections/${collectionId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -110,7 +110,7 @@ function Bookmarks() {
   const removeBookmark = async (employeeId) => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
-      await axios.delete(`http://localhost:3000/api/v2/bookmark/${employeeId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_LINK}/api/v2/bookmark/${employeeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +134,7 @@ function Bookmarks() {
       console.log("Sending payload:", payload);
       
       const response = await axios.post(
-        `http://localhost:3000/collections/add-bookmark`,
+        `${import.meta.env.VITE_API_LINK}/collections/add-bookmark`,
         { employeeId, collectionId },
         {
           headers: {
@@ -159,7 +159,7 @@ function Bookmarks() {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       await axios.delete(
-        `http://localhost:3000/collections/remove-bookmark`,
+        `${import.meta.env.VITE_API_LINK}/collections/remove-bookmark`,
         {
           data: { bookmarkId, collectionId },
           headers: {
@@ -203,7 +203,7 @@ function Bookmarks() {
       console.log("Fetching collection:", collectionId);
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
-        `http://localhost:3000/collections/${collectionId}`,
+        `${import.meta.env.VITE_API_LINK}/collections/${collectionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

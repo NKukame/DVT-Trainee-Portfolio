@@ -97,7 +97,7 @@ export function UserCard({
       const token = JSON.parse(localStorage.getItem("token"));
 
       const response = await axios.post(
-        "http://localhost:3000/bookmarks/toggle",
+        `${import.meta.env.VITE_API_LINK}/bookmarks/toggle`,
         {
           employeeId: userId,
         },
