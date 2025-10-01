@@ -1,5 +1,4 @@
-import { EmployeeRole } from "@prisma/client";
-import { clearCache } from "../lib/prisma-redis-middleware.js";
+// import { EmployeeRole } from "@prisma/client";
 import prisma from "../lib/prisma-redis-middleware.js";
 import uploadImage from "../upload.js";
 

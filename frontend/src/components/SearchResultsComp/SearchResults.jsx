@@ -6,6 +6,7 @@ import PaginationControls from '../PaginationControlComp/PaginationControls';
 import ResultsList from '../ResultsListComp/ResultsList';
 
 
+
 export default function SearchResults() {
   const location = useLocation();
   const { filteredResults, total, totalProjects } = useContext(SearchContext);

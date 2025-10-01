@@ -2,45 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 
 export default function MobileDock() {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    email: "",
-    profilePicture: null,
-  });
-
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
-
-  const fetchCurrentUser = async () => {
-    try {
-      const token = JSON.parse(localStorage.getItem("token"));
-      if (!token) return;
-
-      const response = await fetch("http://localhost:3000/api/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        setUserInfo({
-          name: userData.name,
-          email: userData.email,
-          profilePicture: userData.avatar
-            ? `http://localhost:3000${userData.avatar}`
-            : null,
-        });
-      } else if (response.status === 401) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-      }
-    } catch (error) {
-      console.error("Error fetching current user:", error);
-    }
-  };
 
   return (
     <div className="dock">
