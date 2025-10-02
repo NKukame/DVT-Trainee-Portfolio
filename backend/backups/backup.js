@@ -28,7 +28,7 @@ async function waitForTunnel(host = "127.0.0.1", port = 5555, maxWait = 30000) {
         });
         
         if (exitCode === 0) {
-          console.log(`✅ Tunnel ready at ${host}:${port}`);
+           
           return;
         }
       } catch {
@@ -71,10 +71,7 @@ async function main(){
     const tunnelHost = "127.0.0.1";
     const tunnelPort = 5555;
   
-    console.log(`Starting backup of ${filename}`);
-    console.log(`Database URL: ${process.env.DATABASE_URL.replace(/:\/\/[^@]+@/, '://***:***@')}`); // Log safely
-
-    console.log("Starting Prisma tunnel...");
+     
     
     // Detect platform for npx command
     const npxCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx';
@@ -99,7 +96,7 @@ async function main(){
   
     tunnel.stdout.on("data", (data) => {
         const output = data.toString();
-        console.log("Tunnel:", output.trim());
+         
         if (output.includes("Tunnel ready") || output.includes("listening")) {
             tunnelReady = true;
         }
@@ -114,7 +111,7 @@ async function main(){
             await new Promise(res => setTimeout(res, 3000));
             await waitForTunnel(tunnelHost, tunnelPort);
         } catch {
-            console.log("Using basic wait for tunnel readiness...");
+             
             await new Promise(res => setTimeout(res, 10000));
         }
 
@@ -164,7 +161,7 @@ async function main(){
         const stats = await fsPromises.stat(outputPath);
         const mb = stats.size / 1024 / 1024;
 
-        console.log(`Backup completed: ${outputPath} (${mb.toFixed(2)} MB) Now uploading to Backblaze B2`);
+         
 
         const {data: file} = await b2.uploadFile({
             uploadUrl: uploadUrl.uploadUrl,
@@ -174,10 +171,10 @@ async function main(){
             contentType: "application/octet-stream",
         });
 
-        console.log(`Backup completed and saved to ${outputPath} and uploaded to Backblaze B2`);
+         
     } finally {
         if (tunnel) {
-            console.log("Closing tunnel...");
+             
             tunnel.stdout?.removeAllListeners();
             tunnel.stderr?.removeAllListeners();
             tunnel.kill();

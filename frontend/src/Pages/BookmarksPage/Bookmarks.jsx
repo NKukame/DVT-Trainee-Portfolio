@@ -30,7 +30,7 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
       
@@ -56,7 +56,7 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(`${apiLink}/collections`, {
@@ -64,7 +64,7 @@ function Bookmarks() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Collections response:", response.data);
+       
       setCollections(response.data.collections || response.data);
     } catch (error) {
       console.error("Error fetching collections:", error);
@@ -78,10 +78,10 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
-      console.log("Creating collection with name:", newCollectionName);
+       
       const response = await axios.post(
         `${apiLink}/collections`,
         {
@@ -94,7 +94,7 @@ function Bookmarks() {
           },
         }
       );
-      console.log("Collection created response:", response.data);
+       
       setNewCollectionName("");
       setNewCollectionDescription("");
       setShowCreateCollection(false);
@@ -113,7 +113,7 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
       await axios.delete(`${apiLink}/collections/${collectionId}`, {
@@ -135,7 +135,7 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
       await axios.delete(`${apiLink}/api/v2/bookmark/${employeeId}`, {
@@ -159,13 +159,13 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
       
       // Try with employeeId directly first
       const payload = { employeeId, collectionId };
-      console.log("Sending payload:", payload);
+       
       
       const response = await axios.post(
         `${apiLink}/collections/add-bookmark`,
@@ -177,7 +177,7 @@ function Bookmarks() {
         }
       );
       
-      console.log("Add to collection response:", response.data);
+       
       setSuccess("Added to collection successfully!");
       setShowAddToCollection(null);
       fetchCollections();
@@ -195,7 +195,7 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
       await axios.delete(
@@ -243,9 +243,9 @@ function Bookmarks() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
-      console.log("Fetching collection:", collectionId);
+       
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
         `${apiLink}/collections/${collectionId}`,
@@ -256,7 +256,7 @@ function Bookmarks() {
         }
       );
       
-      console.log("Collection response:", response.data);
+       
       const collection = response.data.collection || response.data;
       
       // Transform collection bookmarks to match SearchContext format exactly
@@ -296,7 +296,7 @@ function Bookmarks() {
         };
       });
       
-      console.log("Transformed bookmarks:", transformedBookmarks);
+       
       setSelectedCollection({
         ...collection,
         bookmarks: transformedBookmarks

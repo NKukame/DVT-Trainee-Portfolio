@@ -85,7 +85,7 @@ export function UserCard({
       currentUserId = localStorage.getItem("user");
     }
 
-    console.log("Current user ID:", currentUserId);
+     
 
     if (!currentUserId) {
       showAlert("error", "User not found. Please log in again.");
@@ -98,7 +98,7 @@ export function UserCard({
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = JSON.parse(localStorage.getItem("token"));
 
@@ -114,7 +114,7 @@ export function UserCard({
           },
         }
       );
-      console.log("Bookmark response:", response.data);
+       
       showAlert(
         "success",
         response.data.message || "Profile bookmarked successfully!"

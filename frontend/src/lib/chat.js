@@ -530,7 +530,7 @@ export async function chatWithAI(conversationHistory) {
     content: m.content,
   }));
 
-  console.log(messages);
+   
   const result = await streamText({
     model: deepinfra("zai-org/GLM-4.5-Air"),
     messages: [

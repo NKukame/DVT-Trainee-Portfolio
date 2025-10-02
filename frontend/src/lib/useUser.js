@@ -18,11 +18,11 @@ export const useUserStore = create((set) => ({
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === "development") {
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log("Running in development mode");
+         
       }
-      console.log("Fetching user...");
+       
       const token = JSON.parse(localStorage.getItem("token"));
-      console.log("Token:", token);
+       
       const res = await fetch(`${apiLink}/api/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ export const useUserStore = create((set) => ({
       if (!res.ok) throw new Error("Not authenticated");
 
       const data = await res.json();
-      console.log(data);
+       
       set({
         user: {
           testEmployee: data,

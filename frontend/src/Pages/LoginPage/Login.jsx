@@ -121,7 +121,7 @@ function Signup() {
         let apiLink = import.meta.env.VITE_API_LINK;
         if (import.meta.env.MODE === "development") {
           apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-          console.log("Running in development mode");
+           
         }
         const userRegistered = await axios.post(
           `${apiLink}/register`,
@@ -137,13 +137,13 @@ function Signup() {
         );
         const user_id = userRegistered.data.id;
 
-        console.log("the user ", userRegistered);
+         
         if (userRegistered.status === 201) {
           try {
             let apiLink = import.meta.env.VITE_API_LINK;
             if (import.meta.env.MODE === "development") {
               apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-              console.log("Running in development mode");
+               
             }
             const loginResponse = await axios.post(
               `${apiLink}/login`,
@@ -204,7 +204,7 @@ function Signup() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = await axios.post(
         `${apiLink}/login`,
@@ -225,9 +225,9 @@ function Signup() {
       localStorage.setItem("token", JSON.stringify(token.data.token));
       localStorage.setItem("userId", JSON.stringify(user_id));
       localStorage.setItem("role", JSON.stringify(user_role));
-      console.log("the user id is ", user_id);
+       
       fetchUser();
-      console.log("User fetched successfully after signup.");
+       
 
       if (rememberMe) {
         localStorage.setItem(

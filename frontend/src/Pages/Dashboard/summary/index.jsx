@@ -66,7 +66,7 @@ export const DashboardSummary = () => {
     filters: [{ field: "available", operator: "eq", value: true }],
   });
 
-  console.log(availableList);
+   
   const totalEmployees = employeeList?.total ?? 0;
   const totalUsers = userList?.total ?? 0;
   const totalProjects = projectList?.total ?? 0;

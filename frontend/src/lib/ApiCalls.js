@@ -20,7 +20,7 @@ export async function getAllEmployees(page, query, params, isAvailable) {
     let apiLink = import.meta.env.VITE_API_LINK;
     if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
     } 
 
     const apiDataEmployee = await axios.get(
@@ -92,7 +92,7 @@ export async function getAllProjects(page, query, params, isAvailable) {
     let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
     const apiDataProject = await axios.get(
         `${apiLink}/search/project`,

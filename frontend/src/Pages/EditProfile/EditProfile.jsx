@@ -260,7 +260,7 @@ function EditProfile(prop) {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(

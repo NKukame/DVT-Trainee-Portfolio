@@ -8,12 +8,7 @@ export async function HomePortfolioController(req, res){
   
     const cacheKey = 'homePortfolioUsers';
     const cached = await getCache(cacheKey);
-    // console.log('Cache key:', cached);
-    // if(cached){
-    //     console.log('Cache hit for HomePortfolioController');
-        
-    //     return res.send(JSON.parse(cached));
-    // }
+    
   const users = await prisma.employee.findMany({
     select:{
       name:true,
@@ -46,7 +41,7 @@ export async function HomeProjectController(req, res) {
          const cacheKey = 'homeProjectController';
         const cached = await getCache(cacheKey);
         if(cached){
-            console.log('Cache hit for homeProjectController');
+             
             const queryTime = Date.now() - startTime;
            
             return res.json({
@@ -59,7 +54,7 @@ export async function HomeProjectController(req, res) {
                 }
             });
         }
-        console.log('Cache miss for homeProjectController');
+         
         const projects = await prisma.project.findMany({
             include: {
                 members: {

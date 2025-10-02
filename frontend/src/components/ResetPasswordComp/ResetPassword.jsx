@@ -29,9 +29,9 @@ function ResetPassword() {
  
     if (e.target.name === 'password') {
       const password = e.target.value;
-      console.log('Password:', password);
-      console.log('Length >= 8:', password.length >= 8);
-      console.log('Has special char:', /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password));
+       
+       
+      
     }
  
     if (errors[e.target.name]) {
@@ -92,7 +92,7 @@ function ResetPassword() {
       let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
-        console.log('Running in development mode'); 
+          
       } 
       const response = await fetch(`${apiLink}/forgot-password`, {
         method: 'POST',

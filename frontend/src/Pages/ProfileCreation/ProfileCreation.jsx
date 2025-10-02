@@ -130,7 +130,6 @@ function ProfileCreation() {
       "status",
     ];
     const currentKey = stepKeys[currentStep];
-    console.log(`Current Step (${currentKey}) Data:`, formData[currentKey]);
     if (currentStep < stepData.length - 1) {
       setCurrentStep((prev) => {
         const nextStep = prev + 1;

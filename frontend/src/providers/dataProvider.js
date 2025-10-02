@@ -2,7 +2,7 @@ let apiLink = import.meta.env.VITE_API_LINK;
       if (import.meta.env.MODE === 'development') {   
         apiLink = import.meta.env.VITE_API_LINK_LOCAL;
     
-        console.log('Running in development mode', apiLink); 
+          
       } 
 
 const API_URL = `${apiLink}/api/v2`;
@@ -16,7 +16,7 @@ const getAuthHeaders = () => {
 export const dataProvider = {
     getList: async function (params) {
         const queryArgs = {};
-        console.log(params);
+         
         // filtering
         if (params.filters && params.filters.length > 0) {
             const filters = params.filters.map((filter) =>
