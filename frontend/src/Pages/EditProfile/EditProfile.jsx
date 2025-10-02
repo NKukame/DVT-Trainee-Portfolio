@@ -257,6 +257,11 @@ function EditProfile(prop) {
     event.preventDefault();
     try {
       setLoading(true);
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["authorization"] = `Bearer ${JSON.parse(
         token
@@ -269,7 +274,7 @@ function EditProfile(prop) {
       };
 
       const response = await axios.patch(
-        `${import.meta.env.VITE_API_LINK}/profile`,
+        `${apiLink}/profile`,
         payload
       );
 

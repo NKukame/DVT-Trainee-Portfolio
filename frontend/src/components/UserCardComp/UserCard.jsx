@@ -94,10 +94,16 @@ export function UserCard({
     }
 
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_LINK}/bookmarks/toggle`,
+        `${apiLink}/bookmarks/toggle`,
         {
           employeeId: userId,
         },

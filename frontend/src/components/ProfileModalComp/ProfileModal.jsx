@@ -33,9 +33,15 @@ function ProfileModal({ isOpen, onClose, userInfo }) {
 
   const checkBookmarkStatus = async () => {
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
-        `${import.meta.env.VITE_API_LINK}/api/v2/bookmarks/check/${userInfo.employee_id}`,
+        `${apiLink}/api/v2/bookmarks/check/${userInfo.employee_id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

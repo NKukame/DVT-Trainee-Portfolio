@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router"; // ✅ fixed import
 import "./Login.css";
 import { Eye, EyeClosed, Mail, Lock } from "lucide-react";
-import axios from 'axios';
+import axios from "axios";
 import AuthForm from "./MobileLogin";
 import { useUserStore } from "../../lib/useUser.js";
 
@@ -22,7 +22,8 @@ function Signup() {
   const fetchUser = useUserStore((state) => state.fetchUser);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -117,8 +118,13 @@ function Signup() {
         return;
       }
       try {
+        let apiLink = import.meta.env.VITE_API_LINK;
+        if (import.meta.env.MODE === "development") {
+          apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+          console.log("Running in development mode");
+        }
         const userRegistered = await axios.post(
-          `${import.meta.env.VITE_API_LINK}/register`,
+          `${apiLink}/register`,
           {
             email: formData.email,
             password: formData.password,
@@ -134,8 +140,13 @@ function Signup() {
         console.log("the user ", userRegistered);
         if (userRegistered.status === 201) {
           try {
+            let apiLink = import.meta.env.VITE_API_LINK;
+            if (import.meta.env.MODE === "development") {
+              apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+              console.log("Running in development mode");
+            }
             const loginResponse = await axios.post(
-              `${import.meta.env.VITE_API_LINK}/login`,
+              `${apiLink}/login`,
               {
                 email: formData.email,
                 password: formData.password,
@@ -144,14 +155,13 @@ function Signup() {
                 headers: {
                   "Content-Type": "application/json",
                 },
-              },
+              }
             );
 
             const tokenData = loginResponse.data.token;
             const user_id = loginResponse.data.user;
             localStorage.setItem("token", JSON.stringify(tokenData));
             localStorage.setItem("userId", JSON.stringify(user_id));
-
 
             setLoading(false);
             navigate("/profile-creation");
@@ -169,7 +179,7 @@ function Signup() {
           setErrors({ email: "Registration failed" });
         }
       } catch (err) {
-        setErrors({ email: 'Registration failed' });
+        setErrors({ email: "Registration failed" });
       } finally {
         setLoading(false);
       }
@@ -190,8 +200,14 @@ function Signup() {
     setLoading(true);
 
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = await axios.post(
-        `${import.meta.env.VITE_API_LINK}/login`,
+        `${apiLink}/login`,
         {
           email: formData.email,
           password: formData.password,
@@ -263,16 +279,18 @@ function Signup() {
     if (isPassword) {
       event.currentTarget.closest("div").querySelector("input").type = "text";
     } else {
-      event.currentTarget.closest("div").querySelector("input").type = "password";
+      event.currentTarget.closest("div").querySelector("input").type =
+        "password";
     }
     setIsPasswordVisible(!isPasswordVisible);
   };
 
   const handleConfirmPasswordToggle = (event, isPassword) => {
     if (isPassword) {
-      event.currentTarget.closest("div").querySelector("input").type = 'text';
+      event.currentTarget.closest("div").querySelector("input").type = "text";
     } else {
-      event.currentTarget.closest("div").querySelector("input").type = 'password';
+      event.currentTarget.closest("div").querySelector("input").type =
+        "password";
     }
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
@@ -301,7 +319,11 @@ function Signup() {
                         onChange={handleChange}
                         className={getInputClass("email") + " email-input"}
                       />
-                      <Mail className="mail-icon" strokeWidth={1} size={"20px"} />
+                      <Mail
+                        className="mail-icon"
+                        strokeWidth={1}
+                        size={"20px"}
+                      />
                     </div>
                     {errors.email ? (
                       <p className="login-error">{errors.email}</p>
@@ -317,7 +339,9 @@ function Signup() {
                         placeholder="Password"
                         value={formData.password || ""}
                         onChange={handleChange}
-                        className={getInputClass("password") + " password-input"}
+                        className={
+                          getInputClass("password") + " password-input"
+                        }
                       />
                       {isPasswordVisible ? (
                         <Eye
@@ -338,7 +362,11 @@ function Signup() {
                           }}
                         />
                       )}
-                      <Lock className="lock-icon" strokeWidth={1} size={"20px"} />
+                      <Lock
+                        className="lock-icon"
+                        strokeWidth={1}
+                        size={"20px"}
+                      />
                     </div>
                     {errors.password ? (
                       <p className="login-error">{errors.password}</p>
@@ -361,7 +389,10 @@ function Signup() {
                             checked={rememberMe}
                             onChange={handleRememberMeToggle}
                           />
-                          <label className="toggle-label" htmlFor="toggle"></label>
+                          <label
+                            className="toggle-label"
+                            htmlFor="toggle"
+                          ></label>
                         </div>
                         <p>Remember me</p>
                       </div>
@@ -385,13 +416,12 @@ function Signup() {
                       <button type="submit">Sign In</button>
                     )}
                     <div className="sign-in-link">
-                      <p className="signInBlack">
-                        Don't have an account?
-                      </p>
-                      <section className="signUpButtonFirst "
+                      <p className="signInBlack">Don't have an account?</p>
+                      <section
+                        className="signUpButtonFirst "
                         onClick={() => {
                           setIsSignUp(true);
-                          setFormData(prev => ({
+                          setFormData((prev) => ({
                             name: "",
                             email: "",
                             password: "",
@@ -401,7 +431,8 @@ function Signup() {
                         }}
                       >
                         Sign up
-                      </section></div>
+                      </section>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -423,9 +454,17 @@ function Signup() {
                       onChange={handleChange}
                       className={getInputClass("email")}
                     />
-                    <Mail className="mail-icon-signup" strokeWidth={1} size={"20px"} />
+                    <Mail
+                      className="mail-icon-signup"
+                      strokeWidth={1}
+                      size={"20px"}
+                    />
                   </div>
-                  {errors.email ? (<p className="signup-error">{errors.email}</p>) : <p className="signup-error"></p>}
+                  {errors.email ? (
+                    <p className="signup-error">{errors.email}</p>
+                  ) : (
+                    <p className="signup-error"></p>
+                  )}
 
                   <h6>Password</h6>
                   <div className="password-container-signup">
@@ -437,17 +476,36 @@ function Signup() {
                       onChange={handleChange}
                       className={getInputClass("password")}
                     />
-                    <Lock className="lock-icon-password" strokeWidth={1} size={"20px"} />
-                    {isPasswordVisible ?
-                      <Eye className="eye-icon-signup" strokeWidth="1" size={"20px"} onClick={(event) => {
-                        handleToggle(event, false)
-                      }} /> :
-                      <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event) => {
-                        handleToggle(event, true);
-                      }} />
-                    }
+                    <Lock
+                      className="lock-icon-password"
+                      strokeWidth={1}
+                      size={"20px"}
+                    />
+                    {isPasswordVisible ? (
+                      <Eye
+                        className="eye-icon-signup"
+                        strokeWidth="1"
+                        size={"20px"}
+                        onClick={(event) => {
+                          handleToggle(event, false);
+                        }}
+                      />
+                    ) : (
+                      <EyeClosed
+                        className="eyeclosed-icon-signup"
+                        strokeWidth="1"
+                        size={"20px"}
+                        onClick={(event) => {
+                          handleToggle(event, true);
+                        }}
+                      />
+                    )}
                   </div>
-                  {errors.password ? (<p className="signup-error">{errors.password}</p>) : <p className="signup-error"></p>}
+                  {errors.password ? (
+                    <p className="signup-error">{errors.password}</p>
+                  ) : (
+                    <p className="signup-error"></p>
+                  )}
 
                   <h6>Confirm Password</h6>
                   <div className="password-container-signup">
@@ -459,30 +517,51 @@ function Signup() {
                       onChange={handleChange}
                       className={getInputClass("confirmPassword")}
                     />
-                    <Lock className="lock-icon-confirm" strokeWidth={1} size={"20px"} />
-                    {isConfirmPasswordVisible ?
-                      <Eye className="eye-icon-signup" strokeWidth="1" size={"20px"} onClick={(event) => {
-                        handleConfirmPasswordToggle(event, false)
-                      }} /> :
-                      <EyeClosed className="eyeclosed-icon-signup" strokeWidth="1" size={"20px"} onClick={(event) => {
-                        handleConfirmPasswordToggle(event, true);
-                      }} />
-                    }
+                    <Lock
+                      className="lock-icon-confirm"
+                      strokeWidth={1}
+                      size={"20px"}
+                    />
+                    {isConfirmPasswordVisible ? (
+                      <Eye
+                        className="eye-icon-signup"
+                        strokeWidth="1"
+                        size={"20px"}
+                        onClick={(event) => {
+                          handleConfirmPasswordToggle(event, false);
+                        }}
+                      />
+                    ) : (
+                      <EyeClosed
+                        className="eyeclosed-icon-signup"
+                        strokeWidth="1"
+                        size={"20px"}
+                        onClick={(event) => {
+                          handleConfirmPasswordToggle(event, true);
+                        }}
+                      />
+                    )}
                   </div>
-                  {errors.confirmPassword ? (<p className="signup-error">{errors.confirmPassword}</p>) : <p className="signup-error"></p>}
+                  {errors.confirmPassword ? (
+                    <p className="signup-error">{errors.confirmPassword}</p>
+                  ) : (
+                    <p className="signup-error"></p>
+                  )}
                 </div>
 
                 <div className="button-section">
-                  {loading ? <div className="form-loader"></div> :
-                    <button type="submit">Sign Up</button>}
+                  {loading ? (
+                    <div className="form-loader"></div>
+                  ) : (
+                    <button type="submit">Sign Up</button>
+                  )}
                   <div className="sign-in-link">
-                    <p className="signInBlack">
-                      Already have an account?
-                    </p>
-                    <section className="signInButton"
+                    <p className="signInBlack">Already have an account?</p>
+                    <section
+                      className="signInButton"
                       onClick={() => {
                         setIsSignUp(false);
-                        setFormData(prev => ({
+                        setFormData((prev) => ({
                           name: "",
                           email: "",
                           password: "",
@@ -492,7 +571,8 @@ function Signup() {
                       }}
                     >
                       Sign in
-                    </section></div>
+                    </section>
+                  </div>
                 </div>
               </form>
             </div>
@@ -515,14 +595,17 @@ function Signup() {
                   <p>Smart Solutions</p>
                 </div>
                 <div>
-                  <button className="hidden" onClick={() => {
-                    setIsSignUp(true);
-                    setFormData(prev => ({
-                      email: "",
-                      password: "",
-                    }));
-                    setErrors({});
-                  }}>
+                  <button
+                    className="hidden"
+                    onClick={() => {
+                      setIsSignUp(true);
+                      setFormData((prev) => ({
+                        email: "",
+                        password: "",
+                      }));
+                      setErrors({});
+                    }}
+                  >
                     Sign Up
                   </button>
                 </div>

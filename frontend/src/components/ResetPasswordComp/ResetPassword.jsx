@@ -89,7 +89,12 @@ function ResetPassword() {
     setErrors({});
  
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_LINK}/forgot-password`, {
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
+      const response = await fetch(`${apiLink}/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

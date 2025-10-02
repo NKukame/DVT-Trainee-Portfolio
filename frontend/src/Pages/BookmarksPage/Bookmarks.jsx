@@ -26,10 +26,16 @@ function Bookmarks() {
 
   const fetchBookmarks = async () => {
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
       
       // Use the bookmark endpoint directly which returns all bookmarks without pagination
-      const response = await axios.get(`${import.meta.env.VITE_API_LINK}/bookmarks`, {
+      const response = await axios.get(`${apiLink}/bookmarks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,8 +52,14 @@ function Bookmarks() {
 
   const fetchCollections = async () => {
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
-      const response = await axios.get(`${import.meta.env.VITE_API_LINK}/collections`, {
+      const response = await axios.get(`${apiLink}/collections`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -63,10 +75,15 @@ function Bookmarks() {
     if (!newCollectionName.trim()) return;
 
     try {
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
       console.log("Creating collection with name:", newCollectionName);
       const response = await axios.post(
-        `${import.meta.env.VITE_API_LINK}/collections`,
+        `${apiLink}/collections`,
         {
           name: newCollectionName,
           description: newCollectionDescription,
@@ -93,8 +110,13 @@ function Bookmarks() {
     if (!confirm("Are you sure you want to delete this collection?")) return;
 
     try {
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
-      await axios.delete(`${import.meta.env.VITE_API_LINK}/collections/${collectionId}`, {
+      await axios.delete(`${apiLink}/collections/${collectionId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -109,8 +131,14 @@ function Bookmarks() {
 
   const removeBookmark = async (employeeId) => {
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
-      await axios.delete(`${import.meta.env.VITE_API_LINK}/api/v2/bookmark/${employeeId}`, {
+      await axios.delete(`${apiLink}/api/v2/bookmark/${employeeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -127,6 +155,12 @@ function Bookmarks() {
 
   const addToCollection = async (employeeId, collectionId) => {
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
       
       // Try with employeeId directly first
@@ -134,7 +168,7 @@ function Bookmarks() {
       console.log("Sending payload:", payload);
       
       const response = await axios.post(
-        `${import.meta.env.VITE_API_LINK}/collections/add-bookmark`,
+        `${apiLink}/collections/add-bookmark`,
         { employeeId, collectionId },
         {
           headers: {
@@ -157,9 +191,15 @@ function Bookmarks() {
 
   const removeFromCollection = async (bookmarkId, collectionId) => {
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
       await axios.delete(
-        `${import.meta.env.VITE_API_LINK}/collections/remove-bookmark`,
+        `${apiLink}/collections/remove-bookmark`,
         {
           data: { bookmarkId, collectionId },
           headers: {
@@ -200,10 +240,15 @@ function Bookmarks() {
 
   const viewCollection = async (collectionId) => {
     try {
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
       console.log("Fetching collection:", collectionId);
       const token = JSON.parse(localStorage.getItem("token"));
       const response = await axios.get(
-        `${import.meta.env.VITE_API_LINK}/collections/${collectionId}`,
+        `${apiLink}/collections/${collectionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

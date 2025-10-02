@@ -29,7 +29,13 @@ function SubmitForm({
     try {
       setLoading(true);
 
-      const response = await fetch(`${import.meta.env.VITE_API_LINK}/create-profile`, {
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+        console.log('Running in development mode'); 
+      } 
+
+      const response = await fetch(`${apiLink}/create-profile`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
