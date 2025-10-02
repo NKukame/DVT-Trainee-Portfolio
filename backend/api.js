@@ -10,8 +10,8 @@ import { clearCache } from './lib/prisma-redis-middleware.js';
 const prisma = new PrismaClient();
 const REST_API = express.Router();
 
-REST_API.use(express.json());
 REST_API.use(cors());
+REST_API.use(express.json());
 
 REST_API.use(
     '/api/v2',
