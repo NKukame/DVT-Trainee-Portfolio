@@ -31,7 +31,7 @@ const outlookTransporter = nodemailer.createTransport({
 async function sendEmail(transporter, mailOptions) {
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.response);
+     
     return { success: true, info };
   } catch (error) {
     console.error('Error sending email:', error);
@@ -125,7 +125,7 @@ async function resetPassword(req, res) {
       data: { password: hashedPassword },
     });
 
-    console.log(`Password reset successfully for user ID: ${payload.userId}`);
+     
     res.status(200).json({ message: 'Password reset successfully' });
   } catch (error) {
     console.error('Error updating password:', error);
@@ -140,14 +140,14 @@ async function forgotPassword(req, res) {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (user) {
-      console.log(`Found user: ${user.email} (ID: ${user.id})`);
-      console.log(`Sending password reset email TO: ${email} via ${provider}`);
+       
+       
       
       const senderEmail = provider === 'outlook' 
         ? process.env.OUTLOOK_USER 
         : (process.env.GMAIL_USER || process.env.EMAIL_USER);
       
-      console.log(`Email will be sent FROM: ${senderEmail}`);
+       
       
       const token = createResetToken(user.id);
       const result = await sendResetEmail(email, token, provider);
@@ -157,7 +157,7 @@ async function forgotPassword(req, res) {
       } else {
         // Try alternative provider if first one fails
         const fallbackProvider = provider === 'gmail' ? 'outlook' : 'gmail';
-        console.log(`Retrying with ${fallbackProvider} provider...`);
+         
         
         const fallbackResult = await sendResetEmail(email, token, fallbackProvider);
         
@@ -168,7 +168,7 @@ async function forgotPassword(req, res) {
         }
       }
     } else {
-      console.log(`No user found with email: ${email}`);
+       
       res.status(200).json({ message: 'If that email exists, a reset link was sent.' });
     }
   } catch (error) {

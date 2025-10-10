@@ -17,9 +17,14 @@ export async function getAllEmployees(page, query, params, isAvailable) {
         token
     )}`;
     axios.defaults.headers.post["Content-Type"] = "application/json";
+    let apiLink = import.meta.env.VITE_API_LINK;
+    if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+          
+    } 
 
     const apiDataEmployee = await axios.get(
-        `${import.meta.env.VITE_API_LINK}/search/employee`,
+        `${apiLink}/search/employee`,
         {
             params: {
                 page: page,
@@ -83,8 +88,14 @@ export async function getAllProjects(page, query, params, isAvailable) {
         token
     )}`;
     axios.defaults.headers.post["Content-Type"] = "application/json";
+
+    let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+          
+      } 
     const apiDataProject = await axios.get(
-        `${import.meta.env.VITE_API_LINK}/search/project`,
+        `${apiLink}/search/project`,
         {
             params: {
                 page: page,

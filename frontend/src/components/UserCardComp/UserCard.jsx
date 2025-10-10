@@ -85,7 +85,7 @@ export function UserCard({
       currentUserId = localStorage.getItem("user");
     }
 
-    console.log("Current user ID:", currentUserId);
+     
 
     if (!currentUserId) {
       showAlert("error", "User not found. Please log in again.");
@@ -94,10 +94,16 @@ export function UserCard({
     }
 
     try {
+
+      let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+          
+      } 
       const token = JSON.parse(localStorage.getItem("token"));
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_LINK}/bookmarks/toggle`,
+        `${apiLink}/bookmarks/toggle`,
         {
           employeeId: userId,
         },
@@ -108,7 +114,7 @@ export function UserCard({
           },
         }
       );
-      console.log("Bookmark response:", response.data);
+       
       showAlert(
         "success",
         response.data.message || "Profile bookmarked successfully!"

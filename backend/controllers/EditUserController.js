@@ -250,6 +250,6 @@ export default async function EditUserController(req, res) {
     res.status(200).json({ message: "User Updated", user: updateUser });
   } catch (error) {
     res.status(500).json({ ProblemUpdating: error });
-    console.log(error);
+     
   }
 }

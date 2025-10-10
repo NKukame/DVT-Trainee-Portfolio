@@ -51,7 +51,7 @@ export const SearchContextProvider = ({ children }) => {
       pageSize: 1000,
     },
   });
-  console.log("industries",industriesQuery);
+   
   try {
     if (industriesQuery) {
       const industriesQueryData = industriesQuery.data ?? [];
@@ -174,7 +174,7 @@ export const SearchContextProvider = ({ children }) => {
 
     // Build a query object from all selected filters
     const filterParams = newSelectedFilter.reduce((acc, f) => {
-      console.log(f);
+       
       switch (f.category) {
         case "Technologies":
           acc.techStack = [...(acc.techStack || []), f.value];
@@ -212,7 +212,7 @@ export const SearchContextProvider = ({ children }) => {
 
   const handleChange = (filter, newSelectedFilter) => {
     const filteredResults = searchResults.filter((employee) => {
-      console.log(employee);
+       
       if (newSelectedFilter.length === 0) return true;
       if (employee.years_active) {
         return employee.years_active.split(" ")[0] === filter;

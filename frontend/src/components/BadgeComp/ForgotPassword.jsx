@@ -22,7 +22,7 @@ function ForgotPassword() {
 
 
   useEffect(() => {
-    console.log(queryParams.get("token"));
+     
     if (queryParams.get("token")) {
       setStep(3); 
     }
@@ -117,17 +117,9 @@ function ForgotPassword() {
     if (!validateEmail()) return;
 
     try {
-      console.log("=== EMAIL SUBMIT DEBUG ===");
-      console.log("Raw email input:", `"${email}"`);
-      console.log("Email length:", email.length);
-      console.log("Email trimmed:", `"${email.trim()}"`);
-      console.log("Email normalized:", `"${email.trim().toLowerCase()}"`);
-      console.log("Allowed domains:", allowedDomains);
-      console.log("Email domain:", email.split("@")[1]);
-      console.log("Domain validation passed:", validateEmailDomain(email));
       
       const payload = { email: email.trim().toLowerCase() };
-      console.log("Payload being sent:", JSON.stringify(payload, null, 2));
+       
       setLoading(true);
       const response = await axios.post("http://192.168.1.65:3000/forgot-password", 
         payload,
@@ -138,11 +130,11 @@ function ForgotPassword() {
         }
       );
       
-      console.log("SUCCESS - Response:", response.data);
+       
       setStep(2);
       
     } catch (error) {
-      console.log("=== ERROR DEBUG ===");
+       
       console.error("Full error object:", error);
       console.error("Error message:", error.message);
       console.error("Error response:", error.response);
@@ -188,7 +180,7 @@ function ForgotPassword() {
       });
 
       if (response.status === 200) {
-        console.log("Password updated successfully:", response.data);
+         
         setStep(4);
         
         setNewPassword("");

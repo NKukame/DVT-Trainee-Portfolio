@@ -7,7 +7,7 @@ function SideBar() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const userInfo = useUserStore((state) => state.user);
 
-  console.log("User Info in Sidebar:", userInfo);
+   
 
   return (
     <>

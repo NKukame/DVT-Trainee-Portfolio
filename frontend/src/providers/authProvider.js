@@ -1,4 +1,10 @@
-const API_URL = `${import.meta.env.VITE_API_LINK}`;
+let apiLink = import.meta.env.VITE_API_LINK;
+      if (import.meta.env.MODE === 'development') {   
+        apiLink = import.meta.env.VITE_API_LINK_LOCAL;
+          
+      } 
+
+const API_URL = `${apiLink}`;
 
 export const authProvider = {
     check: async () => {
